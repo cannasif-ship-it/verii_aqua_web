@@ -44,6 +44,7 @@ const DOC_STATUS_OPTIONS = [
   { label: 'Posted', value: 1 },
   { label: 'Cancelled', value: 2 },
 ];
+const LOOKUP_PAGE_SIZE = 500;
 
 function getInitialValues(config: AquaCrudConfig): Record<string, unknown> {
   const base: Record<string, unknown> = {};
@@ -169,13 +170,31 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
   const lookupQueries = useQueries({
     queries: lookupFields.map((field) => ({
       queryKey: ['aqua-lookup', config.key, field.key],
-      queryFn: () =>
-        aquaCrudApi.getList(field.lookup!.endpoint, {
+      queryFn: async () => {
+        let pageNumber = 1;
+        let totalCount = 0;
+        const allRows: Record<string, unknown>[] = [];
+
+        do {
+          const response = await aquaCrudApi.getList(field.lookup!.endpoint, {
+            pageNumber,
+            pageSize: LOOKUP_PAGE_SIZE,
+            sortBy: 'Id',
+            sortDirection: 'asc',
+          });
+
+          totalCount = response.totalCount ?? 0;
+          allRows.push(...(response.data ?? []));
+          pageNumber += 1;
+        } while (allRows.length < totalCount);
+
+        return {
+          data: allRows,
+          totalCount,
           pageNumber: 1,
-          pageSize: 1000,
-          sortBy: 'Id',
-          sortDirection: 'asc',
-        }),
+          pageSize: allRows.length,
+        };
+      },
       staleTime: field.lookup!.staleTimeMs,
     })),
   });
@@ -331,6 +350,8 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
   };
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
+  const rangeStart = totalCount === 0 ? 0 : (pageNumber - 1) * PAGE_SIZE + 1;
+  const rangeEnd = totalCount === 0 ? 0 : Math.min(pageNumber * PAGE_SIZE, totalCount);
 
   return (
     <div className="space-y-4">
@@ -431,7 +452,7 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
 
         <div className="flex items-center justify-between px-4 py-3 border-t">
           <span className="text-sm text-slate-500">
-            {(pageNumber - 1) * PAGE_SIZE + 1}-{Math.min(pageNumber * PAGE_SIZE, totalCount)} / {totalCount}
+            {rangeStart}-{rangeEnd} / {totalCount}
           </span>
           <div className="flex gap-2">
             <Button
