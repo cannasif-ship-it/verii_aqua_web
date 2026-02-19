@@ -4132,7 +4132,8 @@
       "cancel": "Abbrechen",
       "save": "Speichern",
       "saving": "Wird gespeichert...",
-      "confirmDelete": "Diesen Datensatz löschen?"
+      "confirmDelete": "Diesen Datensatz löschen?",
+      "requiredField": "ist ein Pflichtfeld"
     },
     "toast": {
       "created": "Datensatz erstellt",

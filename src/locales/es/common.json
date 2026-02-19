@@ -4177,7 +4177,8 @@
       "cancel": "Cancelar",
       "save": "Guardar",
       "saving": "Guardando...",
-      "confirmDelete": "¿Eliminar este registro?"
+      "confirmDelete": "¿Eliminar este registro?",
+      "requiredField": "es obligatorio"
     },
     "toast": {
       "created": "Registro creado",

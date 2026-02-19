@@ -354,7 +354,8 @@
       "cancel": "İptal",
       "save": "Kaydet",
       "saving": "Kaydediliyor...",
-      "confirmDelete": "Bu kayıt silinsin mi?"
+      "confirmDelete": "Bu kayıt silinsin mi?",
+      "requiredField": "zorunlu alandır"
     },
     "toast": {
       "created": "Kayıt oluşturuldu",

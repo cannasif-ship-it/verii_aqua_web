@@ -4132,7 +4132,8 @@
       "cancel": "Annuler",
       "save": "Enregistrer",
       "saving": "Enregistrement...",
-      "confirmDelete": "Supprimer cet enregistrement ?"
+      "confirmDelete": "Supprimer cet enregistrement ?",
+      "requiredField": "est obligatoire"
     },
     "toast": {
       "created": "Enregistrement créé",

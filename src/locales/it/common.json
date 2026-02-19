@@ -4206,7 +4206,8 @@
       "cancel": "Annulla",
       "save": "Salva",
       "saving": "Salvataggio...",
-      "confirmDelete": "Eliminare questo record?"
+      "confirmDelete": "Eliminare questo record?",
+      "requiredField": "e obbligatorio"
     },
     "toast": {
       "created": "Record creato",

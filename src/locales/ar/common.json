@@ -4177,7 +4177,8 @@
       "cancel": "إلغاء",
       "save": "حفظ",
       "saving": "جارٍ الحفظ...",
-      "confirmDelete": "هل تريد حذف هذا السجل؟"
+      "confirmDelete": "هل تريد حذف هذا السجل؟",
+      "requiredField": "حقل إلزامي"
     },
     "toast": {
       "created": "تم إنشاء السجل",

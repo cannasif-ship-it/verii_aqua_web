@@ -7,6 +7,15 @@ export interface AquaFieldOption {
   value: string | number;
 }
 
+export interface AquaFieldLookupConfig {
+  endpoint: string;
+  labelKey?: string;
+  labelKeys?: string[];
+  labelSeparator?: string;
+  valueKey: string;
+  staleTimeMs: number;
+}
+
 export interface AquaFieldConfig {
   key: string;
   label: string;
@@ -14,6 +23,7 @@ export interface AquaFieldConfig {
   required?: boolean;
   placeholder?: string;
   options?: AquaFieldOption[];
+  lookup?: AquaFieldLookupConfig;
 }
 
 export interface AquaColumnConfig {

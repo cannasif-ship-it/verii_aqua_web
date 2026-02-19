@@ -1,5 +1,5 @@
 import { type ReactElement, useEffect, useMemo, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { useUIStore } from '@/stores/ui-store';
@@ -67,7 +67,9 @@ function normalizeFieldValue(field: AquaFieldConfig, rawValue: unknown): unknown
   }
 
   if (field.type === 'select') {
-    const hasNumericOption = (field.options ?? DOC_STATUS_OPTIONS).some((option) => typeof option.value === 'number');
+    const hasNumericOption =
+      (field.options ?? DOC_STATUS_OPTIONS).some((option) => typeof option.value === 'number') ||
+      !!field.lookup;
     if (hasNumericOption) {
       const numeric = Number(rawValue);
       return Number.isNaN(numeric) ? null : numeric;
@@ -75,6 +77,13 @@ function normalizeFieldValue(field: AquaFieldConfig, rawValue: unknown): unknown
   }
 
   return rawValue;
+}
+
+function isRequiredFieldMissing(field: AquaFieldConfig, value: unknown): boolean {
+  if (!field.required) return false;
+  if (value == null) return true;
+  if (typeof value === 'string') return value.trim().length === 0;
+  return false;
 }
 
 function formatCellValue(value: unknown, t: (key: string) => string): string {
@@ -98,6 +107,29 @@ function normalizeInputValue(field: AquaFieldConfig, value: unknown): string {
   }
 
   return raw;
+}
+
+function resolveLookupLabel(
+  item: Record<string, unknown>,
+  field: AquaFieldConfig
+): string | null {
+  if (!field.lookup) return null;
+
+  const labelKeys = field.lookup.labelKeys?.length
+    ? field.lookup.labelKeys
+    : field.lookup.labelKey
+      ? [field.lookup.labelKey]
+      : [];
+
+  if (labelKeys.length === 0) return null;
+
+  const parts = labelKeys
+    .map((key) => item[key])
+    .filter((part): part is string | number => part != null && String(part).trim().length > 0)
+    .map((part) => String(part));
+
+  if (parts.length === 0) return null;
+  return parts.join(field.lookup.labelSeparator ?? ' - ');
 }
 
 export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
@@ -127,6 +159,25 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
         sortDirection: 'desc',
       }),
     staleTime: config.listStaleTimeMs,
+  });
+
+  const lookupFields = useMemo(
+    () => config.fields.filter((field) => field.type === 'select' && field.lookup),
+    [config.fields]
+  );
+
+  const lookupQueries = useQueries({
+    queries: lookupFields.map((field) => ({
+      queryKey: ['aqua-lookup', config.key, field.key],
+      queryFn: () =>
+        aquaCrudApi.getList(field.lookup!.endpoint, {
+          pageNumber: 1,
+          pageSize: 1000,
+          sortBy: 'Id',
+          sortDirection: 'asc',
+        }),
+      staleTime: field.lookup!.staleTimeMs,
+    })),
   });
 
   const createMutation = useMutation({
@@ -192,6 +243,42 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
     return config.fields.slice(0, 5).map((field) => ({ key: field.key, label: field.label }));
   }, [config.columns, config.fields]);
 
+  const lookupOptionsByField = useMemo((): Record<string, Array<{ label: string; value: string }>> => {
+    const result: Record<string, Array<{ label: string; value: string }>> = {};
+
+    lookupFields.forEach((field, index) => {
+      const queryData = lookupQueries[index]?.data?.data ?? [];
+      const valueKey = field.lookup!.valueKey;
+
+      result[field.key] = queryData
+        .map((item) => {
+          const value = item[valueKey];
+          const label = resolveLookupLabel(item, field);
+          if (value == null || label == null) return null;
+          return {
+            value: String(value),
+            label,
+          };
+        })
+        .filter((item): item is { label: string; value: string } => item !== null);
+    });
+
+    return result;
+  }, [lookupFields, lookupQueries]);
+
+  const lookupLabelsByFieldAndValue = useMemo((): Record<string, Record<string, string>> => {
+    const result: Record<string, Record<string, string>> = {};
+
+    Object.entries(lookupOptionsByField).forEach(([fieldKey, options]) => {
+      result[fieldKey] = options.reduce<Record<string, string>>((acc, option) => {
+        acc[option.value] = option.label;
+        return acc;
+      }, {});
+    });
+
+    return result;
+  }, [lookupOptionsByField]);
+
   const handleCreate = (): void => {
     setEditingRow(null);
     setFormValues(getInitialValues(config));
@@ -220,6 +307,17 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
     const payload: Record<string, unknown> = {};
     for (const field of config.fields) {
       payload[field.key] = normalizeFieldValue(field, formValues[field.key]);
+    }
+
+    const firstMissingRequiredField = config.fields.find((field) =>
+      isRequiredFieldMissing(field, payload[field.key])
+    );
+
+    if (firstMissingRequiredField) {
+      toast.error(
+        `${t(firstMissingRequiredField.label)} * - ${t('aqua.common.requiredField')}`
+      );
+      return;
     }
 
     if (editingRow) {
@@ -293,7 +391,13 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
                   <TableRow key={id}>
                     <TableCell>{id}</TableCell>
                     {columns.map((column) => (
-                      <TableCell key={column.key}>{formatCellValue(row[column.key], t)}</TableCell>
+                      <TableCell key={column.key}>
+                        {(() => {
+                          const rawValue = row[column.key];
+                          const lookupLabel = lookupLabelsByFieldAndValue[column.key]?.[String(rawValue)];
+                          return lookupLabel ?? formatCellValue(rawValue, t);
+                        })()}
+                      </TableCell>
                     ))}
                     <TableCell>
                       <div className="flex items-center justify-end gap-2">
@@ -360,7 +464,10 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {config.fields.map((field) => (
                 <div key={field.key} className={field.type === 'textarea' ? 'md:col-span-2' : ''}>
-                  <Label htmlFor={field.key}>{t(field.label)}</Label>
+                  <Label htmlFor={field.key}>
+                    {t(field.label)}
+                    {field.required ? ' *' : ''}
+                  </Label>
                   {field.type === 'textarea' && (
                     <Textarea
                       id={field.key}
@@ -383,11 +490,17 @@ export function AquaCrudPage({ config }: AquaCrudPageProps): ReactElement {
                         <SelectValue placeholder={t('aqua.common.select')} />
                       </SelectTrigger>
                       <SelectContent>
-                        {(field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((option) => (
-                          <SelectItem key={`${field.key}-${option.value}`} value={String(option.value)}>
-                            {t(option.label)}
-                          </SelectItem>
-                        ))}
+                        {field.lookup
+                          ? (lookupOptionsByField[field.key] ?? []).map((option) => (
+                              <SelectItem key={`${field.key}-${option.value}`} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))
+                          : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((option) => (
+                              <SelectItem key={`${field.key}-${option.value}`} value={String(option.value)}>
+                                {t(option.label)}
+                              </SelectItem>
+                            ))}
                       </SelectContent>
                     </Select>
                   )}
