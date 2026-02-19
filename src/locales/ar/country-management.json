@@ -1,0 +1,52 @@
+{
+  "menu": "إدارة الدول",
+  "description": "إدارة وتعديل الدول",
+  "addButton": "إضافة دولة جديدة",
+  "search": "بحث...",
+  "loading": "جار التحميل...",
+  "noData": "لا توجد بيانات",
+  "actions": "إجراءات",
+  "previous": "السابق",
+  "next": "التالي",
+  "deleteConfirmTitle": "تأكيد الحذف",
+  "cancel": "إلغاء",
+  "deleting": "جار الحذف...",
+  "delete": "حذف",
+  "saving": "جار الحفظ...",
+  "save": "حفظ",
+  "stats": {
+    "totalCountries": "إجمالي الدول",
+    "activeCountries": "الدول النشطة",
+    "newThisMonth": "جديد هذا الشهر"
+  },
+  "table": {
+    "id": "المعرف",
+    "name": "اسم الدولة",
+    "code": "الكود",
+    "erpCode": "كود ERP",
+    "createdDate": "تاريخ الإنشاء",
+    "createdBy": "تم الإنشاء بواسطة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "صفحة {{current}} / {{total}}"
+  },
+  "form": {
+    "addCountry": "إضافة دولة جديدة",
+    "editCountry": "تعديل الدولة",
+    "addDescription": "إدخال معلومات دولة جديدة",
+    "editDescription": "تعديل معلومات الدولة",
+    "name": "اسم الدولة",
+    "namePlaceholder": "أدخل اسم الدولة",
+    "code": "كود الدولة",
+    "codePlaceholder": "أدخل كود الدولة (مثال: TR, US)",
+    "erpCode": "كود ERP",
+    "erpCodePlaceholder": "أدخل كود ERP (اختياري)",
+    "nameRequired": "اسم الدولة مطلوب",
+    "nameMaxLength": "اسم الدولة لا يمكن أن يتجاوز 100 حرف",
+    "codeMinLength": "كود الدولة يجب أن يكون حرفين على الأقل",
+    "codeMaxLength": "كود الدولة لا يمكن أن يتجاوز 5 أحرف",
+    "erpCodeMaxLength": "كود ERP لا يمكن أن يتجاوز 10 أحرف"
+  },
+  "deleteConfirm": {
+    "confirmMessage": "هل أنت متأكد من حذف {{name}}؟"
+  }
+}

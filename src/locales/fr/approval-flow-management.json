@@ -1,0 +1,79 @@
+{
+  "approvalFlow": {
+    "menu": "Gestion Flux d'Approbation",
+    "description": "Gérer et modifier les flux d'approbation",
+    "addButton": "Ajouter Nouveau Flux",
+    "table": {
+      "id": "IDENTIFIANT",
+      "documentType": "Type de Document",
+      "description": "Description",
+      "isActive": "Actif",
+      "createdDate": "Date de Création",
+      "createdBy": "Créé par",
+      "actions": "Actions",
+      "showing": "Affichage {{from}}-{{to}} / {{total}}",
+      "page": "Page {{current}} / {{total}}"
+    },
+    "form": {
+      "addTitle": "Ajouter Nouveau Flux",
+      "editTitle": "Modifier Flux",
+      "addDescription": "Entrez les informations du nouveau flux d'approbation",
+      "editDescription": "Modifier les informations du flux d'approbation",
+      "documentType": "Type de Document",
+      "selectDocumentType": "Sélectionner un type de document",
+      "noDocumentTypeSelected": "Aucun type de document sélectionné",
+      "description": "Description",
+      "descriptionPlaceholder": "Entrez une description (optionnel)",
+      "isActive": "Actif",
+      "isActiveDescription": "Statut du flux d'approbation",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "documentTypeRequired": "Document type selection is required",
+      "descriptionMaxLength": "Description can be at most 200 characters"
+    },
+    "loading": "Chargement...",
+    "noData": "Pas de données",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "delete": {
+      "action": "Supprimer",
+      "cancel": "Annuler",
+      "confirmTitle": "Supprimer le flux d'approbation",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer ce flux d'approbation ?"
+    },
+    "documentType": {
+      "offer": "Offre",
+      "request": "Demande",
+      "order": "Commande"
+    }
+  },
+  "approvalFlowStep": {
+    "title": "Étapes du Flux",
+    "addButton": "Ajouter Étape",
+    "empty": "Aucune étape ajoutée",
+    "unknownRoleGroup": "Aucun Groupe de Rôle",
+    "stepDescription": "Ordre d'Approbation: {{order}}",
+    "form": {
+      "addTitle": "Ajouter Nouvelle Étape",
+      "editTitle": "Modifier Étape",
+      "addDescription": "Ajouter une nouvelle étape au flux",
+      "editDescription": "Modifier les informations de l'étape",
+      "approvalRoleGroup": "Groupe de Rôle",
+      "selectRoleGroup": "Sélectionner un groupe de rôle",
+      "noRoleGroupSelected": "Aucun groupe de rôle sélectionné",
+      "approvalRoleGroupId": {
+        "required": "La sélection du groupe de rôle est requise"
+      },
+      "approvalRoleGroupIdRequired": "Role group selection is required",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette étape ?"
+    }
+  }
+}

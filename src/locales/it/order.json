@@ -1,0 +1,166 @@
+{
+  "loading": "Caricamento...",
+  "saving": "Salvataggio...",
+  "error": "Errore",
+  "noData": "Nessun dato trovato",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "actions": "Azioni",
+  "edit": "Modifica",
+  "delete": "Elimina",
+  "back": "Indietro",
+  "refresh": "Aggiorna",
+  "select": "Seleziona",
+  "yes": "Sì",
+  "add": "Aggiungi",
+  "backToOrders": "Torna ai Preventivi",
+  "cancel": "Annulla",
+  "save": "Salva",
+  "confirm": "Conferma",
+  "saveAndApply": "Salva e Applica",
+  "list": {
+    "revise": "Revisiona",
+    "showing": "Visualizzazione {{from}}-{{to}} di {{total}}"
+  },
+  "detail": {
+    "title": "Dettaglio Preventivo"
+  },
+  "create": {
+    "title": "Crea Nuovo Preventivo",
+    "submit": "Salva Preventivo e Invia per Approvazione",
+    "success": "Preventivo Creato con Successo",
+    "successMessage": "Il preventivo è stato inviato al processo di approvazione.",
+    "error": "Impossibile Creare il Preventivo",
+    "errorMessage": "Si è verificato un errore durante la creazione del preventivo."
+  },
+  "header": {
+    "title": "Informazioni Preventivo",
+    "customer": "Cliente",
+    "selectCustomer": "Seleziona cliente",
+    "shippingAddress": "Indirizzo di Spedizione",
+    "selectShippingAddress": "Seleziona indirizzo di spedizione",
+    "representative": "Rappresentante di Vendita",
+    "selectRepresentative": "Seleziona rappresentante",
+    "offerType": "Tipo Offerta",
+    "selectOfferType": "Seleziona tipo offerta",
+    "currency": "Valuta",
+    "selectCurrency": "Si prega di selezionare la valuta",
+    "showExchangeRates": "Mostra Tassi di Cambio",
+    "offerDate": "Data Offerta",
+    "deliveryDate": "Data Consegna",
+    "paymentType": "Tipo Pagamento",
+    "selectPaymentType": "Seleziona tipo pagamento",
+    "description": "Descrizione",
+    "descriptionPlaceholder": "Inserisci descrizione",
+    "offerNo": "N. Offerta",
+    "offerNoPlaceholder": "Numero offerta",
+    "currencyChange": {
+      "title": "Cambio Valuta",
+      "message": "Quando la valuta cambia, tutte le righe esistenti verranno ricalcolate in base alla nuova valuta. Approvi questa operazione?"
+    }
+  },
+  "lines": {
+    "title": "Righe Preventivo",
+    "add": "Aggiungi Riga",
+    "empty": "Nessuna riga ancora aggiunta",
+    "emptyDescription": "Usa il pulsante \"Seleziona Stock\" o \"Aggiungi Riga\" per aggiungere righe al preventivo",
+    "itemCount": "riga",
+    "editLine": "Modifica Riga",
+    "selectStock": "Seleziona Stock",
+    "selectProduct": "Seleziona Prodotto",
+    "selectStockFirst": "Stock non selezionato",
+    "stock": "Stock",
+    "productCode": "Codice Stock",
+    "enterProductCode": "Inserisci codice prodotto o cerca",
+    "productName": "Nome Stock",
+    "enterProductName": "Inserisci nome prodotto",
+    "quantity": "Quantità",
+    "unitPrice": "Prezzo Unitario",
+    "discount1": "Sconto 1 %",
+    "discount2": "Sconto 2 %",
+    "discount3": "Sconto 3 %",
+    "discounts": "Sconti",
+    "discountAmount": "Importo Sconto",
+    "netPrice": "Prezzo Netto",
+    "vatRate": "Aliquota IVA %",
+    "lineTotal": "Totale Riga (IVA Inclusa)",
+    "calculations": "Calcoli",
+    "required": "Devi aggiungere almeno 1 riga",
+    "noProductsFound": "Nessun prodotto trovato",
+    "delete": {
+      "confirmTitle": "Elimina Riga",
+      "confirmMessage": "Sei sicuro di voler eliminare questa riga?"
+    }
+  },
+  "exchangeRates": {
+    "title": "Tassi di Cambio",
+    "currency": "Valuta",
+    "rate": "Tasso",
+    "date": "Data Tasso",
+    "isOfficial": "Tasso Ufficiale",
+    "official": "Ufficiale",
+    "custom": "Personalizzato",
+    "empty": "Nessun tasso di cambio trovato",
+    "status": "Stato",
+    "dialog": {
+      "title": "Tassi di Cambio",
+      "description": "Visualizza e modifica i valori del tasso di cambio se necessario. I tassi modificati non verranno contrassegnati come tassi ufficiali."
+    }
+  },
+  "summary": {
+    "title": "Riepilogo",
+    "subtotal": "Subtotale",
+    "totalVat": "Totale IVA",
+    "grandTotal": "Totale Generale"
+  },
+  "offerType": {
+    "domestic": "Nazionale",
+    "export": "Esportazione"
+  },
+  "wizard": {
+    "title": "Crea Nuovo Preventivo",
+    "step1": {
+      "title": "Fase 1: Informazioni Preventivo",
+      "description": "Inserisci le informazioni dell'intestazione del preventivo e i tassi di cambio",
+      "validation": {
+        "offerType": "Tipo Offerta",
+        "currency": "Valuta",
+        "exchangeRate": "Tasso di Cambio"
+      },
+      "exchangeRate": {
+        "required": "È necessario aggiungere almeno un tasso di cambio per le valute diverse da TRY"
+      },
+      "currency": {
+        "try": {
+          "info": "Il tasso di cambio non è richiesto quando è selezionato TRY"
+        }
+      }
+    },
+    "step2": {
+      "title": "Fase 2: Righe Preventivo",
+      "description": "Aggiungi informazioni su prodotti e prezzi",
+      "info": "Devi aggiungere almeno una riga",
+      "validation": {
+        "noLines": "Devi aggiungere almeno una riga",
+        "invalidLines": "Tutte le righe devono avere informazioni valide",
+        "allValid": "{{count}} righe aggiunte con successo"
+      }
+    },
+    "step3": {
+      "title": "Fase 3: Riepilogo e Approvazione",
+      "description": "Rivedi le informazioni e salva il preventivo",
+      "header": {
+        "title": "Informazioni Preventivo"
+      },
+      "lines": {
+        "title": "Righe Preventivo"
+      },
+      "summary": {
+        "title": "Riepilogo Finale"
+      },
+      "approval": {
+        "info": "Il preventivo verrà inviato automaticamente al processo di approvazione dopo il salvataggio"
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "loading": "Yükleniyor...",
+  "saving": "Kaydediliyor...",
+  "error": "Hata",
+  "noData": "Veri yok",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "actions": "İşlemler",
+  "edit": "Düzenle",
+  "delete": "Sil",
+  "back": "Geri",
+  "refresh": "Yenile",
+  "select": "Seç",
+  "yes": "Evet",
+  "add": "Ekle",
+  "backToOrders": "Siparişlere Dön",
+  "cancel": "İptal",
+  "save": "Kaydet",
+  "confirm": "Onayla",
+  "saveAndApply": "Kaydet ve Uygula",
+  "list": {
+    "revise": "Revize et",
+    "showing": "{{from}}-{{to}} / {{total}} gösteriliyor"
+  },
+  "detail": {
+    "title": "Sipariş Detayı"
+  },
+  "create": {
+    "title": "Yeni Sipariş Oluştur",
+    "submit": "Siparişi Kaydet ve Onaya Gönder",
+    "success": "Sipariş Başarıyla Oluşturuldu",
+    "successMessage": "Sipariş onay sürecine gönderildi.",
+    "error": "Sipariş Oluşturulamadı",
+    "errorMessage": "Sipariş oluşturulurken bir hata oluştu."
+  },
+  "header": {
+    "title": "Sipariş Bilgileri",
+    "customer": "Müşteri",
+    "selectCustomer": "Müşteri Seçin",
+    "shippingAddress": "Sevk Adresi",
+    "selectShippingAddress": "Sevk Adresi Seçin",
+    "representative": "Satış Temsilcisi",
+    "selectRepresentative": "Temsilci seçin",
+    "offerType": "Sipariş Tipi",
+    "selectOfferType": "Sipariş tipi seçin",
+    "currency": "Para Birimi",
+    "selectCurrency": "Lütfen para birimi seçin",
+    "showExchangeRates": "Kurları Göster",
+    "offerDate": "Sipariş Tarihi",
+    "deliveryDate": "Teslimat Tarihi",
+    "paymentType": "Ödeme Tipi",
+    "selectPaymentType": "Ödeme tipi seçin",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Açıklama giriniz",
+    "offerNo": "Sipariş No",
+    "offerNoPlaceholder": "Sipariş numarası",
+    "currencyChange": {
+      "title": "Para Birimi Değişikliği",
+      "message": "Para birimi değiştiğinde mevcut tüm satırlar yeni para birimine göre yeniden hesaplanacaktır. Bu işlemi onaylıyor musunuz?"
+    }
+  },
+  "lines": {
+    "title": "Sipariş Satırları",
+    "add": "Satır Ekle",
+    "empty": "Henüz satır eklenmedi",
+    "emptyDescription": "Sipariş satırları eklemek için \"Stok Seç\" veya \"Satır Ekle\" butonunu kullanın",
+    "itemCount": "satır",
+    "editLine": "Satır Düzenle",
+    "selectStock": "Stok Seç",
+    "selectProduct": "Ürün Seç",
+    "selectStockFirst": "Stok seçilmedi",
+    "stock": "Stok",
+    "productCode": "Stok Kodu",
+    "enterProductCode": "Ürün kodu girin veya ara",
+    "productName": "Stok Adı",
+    "enterProductName": "Ürün adı girin",
+    "quantity": "Miktar",
+    "unitPrice": "Birim Fiyat",
+    "discount1": "İndirim 1 %",
+    "discount2": "İndirim 2 %",
+    "discount3": "İndirim 3 %",
+    "discounts": "İndirimler",
+    "discountAmount": "İndirim Tutarı",
+    "netPrice": "Net Fiyat",
+    "vatRate": "KDV Oranı %",
+    "lineTotal": "Satır Toplamı (KDV Dahil)",
+    "calculations": "Hesaplamalar",
+    "required": "En az 1 satır eklenmelidir",
+    "noProductsFound": "Ürün bulunamadı",
+    "delete": {
+      "confirmTitle": "Satırı Sil",
+      "confirmMessage": "Bu satırı silmek istediğinizden emin misiniz?"
+    }
+  },
+  "exchangeRates": {
+    "title": "Döviz Kurları",
+    "currency": "Para Birimi",
+    "rate": "Kur",
+    "date": "Kur Tarihi",
+    "isOfficial": "Resmi Kur",
+    "official": "Resmi",
+    "custom": "Özel",
+    "empty": "Kur bulunamadı",
+    "status": "Durum",
+    "dialog": {
+      "title": "Döviz Kurları",
+      "description": "Kur değerlerini görüntüleyin ve gerekirse düzenleyin. Değiştirilen kurlar resmi kur olarak işaretlenmeyecektir."
+    }
+  },
+  "summary": {
+    "title": "Özet",
+    "subtotal": "Ara Toplam",
+    "totalVat": "Toplam KDV",
+    "grandTotal": "Genel Toplam"
+  },
+  "offerType": {
+    "domestic": "Yurtiçi",
+    "export": "Yurtdışı"
+  },
+  "wizard": {
+    "title": "Yeni Sipariş Oluştur",
+    "step1": {
+      "title": "Adım 1: Sipariş Bilgileri",
+      "description": "Sipariş header bilgilerini ve döviz kurlarını girin",
+      "validation": {
+        "offerType": "Sipariş Tipi",
+        "currency": "Para Birimi",
+        "exchangeRate": "Döviz Kuru"
+      },
+      "exchangeRate": {
+        "required": "TRY dışı para birimleri için en az bir döviz kuru eklenmelidir"
+      },
+      "currency": {
+        "try": {
+          "info": "TRY seçildiğinde döviz kuru gerekmez"
+        }
+      }
+    },
+    "step2": {
+      "title": "Adım 2: Sipariş Satırları",
+      "description": "Ürün ve fiyat bilgilerini ekleyin",
+      "info": "En az bir satır eklemeniz gerekmektedir",
+      "validation": {
+        "noLines": "En az bir satır eklenmelidir",
+        "invalidLines": "Tüm satırların geçerli bilgileri olmalıdır",
+        "allValid": "{{count}} satır başarıyla eklendi"
+      }
+    },
+    "step3": {
+      "title": "Adım 3: Özet ve Onay",
+      "description": "Bilgileri kontrol edin ve siparişi kaydedin",
+      "header": {
+        "title": "Sipariş Bilgileri"
+      },
+      "lines": {
+        "title": "Sipariş Satırları"
+      },
+      "summary": {
+        "title": "Final Özet"
+      },
+      "approval": {
+        "info": "Sipariş kaydedildikten sonra otomatik olarak onay sürecine gönderilecektir"
+      }
+    }
+  }
+}

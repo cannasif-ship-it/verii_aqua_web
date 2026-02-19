@@ -1,0 +1,46 @@
+{
+  "approvalUserRole": {
+    "menu": "Approval User Role Management",
+    "description": "Manage and organize approval user roles",
+    "addButton": "Add New Role",
+    "searchPlaceholder": "Search...",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "noData": "No data",
+    "table": {
+      "id": "ID",
+      "userFullName": "User",
+      "approvalRoleName": "Approval Role",
+      "createdDate": "Created Date",
+      "createdBy": "Created By",
+      "actions": "Actions",
+      "showing": "Showing {{from}}-{{to}} / {{total}}",
+      "page": "Page {{current}} / {{total}}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "delete": {
+      "title": "Delete Role",
+      "confirmMessage": "Are you sure you want to delete this user role?",
+      "confirmButton": "Delete",
+      "cancelButton": "Cancel"
+    },
+    "form": {
+      "editTitle": "Edit Approval User Role",
+      "addTitle": "Add New Approval User Role",
+      "editDescription": "Edit approval user role information",
+      "addDescription": "Enter new approval user role information",
+      "userId": "User",
+      "selectUser": "Select User",
+      "noUserSelected": "No user selected",
+      "approvalRoleId": "Approval Role",
+      "selectApprovalRole": "Select Approval Role",
+      "noApprovalRoleSelected": "No approval role selected",
+      "userIdRequired": "User selection is required",
+      "approvalRoleIdRequired": "Approval role selection is required",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    }
+  }
+}

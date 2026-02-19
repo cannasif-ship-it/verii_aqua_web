@@ -1,0 +1,46 @@
+{
+  "approvalUserRole": {
+    "menu": "Gestione Ruoli Utente di Approvazione",
+    "description": "Gestisci e organizza i ruoli utente di approvazione",
+    "addButton": "Aggiungi Nuovo Ruolo",
+    "searchPlaceholder": "Cerca...",
+    "refresh": "Aggiorna",
+    "loading": "Caricamento...",
+    "noData": "Nessun dato",
+    "table": {
+      "id": "ID",
+      "userFullName": "Utente",
+      "approvalRoleName": "Ruolo di Approvazione",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "actions": "Azioni",
+      "showing": "Visualizzazione {{from}}-{{to}} / {{total}}",
+      "page": "Pagina {{current}} / {{total}}",
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "delete": {
+      "title": "Elimina Ruolo",
+      "confirmMessage": "Sei sicuro di voler eliminare questo ruolo utente?",
+      "confirmButton": "Elimina",
+      "cancelButton": "Annulla"
+    },
+    "form": {
+      "editTitle": "Modifica Ruolo Utente",
+      "addTitle": "Aggiungi Nuovo Ruolo Utente",
+      "editDescription": "Modifica informazioni ruolo utente",
+      "addDescription": "Inserisci informazioni nuovo ruolo utente",
+      "userId": "Utente",
+      "selectUser": "Seleziona Utente",
+      "noUserSelected": "Nessun utente selezionato",
+      "approvalRoleId": "Ruolo di Approvazione",
+      "selectApprovalRole": "Seleziona Ruolo di Approvazione",
+      "noApprovalRoleSelected": "Nessun ruolo selezionato",
+      "userIdRequired": "La selezione dell'utente è obbligatoria",
+      "approvalRoleIdRequired": "La selezione del ruolo di approvazione è obbligatoria",
+      "save": "Salva",
+      "saving": "Salvataggio...",
+      "cancel": "Annulla"
+    }
+  }
+}

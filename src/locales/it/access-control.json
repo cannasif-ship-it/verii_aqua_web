@@ -1,0 +1,129 @@
+{
+  "help": {
+    "permissionDefinition": {
+      "code": "Chiave univoca usata dalle guardie di route e pagina. Preferire naming snake_case o con punto stabile.",
+      "name": "Nome mostrato agli amministratori nella gestione dei permessi.",
+      "description": "Spiegazione interna opzionale per questo permesso.",
+      "isActive": "I permessi inattivi non vengono considerati nel calcolo dell'accesso utente.",
+      "save": "Le modifiche influenzano i flussi di autorizzazione di ruoli e gruppi."
+    },
+    "permissionGroup": {
+      "name": "Nome del gruppo per l'identificazione nell'assegnazione agli utenti.",
+      "isSystemAdmin": "I membri di questo gruppo possono accedere a tutte le pagine e azioni senza controlli individuali sui permessi.",
+      "isActive": "I gruppi inattivi non devono essere assegnati per nuove decisioni di accesso.",
+      "permissions": "I permessi selezionati definiscono a cosa possono accedere i membri di questo gruppo.",
+      "save": "Aggiorna l'accesso effettivo per tutti gli utenti assegnati a questo gruppo."
+    },
+    "userAssignment": {
+      "user": "Scegli l'utente di cui desideri gestire l'ambito di accesso.",
+      "groups": "L'utente riceve permessi combinati da tutti i gruppi selezionati.",
+      "save": "Le assegnazioni si applicano immediatamente per i prossimi controlli di autorizzazione. Gli utenti potrebbero dover aggiornare la sessione.",
+      "systemAdminNote": "Se l'utente ha un gruppo amministratore di sistema, i permessi dettagliati vengono ignorati."
+    }
+  },
+  "permissionDefinitions": {
+    "title": "Permission Definitions",
+    "description": "Manage permission codes used in the system",
+    "add": "Add Definition",
+    "form": {
+      "editTitle": "Edit Permission Definition",
+      "addTitle": "Add Permission Definition",
+      "editDescription": "Update permission definition details",
+      "addDescription": "Create a new permission definition",
+      "code": "Code",
+      "name": "Name",
+      "namePlaceholder": "Display name",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional description",
+      "isActive": "Active",
+      "codePlaceholder": "Scegli il codice",
+      "affectedRoutes": "Pagine interessate",
+      "affectedRoutesNone": "Nessun percorso corrispondente trovato per questo codice",
+      "codeSearchPlaceholder": "Cerca...",
+      "codeEmpty": "Nessun risultato trovato"
+    },
+    "table": {
+      "code": "Code",
+      "name": "Name",
+      "isActive": "Active",
+      "updatedDate": "Updated",
+      "showing": "{{from}}-{{to}} of {{total}}"
+    },
+    "delete": {
+      "confirmTitle": "Delete Permission Definition",
+      "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
+    },
+    "syncFromRoutes": "Sincronizzazione dai percorsi"
+  },
+  "permissionGroups": {
+    "title": "Permission Groups",
+    "description": "Manage permission groups and their assignments",
+    "add": "Add Group",
+    "selectAll": "Select all",
+    "noDefinitions": "No permission definitions available",
+    "form": {
+      "editTitle": "Edit Permission Group",
+      "addTitle": "Add Permission Group",
+      "editDescription": "Update permission group details",
+      "addDescription": "Create a new permission group",
+      "name": "Name",
+      "namePlaceholder": "Group name",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional description",
+      "isSystemAdmin": "System Admin",
+      "isActive": "Active",
+      "permissions": "Permissions"
+    },
+    "table": {
+      "name": "Name",
+      "isSystemAdmin": "System Admin",
+      "isActive": "Active",
+      "permissionCount": "Permissions",
+      "showing": "{{from}}-{{to}} of {{total}}"
+    },
+    "managePermissions": "Manage permissions",
+    "permissionsPanel": {
+      "title": "Edit Group Permissions",
+      "description": "Select permissions for this group",
+      "currentCodes": "Current permission codes"
+    },
+    "delete": {
+      "confirmTitle": "Delete Permission Group",
+      "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
+    },
+    "search": "Cerca..."
+  },
+  "userGroupAssignments": {
+    "title": "User Group Assignments",
+    "description": "Assign permission groups to users",
+    "selectUser": "Select User",
+    "selectUserPlaceholder": "Search and select user...",
+    "selectUserHint": "Select a user to manage their permission group assignments",
+    "assignedGroups": "Assigned Permission Groups",
+    "noUsers": "No users found",
+    "noGroups": "No permission groups available",
+    "selectAll": "Select all"
+  },
+  "common": {
+    "cancel": "Annulla",
+    "saving": "Registrazione...",
+    "save": "Save and Apply",
+    "loading": "Caricamento...",
+    "search": "Cerca...",
+    "noData": "Nessun dato",
+    "actions": "Transazioni",
+    "yes": "SÌ",
+    "no": "No",
+    "edit": "Modificare",
+    "delete": "Eliminare",
+    "previous": "Ex",
+    "next": "Prossimo",
+    "processing": "Elaborazione..."
+  },
+  "sidebar": {
+    "accessControl": "Controllo Accessi",
+    "permissionDefinitions": "Permission Definitions",
+    "permissionGroups": "Permission Groups",
+    "userGroupAssignments": "User Group Assignments"
+  }
+}

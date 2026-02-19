@@ -1,0 +1,76 @@
+{
+  "approvalFlow": {
+    "menu": "Gestión de Flujos de Aprobación",
+    "description": "Gestionar y organizar flujos de aprobación",
+    "addButton": "Añadir Nuevo Flujo",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "documentType": "Tipo de Documento",
+      "description": "Descripción",
+      "isActive": "Activo",
+      "createdDate": "Fecha Creación",
+      "createdBy": "Creado Por",
+      "actions": "Acciones",
+      "showing": "Mostrando {{from}}-{{to}} de {{total}}",
+      "page": "Página {{current}} / {{total}}"
+    },
+    "form": {
+      "addTitle": "Añadir Nuevo Flujo",
+      "editTitle": "Editar Flujo",
+      "addDescription": "Ingrese información del nuevo flujo",
+      "editDescription": "Editar información del flujo",
+      "documentType": "Tipo de Documento",
+      "selectDocumentType": "Seleccionar tipo de documento",
+      "noDocumentTypeSelected": "Ningún tipo seleccionado",
+      "documentTypeRequired": "La selección del tipo de documento es obligatoria",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Ingrese descripción (opcional)",
+      "descriptionMaxLength": "La descripción puede tener máx. 200 caracteres",
+      "isActive": "Activo",
+      "isActiveDescription": "Estado activo del flujo de aprobación",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    },
+    "loading": "Cargando...",
+    "noData": "Sin datos",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "delete": {
+      "action": "Eliminar",
+      "cancel": "Cancelar",
+      "confirmTitle": "Eliminar Flujo",
+      "confirmMessage": "¿Está seguro de que desea eliminar este flujo de aprobación?"
+    },
+    "documentType": {
+      "offer": "Oferta",
+      "request": "Solicitud",
+      "order": "Pedido"
+    }
+  },
+  "approvalFlowStep": {
+    "title": "Pasos del Flujo",
+    "addButton": "Añadir Paso",
+    "empty": "No hay pasos añadidos",
+    "unknownRoleGroup": "Sin Grupo de Roles",
+    "stepDescription": "Orden de Aprobación: {{order}}",
+    "form": {
+      "addTitle": "Añadir Nuevo Paso",
+      "editTitle": "Editar Paso",
+      "addDescription": "Añadir nuevo paso al flujo",
+      "editDescription": "Editar información del paso",
+      "approvalRoleGroup": "Grupo de Roles",
+      "selectRoleGroup": "Seleccionar grupo de roles",
+      "noRoleGroupSelected": "Ningún grupo seleccionado",
+      "approvalRoleGroupIdRequired": "La selección del grupo de roles es obligatoria",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    },
+    "messages": {
+      "deleteConfirm": "¿Está seguro de que desea eliminar este paso?"
+    }
+  }
+}

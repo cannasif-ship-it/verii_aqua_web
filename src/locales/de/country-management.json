@@ -1,0 +1,65 @@
+{
+  "menu": "Länderverwaltung",
+  "description": "Länder verwalten und bearbeiten",
+  "addButton": "Add New Country",
+  "search": "Suchen...",
+  "loading": "Laden...",
+  "noData": "Keine Daten gefunden",
+  "actions": "Aktionen",
+  "previous": "Previous",
+  "next": "Weiter",
+  "deleteConfirmTitle": "Delete Confirmation",
+  "cancel": "Abbrechen",
+  "deleting": "Deleting...",
+  "delete": "Löschen",
+  "saving": "Speichern...",
+  "save": "Speichern",
+  "stats": {
+    "totalCountries": "Gesamtländer",
+    "activeCountries": "Aktive Länder",
+    "newThisMonth": "Diesen Monat neu"
+  },
+  "table": {
+    "id": "AUSWEIS",
+    "name": "Ländername",
+    "code": "Code",
+    "erpCode": "ERP-Code",
+    "createdDate": "Erstellungsdatum",
+    "createdBy": "Erstellt von",
+    "showing": "Zeige {{from}}-{{to}} von {{total}}",
+    "page": "Seite {{current}} / {{total}}"
+  },
+  "form": {
+    "addCountry": "Add New Country",
+    "editCountry": "Land bearbeiten",
+    "addDescription": "Geben Sie die neuen Länderinformationen ein",
+    "editDescription": "Bearbeiten Sie die Länderinformationen",
+    "name": "Ländername",
+    "namePlaceholder": "Geben Sie den Ländernamen ein",
+    "code": "Ländercode",
+    "codePlaceholder": "Geben Sie den Ländercode ein (z.B. TR, US)",
+    "erpCode": "ERP-Code",
+    "erpCodePlaceholder": "Geben Sie den ERP-Code ein (optional)",
+    "validation": {
+      "name": {
+        "required": "Ländername ist erforderlich",
+        "maxLength": "Ländername darf 100 Zeichen nicht überschreiten"
+      },
+      "code": {
+        "minLength": "Ländercode muss mindestens 2 Zeichen lang sein",
+        "maxLength": "Ländercode darf 5 Zeichen nicht überschreiten"
+      },
+      "erpCode": {
+        "maxLength": "ERP-Code darf 10 Zeichen nicht überschreiten"
+      }
+    },
+    "nameRequired": "Country name is required",
+    "nameMaxLength": "Country name cannot exceed 100 characters",
+    "codeMinLength": "Country code must be at least 2 characters",
+    "codeMaxLength": "Country code cannot exceed 5 characters",
+    "erpCodeMaxLength": "ERP code cannot exceed 10 characters"
+  },
+  "deleteConfirm": {
+    "confirmMessage": "Are you sure you want to delete {{name}}?"
+  }
+}

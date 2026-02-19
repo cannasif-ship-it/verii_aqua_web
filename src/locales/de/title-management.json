@@ -1,0 +1,45 @@
+{
+  "loading": "Laden...",
+  "noData": "Keine Daten gefunden",
+  "search": "Suchen...",
+  "refresh": "Aktualisieren",
+  "previous": "Previous",
+  "next": "Weiter",
+  "cancel": "Abbrechen",
+  "save": "Speichern",
+  "saving": "Speichern...",
+  "delete": {
+    "confirmTitle": "Delete Title",
+    "confirmMessage": "Are you sure you want to delete the title {{name}}?",
+    "button": "Delete"
+  },
+  "deleting": "Deleting...",
+  "actions": "Aktionen",
+  "edit": "Bearbeiten",
+  "header": {
+    "title": "Titelverwaltung",
+    "description": "Verwalten Sie hier Titeldefinitionen."
+  },
+  "table": {
+    "id": "AUSWEIS",
+    "name": "Titelname",
+    "code": "Code",
+    "createdDate": "Erstellungsdatum",
+    "createdBy": "Erstellt von",
+    "showing": "Zeige {{from}}-{{to}} / {{total}}",
+    "page": "Seite {{current}} / {{total}}"
+  },
+  "form": {
+    "addTitle": "Add New Title",
+    "editTitle": "Titel bearbeiten",
+    "addDescription": "Geben Sie die neuen Titeldetails ein",
+    "editDescription": "Bearbeiten Sie die Titeldetails",
+    "titleName": "Titelname",
+    "titleNamePlaceholder": "Titelnamen eingeben",
+    "titleCode": "Titelcode",
+    "codePlaceholder": "Code eingeben (optional)",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "saving": "Speichern..."
+  }
+}

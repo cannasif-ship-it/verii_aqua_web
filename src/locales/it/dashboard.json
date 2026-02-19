@@ -1,0 +1,75 @@
+{
+  "title": "Pannello di controllo",
+  "loading": "Caricamento",
+  "stats": {
+    "totalRevenue": "Entrate Totali",
+    "activeOpportunities": "Opportunità Attive",
+    "newLeads": "Nuovi Lead",
+    "pendingOrders": "Ordini in Sospeso"
+  },
+  "salesAnalysis": "Analisi delle Vendite",
+  "targetVsActual": "Obiettivo vs Reale",
+  "latestActivities": "Ultime Attività",
+  "viewAll": "Visualizza Tutto",
+  "reportDownload": "Scarica Report",
+  "quickAction": "Azione Rapida",
+  "activityType": {
+    "meeting": "Riunione",
+    "call": "Chiamata",
+    "email": "Email",
+    "general": "General"
+  },
+  "monthsShort": {
+    "jan": "Gen",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "Mag",
+    "jun": "Giu",
+    "jul": "Lug",
+    "aug": "Ago",
+    "sep": "Set",
+    "oct": "Ott",
+    "nov": "Nov",
+    "dec": "Dic"
+  },
+  "quickStats": {
+    "pendingTasks": "Attività in Sospeso",
+    "pendingTasksDescription": "12 attività da completare",
+    "openQuotations": "Preventivi Aperti",
+    "openQuotationsDescription": "5 preventivi in attesa di approvazione",
+    "criticalStock": "Scorte Critiche",
+    "criticalStockDescription": "3 prodotti sotto il livello critico",
+    "checkTasks": "Controlla l'elenco delle attività",
+    "reviewQuotations": "Scopri le offerte",
+    "stockStatus": "Vedi lo stato delle scorte"
+  },
+  "noDate": "No date",
+  "unnamedActivity": "Unnamed Activity",
+  "greeting": {
+    "morning": "Buongiorno",
+    "afternoon": "Buona giornata",
+    "evening": "Buonasera"
+  },
+  "refresh": "Aggiorna",
+  "refreshing": "È in fase di rinnovo...",
+  "refreshed": "Dati aggiornati",
+  "refreshError": "Aggiornamento non riuscito",
+  "user": "Utente",
+  "noSalesData": "Nessun dato di vendita ancora",
+  "noActivities": "Nessuna attività",
+  "selectFormat": "Seleziona Formato",
+  "reportPreparing": "Il rapporto è in preparazione...",
+  "reportDownloaded": "Il rapporto è stato scaricato.",
+  "reportError": "Non è stato possibile ricevere il rapporto.",
+  "sidebar": {
+    "customers": "Clienti",
+    "customerManagement": "Gestione Clienti",
+    "salesManagement": "Imbuto di vendita",
+    "demandCreateWizard": "Crea nuova richiesta",
+    "quotationCreateWizard": "Crea Nuovo Preventivo",
+    "orderCreateWizard": "Crea Nuovo Preventivo",
+    "activities": "Pianificazione",
+    "activityManagement": "Gestione Attività"
+  }
+}

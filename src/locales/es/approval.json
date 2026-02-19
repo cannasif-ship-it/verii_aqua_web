@@ -1,0 +1,85 @@
+{
+  "list": {
+    "title": "Aprobaciones Pendientes",
+    "description": "Ver y aprobar o rechazar cotizaciones asignadas a usted",
+    "empty": "No hay aprobaciones pendientes",
+    "error": "Ocurrió un error al cargar las aprobaciones"
+  },
+  "yes": "Sí",
+  "no": "No",
+  "processing": "Procesando...",
+  "detail": {
+    "title": "Detalle de Cotización",
+    "subtitle": "Ver detalles de la cotización y realizar acciones",
+    "tabs": {
+      "detail": "Detalle",
+      "history": "Historial",
+      "action": "Acción"
+    },
+    "notFound": "Cotización no encontrada",
+    "quotationInfo": "Información de la Cotización",
+    "offerNo": "Nº Oferta",
+    "customer": "Cliente",
+    "representative": "Representante",
+    "currency": "Moneda",
+    "offerDate": "Fecha Oferta",
+    "deliveryDate": "Fecha Entrega",
+    "total": "Total",
+    "grandTotal": "Gran Total",
+    "description": "Descripción",
+    "lines": "Líneas de Cotización",
+    "productCode": "Código Producto",
+    "productName": "Nombre Producto",
+    "quantity": "Cantidad",
+    "unitPrice": "Precio Unitario",
+    "lineTotal": "Total Línea",
+    "lineGrandTotal": "Gran Total Línea",
+    "exchangeRates": "Tipos de Cambio",
+    "exchangeRate": "Tasa",
+    "exchangeRateDate": "Fecha Tasa",
+    "isOfficial": "Tasa Oficial"
+  },
+  "actions": {
+    "view": "Ver",
+    "approve": "Aprobar",
+    "reject": "Rechazar"
+  },
+  "status": {
+    "notRequired": "No Requerido",
+    "waiting": "Esperando",
+    "approved": "Aprobado",
+    "rejected": "Rechazado",
+    "closed": "Cerrado"
+  },
+  "closedReason": "Este registro se cerró porque se aprobó otro registro con el mismo número de oferta.",
+  "statusFilterLabel": "Estado de aprobación",
+  "level": {
+    "salesManager": "Gerente de Ventas",
+    "regionalManager": "Gerente Regional",
+    "finance": "Finanzas",
+    "generalManager": "Gerente General",
+    "unknown": "Desconocido"
+  },
+  "note": {
+    "label": "Nota",
+    "placeholder": "Puede agregar una nota de aprobación/rechazo (opcional)",
+    "maxLength": "La nota puede tener como máximo 500 caracteres"
+  },
+  "approve": {
+    "success": "Aprobado",
+    "successMessage": "Cotización aprobada exitosamente",
+    "error": "Error de Aprobación",
+    "errorMessage": "Ocurrió un error al aprobar la cotización"
+  },
+  "reject": {
+    "success": "Rechazado",
+    "successMessage": "Cotización rechazada",
+    "error": "Error de Rechazo",
+    "errorMessage": "Ocurrió un error al rechazar la cotización"
+  },
+  "history": {
+    "empty": "Sin historial de aprobaciones",
+    "approvedBy": "Aprobado Por"
+  },
+  "assignedTo": "Usuario Asignado"
+}

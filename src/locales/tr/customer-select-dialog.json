@@ -1,0 +1,26 @@
+{
+  "title": "Müşteri Seç",
+  "description": "Müşteri seçmek için bir sekme seçin ve listeden müşteriyi seçin",
+  "erpCustomers": "ERP",
+  "crmCustomers": "AQUA Müşterileri",
+  "potentialCustomers": "Potansiyel",
+  "allCustomers": "Tümü",
+  "erp": "ERP",
+  "crm": "AQUA",
+  "noErpCustomers": "ERP müşterisi bulunamadı",
+  "noCrmCustomers": "AQUA müşterisi bulunamadı",
+  "noPotentialCustomers": "Potansiyel müşteri bulunamadı",
+  "noCustomers": "Müşteri bulunamadı",
+  "noResults": "Arama sonucu bulunamadı",
+  "searchPlaceholder": "İsim veya kod ile ara...",
+  "voiceSearch": "Sesli arama",
+  "loading": "Yükleniyor",
+  "table": {
+    "type": "Tip",
+    "customerCode": "Müşteri Kodu",
+    "customerName": "Müşteri Adı",
+    "phone": "Telefon",
+    "city": "Şehir",
+    "email": "E-posta"
+  }
+}

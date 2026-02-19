@@ -1,0 +1,170 @@
+{
+  "loading": "جار التحميل...",
+  "saving": "جار الحفظ...",
+  "error": "خطأ",
+  "noData": "لا توجد بيانات",
+  "previous": "السابق",
+  "next": "التالي",
+  "actions": "إجراءات",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "back": "رجوع",
+  "refresh": "تحديث",
+  "select": "تحديد",
+  "yes": "نعم",
+  "add": "إضافة",
+  "backToQuotations": "العودة إلى الطلبات",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "confirm": "تأكيد",
+  "saveAndApply": "حفظ وتطبيق",
+  "list": {
+    "revise": "مراجعة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "title": "قائمة الطلبات",
+    "description": "عرض وإدارة جميع الطلبات",
+    "createNew": "إنشاء طلب جديد",
+    "searchPlaceholder": "بحث برقم الطلب أو اسم العميل..."
+  },
+  "detail": {
+    "title": "تفاصيل الطلب"
+  },
+  "create": {
+    "title": "إنشاء طلب جديد",
+    "submit": "حفظ الطلب وإرساله للموافقة",
+    "success": "تم إنشاء الطلب بنجاح",
+    "successMessage": "تم إرسال الطلب إلى عملية الموافقة.",
+    "error": "تعذر إنشاء الطلب",
+    "errorMessage": "حدث خطأ أثناء إنشاء الطلب."
+  },
+  "header": {
+    "title": "معلومات الطلب",
+    "customer": "العميل",
+    "selectCustomer": "اختر العميل",
+    "shippingAddress": "عنوان الشحن",
+    "selectShippingAddress": "اختر عنوان الشحن",
+    "representative": "مندوب المبيعات",
+    "selectRepresentative": "اختر المندوب",
+    "offerType": "نوع الطلب",
+    "selectOfferType": "اختر نوع الطلب",
+    "currency": "العملة",
+    "selectCurrency": "يرجى اختيار العملة",
+    "showExchangeRates": "عرض أسعار الصرف",
+    "offerDate": "تاريخ الطلب",
+    "deliveryDate": "تاريخ التوصيل",
+    "paymentType": "نوع الدفع",
+    "selectPaymentType": "اختر نوع الدفع",
+    "description": "الوصف",
+    "descriptionPlaceholder": "أدخل الوصف",
+    "offerNo": "رقم الطلب",
+    "offerNoPlaceholder": "رقم الطلب",
+    "currencyChange": {
+      "title": "تغيير العملة",
+      "message": "عند تغيير العملة، ستتم إعادة حساب جميع الأسطر الموجودة وفقًا للعملة الجديدة. هل توافق على هذه العملية؟"
+    }
+  },
+  "lines": {
+    "title": "بنود الطلب",
+    "add": "إضافة بند",
+    "empty": "لم تتم إضافة بنود بعد",
+    "emptyDescription": "استخدم زر \"اختيار المخزون\" أو \"إضافة بند\" لإضافة بنود الطلب",
+    "itemCount": "بند",
+    "editLine": "تعديل البند",
+    "selectStock": "اختيار المخزون",
+    "selectProduct": "اختيار المنتج",
+    "selectStockFirst": "لم يتم اختيار المخزون",
+    "stock": "المخزون",
+    "productCode": "كود المخزون",
+    "enterProductCode": "أدخل كود المنتج أو ابحث",
+    "productName": "اسم المخزون",
+    "enterProductName": "أدخل اسم المنتج",
+    "quantity": "الكمية",
+    "unitPrice": "سعر الوحدة",
+    "discount1": "خصم 1 %",
+    "discount2": "خصم 2 %",
+    "discount3": "خصم 3 %",
+    "discounts": "الخصومات",
+    "discountAmount": "قيمة الخصم",
+    "netPrice": "السعر الصافي",
+    "vatRate": "نسبة الضريبة %",
+    "lineTotal": "إجمالي البند (شامل الضريبة)",
+    "calculations": "الحسابات",
+    "required": "يجب إضافة بند واحد على الأقل",
+    "noProductsFound": "لم يتم العثور على منتجات",
+    "delete": {
+      "confirmTitle": "حذف البند",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف هذا البند؟"
+    }
+  },
+  "exchangeRates": {
+    "title": "أسعار الصرف",
+    "currency": "العملة",
+    "rate": "السعر",
+    "date": "تاريخ السعر",
+    "isOfficial": "سعر رسمي",
+    "official": "رسمي",
+    "custom": "مخصص",
+    "empty": "لم يتم العثور على أسعار صرف",
+    "status": "الحالة",
+    "dialog": {
+      "title": "أسعار الصرف",
+      "description": "عرض وتعديل قيم أسعار الصرف إذا لزم الأمر. لن يتم وضع علامة على الأسعار المعدلة كأسعار رسمية."
+    }
+  },
+  "summary": {
+    "title": "الملخص",
+    "subtotal": "المجموع الفرعي",
+    "totalVat": "إجمالي الضريبة",
+    "grandTotal": "المجموع الكلي"
+  },
+  "offerType": {
+    "domestic": "محلي",
+    "export": "تصدير"
+  },
+  "wizard": {
+    "title": "إنشاء طلب جديد",
+    "step1": {
+      "title": "الخطوة 1: معلومات الطلب",
+      "description": "أدخل معلومات رأس الطلب وأسعار الصرف",
+      "validation": {
+        "offerType": "نوع الطلب",
+        "currency": "العملة",
+        "exchangeRate": "سعر الصرف"
+      },
+      "exchangeRate": {
+        "required": "يجب إضافة سعر صرف واحد على الأقل للعملات غير الليرة التركية"
+      },
+      "currency": {
+        "try": {
+          "info": "سعر الصرف غير مطلوب عند اختيار الليرة التركية"
+        }
+      }
+    },
+    "step2": {
+      "title": "الخطوة 2: بنود الطلب",
+      "description": "إضافة معلومات المنتج والسعر",
+      "info": "يجب إضافة بند واحد على الأقل",
+      "validation": {
+        "noLines": "يجب إضافة بند واحد على الأقل",
+        "invalidLines": "يجب أن تحتوي جميع البنود على معلومات صالحة",
+        "allValid": "تمت إضافة {{count}} بنود بنجاح"
+      }
+    },
+    "step3": {
+      "title": "الخطوة 3: الملخص والموافقة",
+      "description": "مراجعة المعلومات وحفظ الطلب",
+      "header": {
+        "title": "معلومات الطلب"
+      },
+      "lines": {
+        "title": "بنود الطلب"
+      },
+      "summary": {
+        "title": "الملخص النهائي"
+      },
+      "approval": {
+        "info": "سيتم إرسال الطلب تلقائيًا إلى عملية الموافقة بعد الحفظ"
+      }
+    }
+  }
+}

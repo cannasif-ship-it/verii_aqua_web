@@ -1,0 +1,21 @@
+{
+  "title": "اختيار المنتج",
+  "searchPlaceholder": "بحث عن منتج...",
+  "select": "اختيار",
+  "cancel": "إلغاء",
+  "columns": {
+    "code": "الرمز",
+    "name": "الاسم",
+    "description": "الوصف",
+    "price": "السعر",
+    "currency": "العملة",
+    "stock": "المخزون"
+  },
+  "noData": "لم يتم العثور على منتجات",
+  "loading": "جارٍ التحميل",
+  "description": "حدد منتجات ERP لإضافتها إلى طلبك",
+  "product": "منتج",
+  "noProducts": "لا توجد منتجات",
+  "noResults": "لا توجد نتائج",
+  "voiceSearch": "البحث الصوتي"
+}

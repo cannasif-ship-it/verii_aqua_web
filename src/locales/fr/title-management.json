@@ -1,0 +1,45 @@
+{
+  "loading": "Chargement...",
+  "noData": "Aucune donnée trouvée",
+  "search": "Rechercher...",
+  "refresh": "Actualiser",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "cancel": "Annuler",
+  "save": "Enregistrer",
+  "saving": "Enregistrement...",
+  "delete": {
+    "confirmTitle": "Supprimer le Titre",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le titre {{name}} ?",
+    "button": "Supprimer"
+  },
+  "deleting": "Suppression...",
+  "actions": "Actions",
+  "edit": "Modifier",
+  "header": {
+    "title": "Gestion des Titres",
+    "description": "Gérez les définitions de titres ici."
+  },
+  "table": {
+    "id": "IDENTIFIANT",
+    "name": "Nom du Titre",
+    "code": "Code",
+    "createdDate": "Date de Création",
+    "createdBy": "Créé par",
+    "showing": "Affichage {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "addTitle": "Ajouter un Nouveau Titre",
+    "editTitle": "Modifier le Titre",
+    "addDescription": "Entrez les détails du nouveau titre",
+    "editDescription": "Modifier les détails du titre",
+    "titleName": "Nom du Titre",
+    "titleNamePlaceholder": "Entrez le nom du titre",
+    "titleCode": "Code du Titre",
+    "codePlaceholder": "Entrez le code (optionnel)",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement..."
+  }
+}

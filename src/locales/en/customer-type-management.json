@@ -1,0 +1,60 @@
+{
+  "menu": "Customer Type Management",
+  "description": "Manage and edit customer types",
+  "addButton": "Add New Customer Type",
+  "loading": "Loading...",
+  "noData": "No data found",
+  "actions": "Actions",
+  "previous": "Previous",
+  "next": "Next",
+  "advancedFilter": {
+    "columnName": "Customer Type Name",
+    "columnDescription": "Description"
+  },
+  "stats": {
+    "totalCustomerTypes": "Total Customer Types",
+    "activeCustomerTypes": "Active Customer Types",
+    "newThisMonth": "New This Month"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Customer Type Name",
+    "description": "Description",
+    "createdDate": "Created Date",
+    "createdBy": "Created By",
+    "updatedDate": "Updated Date",
+    "updatedBy": "Updated By",
+    "showing": "Showing {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "addCustomerType": "Add New Customer Type",
+    "editCustomerType": "Edit Customer Type",
+    "addDescription": "Enter new customer type information",
+    "editDescription": "Edit customer type information",
+    "name": "Customer Type Name",
+    "namePlaceholder": "Enter customer type name",
+    "nameRequired": "Customer type name is required",
+    "nameMaxLength": "Customer type name must be at most 100 characters",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter description (optional)",
+    "descriptionMaxLength": "Description must be at most 500 characters",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving..."
+  },
+  "delete": {
+    "confirmTitle": "Delete Customer Type",
+    "confirmMessage": "Are you sure you want to delete {{name}} customer type?",
+    "confirmButton": "Delete",
+    "deleting": "Deleting..."
+  },
+  "messages": {
+    "createSuccess": "Customer type created successfully",
+    "createError": "Customer type could not be created",
+    "updateSuccess": "Customer type updated successfully",
+    "updateError": "Customer type could not be updated",
+    "deleteSuccess": "Customer type deleted successfully",
+    "deleteError": "Customer type could not be deleted"
+  }
+}

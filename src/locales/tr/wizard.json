@@ -1,0 +1,13 @@
+{
+  "buttons": {
+    "back": "Geri",
+    "next": "İleri",
+    "complete": "Kaydet ve Onaya Gönder"
+  },
+  "validation": {
+    "error": "Validasyon Hatası"
+  },
+  "step": {
+    "unknown": "Bilinmeyen adım"
+  }
+}

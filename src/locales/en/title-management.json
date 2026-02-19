@@ -1,0 +1,49 @@
+{
+  "loading": "Loading...",
+  "noData": "No data found",
+  "search": "Search...",
+  "refresh": "Refresh",
+  "previous": "Previous",
+  "next": "Next",
+  "advancedFilter": {
+    "columnTitleName": "Title Name",
+    "columnCode": "Code"
+  },
+  "cancel": "Cancel",
+  "save": "Save",
+  "saving": "Saving...",
+  "delete": {
+    "confirmTitle": "Delete Title",
+    "confirmMessage": "Are you sure you want to delete the title {{name}}?",
+    "button": "Delete"
+  },
+  "deleting": "Deleting...",
+  "actions": "Actions",
+  "edit": "Edit",
+  "header": {
+    "title": "Title Management",
+    "description": "Manage title definitions here."
+  },
+  "table": {
+    "id": "ID",
+    "name": "Title Name",
+    "code": "Code",
+    "createdDate": "Created Date",
+    "createdBy": "Created By",
+    "showing": "Showing {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "addTitle": "Add New Title",
+    "editTitle": "Edit Title",
+    "addDescription": "Enter new title details",
+    "editDescription": "Edit title details",
+    "titleName": "Title Name",
+    "titleNamePlaceholder": "Enter title name",
+    "titleCode": "Title Code",
+    "codePlaceholder": "Enter code (optional)",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving..."
+  }
+}

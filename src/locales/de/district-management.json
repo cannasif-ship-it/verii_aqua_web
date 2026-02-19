@@ -1,0 +1,55 @@
+{
+  "menu": "Bezirksverwaltung",
+  "description": "Bezirke verwalten und bearbeiten",
+  "addButton": "Add New District",
+  "listTitle": "Bezirksliste",
+  "listDescription": "You can manage all registered districts in the system here.",
+  "loading": "Laden...",
+  "noData": "Keine Daten",
+  "actions": "Aktionen",
+  "previous": "Previous",
+  "next": "Weiter",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "save": "Speichern",
+  "saving": "Wird gespeichert...",
+  "table": {
+    "id": "AUSWEIS",
+    "name": "Bezirksname",
+    "erpCode": "ERP-Code",
+    "cityName": "Stadtname",
+    "createdDate": "Erstellungsdatum",
+    "createdBy": "Erstellt von",
+    "showing": "Zeige {{from}}-{{to}} von {{total}}",
+    "page": "Seite {{current}} von {{total}}"
+  },
+  "form": {
+    "editDistrict": "Bezirk bearbeiten",
+    "addDistrict": "Add New District",
+    "editDescription": "Bezirksinformationen bearbeiten",
+    "addDescription": "Neue Bezirksinformationen eingeben",
+    "name": "Bezirksname",
+    "namePlaceholder": "Bezirksnamen eingeben",
+    "city": "Stadt",
+    "selectCity": "Stadt auswählen",
+    "erpCode": "ERP-Code",
+    "erpCodePlaceholder": "ERP-Code eingeben (optional)",
+    "name.required": "Bezirksname ist erforderlich",
+    "name.maxLength": "Bezirksname darf maximal 100 Zeichen lang sein",
+    "erpCode.maxLength": "ERP-Code darf maximal 10 Zeichen lang sein",
+    "city.required": "Stadtauswahl ist erforderlich",
+    "nameRequired": "District name is required",
+    "nameMaxLength": "District name cannot exceed 100 characters",
+    "erpCodeMaxLength": "ERP code cannot exceed 10 characters",
+    "cityRequired": "City selection is required"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "Delete District",
+    "confirmMessage": "Are you sure you want to delete district {{name}}?"
+  },
+  "stats": {
+    "totalDistricts": "GESAMTBEZIRKE",
+    "activeDistricts": "AKTIVE BEZIRKE",
+    "newThisMonth": "NEU DIESEN MONAT"
+  }
+}

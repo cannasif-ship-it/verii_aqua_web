@@ -1,0 +1,64 @@
+{
+  "title": "إدارة أنواع الدفع",
+  "description": "إعداد وإدارة طرق الدفع",
+  "create": "نوع دفع جديد",
+  "edit": "تعديل نوع الدفع",
+  "delete": "حذف",
+  "table": {
+    "id": "المعرف",
+    "name": "الاسم",
+    "code": "الرمز",
+    "description": "الوصف",
+    "isActive": "نشط",
+    "actions": "إجراءات",
+    "createdDate": "Created Date",
+    "updatedDate": "Updated Date",
+    "showing": "Showing {{from}}-{{to}} of {{total}}",
+    "page": "Page {{current}} of {{total}}"
+  },
+  "form": {
+    "name": {
+      "required": "Name is required",
+      "maxLength": "Name can be at most 100 characters"
+    },
+    "code": "الرمز",
+    "description": {
+      "maxLength": "Description can be at most 500 characters"
+    },
+    "isActive": "نشط",
+    "nameRequired": "الاسم مطلوب",
+    "codeRequired": "الرمز مطلوب"
+  },
+  "messages": {
+    "createSuccess": "تم إنشاء نوع الدفع بنجاح",
+    "updateSuccess": "تم تحديث نوع الدفع بنجاح",
+    "deleteSuccess": "تم حذف نوع الدفع بنجاح",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف نوع الدفع هذا؟"
+  },
+  "headerDescription": "إدارة وتعديل أنواع الدفع",
+  "editDescription": "قم بتعديل معلومات نوع الدفع",
+  "createDescription": "أدخل معلومات نوع الدفع الجديد",
+  "deleteTitle": "حذف نوع الدفع",
+  "name": "الاسم",
+  "namePlaceholder": "أدخل اسم نوع الدفع",
+  "descriptionPlaceholder": "أدخل وصفًا (اختياري)",
+  "createdDate": "تاريخ الإنشاء",
+  "updatedDate": "تاريخ التحديث",
+  "actions": "الإجراءات",
+  "search": "بحث",
+  "refresh": "تحديث",
+  "loading": "جارٍ التحميل...",
+  "previous": "السابق",
+  "next": "التالي",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "saving": "جارٍ الحفظ...",
+  "noData": "لا توجد بيانات",
+  "confirmDelete": "هل أنت متأكد من حذف نوع الدفع هذا؟",
+  "createSuccess": "تم إنشاء نوع الدفع بنجاح",
+  "updateSuccess": "تم تحديث نوع الدفع بنجاح",
+  "deleteSuccess": "تم حذف نوع الدفع بنجاح",
+  "createError": "حدث خطأ أثناء إنشاء نوع الدفع",
+  "updateError": "حدث خطأ أثناء تحديث نوع الدفع",
+  "deleteError": "حدث خطأ أثناء حذف نوع الدفع"
+}

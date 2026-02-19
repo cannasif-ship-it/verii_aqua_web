@@ -1,0 +1,37 @@
+{
+  "advancedFilter":{"columnName":"Grup Adı","columnCreatedBy":"Oluşturan"},
+  "menu": "Onay Rol Grubu Yönetimi",
+  "description": "Onay rol gruplarını yönetin ve düzenleyin",
+  "addButton": "Yeni Grup Ekle",
+  "refresh": "Yenile",
+  "searchPlaceholder": "Ara...",
+  "loading": "Yükleniyor...",
+  "noData": "Veri bulunamadı",
+  "noDataDescription": "Arama kriterlerinize uygun kayıt bulunamadı veya henüz hiç kayıt eklenmemiş.",
+  "table": {
+    "id": "ID",
+    "name": "Grup Adı",
+    "createdDate": "Oluşturulma Tarihi",
+    "createdBy": "Oluşturan Kullanıcı",
+    "actions": "İşlemler",
+    "showing": "Toplam {{total}} kayıttan {{from}}-{{to}} arası gösteriliyor"
+  },
+  "delete": {
+      "confirmTitle": "Silme Onayı",
+      "confirmMessage": "Bu işlem geri alınamaz. Devam etmek istiyor musunuz?"
+  },
+  "cancel": "İptal",
+  "save": "Kaydet",
+  "saving": "Kaydediliyor...",
+  "deleteButton": "Sil",
+  "form": {
+    "editTitle": "Onay Rol Grubu Düzenle",
+    "addTitle": "Yeni Onay Rol Grubu Ekle",
+    "editDescription": "Onay rol grubu bilgilerini düzenleyin",
+    "addDescription": "Yeni onay rol grubu bilgilerini girin",
+    "name": "Grup Adı",
+    "namePlaceholder": "Grup adını girin",
+    "nameRequired": "Grup adı zorunludur",
+    "nameMaxLength": "Grup adı en fazla 100 karakter olabilir"
+  }
+}

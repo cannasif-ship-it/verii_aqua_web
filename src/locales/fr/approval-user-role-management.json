@@ -1,0 +1,46 @@
+{
+  "approvalUserRole": {
+    "menu": "Gestion des Rôles d'Utilisateur d'Approbation",
+    "description": "Gérer et modifier les rôles d'utilisateur d'approbation",
+    "addButton": "Ajouter un Nouveau Rôle",
+    "searchPlaceholder": "Rechercher...",
+    "refresh": "Actualiser",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée",
+    "table": {
+      "id": "IDENTIFIANT",
+      "userFullName": "Utilisateur",
+      "approvalRoleName": "Rôle d'Approbation",
+      "createdDate": "Date de Création",
+      "createdBy": "Créé Par",
+      "actions": "Actions",
+      "showing": "Affichage de {{from}} à {{to}} sur {{total}}",
+      "page": "Page {{current}} / {{total}}",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "delete": {
+      "title": "Supprimer le Rôle",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer ce rôle d'utilisateur ?",
+      "confirmButton": "Supprimer",
+      "cancelButton": "Annuler"
+    },
+    "form": {
+      "editTitle": "Modifier le Rôle d'Utilisateur d'Approbation",
+      "addTitle": "Ajouter un Nouveau Rôle d'Utilisateur d'Approbation",
+      "editDescription": "Modifier les informations du rôle d'utilisateur d'approbation",
+      "addDescription": "Entrer les informations du nouveau rôle d'utilisateur d'approbation",
+      "userId": "Utilisateur",
+      "selectUser": "Sélectionner un Utilisateur",
+      "noUserSelected": "Aucun utilisateur sélectionné",
+      "approvalRoleId": "Rôle d'Approbation",
+      "selectApprovalRole": "Sélectionner un Rôle d'Approbation",
+      "noApprovalRoleSelected": "Aucun rôle d'approbation sélectionné",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "cancel": "Annuler",
+      "userIdRequired": "User selection is required",
+      "approvalRoleIdRequired": "Approval role selection is required"
+    }
+  }
+}

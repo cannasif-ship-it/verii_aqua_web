@@ -1,0 +1,60 @@
+{
+  "menu": "Clienti ERP",
+  "description": "Elenco clienti dal sistema ERP",
+  "loading": "Caricamento...",
+  "noData": "Nessun cliente trovato",
+  "table": {
+    "branchCode": "Codice Filiale",
+    "businessUnitCode": "Codice Unità Aziendale",
+    "customerCode": "Codice Cliente",
+    "customerName": "Nome Cliente",
+    "phone": "Telefono",
+    "city": "Città",
+    "district": "Distretto",
+    "address": "Indirizzo",
+    "countryCode": "Codice Paese",
+    "email": "E-mail",
+    "website": "Sito Web",
+    "taxNumber": "Partita IVA",
+    "taxOffice": "Ufficio delle Entrate",
+    "tcknNumber": "Numero TCKN",
+    "visibleColumns": "Colonne Visibili",
+    "editColumns": "Modifica Colonne"
+  },
+  "filterLabels": {
+    "branchCode": "Codice Filiale",
+    "customerCode": "Codice Cliente",
+    "customerName": "Nome Cliente",
+    "city": "Città",
+    "district": "Distretto",
+    "taxNumber": "Partita IVA"
+  },
+  "placeholders": {
+    "quickSearch": "Ricerca Rapida...",
+    "all": "Tutti",
+    "codeExample": "Es: 120...",
+    "nameExample": "Nome cliente...",
+    "cityExample": "Città...",
+    "districtExample": "Distretto...",
+    "taxExample": "P.IVA/TCKN..."
+  },
+  "actions": {
+    "detailedFilter": "Filtro Avanzato",
+    "clear": "Pulisci",
+    "filter": "Filtra",
+    "all": "TUTTI",
+    "active": "ATTIVO",
+    "passive": "PASSIVO",
+    "apply": "LISTA DE RESULTADOS"
+  },
+  "details": {
+    "title": "Detalles del cliente",
+    "addressInfo": "Información de dirección"
+  },
+  "common": {
+    "close": "Cerrar",
+    "selectAll": "Seleccionar todo",
+    "ok": "DE ACUERDO",
+    "totalRecords": "Registro total"
+  }
+}

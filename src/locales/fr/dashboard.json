@@ -1,0 +1,75 @@
+{
+  "title": "Tableau de bord",
+  "loading": "Chargement",
+  "stats": {
+    "totalRevenue": "Revenu total",
+    "activeOpportunities": "Opportunités actives",
+    "newLeads": "Nouveaux prospects",
+    "pendingOrders": "Commandes en attente"
+  },
+  "salesAnalysis": "Analyse des ventes",
+  "targetVsActual": "Objectif vs Réel",
+  "latestActivities": "Dernières activités",
+  "viewAll": "Voir tout",
+  "reportDownload": "Télécharger le rapport",
+  "quickAction": "Action rapide",
+  "activityType": {
+    "meeting": "Réunion",
+    "call": "Appel",
+    "email": "E-mail",
+    "general": "General"
+  },
+  "monthsShort": {
+    "jan": "Jan",
+    "feb": "Fév",
+    "mar": "Mar",
+    "apr": "Avr",
+    "may": "Mai",
+    "jun": "Juin",
+    "jul": "Juil",
+    "aug": "Aoû",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Déc"
+  },
+  "quickStats": {
+    "pendingTasks": "Tâches en attente",
+    "pendingTasksDescription": "12 tâches à compléter",
+    "openQuotations": "Devis ouverts",
+    "openQuotationsDescription": "5 devis en attente d'approbation",
+    "criticalStock": "Stock critique",
+    "criticalStockDescription": "3 produits sous le niveau critique",
+    "checkTasks": "Consultez la liste des tâches",
+    "reviewQuotations": "Consultez les offres",
+    "stockStatus": "Voir l'état des stocks"
+  },
+  "noDate": "No date",
+  "unnamedActivity": "Unnamed Activity",
+  "greeting": {
+    "morning": "Bonjour",
+    "afternoon": "Passe une bonne journée",
+    "evening": "Bonne soirée"
+  },
+  "refresh": "Actualiser",
+  "refreshing": "Il est en cours de renouvellement...",
+  "refreshed": "Données mises à jour",
+  "refreshError": "La mise à jour a échoué",
+  "user": "Utilisateur",
+  "noSalesData": "Aucune donnée de vente pour l'instant",
+  "noActivities": "Aucune activité pour le moment",
+  "selectFormat": "Sélectionnez le format",
+  "reportPreparing": "Le rapport est en préparation...",
+  "reportDownloaded": "Le rapport a été téléchargé.",
+  "reportError": "Le rapport n'a pas pu être reçu.",
+  "sidebar": {
+    "customers": "Clients",
+    "customerManagement": "Gestion des clients",
+    "salesManagement": "Entonnoir de vente",
+    "demandCreateWizard": "Créer une nouvelle demande",
+    "quotationCreateWizard": "Créer un nouveau devis",
+    "orderCreateWizard": "Créer Nouveau Devis",
+    "activities": "Planification",
+    "activityManagement": "Gestion des activités"
+  }
+}

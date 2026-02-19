@@ -1,0 +1,13 @@
+{
+  "title": "Select Related Stocks",
+  "description": "Select the related stocks you want to add along with the main stock. Mandatory stocks are selected automatically.",
+  "mandatoryStocks": "Mandatory Stocks",
+  "optionalStocks": "Optional Stocks",
+  "unknownStock": "Unknown Stock",
+  "quantity": "Quantity",
+  "mandatory": "Mandatory",
+  "noRelatedStocks": "No related stocks found",
+  "cancel": "Cancel",
+  "add": "Add",
+  "calculating": "Calculating..."
+}

@@ -1,0 +1,36 @@
+{
+  "menu": "Gestión de Grupos de Roles de Aprobación",
+  "description": "Gestionar y organizar grupos de roles de aprobación",
+  "addButton": "Añadir Nuevo Grupo",
+  "refresh": "Actualizar",
+  "searchPlaceholder": "Buscar...",
+  "loading": "Cargando...",
+  "noData": "No se encontraron datos",
+  "noDataDescription": "No se encontraron registros que coincidan con su búsqueda o no hay registros aún.",
+  "table": {
+    "id": "IDENTIFICACIÓN",
+    "name": "Nombre del Grupo",
+    "createdDate": "Fecha Creación",
+    "createdBy": "Creado Por",
+    "actions": "Acciones",
+    "showing": "Mostrando {{from}}-{{to}} de {{total}} registros"
+  },
+  "delete": {
+    "confirmTitle": "Confirmación de Eliminación",
+    "confirmMessage": "Esta acción no se puede deshacer. ¿Desea continuar?"
+  },
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "saving": "Guardando...",
+  "deleteButton": "Eliminar",
+  "form": {
+    "editTitle": "Editar Grupo de Roles",
+    "addTitle": "Añadir Nuevo Grupo de Roles",
+    "editDescription": "Editar información del grupo de roles",
+    "addDescription": "Ingrese información del nuevo grupo",
+    "name": "Nombre del Grupo",
+    "namePlaceholder": "Ingrese nombre del grupo",
+    "nameRequired": "El nombre del grupo es obligatorio",
+    "nameMaxLength": "El nombre puede tener máx. 100 caracteres"
+  }
+}

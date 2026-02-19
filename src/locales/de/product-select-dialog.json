@@ -1,0 +1,10 @@
+{
+  "title": "Produkt auswählen",
+  "description": "Select a product to add to the quotation line",
+  "product": "Produkt",
+  "noProducts": "Keine Produkte",
+  "noResults": "Keine Ergebnisse gefunden",
+  "searchPlaceholder": "Nach Produktcode oder Namen suchen...",
+  "voiceSearch": "Sprachsuche",
+  "loading": "Wird geladen"
+}

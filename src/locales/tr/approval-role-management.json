@@ -1,0 +1,52 @@
+{
+  "approvalRole": {
+    "advancedFilter":{"columnName":"Rol Adı","columnApprovalRoleGroupName":"Rol Grubu","columnMaxAmount":"Maks. Tutar"},
+    "menu": "Onay Rolü Yönetimi",
+    "description": "Onay rollerini yönetin ve düzenleyin",
+    "addButton": "Yeni Onay Rolü Ekle",
+    "searchPlaceholder": "Ara...",
+    "refresh": "Yenile",
+    "loading": "Yükleniyor...",
+    "noData": "Veri yok",
+    "table": {
+      "id": "ID",
+      "approvalRoleGroupName": "Rol Grubu",
+      "name": "Rol Adı",
+      "maxAmount": "Maksimum Tutar",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "actions": "İşlemler",
+      "totalRecords": "Toplam {{count}} kayıt.",
+      "page": "Sayfa {{current}} / {{total}}",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    },
+    "delete": {
+      "confirmTitle": "Silme İşlemi",
+      "confirmMessage": "Bu kaydı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
+      "cancelButton": "İptal",
+      "confirmButton": "Sil",
+      "deleting": "Siliniyor..."
+    },
+    "form": {
+      "editTitle": "Onay Rolü Düzenle",
+      "addTitle": "Yeni Onay Rolü Ekle",
+      "editDescription": "Onay rolü bilgilerini düzenleyin",
+      "addDescription": "Yeni onay rolü bilgilerini girin",
+      "approvalRoleGroupId": "Onay Rol Grubu",
+      "approvalRoleGroupIdRequired": "Onay rol grubu seçimi zorunludur",
+      "selectApprovalRoleGroup": "Onay Rol Grubu Seçin",
+      "noApprovalRoleGroupSelected": "Onay rol grubu seçilmedi",
+      "name": "Rol Adı",
+      "nameRequired": "Rol adı zorunludur",
+      "nameMaxLength": "Rol adı en fazla 100 karakter olabilir",
+      "namePlaceholder": "Rol adını girin",
+      "maxAmount": "Maksimum Tutar",
+      "maxAmountMin": "Maksimum tutar 0'dan küçük olamaz",
+      "maxAmountPlaceholder": "Maksimum tutarı girin",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor..."
+    }
+  }
+}

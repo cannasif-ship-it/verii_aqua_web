@@ -1,0 +1,166 @@
+{
+  "loading": "جاري التحميل...",
+  "saving": "جاري الحفظ...",
+  "error": "خطأ",
+  "noData": "لا توجد بيانات",
+  "previous": "السابق",
+  "next": "التالي",
+  "actions": "الإجراءات",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "back": "رجوع",
+  "refresh": "تحديث",
+  "select": "تحديد",
+  "yes": "نعم",
+  "add": "إضافة",
+  "backToOrders": "العودة إلى عروض الأسعار",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "confirm": "تأكيد",
+  "saveAndApply": "حفظ وتطبيق",
+  "list": {
+    "revise": "مراجعة",
+    "showing": "عرض {{from}}-{{to}} من {{total}}"
+  },
+  "detail": {
+    "title": "تفاصيل عرض السعر"
+  },
+  "create": {
+    "title": "إنشاء عرض سعر جديد",
+    "submit": "حفظ عرض السعر وإرساله للموافقة",
+    "success": "تم إنشاء عرض السعر بنجاح",
+    "successMessage": "تم إرسال عرض السعر إلى عملية الموافقة.",
+    "error": "تعذر إنشاء عرض السعر",
+    "errorMessage": "حدث خطأ أثناء إنشاء عرض السعر."
+  },
+  "header": {
+    "title": "معلومات عرض السعر",
+    "customer": "العميل",
+    "selectCustomer": "حدد العميل",
+    "shippingAddress": "عنوان الشحن",
+    "selectShippingAddress": "حدد عنوان الشحن",
+    "representative": "مندوب المبيعات",
+    "selectRepresentative": "حدد المندوب",
+    "offerType": "نوع العرض",
+    "selectOfferType": "حدد نوع العرض",
+    "currency": "العملة",
+    "selectCurrency": "يرجى تحديد العملة",
+    "showExchangeRates": "إظهار أسعار الصرف",
+    "offerDate": "تاريخ العرض",
+    "deliveryDate": "تاريخ التسليم",
+    "paymentType": "نوع الدفع",
+    "selectPaymentType": "حدد نوع الدفع",
+    "description": "الوصف",
+    "descriptionPlaceholder": "أدخل الوصف",
+    "offerNo": "رقم العرض",
+    "offerNoPlaceholder": "رقم العرض",
+    "currencyChange": {
+      "title": "تغيير العملة",
+      "message": "عند تغيير العملة، سيتم إعادة حساب جميع الأسطر الموجودة وفقًا للعملة الجديدة. هل توافق على هذه العملية؟"
+    }
+  },
+  "lines": {
+    "title": "بنود عرض السعر",
+    "add": "إضافة بند",
+    "empty": "لم تتم إضافة بنود بعد",
+    "emptyDescription": "استخدم زر \"تحديد المخزون\" أو \"إضافة بند\" لإضافة بنود لعرض السعر",
+    "itemCount": "بند",
+    "editLine": "تعديل البند",
+    "selectStock": "تحديد المخزون",
+    "selectProduct": "تحديد المنتج",
+    "selectStockFirst": "لم يتم تحديد المخزون",
+    "stock": "المخزون",
+    "productCode": "رمز المخزون",
+    "enterProductCode": "أدخل رمز المنتج أو ابحث",
+    "productName": "اسم المخزون",
+    "enterProductName": "أدخل اسم المنتج",
+    "quantity": "الكمية",
+    "unitPrice": "سعر الوحدة",
+    "discount1": "خصم 1 %",
+    "discount2": "خصم 2 %",
+    "discount3": "خصم 3 %",
+    "discounts": "الخصومات",
+    "discountAmount": "مبلغ الخصم",
+    "netPrice": "السعر الصافي",
+    "vatRate": "نسبة الضريبة %",
+    "lineTotal": "إجمالي البند (شامل الضريبة)",
+    "calculations": "الحسابات",
+    "required": "يجب إضافة بند واحد على الأقل",
+    "noProductsFound": "لم يتم العثور على منتجات",
+    "delete": {
+      "confirmTitle": "حذف البند",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف هذا البند؟"
+    }
+  },
+  "exchangeRates": {
+    "title": "أسعار الصرف",
+    "currency": "العملة",
+    "rate": "السعر",
+    "date": "تاريخ السعر",
+    "isOfficial": "سعر رسمي",
+    "official": "رسمي",
+    "custom": "مخصص",
+    "empty": "لم يتم العثور على أسعار صرف",
+    "status": "الحالة",
+    "dialog": {
+      "title": "أسعار الصرف",
+      "description": "عرض وتعديل قيم سعر الصرف إذا لزم الأمر. لن يتم تمييز الأسعار المعدلة كأسعار رسمية."
+    }
+  },
+  "summary": {
+    "title": "الملخص",
+    "subtotal": "المجموع الفرعي",
+    "totalVat": "إجمالي الضريبة",
+    "grandTotal": "الإجمالي الكلي"
+  },
+  "offerType": {
+    "domestic": "محلي",
+    "export": "تصدير"
+  },
+  "wizard": {
+    "title": "إنشاء عرض سعر جديد",
+    "step1": {
+      "title": "الخطوة 1: معلومات عرض السعر",
+      "description": "أدخل معلومات رأس عرض السعر وأسعار الصرف",
+      "validation": {
+        "offerType": "نوع العرض",
+        "currency": "العملة",
+        "exchangeRate": "سعر الصرف"
+      },
+      "exchangeRate": {
+        "required": "يجب إضافة سعر صرف واحد على الأقل للعملات غير TRY"
+      },
+      "currency": {
+        "try": {
+          "info": "سعر الصرف غير مطلوب عند اختيار TRY"
+        }
+      }
+    },
+    "step2": {
+      "title": "الخطوة 2: بنود عرض السعر",
+      "description": "إضافة معلومات المنتج والسعر",
+      "info": "يجب عليك إضافة بند واحد على الأقل",
+      "validation": {
+        "noLines": "يجب إضافة بند واحد على الأقل",
+        "invalidLines": "يجب أن تحتوي جميع البنود على معلومات صالحة",
+        "allValid": "تمت إضافة {{count}} بنود بنجاح"
+      }
+    },
+    "step3": {
+      "title": "الخطوة 3: الملخص والموافقة",
+      "description": "مراجعة المعلومات وحفظ عرض السعر",
+      "header": {
+        "title": "معلومات عرض السعر"
+      },
+      "lines": {
+        "title": "بنود عرض السعر"
+      },
+      "summary": {
+        "title": "الملخص النهائي"
+      },
+      "approval": {
+        "info": "سيتم إرسال عرض السعر تلقائيًا إلى عملية الموافقة بعد الحفظ"
+      }
+    }
+  }
+}

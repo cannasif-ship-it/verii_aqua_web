@@ -1,0 +1,60 @@
+{
+  "menu": "Müşteri Tipi Yönetimi",
+  "description": "Müşteri tiplerini yönetin ve düzenleyin",
+  "addButton": "Yeni Müşteri Tipi Ekle",
+  "loading": "Yükleniyor...",
+  "noData": "Veri bulunamadı",
+  "actions": "İşlemler",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "advancedFilter": {
+    "columnName": "Müşteri Tipi Adı",
+    "columnDescription": "Açıklama"
+  },
+  "stats": {
+    "totalCustomerTypes": "Toplam Müşteri Tipi",
+    "activeCustomerTypes": "Aktif Müşteri Tipi",
+    "newThisMonth": "Bu Ay Yeni"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Müşteri Tipi Adı",
+    "description": "Açıklama",
+    "createdDate": "Oluşturulma Tarihi",
+    "createdBy": "Oluşturan",
+    "updatedDate": "Güncellenme Tarihi",
+    "updatedBy": "Güncelleyen",
+    "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+    "page": "Sayfa {{current}} / {{total}}"
+  },
+  "form": {
+    "addCustomerType": "Yeni Müşteri Tipi Ekle",
+    "editCustomerType": "Müşteri Tipi Düzenle",
+    "addDescription": "Yeni müşteri tipi bilgilerini girin",
+    "editDescription": "Müşteri tipi bilgilerini düzenleyin",
+    "name": "Müşteri Tipi Adı",
+    "namePlaceholder": "Müşteri tipi adını girin",
+    "nameRequired": "Müşteri tipi adı gereklidir",
+    "nameMaxLength": "Müşteri tipi adı en fazla 100 karakter olabilir",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Açıklama girin (opsiyonel)",
+    "descriptionMaxLength": "Açıklama en fazla 500 karakter olabilir",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor..."
+  },
+  "delete": {
+    "confirmTitle": "Müşteri Tipini Sil",
+    "confirmMessage": "{{name}} müşteri tipini silmek istediğinizden emin misiniz?",
+    "confirmButton": "Sil",
+    "deleting": "Siliniyor..."
+  },
+  "messages": {
+    "createSuccess": "Müşteri tipi başarıyla oluşturuldu",
+    "createError": "Müşteri tipi oluşturulamadı",
+    "updateSuccess": "Müşteri tipi başarıyla güncellendi",
+    "updateError": "Müşteri tipi güncellenemedi",
+    "deleteSuccess": "Müşteri tipi başarıyla silindi",
+    "deleteError": "Müşteri tipi silinemedi"
+  }
+}

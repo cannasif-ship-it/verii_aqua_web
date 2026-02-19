@@ -1,0 +1,50 @@
+{
+  "menu": "City Management",
+  "description": "Manage and organize cities",
+  "addButton": "Add New City",
+  "searchPlaceholder": "Search...",
+  "loading": "Loading...",
+  "noData": "No data found",
+  "stats": {
+    "totalCities": "Total Cities",
+    "activeCities": "Active Cities",
+    "newThisMonth": "New This Month"
+  },
+  "table": {
+    "id": "ID",
+    "name": "City Name",
+    "erpCode": "ERP Code",
+    "countryName": "Country Name",
+    "createdDate": "Created Date",
+    "createdBy": "Created By",
+    "showing": "Showing {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "editCity": "Edit City",
+    "addCity": "Add New City",
+    "editDescription": "Edit city details",
+    "addDescription": "Enter new city details",
+    "name": "City Name",
+    "namePlaceholder": "Enter city name",
+    "country": "Country",
+    "selectCountry": "Select country",
+    "erpCode": "ERP Code",
+    "erpCodePlaceholder": "Enter ERP code (optional)",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "nameRequired": "City name is required",
+    "nameMaxLength": "City name can be at most 100 characters",
+    "erpCodeMaxLength": "ERP code can be at most 10 characters",
+    "countryRequired": "Country selection is required"
+  },
+  "actions": "Actions",
+  "delete": {
+    "button": "Delete",
+    "confirmTitle": "Delete City",
+    "confirmMessage": "Are you sure you want to delete {{name}}?"
+  },
+  "previous": "Previous",
+  "next": "Next"
+}

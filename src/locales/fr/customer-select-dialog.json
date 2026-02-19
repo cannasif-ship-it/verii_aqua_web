@@ -1,0 +1,26 @@
+{
+  "title": "Sélectionner un Client",
+  "description": "Sélectionnez un onglet et choisissez un client dans la liste",
+  "erpCustomers": "Clients ERP",
+  "crmCustomers": "Clients AQUA",
+  "allCustomers": "Tous",
+  "erp": "Clients ERP",
+  "crm": "GRC",
+  "noErpCustomers": "Aucun client ERP trouvé",
+  "noCrmCustomers": "Aucun client AQUA trouvé",
+  "noCustomers": "Aucun client trouvé",
+  "noResults": "Aucun résultat de recherche trouvé",
+  "searchPlaceholder": "Rechercher par nom ou code...",
+  "voiceSearch": "Recherche vocale",
+  "loading": "Chargement",
+  "table": {
+    "type": "Type",
+    "customerCode": "Code Client",
+    "customerName": "Nom du Client",
+    "phone": "Téléphone",
+    "city": "Ville",
+    "email": "E-mail"
+  },
+  "potentialCustomers": "Potential",
+  "noPotentialCustomers": "No potential customers found"
+}

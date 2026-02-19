@@ -1,0 +1,74 @@
+{
+  "title": "Müşteri 360",
+  "notFound": "Müşteri bulunamadı",
+  "error": "Bir hata oluştu",
+  "retry": "Tekrar Dene",
+  "currencyFilter": {
+    "label": "Para birimi",
+    "all": "Tümü"
+  },
+  "tabs": {
+    "overview": "Özet",
+    "analytics": "Analitik"
+  },
+  "kpi": {
+    "totalDemands": "Toplam Teklif",
+    "totalQuotations": "Toplam Teklif",
+    "totalOrders": "Toplam Sipariş",
+    "openQuotations": "Açık Teklif",
+    "openOrders": "Bekleyen Sipariş"
+  },
+  "sections": {
+    "contacts": "İletişimler",
+    "shippingAddresses": "Sevk Adresleri",
+    "recentDemands": "Son Teklifler",
+    "recentQuotations": "Son Teklifler",
+    "recentOrders": "Son Siparişler",
+    "recentActivities": "Son Aktiviteler",
+    "timeline": "Zaman Çizelgesi"
+  },
+  "analytics": {
+    "error": "Analitik verileri yüklenemedi",
+    "last12MonthsOrderAmount": "Son 12 Ay Sipariş Tutarı",
+    "openQuotationAmount": "Açık Teklif Tutarı",
+    "openOrderAmount": "Açık Sipariş Tutarı",
+    "activityCount": "Aktivite Sayısı",
+    "lastActivityDate": "Son Aktivite Tarihi"
+  },
+  "analyticsCharts": {
+    "demand": "Teklif",
+    "quotation": "Teklif",
+    "order": "Sipariş",
+    "last12MonthsOrderAmount": "Son 12 Ay Sipariş",
+    "openQuotationAmount": "Açık Teklif",
+    "openOrderAmount": "Açık Sipariş",
+    "distributionTitle": "Dağılım",
+    "monthlyTrendTitle": "Aylık Trend",
+    "amountComparisonTitle": "Tutar Karşılaştırması"
+  },
+  "currencyTotals": {
+    "currency": "Para Birimi",
+    "demandAmount": "Teklif Tutarı",
+    "quotationAmount": "Teklif Tutarı",
+    "orderAmount": "Sipariş Tutarı"
+  },
+  "revenueQuality": {
+    "title": "Gelir Kalitesi",
+    "churnRisk": "Kayıp Riski",
+    "upsell": "Ek Satış Eğilimi",
+    "payment": "Ödeme Davranışı",
+    "segment": "RFM Segmenti",
+    "ltv": "LTV"
+  },
+  "cohort": {
+    "title": "Kohort Tutma",
+    "empty": "Kohort verisi yok",
+    "cohortKey": "Kohort"
+  },
+  "actions": {
+    "title": "Önerilen Aksiyonlar",
+    "empty": "Önerilen aksiyon yok",
+    "execute": "Uygula"
+  },
+  "status": {}
+}

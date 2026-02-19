@@ -1,0 +1,18 @@
+{
+  "title": "الإشعارات",
+  "markAllAsRead": "تحديد الكل كمقروء",
+  "viewAll": "عرض الكل",
+  "empty": "ليس لديك إشعارات",
+  "new": "جديد",
+  "ago": "منذ {{time}}",
+  "types": {
+    "info": "معلومات",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "error": "خطأ"
+  },
+  "loading": "جارٍ التحميل",
+  "noNotifications": "لا توجد إشعارات",
+  "close": "إغلاق",
+  "unread": "غير مقروء"
+}

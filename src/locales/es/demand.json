@@ -1,0 +1,170 @@
+{
+  "loading": "Cargando...",
+  "saving": "Guardando...",
+  "error": "Error",
+  "noData": "No se encontraron datos",
+  "previous": "Anterior",
+  "next": "Siguiente",
+  "actions": "Acciones",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "back": "Atrás",
+  "refresh": "Actualizar",
+  "select": "Seleccionar",
+  "yes": "Sí",
+  "add": "Añadir",
+  "backToQuotations": "Volver a Solicitudes",
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "confirm": "Confirmar",
+  "saveAndApply": "Guardar y Aplicar",
+  "list": {
+    "revise": "Revisar",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "title": "Lista de Solicitudes",
+    "description": "Ver y gestionar todas las solicitudes",
+    "createNew": "Crear Nueva Solicitud",
+    "searchPlaceholder": "Buscar por n.º de solicitud o nombre del cliente..."
+  },
+  "detail": {
+    "title": "Detalle de la Solicitud"
+  },
+  "create": {
+    "title": "Crear Nueva Solicitud",
+    "submit": "Guardar Solicitud y Enviar a Aprobación",
+    "success": "Solicitud Creada con Éxito",
+    "successMessage": "La solicitud ha sido enviada al proceso de aprobación.",
+    "error": "No se Pudo Crear la Solicitud",
+    "errorMessage": "Ocurrió un error al crear la solicitud."
+  },
+  "header": {
+    "title": "Información de la Solicitud",
+    "customer": "Cliente",
+    "selectCustomer": "Seleccionar cliente",
+    "shippingAddress": "Dirección de Envío",
+    "selectShippingAddress": "Seleccionar dirección de envío",
+    "representative": "Representante de Ventas",
+    "selectRepresentative": "Seleccionar representante",
+    "offerType": "Tipo de Solicitud",
+    "selectOfferType": "Seleccionar tipo de solicitud",
+    "currency": "Moneda",
+    "selectCurrency": "Por favor, seleccione moneda",
+    "showExchangeRates": "Mostrar Tipos de Cambio",
+    "offerDate": "Fecha de Solicitud",
+    "deliveryDate": "Fecha de Entrega",
+    "paymentType": "Tipo de Pago",
+    "selectPaymentType": "Seleccionar tipo de pago",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Introducir descripción",
+    "offerNo": "N.º de Solicitud",
+    "offerNoPlaceholder": "Número de solicitud",
+    "currencyChange": {
+      "title": "Cambio de Moneda",
+      "message": "Cuando cambie la moneda, todas las líneas existentes se recalcularán según la nueva moneda. ¿Aprueba esta operación?"
+    }
+  },
+  "lines": {
+    "title": "Líneas de Solicitud",
+    "add": "Añadir Línea",
+    "empty": "No hay líneas añadidas todavía",
+    "emptyDescription": "Use el botón \"Seleccionar Stock\" o \"Añadir Línea\" para agregar líneas",
+    "itemCount": "línea",
+    "editLine": "Editar Línea",
+    "selectStock": "Seleccionar Stock",
+    "selectProduct": "Seleccionar Producto",
+    "selectStockFirst": "Stock no seleccionado",
+    "stock": "Stock",
+    "productCode": "Código de Stock",
+    "enterProductCode": "Introducir código de producto o buscar",
+    "productName": "Nombre del Stock",
+    "enterProductName": "Introducir nombre del producto",
+    "quantity": "Cantidad",
+    "unitPrice": "Precio Unitario",
+    "discount1": "Descuento 1 %",
+    "discount2": "Descuento 2 %",
+    "discount3": "Descuento 3 %",
+    "discounts": "Descuentos",
+    "discountAmount": "Importe de Descuento",
+    "netPrice": "Precio Neto",
+    "vatRate": "Tasa IVA %",
+    "lineTotal": "Total Línea (IVA Incluido)",
+    "calculations": "Cálculos",
+    "required": "Se debe añadir al menos 1 línea",
+    "noProductsFound": "No se encontraron productos",
+    "delete": {
+      "confirmTitle": "Eliminar Línea",
+      "confirmMessage": "¿Está seguro de que desea eliminar esta línea?"
+    }
+  },
+  "exchangeRates": {
+    "title": "Tipos de Cambio",
+    "currency": "Moneda",
+    "rate": "Tasa",
+    "date": "Fecha de Tasa",
+    "isOfficial": "Tasa Oficial",
+    "official": "Oficial",
+    "custom": "Personalizado",
+    "empty": "No se encontraron tipos de cambio",
+    "status": "Estado",
+    "dialog": {
+      "title": "Tipos de Cambio",
+      "description": "Ver y editar valores de tipos de cambio si es necesario. Las tasas modificadas no se marcarán como tasas oficiales."
+    }
+  },
+  "summary": {
+    "title": "Resumen",
+    "subtotal": "Subtotal",
+    "totalVat": "Total IVA",
+    "grandTotal": "Total General"
+  },
+  "offerType": {
+    "domestic": "Nacional",
+    "export": "Exportación"
+  },
+  "wizard": {
+    "title": "Crear Nueva Solicitud",
+    "step1": {
+      "title": "Paso 1: Información de la Solicitud",
+      "description": "Introducir información de cabecera de la solicitud y tipos de cambio",
+      "validation": {
+        "offerType": "Tipo de Solicitud",
+        "currency": "Moneda",
+        "exchangeRate": "Tipo de Cambio"
+      },
+      "exchangeRate": {
+        "required": "Se debe añadir al menos un tipo de cambio para monedas distintas a TRY"
+      },
+      "currency": {
+        "try": {
+          "info": "El tipo de cambio no es necesario cuando se selecciona TRY"
+        }
+      }
+    },
+    "step2": {
+      "title": "Paso 2: Líneas de Solicitud",
+      "description": "Añadir información de producto y precio",
+      "info": "Debe añadir al menos una línea",
+      "validation": {
+        "noLines": "Se debe añadir al menos una línea",
+        "invalidLines": "Todas las líneas deben tener información válida",
+        "allValid": "{{count}} líneas añadidas con éxito"
+      }
+    },
+    "step3": {
+      "title": "Paso 3: Resumen y Aprobación",
+      "description": "Revisar información y guardar solicitud",
+      "header": {
+        "title": "Información de la Solicitud"
+      },
+      "lines": {
+        "title": "Líneas de Solicitud"
+      },
+      "summary": {
+        "title": "Resumen Final"
+      },
+      "approval": {
+        "info": "La solicitud se enviará automáticamente al proceso de aprobación después de guardar"
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "menu": "Client ERP",
+  "description": "Liste des clients du système ERP",
+  "loading": "Chargement...",
+  "noData": "Aucun client trouvé",
+  "table": {
+    "branchCode": "Code Agence",
+    "businessUnitCode": "Code Unité Commerciale",
+    "customerCode": "Code Client",
+    "customerName": "Nom du Client",
+    "phone": "Téléphone",
+    "city": "Ville",
+    "district": "District",
+    "address": "Adresse",
+    "countryCode": "Code Pays",
+    "email": "E-mail",
+    "website": "Site Web",
+    "taxNumber": "Numéro Fiscal",
+    "taxOffice": "Administration Fiscale",
+    "tcknNumber": "Numéro TCKN",
+    "visibleColumns": "Colonnes visibles",
+    "editColumns": "Modifier les colonnes"
+  },
+  "filterLabels": {
+    "branchCode": "Code Agence",
+    "customerCode": "Code Client",
+    "customerName": "Nom du Client",
+    "city": "Ville",
+    "district": "District",
+    "taxNumber": "Numéro Fiscal"
+  },
+  "placeholders": {
+    "quickSearch": "Recherche rapide...",
+    "all": "Tous",
+    "codeExample": "Ex: 120...",
+    "nameExample": "Nom du client...",
+    "cityExample": "Ville...",
+    "districtExample": "District...",
+    "taxExample": "Fiscal/TCKN..."
+  },
+  "actions": {
+    "detailedFilter": "Filtre détaillé",
+    "clear": "Effacer",
+    "filter": "Filtrer",
+    "all": "TOUS",
+    "active": "ACTIF",
+    "passive": "INACTIF",
+    "apply": "LISTE DES RÉSULTATS"
+  },
+  "details": {
+    "title": "Détails du client",
+    "addressInfo": "Informations sur l'adresse"
+  },
+  "common": {
+    "close": "Fermer",
+    "selectAll": "Sélectionner tout",
+    "ok": "D'ACCORD",
+    "totalRecords": "Inscription totale"
+  }
+}

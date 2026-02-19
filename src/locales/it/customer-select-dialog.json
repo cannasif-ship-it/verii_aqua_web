@@ -1,0 +1,26 @@
+{
+  "title": "Seleziona Cliente",
+  "description": "Seleziona una scheda e scegli un cliente dall'elenco",
+  "erpCustomers": "Clienti ERP",
+  "crmCustomers": "Clienti AQUA",
+  "allCustomers": "Tutti",
+  "erp": "Clienti ERP",
+  "crm": "AQUA",
+  "noErpCustomers": "Nessun cliente ERP trovato",
+  "noCrmCustomers": "Nessun cliente AQUA trovato",
+  "noCustomers": "Nessun cliente trovato",
+  "noResults": "Nessun risultato di ricerca trovato",
+  "searchPlaceholder": "Cerca per nome o codice...",
+  "voiceSearch": "Ricerca vocale",
+  "loading": "Caricamento",
+  "table": {
+    "type": "Tipo",
+    "customerCode": "Codice Cliente",
+    "customerName": "Nome Cliente",
+    "phone": "Telefono",
+    "city": "Città",
+    "email": "Email"
+  },
+  "potentialCustomers": "Potential",
+  "noPotentialCustomers": "No potential customers found"
+}

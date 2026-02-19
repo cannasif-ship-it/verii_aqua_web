@@ -1,0 +1,36 @@
+{
+  "menu": "Approval Role Group Management",
+  "description": "Manage and organize approval role groups",
+  "addButton": "Add New Group",
+  "refresh": "Refresh",
+  "searchPlaceholder": "Search...",
+  "loading": "Loading...",
+  "noData": "No data found",
+  "noDataDescription": "No records found matching your search criteria or no records added yet.",
+  "table": {
+    "id": "ID",
+    "name": "Group Name",
+    "createdDate": "Created Date",
+    "createdBy": "Created By",
+    "actions": "Actions",
+    "showing": "Showing {{from}}-{{to}} of {{total}} records"
+  },
+  "delete": {
+    "confirmTitle": "Delete Confirmation",
+    "confirmMessage": "This action cannot be undone. Do you want to continue?"
+  },
+  "cancel": "Cancel",
+  "save": "Save",
+  "saving": "Saving...",
+  "deleteButton": "Delete",
+  "form": {
+    "editTitle": "Edit Approval Role Group",
+    "addTitle": "Add New Approval Role Group",
+    "editDescription": "Edit approval role group information",
+    "addDescription": "Enter new approval role group information",
+    "name": "Group Name",
+    "namePlaceholder": "Enter group name",
+    "nameRequired": "Group name is required",
+    "nameMaxLength": "Group name can be at most 100 characters"
+  }
+}

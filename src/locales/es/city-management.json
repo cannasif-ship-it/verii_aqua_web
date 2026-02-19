@@ -1,0 +1,50 @@
+{
+  "menu": "Gestión de Ciudades",
+  "description": "Gestionar y organizar ciudades",
+  "addButton": "Añadir Nueva Ciudad",
+  "searchPlaceholder": "Buscar...",
+  "loading": "Cargando...",
+  "noData": "No se encontraron datos",
+  "stats": {
+    "totalCities": "Ciudades Totales",
+    "activeCities": "Ciudades Activas",
+    "newThisMonth": "Nuevas este Mes"
+  },
+  "table": {
+    "id": "IDENTIFICACIÓN",
+    "name": "Nombre de la Ciudad",
+    "erpCode": "Código ERP",
+    "countryName": "Nombre del País",
+    "createdDate": "Fecha de Creación",
+    "createdBy": "Creado Por",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "page": "Página {{current}} / {{total}}"
+  },
+  "form": {
+    "editCity": "Editar Ciudad",
+    "addCity": "Añadir Nueva Ciudad",
+    "editDescription": "Editar detalles de la ciudad",
+    "addDescription": "Ingrese detalles de la nueva ciudad",
+    "name": "Nombre de la Ciudad",
+    "namePlaceholder": "Ingrese nombre de la ciudad",
+    "country": "País",
+    "selectCountry": "Seleccionar país",
+    "erpCode": "Código ERP",
+    "erpCodePlaceholder": "Ingrese código ERP (opcional)",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "nameRequired": "El nombre de la ciudad es obligatorio",
+    "nameMaxLength": "El nombre de la ciudad debe tener como máximo 100 caracteres",
+    "erpCodeMaxLength": "El código ERP debe tener como máximo 10 caracteres",
+    "countryRequired": "La selección de país es obligatoria"
+  },
+  "actions": "Acciones",
+  "delete": {
+    "button": "Eliminar",
+    "confirmTitle": "Eliminar Ciudad",
+    "confirmMessage": "¿Está seguro de que desea eliminar {{name}}?"
+  },
+  "previous": "Anterior",
+  "next": "Siguiente"
+}

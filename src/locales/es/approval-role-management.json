@@ -1,0 +1,51 @@
+{
+  "approvalRole": {
+    "menu": "Gestión de roles de aprobación",
+    "description": "Gestione y edite los roles de aprobación",
+    "addButton": "Agregar nuevo rol de aprobación",
+    "searchPlaceholder": "Buscar...",
+    "refresh": "Actualizar",
+    "loading": "Cargando...",
+    "noData": "Sin datos",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "approvalRoleGroupName": "Grupo de roles",
+      "name": "Nombre del rol",
+      "maxAmount": "Importe máximo",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "actions": "Acciones",
+      "totalRecords": "Total {{count}} registros.",
+      "page": "Página {{current}} / {{total}}",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "delete": {
+      "confirmTitle": "Confirmación de eliminación",
+      "confirmMessage": "¿Seguro que desea eliminar este registro? Esta acción no se puede deshacer.",
+      "cancelButton": "Cancelar",
+      "confirmButton": "Eliminar",
+      "deleting": "Eliminando..."
+    },
+    "form": {
+      "editTitle": "Editar rol de aprobación",
+      "addTitle": "Agregar nuevo rol de aprobación",
+      "editDescription": "Edite la información del rol de aprobación",
+      "addDescription": "Ingrese la información del nuevo rol de aprobación",
+      "approvalRoleGroupId": "Grupo de rol de aprobación",
+      "selectApprovalRoleGroup": "Seleccione grupo de rol de aprobación",
+      "noApprovalRoleGroupSelected": "No se seleccionó grupo de rol de aprobación",
+      "name": "Nombre del rol",
+      "namePlaceholder": "Ingrese el nombre del rol",
+      "maxAmount": "Importe máximo",
+      "maxAmountPlaceholder": "Ingrese el importe máximo",
+      "approvalRoleGroupIdRequired": "La selección del grupo de rol es obligatoria",
+      "nameRequired": "El nombre del rol es obligatorio",
+      "nameMaxLength": "El nombre del rol puede tener como máximo 100 caracteres",
+      "maxAmountMin": "El importe máximo no puede ser menor que 0",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    }
+  }
+}

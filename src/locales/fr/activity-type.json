@@ -1,0 +1,54 @@
+{
+  "menu": "Gestion des types d'activité",
+  "description": "Gérer et modifier les types d'activité",
+  "addButton": "Ajouter un nouveau type d'activité",
+  "loading": "Chargement...",
+  "noData": "Aucune donnée trouvée",
+  "actions": "Actions",
+  "edit": "Modifier",
+  "deleteButton": "Supprimer",
+  "cancel": "Annuler",
+  "save": "Enregistrer",
+  "saving": "Enregistrement...",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "form": {
+    "addTitle": "Ajouter un nouveau type d'activité",
+    "editTitle": "Modifier le type d'activité",
+    "addDescription": "Entrez les informations du nouveau type d'activité",
+    "editDescription": "Modifier les informations du type d'activité",
+    "name": "Nom du type d'activité",
+    "namePlaceholder": "Entrez le nom du type d'activité",
+    "nameRequired": "Le nom du type d'activité est requis",
+    "nameMaxLength": "Le nom du type d'activité ne peut pas dépasser 100 caractères",
+    "description": "Description",
+    "descriptionPlaceholder": "Entrez la description (optionnel)",
+    "descriptionMaxLength": "La description ne peut pas dépasser 500 caractères"
+  },
+  "table": {
+    "id": "IDENTIFIANT",
+    "name": "Nom du type d'activité",
+    "description": "Description",
+    "createdDate": "Date de création",
+    "createdBy": "Créé par",
+    "showing": "Affichage de {{from}}-{{to}} sur {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "stats": {
+    "totalActivityTypes": "Total des types d'activité",
+    "activeActivityTypes": "Types d'activité actifs",
+    "newThisMonth": "Nouveaux ce mois-ci"
+  },
+  "messages": {
+    "createSuccess": "Type d'activité créé avec succès",
+    "createError": "Échec de la création du type d'activité",
+    "updateSuccess": "Type d'activité mis à jour avec succès",
+    "updateError": "Échec de la mise à jour du type d'activité",
+    "deleteSuccess": "Type d'activité supprimé avec succès",
+    "deleteError": "Échec de la suppression du type d'activité"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "Supprimer le type d'activité",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type d'activité {{name}} ?"
+  }
+}

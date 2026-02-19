@@ -1,0 +1,50 @@
+{
+  "menu": "إدارة المدن",
+  "description": "إدارة وتنظيم المدن",
+  "addButton": "إضافة مدينة جديدة",
+  "searchPlaceholder": "بحث...",
+  "loading": "جار التحميل...",
+  "noData": "لا توجد بيانات",
+  "stats": {
+    "totalCities": "إجمالي المدن",
+    "activeCities": "المدن النشطة",
+    "newThisMonth": "جديد هذا الشهر"
+  },
+  "table": {
+    "id": "المعرف",
+    "name": "اسم المدينة",
+    "erpCode": "كود ERP",
+    "countryName": "اسم الدولة",
+    "createdDate": "تاريخ الإنشاء",
+    "createdBy": "تم الإنشاء بواسطة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "صفحة {{current}} / {{total}}"
+  },
+  "form": {
+    "editCity": "تعديل المدينة",
+    "addCity": "إضافة مدينة جديدة",
+    "editDescription": "تعديل تفاصيل المدينة",
+    "addDescription": "إدخال تفاصيل مدينة جديدة",
+    "name": "اسم المدينة",
+    "namePlaceholder": "أدخل اسم المدينة",
+    "country": "الدولة",
+    "selectCountry": "اختر الدولة",
+    "erpCode": "كود ERP",
+    "erpCodePlaceholder": "أدخل كود ERP (اختياري)",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جار الحفظ...",
+    "nameRequired": "اسم المدينة مطلوب",
+    "nameMaxLength": "اسم المدينة لا يمكن أن يتجاوز 100 حرف",
+    "erpCodeMaxLength": "كود ERP لا يمكن أن يتجاوز 10 أحرف",
+    "countryRequired": "اختيار الدولة مطلوب"
+  },
+  "actions": "إجراءات",
+  "delete": {
+    "button": "حذف",
+    "confirmTitle": "حذف المدينة",
+    "confirmMessage": "هل أنت متأكد من حذف {{name}}؟"
+  },
+  "previous": "السابق",
+  "next": "التالي"
+}

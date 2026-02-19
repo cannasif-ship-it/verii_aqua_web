@@ -1,0 +1,10 @@
+{
+  "title": "Sélectionner Produit",
+  "description": "Sélectionnez le produit à ajouter à la ligne de devis",
+  "product": "PRODUIT",
+  "noProducts": "Aucun produit trouvé",
+  "noResults": "Aucun résultat de recherche trouvé",
+  "searchPlaceholder": "Rechercher par code produit ou nom...",
+  "voiceSearch": "Recherche vocale",
+  "loading": "Chargement"
+}

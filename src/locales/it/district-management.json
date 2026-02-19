@@ -1,0 +1,51 @@
+{
+  "menu": "Gestione Distretti",
+  "description": "Gestisci e modifica i distretti",
+  "addButton": "Aggiungi Nuovo Distretto",
+  "listTitle": "Elenco Distretti",
+  "listDescription": "Puoi gestire tutti i distretti registrati nel sistema qui.",
+  "loading": "Caricamento...",
+  "noData": "Nessun dato",
+  "actions": "Azioni",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "cancel": "Annulla",
+  "delete": "Elimina",
+  "save": "Salva",
+  "saving": "Salvataggio...",
+  "table": {
+    "id": "ID",
+    "name": "Nome Distretto",
+    "erpCode": "Codice ERP",
+    "cityName": "Nome Città",
+    "createdDate": "Data Creazione",
+    "createdBy": "Creato Da",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "page": "Pagina {{current}} / {{total}}"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "Elimina Distretto",
+    "confirmMessage": "Sei sicuro di voler eliminare il distretto {{name}}?"
+  },
+  "form": {
+    "editDistrict": "Modifica Distretto",
+    "addDistrict": "Aggiungi Nuovo Distretto",
+    "editDescription": "Modifica informazioni distretto",
+    "addDescription": "Inserisci informazioni nuovo distretto",
+    "name": "Nome Distretto",
+    "namePlaceholder": "Inserisci nome distretto",
+    "city": "Città",
+    "selectCity": "Seleziona città",
+    "erpCode": "Codice ERP",
+    "erpCodePlaceholder": "Inserisci codice ERP (opzionale)",
+    "nameRequired": "Il nome del distretto è obbligatorio",
+    "nameMaxLength": "Il nome del distretto non può superare 100 caratteri",
+    "erpCodeMaxLength": "Il codice ERP non può superare 10 caratteri",
+    "cityRequired": "La selezione della città è obbligatoria"
+  },
+  "stats": {
+    "totalDistricts": "Distretti Totali",
+    "activeDistricts": "Distretti Attivi",
+    "newThisMonth": "Nuovi questo Mese"
+  }
+}

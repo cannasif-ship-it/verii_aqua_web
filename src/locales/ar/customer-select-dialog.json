@@ -1,0 +1,26 @@
+{
+  "title": "اختر العميل",
+  "description": "اختر علامة تبويب واختر عميلاً من القائمة",
+  "erpCustomers": "عملاء ERP",
+  "crmCustomers": "عملاء AQUA",
+  "allCustomers": "الكل",
+  "erp": "عملاء ERP",
+  "crm": "إدارة علاقات العملاء",
+  "noErpCustomers": "لم يتم العثور على عملاء ERP",
+  "noCrmCustomers": "لم يتم العثور على عملاء AQUA",
+  "noCustomers": "لم يتم العثور على عملاء",
+  "noResults": "لم يتم العثور على نتائج بحث",
+  "searchPlaceholder": "البحث بالاسم أو الرمز...",
+  "voiceSearch": "البحث الصوتي",
+  "loading": "جاري التحميل",
+  "table": {
+    "type": "النوع",
+    "customerCode": "رمز العميل",
+    "customerName": "اسم العميل",
+    "phone": "الهاتف",
+    "city": "المدينة",
+    "email": "البريد الإلكتروني"
+  },
+  "potentialCustomers": "Potential",
+  "noPotentialCustomers": "No potential customers found"
+}

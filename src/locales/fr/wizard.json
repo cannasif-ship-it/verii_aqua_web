@@ -1,0 +1,13 @@
+{
+  "buttons": {
+    "back": "Retour",
+    "next": "Suivant",
+    "complete": "Enregistrer et Envoyer pour Approbation"
+  },
+  "validation": {
+    "error": "Erreur de Validation"
+  },
+  "step": {
+    "unknown": "Étape Inconnue"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "menu": "Country Management",
+  "description": "Manage and edit countries",
+  "addButton": "Add New Country",
+  "search": "Search...",
+  "loading": "Loading...",
+  "noData": "No data found",
+  "actions": "Actions",
+  "previous": "Previous",
+  "next": "Next",
+  "deleteConfirmTitle": "Delete Confirmation",
+  "cancel": "Cancel",
+  "deleting": "Deleting...",
+  "delete": "Delete",
+  "saving": "Saving...",
+  "save": "Save",
+  "stats": {
+    "totalCountries": "Total Countries",
+    "activeCountries": "Active Countries",
+    "newThisMonth": "New This Month"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Country Name",
+    "code": "Code",
+    "erpCode": "ERP Code",
+    "createdDate": "Created Date",
+    "createdBy": "Created By",
+    "showing": "Showing {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "addCountry": "Add New Country",
+    "editCountry": "Edit Country",
+    "addDescription": "Enter new country information",
+    "editDescription": "Edit country information",
+    "name": "Country Name",
+    "namePlaceholder": "Enter country name",
+    "code": "Country Code",
+    "codePlaceholder": "Enter country code (e.g. TR, US)",
+    "erpCode": "ERP Code",
+    "erpCodePlaceholder": "Enter ERP code (optional)",
+    "nameRequired": "Country name is required",
+    "nameMaxLength": "Country name cannot exceed 100 characters",
+    "codeMinLength": "Country code must be at least 2 characters",
+    "codeMaxLength": "Country code cannot exceed 5 characters",
+    "erpCodeMaxLength": "ERP code cannot exceed 10 characters"
+  },
+  "deleteConfirm": {
+    "confirmMessage": "Are you sure you want to delete {{name}}?"
+  }
+}

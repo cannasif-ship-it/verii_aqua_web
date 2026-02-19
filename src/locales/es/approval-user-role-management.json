@@ -1,0 +1,46 @@
+{
+  "approvalUserRole": {
+    "menu": "Gestión de roles de usuario de aprobación",
+    "description": "Gestione y edite los roles de usuario de aprobación",
+    "addButton": "Agregar nuevo rol",
+    "searchPlaceholder": "Buscar...",
+    "refresh": "Actualizar",
+    "loading": "Cargando...",
+    "noData": "Sin datos",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "userFullName": "Usuario",
+      "approvalRoleName": "Rol de aprobación",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "actions": "Acciones",
+      "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+      "page": "Página {{current}} / {{total}}",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "delete": {
+      "title": "Eliminar rol",
+      "confirmMessage": "¿Seguro que desea eliminar este rol de usuario?",
+      "confirmButton": "Eliminar",
+      "cancelButton": "Cancelar"
+    },
+    "form": {
+      "editTitle": "Editar rol de usuario de aprobación",
+      "addTitle": "Agregar nuevo rol de usuario de aprobación",
+      "editDescription": "Edite la información del rol de usuario de aprobación",
+      "addDescription": "Ingrese la información del nuevo rol de usuario de aprobación",
+      "userId": "Usuario",
+      "selectUser": "Seleccione usuario",
+      "noUserSelected": "No se seleccionó usuario",
+      "approvalRoleId": "Rol de aprobación",
+      "selectApprovalRole": "Seleccione rol de aprobación",
+      "noApprovalRoleSelected": "No se seleccionó rol de aprobación",
+      "userIdRequired": "La selección de usuario es obligatoria",
+      "approvalRoleIdRequired": "La selección del rol de aprobación es obligatoria",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "cancel": "Cancelar"
+    }
+  }
+}

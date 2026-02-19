@@ -1,0 +1,56 @@
+{
+  "menu": "Gestión de Tipos de Cliente",
+  "description": "Gestionar y editar tipos de cliente",
+  "addButton": "Añadir Nuevo Tipo de Cliente",
+  "loading": "Cargando...",
+  "noData": "No se encontraron datos",
+  "actions": "Acciones",
+  "previous": "Anterior",
+  "next": "Siguiente",
+  "stats": {
+    "totalCustomerTypes": "Total de Tipos de Cliente",
+    "activeCustomerTypes": "Tipos de Cliente Activos",
+    "newThisMonth": "Nuevos este Mes"
+  },
+  "table": {
+    "id": "IDENTIFICACIÓN",
+    "name": "Nombre del Tipo de Cliente",
+    "description": "Descripción",
+    "createdDate": "Fecha de Creación",
+    "createdBy": "Creado Por",
+    "updatedDate": "Fecha de Actualización",
+    "updatedBy": "Actualizado Por",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "page": "Página {{current}} / {{total}}"
+  },
+  "form": {
+    "addCustomerType": "Añadir Nuevo Tipo de Cliente",
+    "editCustomerType": "Editar Tipo de Cliente",
+    "addDescription": "Introducir información del nuevo tipo de cliente",
+    "editDescription": "Editar información del tipo de cliente",
+    "name": "Nombre del Tipo de Cliente",
+    "namePlaceholder": "Introducir nombre del tipo de cliente",
+    "nameRequired": "El nombre del tipo de cliente es obligatorio",
+    "nameMaxLength": "El nombre del tipo de cliente debe tener como máximo 100 caracteres",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Introducir descripción (opcional)",
+    "descriptionMaxLength": "La descripción debe tener como máximo 500 caracteres",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando..."
+  },
+  "delete": {
+    "confirmTitle": "Eliminar Tipo de Cliente",
+    "confirmMessage": "¿Está seguro de que desea eliminar el tipo de cliente {{name}}?",
+    "confirmButton": "Eliminar",
+    "deleting": "Eliminando..."
+  },
+  "messages": {
+    "createSuccess": "Tipo de cliente creado con éxito",
+    "createError": "No se pudo crear el tipo de cliente",
+    "updateSuccess": "Tipo de cliente actualizado con éxito",
+    "updateError": "No se pudo actualizar el tipo de cliente",
+    "deleteSuccess": "Tipo de cliente eliminado con éxito",
+    "deleteError": "No se pudo eliminar el tipo de cliente"
+  }
+}

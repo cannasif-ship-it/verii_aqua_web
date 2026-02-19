@@ -1,0 +1,170 @@
+{
+  "loading": "Caricamento...",
+  "saving": "Salvataggio...",
+  "error": "Errore",
+  "noData": "Nessun dato trovato",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "actions": "Azioni",
+  "edit": "Modifica",
+  "delete": "Elimina",
+  "back": "Indietro",
+  "refresh": "Aggiorna",
+  "select": "Seleziona",
+  "yes": "Sì",
+  "add": "Aggiungi",
+  "backToQuotations": "Torna alle Richieste",
+  "cancel": "Annulla",
+  "save": "Salva",
+  "confirm": "Conferma",
+  "saveAndApply": "Salva e Applica",
+  "list": {
+    "revise": "Revisiona",
+    "showing": "Visualizzazione {{from}}-{{to}} / {{total}}",
+    "title": "Elenco Richieste",
+    "description": "Visualizza e gestisci tutte le richieste",
+    "createNew": "Crea Nuova Richiesta",
+    "searchPlaceholder": "Cerca per n. richiesta o nome cliente..."
+  },
+  "detail": {
+    "title": "Dettaglio Richiesta"
+  },
+  "create": {
+    "title": "Crea Nuova Richiesta",
+    "submit": "Salva Richiesta e Invia per Approvazione",
+    "success": "Richiesta Creata con Successo",
+    "successMessage": "La richiesta è stata inviata al processo di approvazione.",
+    "error": "Impossibile Creare la Richiesta",
+    "errorMessage": "Si è verificato un errore durante la creazione della richiesta."
+  },
+  "header": {
+    "title": "Informazioni Richiesta",
+    "customer": "Cliente",
+    "selectCustomer": "Seleziona cliente",
+    "shippingAddress": "Indirizzo di Spedizione",
+    "selectShippingAddress": "Seleziona indirizzo di spedizione",
+    "representative": "Rappresentante Vendite",
+    "selectRepresentative": "Seleziona rappresentante",
+    "offerType": "Tipo di Richiesta",
+    "selectOfferType": "Seleziona tipo di richiesta",
+    "currency": "Valuta",
+    "selectCurrency": "Si prega di selezionare la valuta",
+    "showExchangeRates": "Mostra Tassi di Cambio",
+    "offerDate": "Data Richiesta",
+    "deliveryDate": "Data di Consegna",
+    "paymentType": "Tipo di Pagamento",
+    "selectPaymentType": "Seleziona tipo di pagamento",
+    "description": "Descrizione",
+    "descriptionPlaceholder": "Inserisci descrizione",
+    "offerNo": "N. Richiesta",
+    "offerNoPlaceholder": "Numero richiesta",
+    "currencyChange": {
+      "title": "Cambio Valuta",
+      "message": "Quando la valuta cambia, tutte le righe esistenti verranno ricalcolate in base alla nuova valuta. Approvi questa operazione?"
+    }
+  },
+  "lines": {
+    "title": "Righe Richiesta",
+    "add": "Aggiungi Riga",
+    "empty": "Nessuna riga aggiunta ancora",
+    "emptyDescription": "Usa il pulsante \"Seleziona Stock\" o \"Aggiungi Riga\" per aggiungere righe alla richiesta",
+    "itemCount": "riga",
+    "editLine": "Modifica Riga",
+    "selectStock": "Seleziona Stock",
+    "selectProduct": "Seleziona Prodotto",
+    "selectStockFirst": "Stock non selezionato",
+    "stock": "Stock",
+    "productCode": "Codice Stock",
+    "enterProductCode": "Inserisci codice prodotto o cerca",
+    "productName": "Nome Stock",
+    "enterProductName": "Inserisci nome prodotto",
+    "quantity": "Quantità",
+    "unitPrice": "Prezzo Unitario",
+    "discount1": "Sconto 1 %",
+    "discount2": "Sconto 2 %",
+    "discount3": "Sconto 3 %",
+    "discounts": "Sconti",
+    "discountAmount": "Importo Sconto",
+    "netPrice": "Prezzo Netto",
+    "vatRate": "Aliquota IVA %",
+    "lineTotal": "Totale Riga (IVA Inclusa)",
+    "calculations": "Calcoli",
+    "required": "Deve essere aggiunta almeno 1 riga",
+    "noProductsFound": "Nessun prodotto trovato",
+    "delete": {
+      "confirmTitle": "Elimina Riga",
+      "confirmMessage": "Sei sicuro di voler eliminare questa riga?"
+    }
+  },
+  "exchangeRates": {
+    "title": "Tassi di Cambio",
+    "currency": "Valuta",
+    "rate": "Tasso",
+    "date": "Data Tasso",
+    "isOfficial": "Tasso Ufficiale",
+    "official": "Ufficiale",
+    "custom": "Personalizzato",
+    "empty": "Nessun tasso di cambio trovato",
+    "status": "Stato",
+    "dialog": {
+      "title": "Tassi di Cambio",
+      "description": "Visualizza e modifica i valori dei tassi di cambio se necessario. I tassi modificati non saranno contrassegnati come tassi ufficiali."
+    }
+  },
+  "summary": {
+    "title": "Riepilogo",
+    "subtotal": "Subtotale",
+    "totalVat": "Totale IVA",
+    "grandTotal": "Totale Generale"
+  },
+  "offerType": {
+    "domestic": "Nazionale",
+    "export": "Estero"
+  },
+  "wizard": {
+    "title": "Crea Nuova Richiesta",
+    "step1": {
+      "title": "Passo 1: Informazioni Richiesta",
+      "description": "Inserisci le informazioni di intestazione della richiesta e i tassi di cambio",
+      "validation": {
+        "offerType": "Tipo di Richiesta",
+        "currency": "Valuta",
+        "exchangeRate": "Tasso di Cambio"
+      },
+      "exchangeRate": {
+        "required": "Deve essere aggiunto almeno un tasso di cambio per le valute diverse da TRY"
+      },
+      "currency": {
+        "try": {
+          "info": "Il tasso di cambio non è richiesto quando è selezionato TRY"
+        }
+      }
+    },
+    "step2": {
+      "title": "Passo 2: Righe Richiesta",
+      "description": "Aggiungi informazioni su prodotti e prezzi",
+      "info": "Devi aggiungere almeno una riga",
+      "validation": {
+        "noLines": "Deve essere aggiunta almeno una riga",
+        "invalidLines": "Tutte le righe devono avere informazioni valide",
+        "allValid": "{{count}} righe aggiunte con successo"
+      }
+    },
+    "step3": {
+      "title": "Passo 3: Riepilogo e Approvazione",
+      "description": "Rivedi le informazioni e salva la richiesta",
+      "header": {
+        "title": "Informazioni Richiesta"
+      },
+      "lines": {
+        "title": "Righe Richiesta"
+      },
+      "summary": {
+        "title": "Riepilogo Finale"
+      },
+      "approval": {
+        "info": "La richiesta verrà inviata automaticamente al processo di approvazione dopo il salvataggio"
+      }
+    }
+  }
+}

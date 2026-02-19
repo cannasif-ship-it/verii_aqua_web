@@ -1,0 +1,13 @@
+{
+  "title": "Bağlı Stokları Seçin",
+  "description": "Ana stok ile birlikte eklemek istediğiniz bağlı stokları seçin. Zorunlu stoklar otomatik olarak seçilidir.",
+  "mandatoryStocks": "Zorunlu Stoklar",
+  "optionalStocks": "Opsiyonel Stoklar",
+  "unknownStock": "Bilinmeyen Stok",
+  "quantity": "Miktar",
+  "mandatory": "Zorunlu",
+  "noRelatedStocks": "Bağlı stok bulunamadı",
+  "cancel": "İptal",
+  "add": "Ekle",
+  "calculating": "Hesaplanıyor..."
+}

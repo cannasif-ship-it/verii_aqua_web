@@ -1,0 +1,21 @@
+{
+  "title": "Selección de Producto",
+  "searchPlaceholder": "Buscar producto...",
+  "select": "Seleccionar",
+  "cancel": "Cancelar",
+  "columns": {
+    "code": "Código",
+    "name": "Nombre",
+    "description": "Descripción",
+    "price": "Precio",
+    "currency": "Moneda",
+    "stock": "Stock"
+  },
+  "noData": "No se encontraron productos",
+  "loading": "Cargando",
+  "description": "Seleccione productos del ERP para agregar a su pedido",
+  "product": "Producto",
+  "noProducts": "No hay productos",
+  "noResults": "No se encontraron resultados",
+  "voiceSearch": "Búsqueda por voz"
+}

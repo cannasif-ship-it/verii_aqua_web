@@ -1,0 +1,55 @@
+{
+  "title": "Ödeme Tipi Yönetimi",
+  "headerDescription": "Ödeme tiplerini yönetin ve düzenleyin",
+  "create": "Yeni Ödeme Tipi",
+  "edit": "Ödeme Tipi Düzenle",
+  "editDescription": "Ödeme tipi bilgilerini düzenleyin",
+  "createDescription": "Yeni ödeme tipi bilgilerini girin",
+  "delete": "Sil",
+  "deleteTitle": "Ödeme Tipini Sil",
+  "name": "Ad",
+  "namePlaceholder": "Ödeme tipi adını girin",
+  "description": "Açıklama",
+  "descriptionPlaceholder": "Açıklama girin (opsiyonel)",
+  "createdDate": "Oluşturulma Tarihi",
+  "updatedDate": "Güncellenme Tarihi",
+  "actions": "İşlemler",
+  "search": "Ara",
+  "refresh": "Yenile",
+  "loading": "Yükleniyor...",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "advancedFilter": {
+    "columnName": "Ad",
+    "columnDescription": "Açıklama"
+  },
+  "cancel": "İptal",
+  "save": "Kaydet",
+  "saving": "Kaydediliyor...",
+  "noData": "Veri bulunamadı",
+  "confirmDelete": "Bu ödeme tipini silmek istediğinizden emin misiniz?",
+  "createSuccess": "Ödeme tipi başarıyla oluşturuldu",
+  "updateSuccess": "Ödeme tipi başarıyla güncellendi",
+  "deleteSuccess": "Ödeme tipi başarıyla silindi",
+  "createError": "Ödeme tipi oluşturulurken bir hata oluştu",
+  "updateError": "Ödeme tipi güncellenirken bir hata oluştu",
+  "deleteError": "Ödeme tipi silinirken bir hata oluştu",
+  "table": {
+    "id": "ID",
+    "name": "Ad",
+    "description": "Açıklama",
+    "createdDate": "Oluşturulma Tarihi",
+    "updatedDate": "Güncellenme Tarihi",
+    "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+    "page": "Sayfa {{current}} / {{total}}"
+  },
+  "form": {
+    "name": {
+      "required": "Ad zorunludur",
+      "maxLength": "Ad en fazla 100 karakter olabilir"
+    },
+    "description": {
+      "maxLength": "Açıklama en fazla 500 karakter olabilir"
+    }
+  }
+}

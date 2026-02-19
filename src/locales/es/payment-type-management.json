@@ -1,0 +1,64 @@
+{
+  "title": "Gestión de tipos de pago",
+  "description": "Descripción",
+  "create": "Nuevo tipo de pago",
+  "edit": "Editar tipo de pago",
+  "delete": "Eliminar",
+  "table": {
+    "id": "IDENTIFICACIÓN",
+    "name": "Nombre",
+    "code": "Código",
+    "description": "Descripción",
+    "isActive": "Activo",
+    "actions": "Acciones",
+    "createdDate": "Fecha de creación",
+    "updatedDate": "Fecha de actualización",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "page": "Página {{current}} / {{total}}"
+  },
+  "form": {
+    "name": {
+      "required": "El nombre es obligatorio",
+      "maxLength": "El nombre puede tener como máximo 100 caracteres"
+    },
+    "code": "Código",
+    "description": {
+      "maxLength": "La descripción puede tener como máximo 500 caracteres"
+    },
+    "isActive": "Activo",
+    "nameRequired": "El nombre es obligatorio",
+    "codeRequired": "El código es obligatorio"
+  },
+  "messages": {
+    "createSuccess": "Tipo de pago creado con éxito",
+    "updateSuccess": "Tipo de pago actualizado con éxito",
+    "deleteSuccess": "Tipo de pago eliminado con éxito",
+    "confirmDelete": "¿Está seguro de que desea eliminar este tipo de pago?"
+  },
+  "headerDescription": "Gestione y edite los tipos de pago",
+  "editDescription": "Edite la información del tipo de pago",
+  "createDescription": "Ingrese la información del nuevo tipo de pago",
+  "deleteTitle": "Eliminar tipo de pago",
+  "name": "Nombre",
+  "namePlaceholder": "Ingrese el nombre del tipo de pago",
+  "descriptionPlaceholder": "Ingrese una descripción (opcional)",
+  "createdDate": "Fecha de creación",
+  "updatedDate": "Fecha de actualización",
+  "actions": "Acciones",
+  "search": "Buscar",
+  "refresh": "Actualizar",
+  "loading": "Cargando...",
+  "previous": "Anterior",
+  "next": "Siguiente",
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "saving": "Guardando...",
+  "noData": "No se encontraron datos",
+  "confirmDelete": "¿Seguro que desea eliminar este tipo de pago?",
+  "createSuccess": "Tipo de pago creado correctamente",
+  "updateSuccess": "Tipo de pago actualizado correctamente",
+  "deleteSuccess": "Tipo de pago eliminado correctamente",
+  "createError": "Ocurrió un error al crear el tipo de pago",
+  "updateError": "Ocurrió un error al actualizar el tipo de pago",
+  "deleteError": "Ocurrió un error al eliminar el tipo de pago"
+}

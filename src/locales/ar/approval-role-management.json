@@ -1,0 +1,51 @@
+{
+  "approvalRole": {
+    "menu": "إدارة أدوار الموافقة",
+    "description": "إدارة وتنظيم أدوار الموافقة",
+    "addButton": "إضافة دور جديد",
+    "searchPlaceholder": "بحث...",
+    "refresh": "تحديث",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات",
+    "table": {
+      "id": "المعرف",
+      "approvalRoleGroupName": "مجموعة الأدوار",
+      "name": "اسم الدور",
+      "maxAmount": "الحد الأقصى للمبلغ",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "actions": "إجراءات",
+      "totalRecords": "إجمالي {{count}} سجل.",
+      "page": "صفحة {{current}} / {{total}}",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "delete": {
+      "confirmTitle": "تأكيد الحذف",
+      "confirmMessage": "هل أنت متأكد من أنك تريد حذف هذا السجل؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancelButton": "إلغاء",
+      "confirmButton": "حذف",
+      "deleting": "جاري الحذف..."
+    },
+    "form": {
+      "editTitle": "تعديل دور الموافقة",
+      "addTitle": "إضافة دور موافقة جديد",
+      "editDescription": "تعديل تفاصيل دور الموافقة",
+      "addDescription": "إدخال تفاصيل الدور الجديد",
+      "approvalRoleGroupId": "مجموعة أدوار الموافقة",
+      "selectApprovalRoleGroup": "اختر مجموعة الأدوار",
+      "noApprovalRoleGroupSelected": "لم يتم اختيار مجموعة أدوار",
+      "name": "اسم الدور",
+      "namePlaceholder": "أدخل اسم الدور",
+      "maxAmount": "الحد الأقصى للمبلغ",
+      "maxAmountPlaceholder": "أدخل الحد الأقصى للمبلغ",
+      "approvalRoleGroupIdRequired": "اختيار مجموعة الأدوار مطلوب",
+      "nameRequired": "اسم الدور مطلوب",
+      "nameMaxLength": "الاسم يمكن أن يكون بحد أقصى 100 حرف",
+      "maxAmountMin": "الحد الأقصى للمبلغ لا يمكن أن يكون أقل من 0",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جاري الحفظ..."
+    }
+  }
+}

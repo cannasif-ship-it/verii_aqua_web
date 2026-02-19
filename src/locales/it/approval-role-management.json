@@ -1,0 +1,51 @@
+{
+  "approvalRole": {
+    "menu": "Gestione Ruoli di Approvazione",
+    "description": "Gestisci e organizza i ruoli di approvazione",
+    "addButton": "Aggiungi Nuovo Ruolo",
+    "searchPlaceholder": "Cerca...",
+    "refresh": "Aggiorna",
+    "loading": "Caricamento...",
+    "noData": "Nessun dato",
+    "table": {
+      "id": "ID",
+      "approvalRoleGroupName": "Gruppo Ruoli",
+      "name": "Nome Ruolo",
+      "maxAmount": "Importo Massimo",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "actions": "Azioni",
+      "totalRecords": "Totale {{count}} record.",
+      "page": "Pagina {{current}} / {{total}}",
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "delete": {
+      "confirmTitle": "Conferma Eliminazione",
+      "confirmMessage": "Sei sicuro di voler eliminare questo record? Questa azione non può essere annullata.",
+      "cancelButton": "Annulla",
+      "confirmButton": "Elimina",
+      "deleting": "Eliminazione..."
+    },
+    "form": {
+      "editTitle": "Modifica Ruolo di Approvazione",
+      "addTitle": "Aggiungi Nuovo Ruolo di Approvazione",
+      "editDescription": "Modifica dettagli ruolo di approvazione",
+      "addDescription": "Inserisci dettagli nuovo ruolo",
+      "approvalRoleGroupId": "Gruppo Ruoli di Approvazione",
+      "selectApprovalRoleGroup": "Seleziona Gruppo Ruoli",
+      "noApprovalRoleGroupSelected": "Nessun gruppo selezionato",
+      "name": "Nome Ruolo",
+      "namePlaceholder": "Inserisci nome ruolo",
+      "maxAmount": "Importo Massimo",
+      "maxAmountPlaceholder": "Inserisci importo massimo",
+      "approvalRoleGroupIdRequired": "La selezione del gruppo è obbligatoria",
+      "nameRequired": "Il nome del ruolo è obbligatorio",
+      "nameMaxLength": "Il nome può avere max 100 caratteri",
+      "maxAmountMin": "L'importo massimo non può essere inferiore a 0",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saving": "Salvataggio..."
+    }
+  }
+}

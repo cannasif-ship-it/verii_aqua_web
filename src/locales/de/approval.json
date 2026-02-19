@@ -1,0 +1,85 @@
+{
+  "list": {
+    "title": "Ausstehende Genehmigungen",
+    "description": "View and approve or reject quotations assigned to you",
+    "empty": "Keine ausstehenden Genehmigungen",
+    "error": "Fehler beim Laden der Genehmigungen"
+  },
+  "yes": "Ja",
+  "no": "Nein",
+  "processing": "Verarbeitung...",
+  "detail": {
+    "title": "Angebotsdetails",
+    "description": "Beschreibung",
+    "tabs": {
+      "detail": "Detail",
+      "history": "Verlauf",
+      "action": "Aktion"
+    },
+    "notFound": "Angebot nicht gefunden",
+    "quotationInfo": "Angebotsinformationen",
+    "offerNo": "Angebotsnr.",
+    "customer": "Kunde",
+    "representative": "Vertreter",
+    "currency": "Währung",
+    "offerDate": "Angebotsdatum",
+    "deliveryDate": "Lieferdatum",
+    "total": "Gesamt",
+    "grandTotal": "Gesamtsumme",
+    "lines": "Angebotszeilen",
+    "productCode": "Produktcode",
+    "productName": "Produktname",
+    "quantity": "Menge",
+    "unitPrice": "Einzelpreis",
+    "lineTotal": "Zeilensumme",
+    "lineGrandTotal": "Zeilengesamtsumme",
+    "exchangeRates": "Wechselkurse",
+    "exchangeRate": "Kurs",
+    "exchangeRateDate": "Kursdatum",
+    "isOfficial": "Offizieller Kurs",
+    "subtitle": "View quotation details and perform actions"
+  },
+  "actions": {
+    "view": "Anzeigen",
+    "approve": "Genehmigen",
+    "reject": "Ablehnen"
+  },
+  "status": {
+    "notRequired": "Nicht erforderlich",
+    "waiting": "Wartend",
+    "approved": "Genehmigt",
+    "rejected": "Abgelehnt",
+    "closed": "Geschlossen"
+  },
+  "closedReason": "Dieser Datensatz wurde geschlossen, weil ein anderer Datensatz mit derselben Angebotsnummer genehmigt wurde.",
+  "statusFilterLabel": "Genehmigungsstatus",
+  "level": {
+    "salesManager": "Verkaufsleiter",
+    "regionalManager": "Regionalleiter",
+    "finance": "Finanzen",
+    "generalManager": "General Manager",
+    "unknown": "Unbekannt"
+  },
+  "note": {
+    "label": "Notiz",
+    "placeholder": "You can add an approval/rejection note (optional)",
+    "maxLength": "Notiz darf maximal 500 Zeichen lang sein"
+  },
+  "approve": {
+    "success": "Genehmigt",
+    "successMessage": "Angebot erfolgreich genehmigt",
+    "error": "Genehmigungsfehler",
+    "errorMessage": "Fehler beim Genehmigen des Angebots"
+  },
+  "reject": {
+    "success": "Abgelehnt",
+    "successMessage": "Angebot abgelehnt",
+    "error": "Ablehnungsfehler",
+    "errorMessage": "Fehler beim Ablehnen des Angebots"
+  },
+  "history": {
+    "empty": "Kein Genehmigungsverlauf",
+    "approvedBy": "Genehmigt von"
+  },
+  "assignedTo": "Zugewiesener Benutzer"
+}

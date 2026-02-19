@@ -1,0 +1,52 @@
+{
+  "menu": "Gestione Paesi",
+  "description": "Gestisci e modifica i paesi",
+  "addButton": "Aggiungi Nuovo Paese",
+  "search": "Cerca...",
+  "loading": "Caricamento...",
+  "noData": "Nessun dato trovato",
+  "actions": "Azioni",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "deleteConfirmTitle": "Conferma Eliminazione",
+  "cancel": "Annulla",
+  "deleting": "Eliminazione...",
+  "delete": "Elimina",
+  "saving": "Salvataggio...",
+  "save": "Salva",
+  "stats": {
+    "totalCountries": "Paesi Totali",
+    "activeCountries": "Paesi Attivi",
+    "newThisMonth": "Nuovi questo Mese"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Nome Paese",
+    "code": "Codice",
+    "erpCode": "Codice ERP",
+    "createdDate": "Data Creazione",
+    "createdBy": "Creato Da",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+    "page": "Pagina {{current}} / {{total}}"
+  },
+  "form": {
+    "addCountry": "Aggiungi Nuovo Paese",
+    "editCountry": "Modifica Paese",
+    "addDescription": "Inserisci informazioni nuovo paese",
+    "editDescription": "Modifica informazioni paese",
+    "name": "Nome Paese",
+    "namePlaceholder": "Inserisci nome paese",
+    "code": "Codice Paese",
+    "codePlaceholder": "Inserisci codice paese (es. IT, US)",
+    "erpCode": "Codice ERP",
+    "erpCodePlaceholder": "Inserisci codice ERP (opzionale)",
+    "nameRequired": "Il nome del paese è obbligatorio",
+    "nameMaxLength": "Il nome del paese non può superare 100 caratteri",
+    "codeMinLength": "Il codice paese deve essere di almeno 2 caratteri",
+    "codeMaxLength": "Il codice paese non può superare 5 caratteri",
+    "erpCodeMaxLength": "Il codice ERP non può superare 10 caratteri"
+  },
+  "deleteConfirm": {
+    "confirmMessage": "Sei sicuro di voler eliminare {{name}}?"
+  }
+}

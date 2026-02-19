@@ -1,0 +1,56 @@
+{
+  "menu": "إدارة أنواع العملاء",
+  "description": "إدارة وتحرير أنواع العملاء",
+  "addButton": "إضافة نوع عميل جديد",
+  "loading": "جاري التحميل...",
+  "noData": "لا توجد بيانات",
+  "actions": "إجراءات",
+  "previous": "السابق",
+  "next": "التالي",
+  "stats": {
+    "totalCustomerTypes": "إجمالي أنواع العملاء",
+    "activeCustomerTypes": "أنواع العملاء النشطة",
+    "newThisMonth": "جديد هذا الشهر"
+  },
+  "table": {
+    "id": "المعرف",
+    "name": "اسم نوع العميل",
+    "description": "الوصف",
+    "createdDate": "تاريخ الإنشاء",
+    "createdBy": "تم الإنشاء بواسطة",
+    "updatedDate": "تاريخ التحديث",
+    "updatedBy": "تم التحديث بواسطة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "صفحة {{current}} / {{total}}"
+  },
+  "form": {
+    "addCustomerType": "إضافة نوع عميل جديد",
+    "editCustomerType": "تحرير نوع العميل",
+    "addDescription": "أدخل معلومات نوع العميل الجديد",
+    "editDescription": "تحرير معلومات نوع العميل",
+    "name": "اسم نوع العميل",
+    "namePlaceholder": "أدخل اسم نوع العميل",
+    "nameRequired": "اسم نوع العميل مطلوب",
+    "nameMaxLength": "يجب أن يكون اسم نوع العميل 100 حرف كحد أقصى",
+    "description": "الوصف",
+    "descriptionPlaceholder": "أدخل الوصف (اختياري)",
+    "descriptionMaxLength": "يجب أن يكون الوصف 500 حرف كحد أقصى",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ..."
+  },
+  "delete": {
+    "confirmTitle": "حذف نوع العميل",
+    "confirmMessage": "هل أنت متأكد أنك تريد حذف نوع العميل {{name}}؟",
+    "confirmButton": "حذف",
+    "deleting": "جاري الحذف..."
+  },
+  "messages": {
+    "createSuccess": "تم إنشاء نوع العميل بنجاح",
+    "createError": "تعذر إنشاء نوع العميل",
+    "updateSuccess": "تم تحديث نوع العميل بنجاح",
+    "updateError": "تعذر تحديث نوع العميل",
+    "deleteSuccess": "تم حذف نوع العميل بنجاح",
+    "deleteError": "تعذر حذف نوع العميل"
+  }
+}

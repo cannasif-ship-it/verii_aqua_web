@@ -1,0 +1,74 @@
+{
+  "title": "Customer 360",
+  "notFound": "Customer not found",
+  "error": "An error occurred",
+  "retry": "Retry",
+  "currencyFilter": {
+    "label": "Currency",
+    "all": "All"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "analytics": "Analytics"
+  },
+  "kpi": {
+    "totalDemands": "Total Demands",
+    "totalQuotations": "Total Quotations",
+    "totalOrders": "Total Orders",
+    "openQuotations": "Open Quotations",
+    "openOrders": "Pending Orders"
+  },
+  "sections": {
+    "contacts": "Contacts",
+    "shippingAddresses": "Shipping Addresses",
+    "recentDemands": "Recent Demands",
+    "recentQuotations": "Recent Quotations",
+    "recentOrders": "Recent Orders",
+    "recentActivities": "Recent Activities",
+    "timeline": "Timeline"
+  },
+  "analytics": {
+    "error": "Could not load analytics data",
+    "last12MonthsOrderAmount": "Last 12 Months Order Amount",
+    "openQuotationAmount": "Open Quotation Amount",
+    "openOrderAmount": "Open Order Amount",
+    "activityCount": "Activity Count",
+    "lastActivityDate": "Last Activity Date"
+  },
+  "analyticsCharts": {
+    "demand": "Demand",
+    "quotation": "Quotation",
+    "order": "Order",
+    "last12MonthsOrderAmount": "Last 12 Months Order",
+    "openQuotationAmount": "Open Quotation",
+    "openOrderAmount": "Open Order",
+    "distributionTitle": "Distribution",
+    "monthlyTrendTitle": "Monthly Trend",
+    "amountComparisonTitle": "Amount Comparison"
+  },
+  "currencyTotals": {
+    "currency": "Currency",
+    "demandAmount": "Demand Amount",
+    "quotationAmount": "Quotation Amount",
+    "orderAmount": "Order Amount"
+  },
+  "revenueQuality": {
+    "title": "Revenue Quality",
+    "churnRisk": "Churn Risk",
+    "upsell": "Upsell Propensity",
+    "payment": "Payment Behavior",
+    "segment": "RFM Segment",
+    "ltv": "LTV"
+  },
+  "cohort": {
+    "title": "Cohort Retention",
+    "empty": "No cohort data",
+    "cohortKey": "Cohort"
+  },
+  "actions": {
+    "title": "Recommended Actions",
+    "empty": "No recommended actions",
+    "execute": "Execute"
+  },
+  "status": {}
+}

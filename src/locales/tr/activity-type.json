@@ -1,0 +1,59 @@
+{
+  "menu": "Aktivite Tipi Yönetimi",
+  "description": "Aktivite tiplerini yönetin ve düzenleyin",
+  "addButton": "Yeni Aktivite Tipi Ekle",
+  "loading": "Yükleniyor...",
+  "noData": "Veri yok",
+  "actions": "İşlemler",
+  "edit": "Düzenle",
+  "deleteButton": "Sil",
+  "cancel": "İptal",
+  "save": "Kaydet",
+  "saving": "Kaydediliyor...",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "advancedFilter": {
+    "columnName": "Aktivite Tipi Adı",
+    "columnDescription": "Açıklama",
+    "columnCreatedBy": "Oluşturan"
+  },
+  "form": {
+    "addTitle": "Yeni Aktivite Tipi Ekle",
+    "editTitle": "Aktivite Tipi Düzenle",
+    "addDescription": "Yeni aktivite tipi bilgilerini girin",
+    "editDescription": "Aktivite tipi bilgilerini düzenleyin",
+    "name": "Aktivite Tipi Adı",
+    "namePlaceholder": "Aktivite tipi adını girin",
+    "nameRequired": "Aktivite tipi adı zorunludur",
+    "nameMaxLength": "Aktivite tipi adı en fazla 100 karakter olabilir",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Açıklama girin (opsiyonel)",
+    "descriptionMaxLength": "Açıklama en fazla 500 karakter olabilir"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Aktivite Tipi Adı",
+    "description": "Açıklama",
+    "createdDate": "Oluşturulma Tarihi",
+    "createdBy": "Oluşturan Kullanıcı",
+    "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+    "page": "Sayfa {{current}} / {{total}}"
+  },
+  "stats": {
+    "totalActivityTypes": "Toplam Aktivite Tipi",
+    "activeActivityTypes": "Aktif Aktivite Tipi",
+    "newThisMonth": "Bu Ay Yeni"
+  },
+  "messages": {
+    "createSuccess": "Aktivite tipi başarıyla oluşturuldu",
+    "createError": "Aktivite tipi oluşturulamadı",
+    "updateSuccess": "Aktivite tipi başarıyla güncellendi",
+    "updateError": "Aktivite tipi güncellenemedi",
+    "deleteSuccess": "Aktivite tipi başarıyla silindi",
+    "deleteError": "Aktivite tipi silinemedi"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "Aktivite Tipini Sil",
+    "confirmMessage": "{{name}} aktivite tipini silmek istediğinizden emin misiniz?"
+  }
+}

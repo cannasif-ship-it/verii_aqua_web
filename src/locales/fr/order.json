@@ -1,0 +1,166 @@
+{
+  "loading": "Chargement...",
+  "saving": "Enregistrement...",
+  "error": "Erreur",
+  "noData": "Aucune donnée",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "actions": "Actions",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "back": "Retour",
+  "refresh": "Actualiser",
+  "select": "Sélectionner",
+  "yes": "Oui",
+  "confirm": "Confirmer",
+  "add": "Ajouter",
+  "backToOrders": "Retour aux Devis",
+  "cancel": "Annuler",
+  "save": "Enregistrer",
+  "saveAndApply": "Enregistrer et Appliquer",
+  "list": {
+    "revise": "Réviser",
+    "showing": "Affichage de {{from}} à {{to}} sur {{total}}"
+  },
+  "detail": {
+    "title": "Détail du Devis"
+  },
+  "create": {
+    "title": "Créer Nouveau Devis",
+    "submit": "Enregistrer et Envoyer pour Approbation",
+    "success": "Devis Créé avec Succès",
+    "successMessage": "Le devis a été envoyé au processus d'approbation.",
+    "error": "Échec de la Création du Devis",
+    "errorMessage": "Une erreur est survenue lors de la création du devis."
+  },
+  "header": {
+    "title": "Informations Devis",
+    "customer": "Client",
+    "selectCustomer": "Sélectionner client",
+    "shippingAddress": "Adresse de Livraison",
+    "selectShippingAddress": "Sélectionner adresse de livraison",
+    "representative": "Représentant Commercial",
+    "selectRepresentative": "Sélectionner représentant",
+    "offerType": "Type d'Offre",
+    "selectOfferType": "Sélectionner type d'offre",
+    "currency": "Devise",
+    "selectCurrency": "Veuillez sélectionner la devise",
+    "showExchangeRates": "Afficher Taux de Change",
+    "offerDate": "Date de l'Offre",
+    "deliveryDate": "Date de Livraison",
+    "paymentType": "Type de Paiement",
+    "selectPaymentType": "Sélectionner type de paiement",
+    "description": "Description",
+    "descriptionPlaceholder": "Entrer description",
+    "offerNo": "N° Offre",
+    "offerNoPlaceholder": "Numéro d'offre",
+    "currencyChange": {
+      "title": "Changement de Devise",
+      "message": "Lorsque la devise est modifiée, toutes les lignes existantes seront recalculées en fonction de la nouvelle devise. Confirmez-vous cette opération ?"
+    }
+  },
+  "lines": {
+    "title": "Lignes de Devis",
+    "add": "Ajouter Ligne",
+    "empty": "Aucune ligne ajoutée pour le moment",
+    "emptyDescription": "Utilisez le bouton \"Sélectionner Stock\" ou \"Ajouter Ligne\" pour ajouter des lignes de devis",
+    "itemCount": "articles",
+    "editLine": "Modifier Ligne",
+    "selectStock": "Sélectionner Stock",
+    "selectProduct": "Sélectionner Produit",
+    "selectStockFirst": "Aucun stock sélectionné",
+    "stock": "Stock",
+    "productCode": "Code Stock",
+    "enterProductCode": "Entrer code produit ou rechercher",
+    "productName": "Nom Stock",
+    "enterProductName": "Entrer nom produit",
+    "quantity": "Quantité",
+    "unitPrice": "Prix Unitaire",
+    "discount1": "Remise 1 %",
+    "discount2": "Remise 2 %",
+    "discount3": "Remise 3 %",
+    "discounts": "Remises",
+    "discountAmount": "Montant Remise",
+    "netPrice": "Prix Net",
+    "vatRate": "Taux TVA %",
+    "lineTotal": "Total Ligne (TTC)",
+    "calculations": "Calculs",
+    "required": "Au moins 1 ligne doit être ajoutée",
+    "noProductsFound": "Aucun produit trouvé",
+    "delete": {
+      "confirmTitle": "Supprimer Ligne",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer cette ligne ?"
+    }
+  },
+  "exchangeRates": {
+    "title": "Taux de Change",
+    "currency": "Devise",
+    "rate": "Taux",
+    "date": "Date Taux",
+    "isOfficial": "Taux Officiel",
+    "official": "Officiel",
+    "custom": "Personnalisé",
+    "empty": "Aucun taux trouvé",
+    "status": "Statut",
+    "dialog": {
+      "title": "Taux de Change",
+      "description": "Voir les valeurs de taux et modifier si nécessaire. Les taux modifiés ne seront pas marqués comme taux officiels."
+    }
+  },
+  "summary": {
+    "title": "Résumé",
+    "subtotal": "Sous-total",
+    "totalVat": "Total TVA",
+    "grandTotal": "Total Général"
+  },
+  "offerType": {
+    "domestic": "National",
+    "export": "Export"
+  },
+  "wizard": {
+    "title": "Créer Nouveau Devis",
+    "step1": {
+      "title": "Étape 1 : Informations Devis",
+      "description": "Entrer les données d'en-tête de l'offre et les taux de change",
+      "validation": {
+        "offerType": "Type d'Offre",
+        "currency": "Devise",
+        "exchangeRate": "Taux de Change"
+      },
+      "exchangeRate": {
+        "required": "Pour les devises autres que TRY, au moins un taux de change doit être ajouté"
+      },
+      "currency": {
+        "try": {
+          "info": "Lorsque TRY est sélectionné, aucun taux de change n'est requis"
+        }
+      }
+    },
+    "step2": {
+      "title": "Étape 2 : Lignes de Devis",
+      "description": "Ajouter informations produit et prix",
+      "info": "Vous devez ajouter au moins une ligne",
+      "validation": {
+        "noLines": "Au moins une ligne doit être ajoutée",
+        "invalidLines": "Toutes les lignes doivent avoir des informations valides",
+        "allValid": "{{count}} lignes ajoutées avec succès"
+      }
+    },
+    "step3": {
+      "title": "Étape 3 : Résumé et Approbation",
+      "description": "Vérifier les informations et enregistrer l'offre",
+      "header": {
+        "title": "Informations Devis"
+      },
+      "lines": {
+        "title": "Lignes de Devis"
+      },
+      "summary": {
+        "title": "Résumé Final"
+      },
+      "approval": {
+        "info": "Après l'enregistrement, l'offre sera automatiquement envoyée au processus d'approbation"
+      }
+    }
+  }
+}

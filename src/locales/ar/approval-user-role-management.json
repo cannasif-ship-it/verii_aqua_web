@@ -1,0 +1,46 @@
+{
+  "approvalUserRole": {
+    "menu": "إدارة أدوار مستخدمي الموافقة",
+    "description": "إدارة وتنظيم أدوار مستخدمي الموافقة",
+    "addButton": "إضافة دور جديد",
+    "searchPlaceholder": "بحث...",
+    "refresh": "تحديث",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات",
+    "table": {
+      "id": "المعرف",
+      "userFullName": "المستخدم",
+      "approvalRoleName": "دور الموافقة",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "actions": "إجراءات",
+      "showing": "عرض {{from}}-{{to}} / {{total}}",
+      "page": "صفحة {{current}} / {{total}}",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "delete": {
+      "title": "حذف الدور",
+      "confirmMessage": "هل أنت متأكد من أنك تريد حذف دور المستخدم هذا؟",
+      "confirmButton": "حذف",
+      "cancelButton": "إلغاء"
+    },
+    "form": {
+      "editTitle": "تعديل دور المستخدم",
+      "addTitle": "إضافة دور مستخدم جديد",
+      "editDescription": "تعديل معلومات دور المستخدم",
+      "addDescription": "إدخال معلومات دور المستخدم الجديد",
+      "userId": "المستخدم",
+      "selectUser": "اختر المستخدم",
+      "noUserSelected": "لم يتم اختيار مستخدم",
+      "approvalRoleId": "دور الموافقة",
+      "selectApprovalRole": "اختر دور الموافقة",
+      "noApprovalRoleSelected": "لم يتم اختيار دور",
+      "userIdRequired": "اختيار المستخدم مطلوب",
+      "approvalRoleIdRequired": "اختيار دور الموافقة مطلوب",
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "cancel": "إلغاء"
+    }
+  }
+}

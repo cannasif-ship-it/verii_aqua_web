@@ -1,0 +1,56 @@
+{
+  "menu": "Gestion des Types de Clients",
+  "description": "Gérer et éditer les types de clients",
+  "addButton": "Ajouter un Nouveau Type de Client",
+  "loading": "Chargement...",
+  "noData": "Aucune donnée trouvée",
+  "actions": "Actions",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "stats": {
+    "totalCustomerTypes": "Total Types de Clients",
+    "activeCustomerTypes": "Types de Clients Actifs",
+    "newThisMonth": "Nouveaux ce Mois"
+  },
+  "table": {
+    "id": "IDENTIFIANT",
+    "name": "Nom du Type de Client",
+    "description": "Description",
+    "createdDate": "Date de Création",
+    "createdBy": "Créé Par",
+    "updatedDate": "Date de Mise à Jour",
+    "updatedBy": "Mis à Jour Par",
+    "showing": "Affichage de {{from}}-{{to}} / {{total}}",
+    "page": "Page {{current}} / {{total}}"
+  },
+  "form": {
+    "addCustomerType": "Ajouter un Nouveau Type de Client",
+    "editCustomerType": "Modifier le Type de Client",
+    "addDescription": "Entrez les informations du nouveau type de client",
+    "editDescription": "Modifier les informations du type de client",
+    "name": "Nom du Type de Client",
+    "namePlaceholder": "Entrer le nom du type de client",
+    "nameRequired": "Le nom du type de client est requis",
+    "nameMaxLength": "Le nom du type de client ne peut pas dépasser 100 caractères",
+    "description": "Description",
+    "descriptionPlaceholder": "Entrer une description (optionnel)",
+    "descriptionMaxLength": "La description ne peut pas dépasser 500 caractères",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement..."
+  },
+  "delete": {
+    "confirmTitle": "Supprimer le Type de Client",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type de client {{name}} ?",
+    "confirmButton": "Supprimer",
+    "deleting": "Suppression..."
+  },
+  "messages": {
+    "createSuccess": "Type de client créé avec succès",
+    "createError": "Échec de la création du type de client",
+    "updateSuccess": "Type de client mis à jour avec succès",
+    "updateError": "Échec de la mise à jour du type de client",
+    "deleteSuccess": "Type de client supprimé avec succès",
+    "deleteError": "Échec de la suppression du type de client"
+  }
+}

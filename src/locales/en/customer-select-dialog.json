@@ -1,0 +1,26 @@
+{
+  "title": "Select Customer",
+  "description": "Select a tab and choose a customer from the list",
+  "erpCustomers": "ERP",
+  "crmCustomers": "AQUA Customers",
+  "potentialCustomers": "Potential",
+  "allCustomers": "All",
+  "erp": "ERP",
+  "crm": "AQUA",
+  "noErpCustomers": "No ERP customers found",
+  "noCrmCustomers": "No AQUA customers found",
+  "noPotentialCustomers": "No potential customers found",
+  "noCustomers": "No customers found",
+  "noResults": "No search results found",
+  "searchPlaceholder": "Search by name or code...",
+  "voiceSearch": "Voice search",
+  "loading": "Loading",
+  "table": {
+    "type": "Type",
+    "customerCode": "Customer Code",
+    "customerName": "Customer Name",
+    "phone": "Phone",
+    "city": "City",
+    "email": "Email"
+  }
+}

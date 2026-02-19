@@ -1,0 +1,51 @@
+{
+  "menu": "إدارة المناطق",
+  "description": "إدارة وتعديل المناطق",
+  "addButton": "إضافة منطقة جديدة",
+  "listTitle": "قائمة المناطق",
+  "listDescription": "يمكنك إدارة جميع المناطق المسجلة في النظام هنا.",
+  "loading": "جار التحميل...",
+  "noData": "لا توجد بيانات",
+  "actions": "إجراءات",
+  "previous": "السابق",
+  "next": "التالي",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "save": "حفظ",
+  "saving": "جار الحفظ...",
+  "table": {
+    "id": "المعرف",
+    "name": "اسم المنطقة",
+    "erpCode": "كود ERP",
+    "cityName": "اسم المدينة",
+    "createdDate": "تاريخ الإنشاء",
+    "createdBy": "تم الإنشاء بواسطة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "صفحة {{current}} / {{total}}"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "حذف المنطقة",
+    "confirmMessage": "هل أنت متأكد من حذف المنطقة {{name}}؟"
+  },
+  "form": {
+    "editDistrict": "تعديل المنطقة",
+    "addDistrict": "إضافة منطقة جديدة",
+    "editDescription": "تعديل معلومات المنطقة",
+    "addDescription": "إدخال معلومات منطقة جديدة",
+    "name": "اسم المنطقة",
+    "namePlaceholder": "أدخل اسم المنطقة",
+    "city": "المدينة",
+    "selectCity": "اختر المدينة",
+    "erpCode": "كود ERP",
+    "erpCodePlaceholder": "أدخل كود ERP (اختياري)",
+    "nameRequired": "اسم المنطقة مطلوب",
+    "nameMaxLength": "اسم المنطقة لا يمكن أن يتجاوز 100 حرف",
+    "erpCodeMaxLength": "كود ERP لا يمكن أن يتجاوز 10 أحرف",
+    "cityRequired": "اختيار المدينة مطلوب"
+  },
+  "stats": {
+    "totalDistricts": "إجمالي المناطق",
+    "activeDistricts": "المناطق النشطة",
+    "newThisMonth": "جديد هذا الشهر"
+  }
+}

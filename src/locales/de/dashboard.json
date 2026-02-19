@@ -1,0 +1,75 @@
+{
+  "title": "Armaturenbrett",
+  "loading": "Wird geladen",
+  "stats": {
+    "totalRevenue": "Gesamtumsatz",
+    "activeOpportunities": "Aktive Verkaufschancen",
+    "newLeads": "Neue Interessenten",
+    "pendingOrders": "Ausstehende Bestellungen"
+  },
+  "salesAnalysis": "Verkaufsanalyse",
+  "targetVsActual": "Ziel vs. Ist",
+  "latestActivities": "Neueste Aktivitäten",
+  "viewAll": "Alle anzeigen",
+  "reportDownload": "Bericht herunterladen",
+  "quickAction": "Schnellaktion",
+  "activityType": {
+    "meeting": "Treffen",
+    "call": "Anruf",
+    "email": "E-Mail",
+    "general": "General"
+  },
+  "monthsShort": {
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mär",
+    "apr": "Apr",
+    "may": "Mai",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Okt",
+    "nov": "Nov",
+    "dec": "Dez"
+  },
+  "quickStats": {
+    "pendingTasks": "Ausstehende Aufgaben",
+    "pendingTasksDescription": "12 Aufgaben zu erledigen",
+    "openQuotations": "Offene Angebote",
+    "openQuotationsDescription": "5 Angebote warten auf Genehmigung",
+    "criticalStock": "Kritischer Bestand",
+    "criticalStockDescription": "3 Produkte unter kritischem Niveau",
+    "checkTasks": "Überprüfen Sie die Aufgabenliste",
+    "reviewQuotations": "Schauen Sie sich die Angebote an",
+    "stockStatus": "Siehe Lagerstatus"
+  },
+  "noDate": "No date",
+  "unnamedActivity": "Unnamed Activity",
+  "greeting": {
+    "morning": "Guten Morgen",
+    "afternoon": "Einen schönen Tag noch",
+    "evening": "Guten Abend"
+  },
+  "refresh": "Aktualisieren",
+  "refreshing": "Es wird erneuert...",
+  "refreshed": "Daten aktualisiert",
+  "refreshError": "Update fehlgeschlagen",
+  "user": "Benutzer",
+  "noSalesData": "Noch keine Verkaufsdaten",
+  "noActivities": "Noch keine Aktivität",
+  "selectFormat": "Wählen Sie Format",
+  "reportPreparing": "Der Bericht ist in Vorbereitung...",
+  "reportDownloaded": "Der Bericht wurde heruntergeladen.",
+  "reportError": "Der Bericht konnte nicht empfangen werden.",
+  "sidebar": {
+    "customers": "Kunden",
+    "customerManagement": "Kundenmanagement",
+    "salesManagement": "Verkaufstrichter",
+    "demandCreateWizard": "Neue Anfrage erstellen",
+    "quotationCreateWizard": "Neues Angebot erstellen",
+    "orderCreateWizard": "Neue Bestellung erstellen",
+    "activities": "Planung",
+    "activityManagement": "Aktivitätsmanagement"
+  }
+}

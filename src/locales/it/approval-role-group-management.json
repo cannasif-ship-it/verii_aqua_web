@@ -1,0 +1,36 @@
+{
+  "menu": "Gestione Gruppi Ruoli di Approvazione",
+  "description": "Gestisci e organizza i gruppi di ruoli di approvazione",
+  "addButton": "Aggiungi Nuovo Gruppo",
+  "refresh": "Aggiorna",
+  "searchPlaceholder": "Cerca...",
+  "loading": "Caricamento...",
+  "noData": "Nessun dato trovato",
+  "noDataDescription": "Nessun record trovato corrispondente alla ricerca o nessun record aggiunto.",
+  "table": {
+    "id": "ID",
+    "name": "Nome Gruppo",
+    "createdDate": "Data Creazione",
+    "createdBy": "Creato Da",
+    "actions": "Azioni",
+    "showing": "Visualizzazione {{from}}-{{to}} di {{total}} record"
+  },
+  "delete": {
+    "confirmTitle": "Conferma Eliminazione",
+    "confirmMessage": "Questa azione non può essere annullata. Vuoi continuare?"
+  },
+  "cancel": "Annulla",
+  "save": "Salva",
+  "saving": "Salvataggio...",
+  "deleteButton": "Elimina",
+  "form": {
+    "editTitle": "Modifica Gruppo Ruoli",
+    "addTitle": "Aggiungi Nuovo Gruppo Ruoli",
+    "editDescription": "Modifica informazioni gruppo ruoli",
+    "addDescription": "Inserisci informazioni nuovo gruppo",
+    "name": "Nome Gruppo",
+    "namePlaceholder": "Inserisci nome gruppo",
+    "nameRequired": "Il nome del gruppo è obbligatorio",
+    "nameMaxLength": "Il nome può avere max 100 caratteri"
+  }
+}

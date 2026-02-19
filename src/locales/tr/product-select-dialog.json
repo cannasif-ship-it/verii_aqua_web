@@ -1,0 +1,10 @@
+{
+  "title": "Ürün Seç",
+  "description": "Teklif satırına eklenecek ürünü seçin",
+  "product": "ÜRÜN",
+  "noProducts": "Ürün bulunamadı",
+  "noResults": "Arama sonucu bulunamadı",
+  "searchPlaceholder": "Ürün kodu veya adı ile ara...",
+  "voiceSearch": "Sesli arama",
+  "loading": "Yükleniyor"
+}

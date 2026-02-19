@@ -1,0 +1,76 @@
+{
+  "approvalFlow": {
+    "menu": "Approval Flow Management",
+    "description": "Manage and organize approval flows",
+    "addButton": "Add New Approval Flow",
+    "table": {
+      "id": "ID",
+      "documentType": "Document Type",
+      "description": "Description",
+      "isActive": "Active",
+      "createdDate": "Created Date",
+      "createdBy": "Created By",
+      "actions": "Actions",
+      "showing": "Showing {{from}}-{{to}} / {{total}}",
+      "page": "Page {{current}} / {{total}}"
+    },
+    "form": {
+      "addTitle": "Add New Approval Flow",
+      "editTitle": "Edit Approval Flow",
+      "addDescription": "Enter new approval flow information",
+      "editDescription": "Edit approval flow information",
+      "documentType": "Document Type",
+      "selectDocumentType": "Select document type",
+      "noDocumentTypeSelected": "No document type selected",
+      "documentTypeRequired": "Document type selection is required",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter description (optional)",
+      "descriptionMaxLength": "Description can be at most 200 characters",
+      "isActive": "Active",
+      "isActiveDescription": "Active status of the approval flow",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "loading": "Loading...",
+    "noData": "No data",
+    "active": "Active",
+    "inactive": "Inactive",
+    "previous": "Previous",
+    "next": "Next",
+    "delete": {
+      "action": "Delete",
+      "cancel": "Cancel",
+      "confirmTitle": "Delete Approval Flow",
+      "confirmMessage": "Are you sure you want to delete this approval flow?"
+    },
+    "documentType": {
+      "offer": "Offer",
+      "request": "Request",
+      "order": "Order"
+    }
+  },
+  "approvalFlowStep": {
+    "title": "Flow Steps",
+    "addButton": "Add Step",
+    "empty": "No steps added yet",
+    "unknownRoleGroup": "No Role Group",
+    "stepDescription": "Approval Order: {{order}}",
+    "form": {
+      "addTitle": "Add New Step",
+      "editTitle": "Edit Step",
+      "addDescription": "Add new flow step",
+      "editDescription": "Edit flow step information",
+      "approvalRoleGroup": "Role Group",
+      "selectRoleGroup": "Select role group",
+      "noRoleGroupSelected": "No role group selected",
+      "approvalRoleGroupIdRequired": "Role group selection is required",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "deleteConfirm": "Are you sure you want to delete this step?"
+    }
+  }
+}

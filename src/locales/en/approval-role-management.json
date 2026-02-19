@@ -1,0 +1,51 @@
+{
+  "approvalRole": {
+    "menu": "Approval Role Management",
+    "description": "Manage and organize approval roles",
+    "addButton": "Add New Approval Role",
+    "searchPlaceholder": "Search...",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "noData": "No data",
+    "table": {
+      "id": "ID",
+      "approvalRoleGroupName": "Role Group",
+      "name": "Role Name",
+      "maxAmount": "Max Amount",
+      "createdDate": "Created Date",
+      "createdBy": "Created By",
+      "actions": "Actions",
+      "totalRecords": "Total {{count}} records.",
+      "page": "Page {{current}} / {{total}}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "delete": {
+      "confirmTitle": "Delete Confirmation",
+      "confirmMessage": "Are you sure you want to delete this record? This action cannot be undone.",
+      "cancelButton": "Cancel",
+      "confirmButton": "Delete",
+      "deleting": "Deleting..."
+    },
+    "form": {
+      "editTitle": "Edit Approval Role",
+      "addTitle": "Add New Approval Role",
+      "editDescription": "Edit approval role details",
+      "addDescription": "Enter new approval role details",
+      "approvalRoleGroupId": "Approval Role Group",
+      "selectApprovalRoleGroup": "Select Approval Role Group",
+      "noApprovalRoleGroupSelected": "No approval role group selected",
+      "name": "Role Name",
+      "namePlaceholder": "Enter role name",
+      "maxAmount": "Max Amount",
+      "maxAmountPlaceholder": "Enter max amount",
+      "approvalRoleGroupIdRequired": "Approval role group selection is required",
+      "nameRequired": "Role name is required",
+      "nameMaxLength": "Role name can be at most 100 characters",
+      "maxAmountMin": "Max amount cannot be less than 0",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  }
+}

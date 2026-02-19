@@ -1,0 +1,60 @@
+{
+  "menu": "عملاء ERP",
+  "description": "قائمة العملاء من نظام ERP",
+  "loading": "جاري التحميل...",
+  "noData": "لم يتم العثور على عملاء",
+  "table": {
+    "branchCode": "رمز الفرع",
+    "businessUnitCode": "رمز وحدة العمل",
+    "customerCode": "رمز العميل",
+    "customerName": "اسم العميل",
+    "phone": "الهاتف",
+    "city": "المدينة",
+    "district": "المنطقة",
+    "address": "العنوان",
+    "countryCode": "رمز البلد",
+    "email": "البريد الإلكتروني",
+    "website": "الموقع الإلكتروني",
+    "taxNumber": "الرقم الضريبي",
+    "taxOffice": "مكتب الضرائب",
+    "tcknNumber": "رقم TCKN",
+    "visibleColumns": "الأعمدة المرئية",
+    "editColumns": "تعديل الأعمدة"
+  },
+  "filterLabels": {
+    "branchCode": "رمز الفرع",
+    "customerCode": "رمز العميل",
+    "customerName": "اسم العميل",
+    "city": "المدينة",
+    "district": "المنطقة",
+    "taxNumber": "الرقم الضريبي"
+  },
+  "placeholders": {
+    "quickSearch": "بحث سريع...",
+    "all": "الكل",
+    "codeExample": "مثال: 120...",
+    "nameExample": "اسم العميل...",
+    "cityExample": "المدينة...",
+    "districtExample": "المنطقة...",
+    "taxExample": "ضريبة/TCKN..."
+  },
+  "actions": {
+    "detailedFilter": "تصفية مفصلة",
+    "clear": "مسح",
+    "filter": "تصفية",
+    "all": "الكل",
+    "active": "نشط",
+    "passive": "غير نشط",
+    "apply": "قائمة النتائج"
+  },
+  "details": {
+    "title": "تفاصيل العميل",
+    "addressInfo": "معلومات العنوان"
+  },
+  "common": {
+    "close": "إغلاق",
+    "selectAll": "حدد الكل",
+    "ok": "نعم",
+    "totalRecords": "التسجيل الإجمالي"
+  }
+}

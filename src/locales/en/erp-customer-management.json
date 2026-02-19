@@ -1,0 +1,84 @@
+{
+  "menu": "ERP Customer",
+  "description": "Customer list from ERP system",
+  "loading": "Loading...",
+  "noData": "No customers found",
+  "table": {
+    "branchCode": "Branch Code",
+    "businessUnitCode": "Business Unit Code",
+    "customerCode": "Customer Code",
+    "customerName": "Customer Name",
+    "phone": "Phone",
+    "city": "City",
+    "district": "District",
+    "address": "Address",
+    "countryCode": "Country Code",
+    "email": "Email",
+    "website": "Website",
+    "taxNumber": "Tax Number",
+    "taxOffice": "Tax Office",
+    "tcknNumber": "TCKN Number",
+    "visibleColumns": "Visible Columns",
+    "editColumns": "Edit Columns"
+  },
+  "filterLabels": {
+    "branchCode": "Branch Code",
+    "customerCode": "Customer Code",
+    "customerName": "Customer Name",
+    "city": "City",
+    "district": "District",
+    "taxNumber": "Tax Number"
+  },
+  "placeholders": {
+    "quickSearch": "Quick Search...",
+    "all": "All",
+    "codeExample": "Ex: 120...",
+    "nameExample": "Customer name...",
+    "cityExample": "City...",
+    "districtExample": "District...",
+    "taxExample": "Tax/TCKN..."
+  },
+  "actions": {
+    "detailedFilter": "Detailed Filter",
+    "clear": "Clear",
+    "filter": "Filter",
+    "all": "ALL",
+    "active": "ACTIVE",
+    "passive": "PASSIVE",
+    "apply": "LIST RESULTS"
+  },
+  "details": {
+    "title": "Customer Details",
+    "addressInfo": "Address Information"
+  },
+  "common": {
+    "ok": "OK",
+    "close": "Close",
+    "selectAll": "Select All",
+    "totalRecords": "Total Registration"
+  },
+  "advancedFilter": {
+    "title": "Advanced Filter",
+    "add": "Add Filter",
+    "column": "Column",
+    "operator": "Operator",
+    "value": "Value",
+    "search": "Search",
+    "clear": "Clear",
+    "remove": "Remove",
+    "columnCustomerCode": "Customer Code",
+    "columnCustomerName": "Customer Name",
+    "columnBranchCode": "Branch Code",
+    "columnCity": "City",
+    "columnDistrict": "District",
+    "columnTaxNumber": "Tax Number",
+    "operatorContains": "Contains",
+    "operatorStartsWith": "Starts with",
+    "operatorEndsWith": "Ends with",
+    "operatorEquals": "Equals",
+    "operator>": ">",
+    "operator>=": ">=",
+    "operator<": "<",
+    "operator<=": "<="
+  }
+}

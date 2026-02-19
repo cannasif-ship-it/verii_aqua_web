@@ -1,0 +1,47 @@
+{
+  "approvalUserRole": {
+    "advancedFilter":{"columnUserFullName":"Kullanıcı","columnApprovalRoleName":"Onay Rolü","columnCreatedBy":"Oluşturan"},
+    "menu": "Onay Kullanıcı Rolü Yönetimi",
+    "description": "Onay kullanıcı rollerini yönetin ve düzenleyin",
+    "addButton": "Yeni Rol Ekle",
+    "searchPlaceholder": "Ara...",
+    "refresh": "Yenile",
+    "loading": "Yükleniyor...",
+    "noData": "Veri yok",
+    "table": {
+      "id": "ID",
+      "userFullName": "Kullanıcı",
+      "approvalRoleName": "Onay Rolü",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "actions": "İşlemler",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    },
+    "delete": {
+      "title": "Rolü Sil",
+      "confirmMessage": "Bu kullanıcı rolünü silmek istediğinizden emin misiniz?",
+      "confirmButton": "Sil",
+      "cancelButton": "İptal"
+    },
+    "form": {
+      "editTitle": "Onay Kullanıcı Rolü Düzenle",
+      "addTitle": "Yeni Onay Kullanıcı Rolü Ekle",
+      "editDescription": "Onay kullanıcı rolü bilgilerini düzenleyin",
+      "addDescription": "Yeni onay kullanıcı rolü bilgilerini girin",
+      "userId": "Kullanıcı",
+      "userIdRequired": "Kullanıcı seçimi zorunludur",
+      "selectUser": "Kullanıcı Seçin",
+      "noUserSelected": "Kullanıcı seçilmedi",
+      "approvalRoleId": "Onay Rolü",
+      "approvalRoleIdRequired": "Onay rolü seçimi zorunludur",
+      "selectApprovalRole": "Onay Rolü Seçin",
+      "noApprovalRoleSelected": "Onay rolü seçilmedi",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor...",
+      "cancel": "İptal"
+    }
+  }
+}

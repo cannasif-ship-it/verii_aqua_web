@@ -1,0 +1,54 @@
+{
+  "menu": "إدارة أنواع الأنشطة",
+  "description": "إدارة وتعديل أنواع الأنشطة",
+  "addButton": "إضافة نوع نشاط جديد",
+  "loading": "جاري التحميل...",
+  "noData": "لم يتم العثور على بيانات",
+  "actions": "إجراءات",
+  "edit": "تعديل",
+  "deleteButton": "حذف",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "saving": "جاري الحفظ...",
+  "previous": "السابق",
+  "next": "التالي",
+  "form": {
+    "addTitle": "إضافة نوع نشاط جديد",
+    "editTitle": "تعديل نوع النشاط",
+    "addDescription": "أدخل معلومات نوع النشاط الجديد",
+    "editDescription": "تعديل معلومات نوع النشاط",
+    "name": "اسم نوع النشاط",
+    "namePlaceholder": "أدخل اسم نوع النشاط",
+    "nameRequired": "اسم نوع النشاط مطلوب",
+    "nameMaxLength": "يجب أن يكون اسم نوع النشاط بحد أقصى 100 حرفًا",
+    "description": "الوصف",
+    "descriptionPlaceholder": "أدخل الوصف (اختياري)",
+    "descriptionMaxLength": "يجب أن يكون الوصف بحد أقصى 500 حرفًا"
+  },
+  "table": {
+    "id": "المعرف",
+    "name": "اسم نوع النشاط",
+    "description": "الوصف",
+    "createdDate": "تاريخ الإنشاء",
+    "createdBy": "تم الإنشاء بواسطة",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "صفحة {{current}} / {{total}}"
+  },
+  "stats": {
+    "totalActivityTypes": "إجمالي أنواع الأنشطة",
+    "activeActivityTypes": "أنواع الأنشطة النشطة",
+    "newThisMonth": "جديد هذا الشهر"
+  },
+  "messages": {
+    "createSuccess": "تم إنشاء نوع النشاط بنجاح",
+    "createError": "فشل في إنشاء نوع النشاط",
+    "updateSuccess": "تم تحديث نوع النشاط بنجاح",
+    "updateError": "فشل في تحديث نوع النشاط",
+    "deleteSuccess": "تم حذف نوع النشاط بنجاح",
+    "deleteError": "فشل في حذف نوع النشاط"
+  },
+  "deleteConfirm": {
+    "confirmTitle": "حذف نوع النشاط",
+    "confirmMessage": "هل أنت متأكد أنك تريد حذف نوع النشاط {{name}}؟"
+  }
+}
