@@ -27,8 +27,23 @@ const PermissionGroupsPage = lazyImport(() => import('@/features/access-control'
 const UserGroupAssignmentsPage = lazyImport(() => import('@/features/access-control'), 'UserGroupAssignmentsPage');
 const HangfireMonitoringPage = lazyImport(() => import('@/features/hangfire-monitoring'), 'HangfireMonitoringPage');
 const ProfilePage = lazyImport(() => import('@/features/user-detail-management'), 'ProfilePage');
+const ProjectsPage = lazyImport(() => import('@/features/aqua'), 'ProjectsPage');
+const CagesPage = lazyImport(() => import('@/features/aqua'), 'CagesPage');
+const ProjectCageAssignmentsPage = lazyImport(() => import('@/features/aqua'), 'ProjectCageAssignmentsPage');
+const WeatherSeveritiesPage = lazyImport(() => import('@/features/aqua'), 'WeatherSeveritiesPage');
+const WeatherTypesPage = lazyImport(() => import('@/features/aqua'), 'WeatherTypesPage');
+const NetOperationTypesPage = lazyImport(() => import('@/features/aqua'), 'NetOperationTypesPage');
+const GoodsReceiptsPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptsPage');
+const FeedingsPage = lazyImport(() => import('@/features/aqua'), 'FeedingsPage');
+const MortalitiesPage = lazyImport(() => import('@/features/aqua'), 'MortalitiesPage');
+const TransfersPage = lazyImport(() => import('@/features/aqua'), 'TransfersPage');
+const WeighingsPage = lazyImport(() => import('@/features/aqua'), 'WeighingsPage');
+const StockConvertsPage = lazyImport(() => import('@/features/aqua'), 'StockConvertsPage');
+const DailyWeathersPage = lazyImport(() => import('@/features/aqua'), 'DailyWeathersPage');
+const NetOperationsPage = lazyImport(() => import('@/features/aqua'), 'NetOperationsPage');
+const BatchMovementsPage = lazyImport(() => import('@/features/aqua'), 'BatchMovementsPage');
+const CageBalancesPage = lazyImport(() => import('@/features/aqua'), 'CageBalancesPage');
 
-// const WINDO_FORM_ROUTE = '/crm-ui';
 const WINDO_FORM_ROUTE = '/';
 
 export const router = createBrowserRouter([
@@ -52,6 +67,22 @@ export const router = createBrowserRouter([
       { path: 'access-control/user-group-assignments', element: <UserGroupAssignmentsPage /> },
       { path: 'hangfire-monitoring', element: <HangfireMonitoringPage /> },
       { path: 'profile', element: <ProfilePage /> },
+      { path: 'aqua/definitions/projects', element: <ProjectsPage /> },
+      { path: 'aqua/definitions/cages', element: <CagesPage /> },
+      { path: 'aqua/definitions/project-cage-assignments', element: <ProjectCageAssignmentsPage /> },
+      { path: 'aqua/definitions/weather-severities', element: <WeatherSeveritiesPage /> },
+      { path: 'aqua/definitions/weather-types', element: <WeatherTypesPage /> },
+      { path: 'aqua/definitions/net-operation-types', element: <NetOperationTypesPage /> },
+      { path: 'aqua/operations/goods-receipts', element: <GoodsReceiptsPage /> },
+      { path: 'aqua/operations/feedings', element: <FeedingsPage /> },
+      { path: 'aqua/operations/mortalities', element: <MortalitiesPage /> },
+      { path: 'aqua/operations/transfers', element: <TransfersPage /> },
+      { path: 'aqua/operations/weighings', element: <WeighingsPage /> },
+      { path: 'aqua/operations/stock-converts', element: <StockConvertsPage /> },
+      { path: 'aqua/operations/daily-weathers', element: <DailyWeathersPage /> },
+      { path: 'aqua/operations/net-operations', element: <NetOperationsPage /> },
+      { path: 'aqua/reports/batch-movements', element: <BatchMovementsPage /> },
+      { path: 'aqua/reports/cage-balances', element: <CageBalancesPage /> },
     ],
   },
   {

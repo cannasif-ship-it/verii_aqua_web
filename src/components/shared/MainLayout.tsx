@@ -13,6 +13,7 @@ import {
   PackageIcon, 
   UserCircleIcon,
 } from 'hugeicons-react';
+import { Waves, BookOpen } from 'lucide-react';
 
 interface NavItem {
   title: string;
@@ -50,6 +51,39 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
           { title: t('sidebar.permissionGroups'), href: '/access-control/permission-groups' },
           { title: t('sidebar.userGroupAssignments'), href: '/access-control/user-group-assignments' },
           { title: t('menu', { ns: 'hangfire-monitoring', defaultValue: 'Hangfire İzleme' }), href: '/hangfire-monitoring' },
+        ],
+      },
+      {
+        title: t('sidebar.aquaDefinitions', { defaultValue: 'Aqua Tanımları' }),
+        icon: <BookOpen size={iconSize} className="text-cyan-500" />,
+        children: [
+          { title: t('sidebar.aquaProjects', { defaultValue: 'Projeler' }), href: '/aqua/definitions/projects' },
+          { title: t('sidebar.aquaCages', { defaultValue: 'Kafesler' }), href: '/aqua/definitions/cages' },
+          { title: t('sidebar.aquaProjectCageAssignments', { defaultValue: 'Proje-Kafes Atama' }), href: '/aqua/definitions/project-cage-assignments' },
+          { title: t('sidebar.aquaWeatherSeverities', { defaultValue: 'Hava Durumu Şiddet Tanımı' }), href: '/aqua/definitions/weather-severities' },
+          { title: t('sidebar.aquaWeatherTypes', { defaultValue: 'Hava Durumu Tip Tanımı' }), href: '/aqua/definitions/weather-types' },
+          { title: t('sidebar.aquaNetOperationTypes', { defaultValue: 'Ağ İşlem Tipleri' }), href: '/aqua/definitions/net-operation-types' },
+        ],
+      },
+      {
+        title: t('sidebar.aquaOperations', { defaultValue: 'Aqua İşlemleri' }),
+        icon: <Waves size={iconSize} className="text-emerald-500" />,
+        children: [
+          { title: t('sidebar.aquaGoodsReceipts', { defaultValue: 'Mal Kabul (Balık/Yem)' }), href: '/aqua/operations/goods-receipts' },
+          { title: t('sidebar.aquaFeedings', { defaultValue: 'Besleme (Sabah/Akşam)' }), href: '/aqua/operations/feedings' },
+          { title: t('sidebar.aquaMortalities', { defaultValue: 'Ölüm' }), href: '/aqua/operations/mortalities' },
+          { title: t('sidebar.aquaTransfers', { defaultValue: 'Transfer' }), href: '/aqua/operations/transfers' },
+          { title: t('sidebar.aquaWeighings', { defaultValue: 'Tartım' }), href: '/aqua/operations/weighings' },
+          { title: t('sidebar.aquaStockConverts', { defaultValue: 'Stock Convert' }), href: '/aqua/operations/stock-converts' },
+          { title: t('sidebar.aquaDailyWeathers', { defaultValue: 'Günlük Hava Durumu' }), href: '/aqua/operations/daily-weathers' },
+          { title: t('sidebar.aquaNetOperations', { defaultValue: 'Ağ İşlemleri' }), href: '/aqua/operations/net-operations' },
+          {
+            title: t('sidebar.aquaReports', { defaultValue: 'Raporlar' }),
+            children: [
+              { title: t('sidebar.aquaBatchMovements', { defaultValue: 'Batch Movement' }), href: '/aqua/reports/batch-movements' },
+              { title: t('sidebar.aquaCageBalances', { defaultValue: 'Kafes Balance' }), href: '/aqua/reports/cage-balances' },
+            ],
+          },
         ],
       },
       {
