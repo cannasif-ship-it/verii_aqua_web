@@ -4,6 +4,8 @@ export { ProjectCageAssignmentsPage } from './definitions/components/ProjectCage
 export { WeatherSeveritiesPage } from './definitions/components/WeatherSeveritiesPage';
 export { WeatherTypesPage } from './definitions/components/WeatherTypesPage';
 export { NetOperationTypesPage } from './definitions/components/NetOperationTypesPage';
+export { QuickSetupPage } from './operations/quick-setup';
+export { QuickDailyEntryPage } from './operations/quick-daily-entry';
 export { GoodsReceiptsPage } from './operations/components/GoodsReceiptsPage';
 export { FeedingsPage } from './operations/components/FeedingsPage';
 export { MortalitiesPage } from './operations/components/MortalitiesPage';

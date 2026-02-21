@@ -43,6 +43,8 @@ const DailyWeathersPage = lazyImport(() => import('@/features/aqua'), 'DailyWeat
 const NetOperationsPage = lazyImport(() => import('@/features/aqua'), 'NetOperationsPage');
 const BatchMovementsPage = lazyImport(() => import('@/features/aqua'), 'BatchMovementsPage');
 const CageBalancesPage = lazyImport(() => import('@/features/aqua'), 'CageBalancesPage');
+const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup'), 'QuickSetupPage');
+const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry'), 'QuickDailyEntryPage');
 
 const WINDO_FORM_ROUTE = '/';
 
@@ -73,6 +75,8 @@ export const router = createBrowserRouter([
       { path: 'aqua/definitions/weather-severities', element: <WeatherSeveritiesPage /> },
       { path: 'aqua/definitions/weather-types', element: <WeatherTypesPage /> },
       { path: 'aqua/definitions/net-operation-types', element: <NetOperationTypesPage /> },
+      { path: 'aqua/operations/quick-setup', element: <QuickSetupPage /> },
+      { path: 'aqua/operations/quick-daily-entry', element: <QuickDailyEntryPage /> },
       { path: 'aqua/operations/goods-receipts', element: <GoodsReceiptsPage /> },
       { path: 'aqua/operations/feedings', element: <FeedingsPage /> },
       { path: 'aqua/operations/mortalities', element: <MortalitiesPage /> },

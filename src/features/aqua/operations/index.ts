@@ -1,3 +1,5 @@
+export { QuickSetupPage } from './quick-setup';
+export { QuickDailyEntryPage } from './quick-daily-entry';
 export { GoodsReceiptsPage } from './components/GoodsReceiptsPage';
 export { FeedingsPage } from './components/FeedingsPage';
 export { MortalitiesPage } from './components/MortalitiesPage';

@@ -69,6 +69,8 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
         title: t('sidebar.aquaOperations', { defaultValue: 'Aqua İşlemleri' }),
         icon: <Waves size={iconSize} className="text-emerald-500" />,
         children: [
+          { title: t('sidebar.aquaQuickSetup', { defaultValue: 'Hızlı Kurulum' }), href: '/aqua/operations/quick-setup' },
+          { title: t('sidebar.aquaQuickDailyEntry', { defaultValue: 'Hızlı Günlük Giriş' }), href: '/aqua/operations/quick-daily-entry' },
           { title: t('sidebar.aquaGoodsReceipts', { defaultValue: 'Mal Kabul (Balık/Yem)' }), href: '/aqua/operations/goods-receipts' },
           { title: t('sidebar.aquaFeedings', { defaultValue: 'Besleme (Sabah/Akşam)' }), href: '/aqua/operations/feedings' },
           { title: t('sidebar.aquaMortalities', { defaultValue: 'Ölüm' }), href: '/aqua/operations/mortalities' },
