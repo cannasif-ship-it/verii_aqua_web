@@ -612,6 +612,8 @@
       "readyForDistribution": "Dağıtım için hazır. Aşağıdaki 3. adımda kafeslere dağıtabilirsiniz.",
       "completeGoodsReceiptInfoFirst": "Devam etmek için mal kabul balık satırı bilgilerini tamamlayın.",
       "openGoodsReceiptLines": "Mal Kabul Satırlarını Aç",
+      "selectAvailableCage": "Boştaki kafes seçin",
+      "addCage": "+ Kafes Ekle",
       "equalDistribute": "Eşit Dağıt",
       "assignAllToSelectedCage": "Tamamını Seçili Kafese Ata",
       "distributionMatch": "Dağıtım Uyuşuyor",
@@ -629,6 +631,8 @@
         "existingGoodsReceiptFound": "Mevcut taslak mal kabul bulundu, kurulum bu kayıtla devam ediyor",
         "existingGoodsReceiptCheckFailed": "Mevcut mal kabul kontrolü yapılamadı",
         "existingGoodsReceiptMissingBatch": "Mevcut mal kabulde batch bilgisi eksik. Balık satırında ortalama gram girip tekrar deneyin.",
+        "cageAdded": "Kafes projeye eklendi",
+        "cageAddFailed": "Kafes eklenemedi",
         "feedLineCreateFailed": "Yem satırı eklenemedi",
         "savedAndPosted": "Kaydedildi ve post edildi",
         "operationFailed": "İşlem başarısız"
@@ -683,6 +687,27 @@
         "description": "Açıklama",
         "save": "Kaydet"
       },
+      "stockChange": {
+        "title": "Stok Değişimi",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "noSourceBatch": "Seçili kafeste aktif batch bulunamadı.",
+        "targetBatch": "Hedef Batch",
+        "fishCount": "Adet",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
+      "transfer": {
+        "title": "Kafes Değişimi",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "noSourceBatch": "Seçili kafeste aktif batch bulunamadı.",
+        "targetCage": "Hedef Kafes",
+        "occupied": "Dolu",
+        "empty": "Boş",
+        "fishCount": "Adet",
+        "fishCountAutoInfo": "Adet otomatik olarak kaynak kafesteki canlı sayısından alınır.",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
       "toast": {
         "feedingSaved": "Besleme kaydedildi",
         "mortalitySaved": "Ölüm kaydı oluşturuldu",
@@ -727,7 +752,15 @@
       "noOperationDetail": "Bu gün için detay bulunamadı.",
       "feedStatus": "Besleme durumu",
       "fed": "Beslendi",
-      "notFed": "Beslenmedi"
+      "notFed": "Beslenmedi",
+      "noActiveCages": "Aktif kafes bulunamadı.",
+      "cageHistoryTitle": "Kafes Geçmişi (Buydu/Bu Oldu)",
+      "cageHistoryDescription": "Projede daha önce kullanılmış ancak şu an aktif olmayan kafesler.",
+      "cage": "Kafes",
+      "assignedDate": "Atanma Tarihi",
+      "releasedDate": "Ayrılma Tarihi",
+      "status": "Durum",
+      "inactive": "Pasif"
     }
   },
   "pdfReportDesigner": {

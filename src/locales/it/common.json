@@ -4398,6 +4398,8 @@
       "mortality": { "title": "Mortalità", "batch": "Lotto", "selectBatch": "Seleziona lotto", "deadCount": "N. morti", "save": "Salva" },
       "weather": { "title": "Meteo", "severity": "Gravità", "selectSeverity": "Seleziona gravità", "type": "Tipo", "selectType": "Seleziona tipo", "description": "Descrizione", "save": "Salva" },
       "netOperation": { "title": "Operazione rete", "operationType": "Tipo operazione", "selectType": "Seleziona tipo", "description": "Descrizione", "save": "Salva" },
+      "stockChange": { "title": "Cambio di stock", "sourceInfo": "Lotto sorgente #{{fishBatchId}} - Vivi: {{liveCount}}", "noSourceBatch": "Nessun lotto attivo nella gabbia selezionata.", "targetBatch": "Lotto di destinazione", "fishCount": "Quantità", "description": "Descrizione", "save": "Salva" },
+      "transfer": { "title": "Trasferimento gabbia", "sourceInfo": "Lotto sorgente #{{fishBatchId}} - Vivi: {{liveCount}}", "noSourceBatch": "Nessun lotto attivo nella gabbia selezionata.", "targetCage": "Gabbia di destinazione", "occupied": "Occupata", "empty": "Vuota", "fishCount": "Quantità", "fishCountAutoInfo": "La quantità è presa automaticamente dal numero di vivi nella gabbia sorgente.", "description": "Descrizione", "save": "Salva" },
       "toast": { "feedingSaved": "Alimentazione salvata", "mortalitySaved": "Mortalità registrata", "weatherSaved": "Meteo salvato", "netOperationSaved": "Operazione salvata", "saveFailed": "Salvataggio fallito" }
     }
   }

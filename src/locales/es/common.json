@@ -4369,6 +4369,8 @@
       "mortality": { "title": "Mortalidad", "batch": "Lote", "selectBatch": "Seleccionar lote", "deadCount": "Nº muertos", "save": "Guardar" },
       "weather": { "title": "Tiempo", "severity": "Severidad", "selectSeverity": "Seleccionar severidad", "type": "Tipo", "selectType": "Seleccionar tipo", "description": "Descripción", "save": "Guardar" },
       "netOperation": { "title": "Operación de red", "operationType": "Tipo de operación", "selectType": "Seleccionar tipo", "description": "Descripción", "save": "Guardar" },
+      "stockChange": { "title": "Cambio de stock", "sourceInfo": "Lote origen #{{fishBatchId}} - Vivos: {{liveCount}}", "noSourceBatch": "No se encontró lote activo en la jaula seleccionada.", "targetBatch": "Lote destino", "fishCount": "Cantidad", "description": "Descripción", "save": "Guardar" },
+      "transfer": { "title": "Transferencia de jaula", "sourceInfo": "Lote origen #{{fishBatchId}} - Vivos: {{liveCount}}", "noSourceBatch": "No se encontró lote activo en la jaula seleccionada.", "targetCage": "Jaula destino", "occupied": "Ocupada", "empty": "Vacía", "fishCount": "Cantidad", "fishCountAutoInfo": "La cantidad se toma automáticamente del número de vivos en la jaula origen.", "description": "Descripción", "save": "Guardar" },
       "toast": { "feedingSaved": "Alimentación guardada", "mortalitySaved": "Mortalidad registrada", "weatherSaved": "Tiempo guardado", "netOperationSaved": "Operación guardada", "saveFailed": "Error al guardar" }
     }
   }

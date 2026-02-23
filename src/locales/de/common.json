@@ -4332,6 +4332,8 @@
       "mortality": { "title": "Mortalität", "batch": "Charge", "selectBatch": "Charge wählen", "deadCount": "Tote Anzahl", "save": "Speichern" },
       "weather": { "title": "Wetter", "severity": "Stärke", "selectSeverity": "Stärke wählen", "type": "Typ", "selectType": "Typ wählen", "description": "Beschreibung", "save": "Speichern" },
       "netOperation": { "title": "Netzoperation", "operationType": "Operationstyp", "selectType": "Typ wählen", "description": "Beschreibung", "save": "Speichern" },
+      "stockChange": { "title": "Bestandsänderung", "sourceInfo": "Quell-Charge #{{fishBatchId}} - Lebend: {{liveCount}}", "noSourceBatch": "Keine aktive Charge in ausgewähltem Käfig.", "targetBatch": "Ziel-Charge", "fishCount": "Anzahl", "description": "Beschreibung", "save": "Speichern" },
+      "transfer": { "title": "Käfig-Transfer", "sourceInfo": "Quell-Charge #{{fishBatchId}} - Lebend: {{liveCount}}", "noSourceBatch": "Keine aktive Charge in ausgewähltem Käfig.", "targetCage": "Ziel-Käfig", "occupied": "Belegt", "empty": "Leer", "fishCount": "Anzahl", "fishCountAutoInfo": "Die Anzahl wird automatisch aus der Lebendanzahl im Quell-Käfig übernommen.", "description": "Beschreibung", "save": "Speichern" },
       "toast": { "feedingSaved": "Fütterung gespeichert", "mortalitySaved": "Mortalitätsdatensatz erstellt", "weatherSaved": "Wetter gespeichert", "netOperationSaved": "Netzoperation gespeichert", "saveFailed": "Speichern fehlgeschlagen" }
     }
   }

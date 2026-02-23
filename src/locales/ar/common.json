@@ -4369,6 +4369,8 @@
       "mortality": { "title": "النفوق", "batch": "الدفعة", "selectBatch": "اختر الدفعة", "deadCount": "عدد النفوق", "save": "حفظ" },
       "weather": { "title": "الطقس", "severity": "الشدة", "selectSeverity": "اختر الشدة", "type": "النوع", "selectType": "اختر النوع", "description": "الوصف", "save": "حفظ" },
       "netOperation": { "title": "عملية الشبكة", "operationType": "نوع العملية", "selectType": "اختر النوع", "description": "الوصف", "save": "حفظ" },
+      "stockChange": { "title": "تغيير المخزون", "sourceInfo": "دفعة المصدر #{{fishBatchId}} - حي: {{liveCount}}", "noSourceBatch": "لم يتم العثور على دفعة نشطة في القفص المحدد.", "targetBatch": "دفعة الهدف", "fishCount": "العدد", "description": "الوصف", "save": "حفظ" },
+      "transfer": { "title": "نقل القفص", "sourceInfo": "دفعة المصدر #{{fishBatchId}} - حي: {{liveCount}}", "noSourceBatch": "لم يتم العثور على دفعة نشطة في القفص المحدد.", "targetCage": "القفص الهدف", "occupied": "مشغول", "empty": "فارغ", "fishCount": "العدد", "fishCountAutoInfo": "يتم أخذ العدد تلقائياً من عدد الأحياء في قفص المصدر.", "description": "الوصف", "save": "حفظ" },
       "toast": { "feedingSaved": "تم حفظ التغذية", "mortalitySaved": "تم تسجيل النفوق", "weatherSaved": "تم حفظ الطقس", "netOperationSaved": "تم حفظ العملية", "saveFailed": "فشل الحفظ" }
     }
   }

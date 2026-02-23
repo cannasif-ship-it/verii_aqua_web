@@ -4415,6 +4415,8 @@
       "readyForDistribution": "Ready for distribution. You can distribute to cages in step 3 below.",
       "completeGoodsReceiptInfoFirst": "Complete fish line info on goods receipt to continue.",
       "openGoodsReceiptLines": "Open Goods Receipt Lines",
+      "selectAvailableCage": "Select available cage",
+      "addCage": "+ Add Cage",
       "equalDistribute": "Distribute Equally",
       "assignAllToSelectedCage": "Assign All to Selected Cage",
       "distributionMatch": "Distribution Matches",
@@ -4432,6 +4434,8 @@
         "existingGoodsReceiptFound": "Existing draft goods receipt found, continuing setup with this record",
         "existingGoodsReceiptCheckFailed": "Could not check existing goods receipt",
         "existingGoodsReceiptMissingBatch": "Batch info is missing on existing goods receipt. Fill fish average gram on fish line and try again.",
+        "cageAdded": "Cage added to project",
+        "cageAddFailed": "Failed to add cage",
         "feedLineCreateFailed": "Feed line could not be added",
         "savedAndPosted": "Saved and posted",
         "operationFailed": "Operation failed"
@@ -4486,6 +4490,27 @@
         "description": "Description",
         "save": "Save"
       },
+      "stockChange": {
+        "title": "Stock Change",
+        "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
+        "noSourceBatch": "No active batch found in selected cage.",
+        "targetBatch": "Target Batch",
+        "fishCount": "Count",
+        "description": "Description",
+        "save": "Save"
+      },
+      "transfer": {
+        "title": "Cage Transfer",
+        "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
+        "noSourceBatch": "No active batch found in selected cage.",
+        "targetCage": "Target Cage",
+        "occupied": "Occupied",
+        "empty": "Empty",
+        "fishCount": "Count",
+        "fishCountAutoInfo": "Count is automatically taken from live count in source cage.",
+        "description": "Description",
+        "save": "Save"
+      },
       "toast": {
         "feedingSaved": "Feeding saved",
         "mortalitySaved": "Mortality record created",
@@ -4530,7 +4555,15 @@
       "noOperationDetail": "No detail found for this day.",
       "feedStatus": "Feeding status",
       "fed": "Fed",
-      "notFed": "Not fed"
+      "notFed": "Not fed",
+      "noActiveCages": "No active cages found.",
+      "cageHistoryTitle": "Cage History (Was/Now)",
+      "cageHistoryDescription": "Cages previously used in the project but not currently active.",
+      "cage": "Cage",
+      "assignedDate": "Assigned Date",
+      "releasedDate": "Released Date",
+      "status": "Status",
+      "inactive": "Inactive"
     }
   }
 }

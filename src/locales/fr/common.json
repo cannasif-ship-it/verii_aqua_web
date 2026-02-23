@@ -4324,6 +4324,8 @@
       "mortality": { "title": "Mortalité", "batch": "Lot", "selectBatch": "Sélectionner lot", "deadCount": "Nombre morts", "save": "Enregistrer" },
       "weather": { "title": "Météo", "severity": "Sévérité", "selectSeverity": "Sélectionner sévérité", "type": "Type", "selectType": "Sélectionner type", "description": "Description", "save": "Enregistrer" },
       "netOperation": { "title": "Opération filet", "operationType": "Type d'opération", "selectType": "Sélectionner type", "description": "Description", "save": "Enregistrer" },
+      "stockChange": { "title": "Changement de stock", "sourceInfo": "Lot source #{{fishBatchId}} - Vivants : {{liveCount}}", "noSourceBatch": "Aucun lot actif dans la cage sélectionnée.", "targetBatch": "Lot cible", "fishCount": "Quantité", "description": "Description", "save": "Enregistrer" },
+      "transfer": { "title": "Transfert de cage", "sourceInfo": "Lot source #{{fishBatchId}} - Vivants : {{liveCount}}", "noSourceBatch": "Aucun lot actif dans la cage sélectionnée.", "targetCage": "Cage cible", "occupied": "Occupée", "empty": "Vide", "fishCount": "Quantité", "fishCountAutoInfo": "La quantité est prise automatiquement du nombre de vivants dans la cage source.", "description": "Description", "save": "Enregistrer" },
       "toast": { "feedingSaved": "Alimentation enregistrée", "mortalitySaved": "Mortalité enregistrée", "weatherSaved": "Météo enregistrée", "netOperationSaved": "Opération enregistrée", "saveFailed": "Échec enregistrement" }
     }
   }
