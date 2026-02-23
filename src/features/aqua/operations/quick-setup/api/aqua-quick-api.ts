@@ -4,6 +4,7 @@ import type {
   ProjectDto,
   StockDto,
   ProjectCageDto,
+  CageOptionDto,
   CreateProjectPayload,
   CreateGoodsReceiptPayload,
   CreateGoodsReceiptLinePayload,
@@ -59,10 +60,6 @@ interface GoodsReceiptLineListResponseItem {
 interface FishBatchResponseItem {
   id: number;
   batchCode?: string;
-}
-
-interface ProjectListResponseItem {
-  id: number;
 }
 
 function isActiveProjectCage(releasedDate?: string | null): boolean {
@@ -194,76 +191,22 @@ export const aquaQuickApi = {
   },
 
   getProjectCages: async (projectId: number): Promise<ProjectCageDto[]> => {
-    const [allCages, allAssignments, allProjects] = await Promise.all([
+    const [allCages, allAssignments] = await Promise.all([
       getAllAquaItems<CageListResponseItem>('Cage'),
       getAllAquaItems<ProjectCageDto>('ProjectCage'),
-      getAllAquaItems<ProjectListResponseItem>('Project'),
     ]);
-    const normalizedCages = (allCages as unknown as Record<string, unknown>[])
-      .map(normalizeCage)
-      .filter((x) => Number.isFinite(x.id) && x.id > 0);
-    const normalizedAssignments = (allAssignments as unknown as Record<string, unknown>[])
-      .map(normalizeProjectCage)
-      .filter((x) => Number.isFinite(x.id) && x.id > 0);
-    const existingProjectIds = new Set(
-      (allProjects as unknown as Record<string, unknown>[])
-        .map((x) => getNumberField(x, 'id', 'Id'))
-        .filter((x) => Number.isFinite(x) && x > 0)
+    const cageById = new Map<number, CageListResponseItem>(
+      (allCages as unknown as Record<string, unknown>[])
+        .map(normalizeCage)
+        .filter((x) => Number.isFinite(x.id) && x.id > 0)
+        .map((x) => [x.id, x])
     );
-    const cageById = new Map<number, CageListResponseItem>(normalizedCages.map((x) => [x.id, x]));
 
-    const activeAssignments = normalizedAssignments.filter((x) => {
-      if (!isActiveProjectCage(x.releasedDate)) return false;
-      const assignedProjectId = Number(x.projectId);
-      return assignedProjectId === projectId || existingProjectIds.has(assignedProjectId);
-    });
-    const ownActiveProjectCages = activeAssignments
-      .filter((x) => Number(x.projectId) === projectId)
-      .map((x) => {
-        const cage = cageById.get(Number(x.cageId));
-        return {
-          ...x,
-          cageCode: x.cageCode ?? cage?.cageCode,
-          cageName: x.cageName ?? cage?.cageName,
-        };
-      });
-    const globallyAssignedActiveCageIds = new Set(activeAssignments.map((x) => Number(x.cageId)));
-
-    const availableCages = normalizedCages.filter(
-      (x) => !globallyAssignedActiveCageIds.has(Number(x.id))
-    );
-    if (availableCages.length === 0) {
-      return ownActiveProjectCages;
-    }
-
-    const assignedDate = new Date().toISOString().slice(0, 10);
-    const createdProjectCages: ProjectCageDto[] = [];
-    for (const cage of availableCages) {
-      try {
-        const createResponse = await api.post<ApiResponse<ProjectCageDto>>('/api/aqua/ProjectCage', {
-          projectId,
-          cageId: cage.id,
-          assignedDate,
-          releasedDate: null,
-        });
-        const created = ensureSuccess(createResponse, 'Proje kafesi oluşturulamadı');
-        createdProjectCages.push({
-          ...created,
-          cageCode: created.cageCode ?? cage.cageCode,
-          cageName: created.cageName ?? cage.cageName,
-          releasedDate: created.releasedDate ?? null,
-        });
-      } catch {
-        // Ignore per-cage create failures (already assigned / validation), we'll return current active rows.
-      }
-    }
-
-    const finalAssignments = await getAllAquaItems<ProjectCageDto>('ProjectCage');
-    const finalActive = (finalAssignments as unknown as Record<string, unknown>[])
+    const finalActive = (allAssignments as unknown as Record<string, unknown>[])
       .map(normalizeProjectCage)
       .filter((x) => Number.isFinite(x.id) && x.id > 0)
       .filter((x) => Number(x.projectId) === projectId && isActiveProjectCage(x.releasedDate));
-    const normalizedFinalActive = finalActive.map((x) => {
+    return finalActive.map((x) => {
       const cage = cageById.get(Number(x.cageId));
       return {
         ...x,
@@ -271,9 +214,47 @@ export const aquaQuickApi = {
         cageName: x.cageName ?? cage?.cageName,
       };
     });
-    return normalizedFinalActive.length > 0
-      ? normalizedFinalActive
-      : [...ownActiveProjectCages, ...createdProjectCages];
+  },
+
+  getAvailableCagesForProject: async (projectId: number): Promise<CageOptionDto[]> => {
+    const [allCages, allAssignments] = await Promise.all([
+      getAllAquaItems<CageListResponseItem>('Cage'),
+      getAllAquaItems<ProjectCageDto>('ProjectCage'),
+    ]);
+
+    const activeAssignments = (allAssignments as unknown as Record<string, unknown>[])
+      .map(normalizeProjectCage)
+      .filter((x) => Number.isFinite(x.id) && x.id > 0)
+      .filter((x) => isActiveProjectCage(x.releasedDate));
+
+    const projectAssignedCageIds = new Set(
+      activeAssignments
+        .filter((x) => Number(x.projectId) === Number(projectId))
+        .map((x) => Number(x.cageId))
+    );
+    const globallyAssignedCageIds = new Set(activeAssignments.map((x) => Number(x.cageId)));
+
+    return (allCages as unknown as Record<string, unknown>[])
+      .map(normalizeCage)
+      .filter((x) => Number.isFinite(x.id) && x.id > 0)
+      .filter((x) => !projectAssignedCageIds.has(Number(x.id)))
+      .filter((x) => !globallyAssignedCageIds.has(Number(x.id)))
+      .map((x) => ({
+        id: x.id,
+        cageCode: x.cageCode,
+        cageName: x.cageName,
+      }));
+  },
+
+  addCageToProject: async (projectId: number, cageId: number): Promise<ProjectCageDto> => {
+    const assignedDate = new Date().toISOString().slice(0, 10);
+    const response = await api.post<ApiResponse<ProjectCageDto>>('/api/aqua/ProjectCage', {
+      projectId,
+      cageId,
+      assignedDate,
+      releasedDate: null,
+    });
+    return ensureSuccess(response, 'Proje kafesi oluşturulamadı');
   },
 
   getExistingGoodsReceiptContext: async (projectId: number): Promise<ExistingGoodsReceiptContext | null> => {

@@ -20,6 +20,12 @@ export interface ProjectCageDto {
   releasedDate?: string | null;
 }
 
+export interface CageOptionDto {
+  id: number;
+  cageCode?: string;
+  cageName?: string;
+}
+
 export interface GoodsReceiptCreateResult {
   id: number;
 }

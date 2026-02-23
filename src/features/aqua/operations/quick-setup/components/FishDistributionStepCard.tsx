@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -13,7 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { isDistributionValid } from '../schema/quick-setup-schema';
-import type { CageAllocationRow } from '../types/quick-setup-types';
+import type { CageAllocationRow, CageOptionDto } from '../types/quick-setup-types';
 import { distributeEqually, assignAllToCage } from '../utils/quick-operations';
 
 interface FishDistributionStepCardProps {
@@ -24,6 +25,11 @@ interface FishDistributionStepCardProps {
   isPosting: boolean;
   selectedCageId: number | null;
   onSelectCage: (projectCageId: number | null) => void;
+  availableCages: CageOptionDto[];
+  selectedAvailableCageId: number | null;
+  onSelectAvailableCage: (cageId: number | null) => void;
+  onAddCage: () => void;
+  isAddingCage: boolean;
 }
 
 export function FishDistributionStepCard({
@@ -34,6 +40,11 @@ export function FishDistributionStepCard({
   isPosting,
   selectedCageId,
   onSelectCage,
+  availableCages,
+  selectedAvailableCageId,
+  onSelectAvailableCage,
+  onAddCage,
+  isAddingCage,
 }: FishDistributionStepCardProps): ReactElement {
   const { t } = useTranslation('common');
   const totalAllocated = allocations.reduce((acc, row) => acc + row.fishCount, 0);
@@ -65,6 +76,34 @@ export function FishDistributionStepCard({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center gap-2 flex-wrap">
+          <div className="min-w-[220px]">
+            <Select
+              value={selectedAvailableCageId != null ? String(selectedAvailableCageId) : undefined}
+              onValueChange={(value) => onSelectAvailableCage(value ? Number(value) : null)}
+            >
+              <SelectTrigger>
+                <SelectValue
+                  placeholder={t('aqua.quickSetup.selectAvailableCage', { defaultValue: 'Boş kafes seçin' })}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                {availableCages.map((cage) => (
+                  <SelectItem key={cage.id} value={String(cage.id)}>
+                    {cage.cageCode ?? cage.cageName ?? String(cage.id)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onAddCage}
+            disabled={selectedAvailableCageId == null || isAddingCage}
+          >
+            {t('aqua.quickSetup.addCage', { defaultValue: '+ Kafes Ekle' })}
+          </Button>
           <Button type="button" variant="outline" size="sm" onClick={handleEqualDistribute}>
             {t('aqua.quickSetup.equalDistribute')}
           </Button>

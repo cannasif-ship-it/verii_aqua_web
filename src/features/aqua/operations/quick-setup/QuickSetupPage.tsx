@@ -11,7 +11,12 @@ import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByPr
 import { useQuickSetupMutations } from './hooks/useQuickSetupMutations';
 import type { ProjectFormSchema } from './schema/quick-setup-schema';
 import type { GoodsReceiptFormSchema, FishLineFormSchema, FeedLineFormSchema } from './schema/quick-setup-schema';
-import { GOODS_RECEIPT_ITEM_TYPE_FISH, type CageAllocationRow, type ExistingGoodsReceiptContext } from './types/quick-setup-types';
+import {
+  GOODS_RECEIPT_ITEM_TYPE_FISH,
+  type CageAllocationRow,
+  type ExistingGoodsReceiptContext,
+  type CageOptionDto,
+} from './types/quick-setup-types';
 
 export function QuickSetupPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -22,6 +27,9 @@ export function QuickSetupPage(): ReactElement {
   const [fishCount, setFishCount] = useState<number>(0);
   const [allocations, setAllocations] = useState<CageAllocationRow[]>([]);
   const [selectedCageId, setSelectedCageId] = useState<number | null>(null);
+  const [availableCages, setAvailableCages] = useState<CageOptionDto[]>([]);
+  const [selectedAvailableCageId, setSelectedAvailableCageId] = useState<number | null>(null);
+  const [isAddingCage, setIsAddingCage] = useState(false);
   const [existingReceipt, setExistingReceipt] = useState<ExistingGoodsReceiptContext | null>(null);
   const [isCheckingExistingReceipt, setIsCheckingExistingReceipt] = useState(false);
 
@@ -41,6 +49,8 @@ export function QuickSetupPage(): ReactElement {
     setFishCount(0);
     setAllocations([]);
     setSelectedCageId(null);
+    setAvailableCages([]);
+    setSelectedAvailableCageId(null);
     setExistingReceipt(null);
 
     if (projectId == null) {
@@ -120,6 +130,30 @@ export function QuickSetupPage(): ReactElement {
       isActive = false;
     };
   }, [projectId, t]);
+
+  useEffect(() => {
+    if (projectId == null) {
+      setAvailableCages([]);
+      setSelectedAvailableCageId(null);
+      return;
+    }
+
+    let isActive = true;
+    void (async () => {
+      try {
+        const cages = await aquaQuickApi.getAvailableCagesForProject(projectId);
+        if (!isActive) return;
+        setAvailableCages(cages);
+      } catch {
+        if (!isActive) return;
+        setAvailableCages([]);
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, [projectId, projectCages]);
 
   const allocationRows = useMemo((): CageAllocationRow[] => {
     const cages = Array.isArray(projectCages) ? projectCages : [];
@@ -291,6 +325,23 @@ export function QuickSetupPage(): ReactElement {
     }
   };
 
+  const handleAddCage = async (): Promise<void> => {
+    if (projectId == null || selectedAvailableCageId == null) return;
+    try {
+      setIsAddingCage(true);
+      await aquaQuickApi.addCageToProject(projectId, selectedAvailableCageId);
+      await refetchProjectCages();
+      const refreshedAvailable = await aquaQuickApi.getAvailableCagesForProject(projectId);
+      setAvailableCages(refreshedAvailable);
+      setSelectedAvailableCageId(null);
+      toast.success(t('aqua.quickSetup.toast.cageAdded', { defaultValue: 'Kafes projeye eklendi.' }));
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t('aqua.quickSetup.toast.cageAddFailed', { defaultValue: 'Kafes eklenemedi.' }));
+    } finally {
+      setIsAddingCage(false);
+    }
+  };
+
   return (
     <div className="space-y-6 w-full max-w-5xl">
       <h1 className="text-2xl font-semibold">{t('aqua.quickSetup.pageTitle')}</h1>
@@ -333,6 +384,11 @@ export function QuickSetupPage(): ReactElement {
           isPosting={mutations.createFishDistribution.isPending || mutations.postGoodsReceipt.isPending}
           selectedCageId={selectedCageId}
           onSelectCage={setSelectedCageId}
+          availableCages={availableCages}
+          selectedAvailableCageId={selectedAvailableCageId}
+          onSelectAvailableCage={setSelectedAvailableCageId}
+          onAddCage={handleAddCage}
+          isAddingCage={isAddingCage}
         />
       )}
     </div>

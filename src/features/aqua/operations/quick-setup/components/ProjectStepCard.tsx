@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,13 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Combobox } from '@/components/ui/combobox';
 import { projectFormSchema, type ProjectFormSchema } from '../schema/quick-setup-schema';
 import type { ProjectDto } from '../types/quick-setup-types';
 
@@ -53,6 +47,15 @@ export function ProjectStepCard({
     await onCreateProject(data);
     form.reset();
   };
+
+  const projectOptions = useMemo(
+    () =>
+      (Array.isArray(projects) ? projects : []).map((p) => ({
+        value: String(p.id),
+        label: `${p.projectCode ?? ''} - ${p.projectName ?? ''}`,
+      })),
+    [projects]
+  );
 
   return (
     <Card>
@@ -107,21 +110,16 @@ export function ProjectStepCard({
           </form>
         </Form>
         <div className="text-sm text-muted-foreground">{t('aqua.quickSetup.orSelectExisting')}</div>
-        <Select
+        <Combobox
+          options={projectOptions}
+          value=""
+          onValueChange={(v) => { if (v) onSelectProject(Number(v)); }}
+          placeholder={t('aqua.quickSetup.selectProject')}
+          searchPlaceholder={t('common.search')}
+          emptyText={t('common.noResults')}
           disabled={isLoadingProjects}
-          onValueChange={(v) => onSelectProject(Number(v))}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={t('aqua.quickSetup.selectProject')} />
-          </SelectTrigger>
-          <SelectContent>
-            {(Array.isArray(projects) ? projects : []).map((p) => (
-              <SelectItem key={p.id} value={String(p.id)}>
-                {p.projectCode} - {p.projectName}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          className="w-full"
+        />
       </CardContent>
     </Card>
   );

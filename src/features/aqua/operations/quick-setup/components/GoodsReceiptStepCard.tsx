@@ -14,13 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Combobox } from '@/components/ui/combobox';
 import {
   goodsReceiptFormSchema,
   fishLineFormSchema,
@@ -126,6 +120,14 @@ export function GoodsReceiptStepCard({
 
   const fishStocks = Array.isArray(stocks) ? stocks.filter((s) => s.id) : [];
   const feedStocks = fishStocks;
+  const fishStockOptions = fishStocks.map((s) => ({
+    value: String(s.id),
+    label: s.code ?? s.name ?? String(s.id),
+  }));
+  const feedStockOptions = feedStocks.map((s) => ({
+    value: String(s.id),
+    label: s.code ?? s.name ?? String(s.id),
+  }));
   const fishStockLabel =
     existingReceipt?.fishStockId != null
       ? fishStocks.find((x) => x.id === existingReceipt.fishStockId)?.code ??
@@ -216,24 +218,17 @@ export function GoodsReceiptStepCard({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('aqua.quickSetup.stock')}</FormLabel>
-                          <Select
-                            disabled={isLoadingStocks}
-                            onValueChange={(v) => field.onChange(Number(v))}
-                            value={field.value ? String(field.value) : undefined}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder={t('aqua.quickSetup.selectStock')} />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {fishStocks.map((s) => (
-                                <SelectItem key={s.id} value={String(s.id)}>
-                                  {s.code ?? s.name ?? String(s.id)}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <FormControl>
+                            <Combobox
+                              options={fishStockOptions}
+                              value={field.value ? String(field.value) : ''}
+                              onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                              placeholder={t('aqua.quickSetup.selectStock')}
+                              searchPlaceholder={t('common.search')}
+                              emptyText={t('common.noResults')}
+                              disabled={isLoadingStocks}
+                            />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -290,24 +285,17 @@ export function GoodsReceiptStepCard({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('aqua.quickSetup.stock')}</FormLabel>
-                          <Select
-                            disabled={isLoadingStocks}
-                            onValueChange={(v) => field.onChange(Number(v))}
-                            value={field.value ? String(field.value) : undefined}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder={t('aqua.quickSetup.selectFeedStock')} />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {feedStocks.map((s) => (
-                                <SelectItem key={s.id} value={String(s.id)}>
-                                  {s.code ?? s.name ?? String(s.id)}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <FormControl>
+                            <Combobox
+                              options={feedStockOptions}
+                              value={field.value ? String(field.value) : ''}
+                              onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                              placeholder={t('aqua.quickSetup.selectFeedStock')}
+                              searchPlaceholder={t('common.search')}
+                              emptyText={t('common.noResults')}
+                              disabled={isLoadingStocks}
+                            />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
