@@ -14,13 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Combobox } from '@/components/ui/combobox';
 import {
   Table,
   TableBody,
@@ -611,29 +605,28 @@ export function AquaCrudPage({
                   )}
 
                   {field.type === 'select' && (
-                    <Select
+                    <Combobox
+                      options={
+                        field.lookup
+                          ? (lookupOptionsByField[field.key] ?? []).map((option) => ({
+                              value: String(option.value),
+                              label: option.label,
+                            }))
+                          : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map(
+                              (option) => ({
+                                value: String(option.value),
+                                label: t(option.label),
+                              })
+                            )
+                      }
                       value={String(formValues[field.key] ?? '')}
                       onValueChange={(value) =>
                         setFormValues((prev) => ({ ...prev, [field.key]: value }))
                       }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('aqua.common.select')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {field.lookup
-                          ? (lookupOptionsByField[field.key] ?? []).map((option) => (
-                              <SelectItem key={`${field.key}-${option.value}`} value={option.value}>
-                                {option.label}
-                              </SelectItem>
-                            ))
-                          : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((option) => (
-                              <SelectItem key={`${field.key}-${option.value}`} value={String(option.value)}>
-                                {t(option.label)}
-                              </SelectItem>
-                            ))}
-                      </SelectContent>
-                    </Select>
+                      placeholder={t('aqua.common.select')}
+                      searchPlaceholder={t('common.search')}
+                      emptyText={t('common.noResults')}
+                    />
                   )}
 
                   {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
