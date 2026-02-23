@@ -22,6 +22,9 @@ export interface AquaFieldConfig {
   type: AquaFieldType;
   required?: boolean;
   placeholder?: string;
+  numberStep?: string;
+  numberMin?: number;
+  numberMax?: number;
   options?: AquaFieldOption[];
   lookup?: AquaFieldLookupConfig;
 }

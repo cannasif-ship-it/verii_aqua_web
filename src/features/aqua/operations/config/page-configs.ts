@@ -376,7 +376,7 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
       type: 'select',
       required: true,
       lookup: {
-        endpoint: 'Stock',
+        endpoint: '/api/Stock',
         labelKeys: ['erpStockCode', 'stockName'],
         labelSeparator: ' - ',
         valueKey: 'id',
@@ -489,7 +489,7 @@ export const feedingLinesConfig: AquaCrudConfig = {
       type: 'select',
       required: true,
       lookup: {
-        endpoint: 'Stock',
+        endpoint: '/api/Stock',
         labelKeys: ['erpStockCode', 'stockName'],
         labelSeparator: ' - ',
         valueKey: 'id',
@@ -865,14 +865,11 @@ export const netOperationLinesConfig: AquaCrudConfig = {
         staleTimeMs: 30000,
       },
     },
-    { key: 'quantity', label: 'aqua.fields.quantity', type: 'number', required: true },
-    { key: 'unitGram', label: 'aqua.fields.unitGram', type: 'number' },
     { key: 'note', label: 'aqua.fields.note', type: 'textarea' },
   ],
   columns: [
     { key: 'netOperationId', label: 'aqua.fields.netOperationId' },
     { key: 'projectCageId', label: 'aqua.fields.projectCageId' },
-    { key: 'quantity', label: 'aqua.fields.quantity' },
-    { key: 'unitGram', label: 'aqua.fields.unitGram' },
+    { key: 'note', label: 'aqua.fields.note' },
   ],
 };

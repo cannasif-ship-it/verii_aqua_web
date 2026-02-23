@@ -24,6 +24,13 @@ function buildQuery(params: AquaListParams): string {
   return query.toString();
 }
 
+function resolveEndpointPath(endpoint: string): string {
+  const normalized = endpoint.trim();
+  if (normalized.startsWith('/api/')) return normalized;
+  if (normalized.startsWith('api/')) return `/${normalized}`;
+  return `/api/aqua/${normalized}`;
+}
+
 function ensureSuccess<T>(response: ApiResponse<T>, fallback: string): T {
   if (!response.success) {
     throw new Error(response.message || fallback);
@@ -57,7 +64,8 @@ function normalizeListResponse(raw: AquaListResponseRaw): AquaListResponse {
 export const aquaCrudApi = {
   async getList(endpoint: string, params: AquaListParams): Promise<AquaListResponse> {
     const query = buildQuery(params);
-    const response = await api.get<ApiResponse<AquaListResponseRaw>>(`/api/aqua/${endpoint}${query ? `?${query}` : ''}`);
+    const basePath = resolveEndpointPath(endpoint);
+    const response = await api.get<ApiResponse<AquaListResponseRaw>>(`${basePath}${query ? `?${query}` : ''}`);
     const raw = ensureSuccess(response, 'Liste verisi alınamadı');
     return normalizeListResponse(raw);
   },

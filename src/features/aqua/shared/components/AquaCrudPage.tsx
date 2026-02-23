@@ -69,7 +69,11 @@ function normalizeFieldValue(field: AquaFieldConfig, rawValue: unknown): unknown
   if (rawValue === '' || rawValue == null) return null;
 
   if (field.type === 'number') {
-    const numeric = Number(rawValue);
+    const numericRaw =
+      typeof rawValue === 'string'
+        ? rawValue.trim().replace(',', '.')
+        : rawValue;
+    const numeric = Number(numericRaw);
     return Number.isNaN(numeric) ? null : numeric;
   }
 
@@ -84,6 +88,13 @@ function normalizeFieldValue(field: AquaFieldConfig, rawValue: unknown): unknown
   }
 
   return rawValue;
+}
+
+function resolveNumberInputStep(field: AquaFieldConfig): string {
+  if (field.numberStep) return field.numberStep;
+  const key = field.key.toLowerCase();
+  if (key.includes('count')) return '1';
+  return '0.001';
 }
 
 function isRequiredFieldMissing(field: AquaFieldConfig, value: unknown): boolean {
@@ -418,23 +429,24 @@ export function AquaCrudPage({
   return (
     <div className="space-y-4">
       {!hidePageHeader && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-bold">{localizedTitle}</h1>
             <p className="text-sm text-muted-foreground mt-1">{localizedDescription}</p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
             <Button
               variant="outline"
               onClick={() => void listQuery.refetch()}
               disabled={listQuery.isFetching || !canQueryList}
+              className="w-full sm:w-auto"
             >
               <RefreshCw size={16} className={listQuery.isFetching ? 'mr-2 animate-spin' : 'mr-2'} />
               {t('aqua.common.refresh')}
             </Button>
             {!config.readOnly && (
-              <Button onClick={handleCreate} disabled={!canQueryList}>
+              <Button onClick={handleCreate} disabled={!canQueryList} className="w-full sm:w-auto">
                 <Plus size={16} className="mr-2" />
                 {t('aqua.common.new')}
               </Button>
@@ -444,17 +456,18 @@ export function AquaCrudPage({
       )}
 
       {hidePageHeader && (
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <Button
             variant="outline"
             onClick={() => void listQuery.refetch()}
             disabled={listQuery.isFetching || !canQueryList}
+            className="w-full sm:w-auto"
           >
             <RefreshCw size={16} className={listQuery.isFetching ? 'mr-2 animate-spin' : 'mr-2'} />
             {t('aqua.common.refresh')}
           </Button>
           {!config.readOnly && (
-            <Button onClick={handleCreate} disabled={!canQueryList}>
+            <Button onClick={handleCreate} disabled={!canQueryList} className="w-full sm:w-auto">
               <Plus size={16} className="mr-2" />
               {t('aqua.common.new')}
             </Button>
@@ -547,7 +560,7 @@ export function AquaCrudPage({
           </TableBody>
         </Table>
 
-        <div className="flex items-center justify-between px-4 py-3 border-t">
+        <div className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-sm text-slate-500">
             {rangeStart}-{rangeEnd} / {totalCount}
           </span>
@@ -636,6 +649,10 @@ export function AquaCrudPage({
                               : 'text'
                       }
                       required={field.required}
+                      step={field.type === 'number' ? resolveNumberInputStep(field) : undefined}
+                      min={field.type === 'number' ? field.numberMin : undefined}
+                      max={field.type === 'number' ? field.numberMax : undefined}
+                      inputMode={field.type === 'number' ? 'decimal' : undefined}
                       placeholder={field.placeholder}
                       value={normalizeInputValue(field, formValues[field.key])}
                       onChange={(event) =>
