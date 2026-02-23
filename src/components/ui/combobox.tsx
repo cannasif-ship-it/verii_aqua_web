@@ -16,6 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { VoiceSearchButton } from "@/components/ui/voice-search-button"
+import { DROPDOWN_MAX_VISIBLE_ITEMS_CLASS } from "@/components/shared/dropdown/constants"
 
 export interface ComboboxOption {
   value: string
@@ -82,7 +83,12 @@ export function Combobox({
                 className="h-7 w-7 mr-1" 
              />
           </CommandInput>
-          <CommandList>
+          <CommandList
+            className={cn(
+              DROPDOWN_MAX_VISIBLE_ITEMS_CLASS,
+              "overflow-y-auto p-2 custom-scrollbar space-y-1"
+            )}
+          >
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
