@@ -547,23 +547,41 @@ export function ProjectDetailReportPage(): ReactElement {
       )}
 
       <Dialog open={detailDialog.open} onOpenChange={(open) => setDetailDialog((prev) => ({ ...prev, open }))}>
-        <DialogContent className="max-h-[80vh] max-w-2xl overflow-hidden border-slate-200">
-          <DialogHeader className="border-b border-slate-100 pb-4">
-            <DialogTitle className="text-lg font-semibold">{detailDialog.title}</DialogTitle>
-            <DialogDescription className="mt-1">{detailDialog.description}</DialogDescription>
+        <DialogContent className="max-h-[80vh] max-w-2xl overflow-hidden border-slate-200 bg-slate-50/50 p-0 shadow-xl">
+          <DialogHeader className="border-b border-slate-200 bg-white px-5 py-4">
+            <div className="flex items-baseline justify-between gap-4">
+              <DialogTitle className="text-base font-semibold tracking-tight text-slate-800">
+                {detailDialog.title}
+              </DialogTitle>
+              <DialogDescription className="text-xs font-medium text-slate-500 tabular-nums">
+                {detailDialog.description}
+              </DialogDescription>
+            </div>
           </DialogHeader>
           {detailDialog.items.length === 0 ? (
-            <p className="py-4 text-sm text-muted-foreground">{t('aqua.projectDetailReport.noOperationDetail')}</p>
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              {t('aqua.projectDetailReport.noOperationDetail')}
+            </p>
           ) : (
-            <div className="max-h-[56vh] space-y-2 overflow-y-auto py-4 pr-2">
-              {detailDialog.items.map((item, index) => (
-                <div
-                  key={`${item}-${index}`}
-                  className="rounded-lg border border-slate-200 bg-slate-50/50 px-3 py-2.5 text-sm text-slate-700"
-                >
-                  {item}
-                </div>
-              ))}
+            <div className="border-t border-slate-200 bg-white">
+              <div className="border-b border-slate-200 bg-slate-100/80 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                {t('aqua.projectDetailReport.detailRecords', { count: detailDialog.items.length })}
+              </div>
+              <div className="max-h-60 overflow-y-auto px-1 py-2 custom-scrollbar">
+                {detailDialog.items.map((item, index) => (
+                  <div
+                    key={`${item}-${index}`}
+                    className="flex gap-3 border-b border-slate-100 px-3 py-2 last:border-b-0 odd:bg-slate-50/50"
+                  >
+                    <span className="shrink-0 text-xs font-medium tabular-nums text-slate-400">
+                      {index + 1}.
+                    </span>
+                    <span className="min-w-0 flex-1 font-mono text-[13px] leading-snug text-slate-700 break-all">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </DialogContent>
