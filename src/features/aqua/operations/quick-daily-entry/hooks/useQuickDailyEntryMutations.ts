@@ -8,12 +8,18 @@ import type {
   CreateDailyWeatherPayload,
   CreateNetOperationPayload,
   CreateNetOperationLinePayload,
+  CreateTransferPayload,
+  CreateTransferLinePayload,
+  CreateStockConvertPayload,
+  CreateStockConvertLinePayload,
 } from '../types/quick-daily-entry-types';
 
 const FEEDINGS_KEY = ['aqua', 'feedings'];
 const MORTALITIES_KEY = ['aqua', 'mortalities'];
 const DAILY_WEATHER_KEY = ['aqua', 'dailyWeathers'];
 const NET_OPERATIONS_KEY = ['aqua', 'netOperations'];
+const TRANSFERS_KEY = ['aqua', 'transfers'];
+const STOCK_CONVERTS_KEY = ['aqua', 'stockConverts'];
 
 export function useCreateFeedingMutation() {
   const queryClient = useQueryClient();
@@ -75,5 +81,41 @@ export function useCreateNetOperationLineMutation() {
   return useMutation({
     mutationFn: (payload: CreateNetOperationLinePayload) =>
       aquaQuickDailyApi.createNetOperationLine(payload),
+  });
+}
+
+export function useCreateTransferMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateTransferPayload) =>
+      aquaQuickDailyApi.createTransfer(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: TRANSFERS_KEY });
+    },
+  });
+}
+
+export function useCreateTransferLineMutation() {
+  return useMutation({
+    mutationFn: (payload: CreateTransferLinePayload) =>
+      aquaQuickDailyApi.createTransferLine(payload),
+  });
+}
+
+export function useCreateStockConvertMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateStockConvertPayload) =>
+      aquaQuickDailyApi.createStockConvert(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: STOCK_CONVERTS_KEY });
+    },
+  });
+}
+
+export function useCreateStockConvertLineMutation() {
+  return useMutation({
+    mutationFn: (payload: CreateStockConvertLinePayload) =>
+      aquaQuickDailyApi.createStockConvertLine(payload),
   });
 }

@@ -10,6 +10,14 @@ export function formatNetOperationNo(): string {
   return `N-${Date.now()}`;
 }
 
+export function formatTransferNo(): string {
+  return `T-${Date.now()}`;
+}
+
+export function formatStockConvertNo(): string {
+  return `SC-${Date.now()}`;
+}
+
 export function localDateString(d: Date = new Date()): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, '0');
