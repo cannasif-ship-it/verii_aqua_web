@@ -150,7 +150,7 @@ export const ACCESS_CONTROL_ADMIN_ONLY_PATTERNS: RegExp[] = [
 export const PERMISSION_CODE_DISPLAY: Record<string, { key: string; fallback: string }> = {
   'dashboard.view': { key: 'sidebar.home', fallback: 'Home' },
   'stock.stocks.view': { key: 'sidebar.stockManagement', fallback: 'Stok Yönetimi' },
-  'users.profile.view': { key: 'userDetailManagement.profilePageTitle', fallback: 'Profil' },
+  'users.profile.view': { key: 'sidebar.settings', fallback: 'Ayarlar' },
 
   'aqua.definitions.projects.view': { key: 'sidebar.aquaProjects', fallback: 'Projeler' },
   'aqua.definitions.cages.view': { key: 'sidebar.aquaCages', fallback: 'Kafesler' },
@@ -227,6 +227,7 @@ export function getPermissionModuleDisplayMeta(prefix: string): { key: string; f
 const SIDEBAR_PERMISSION_CODES = [
   'dashboard.view',
   'stock.stocks.view',
+  'users.profile.view',
 
   'aqua.definitions.projects.view',
   'aqua.definitions.cages.view',
