@@ -44,7 +44,8 @@ export interface AquaCrudConfig {
   columns?: AquaColumnConfig[];
   defaultValues?: Record<string, unknown>;
   readOnly?: boolean;
-  postingSlug?: 'goods-receipt' | 'transfer' | 'mortality' | 'weighing' | 'stock-convert' | 'net-operation';
+  postingSlug?: 'goods-receipt' | 'transfer' | 'shipment' | 'mortality' | 'weighing' | 'stock-convert' | 'net-operation';
+  autoPostOnSave?: boolean;
 }
 
 export interface AquaCrudContextFilter {

@@ -17,6 +17,7 @@ export const goodsReceiptsConfig: AquaCrudConfig = {
   description: 'aqua.pages.goodsReceipts.description',
   endpoint: 'GoodsReceipt',
   postingSlug: 'goods-receipt',
+  autoPostOnSave: true,
   listStaleTimeMs: 15000,
   fields: [
     {
@@ -109,6 +110,7 @@ export const mortalitiesConfig: AquaCrudConfig = {
   description: 'aqua.pages.mortalities.description',
   endpoint: 'Mortality',
   postingSlug: 'mortality',
+  autoPostOnSave: true,
   listStaleTimeMs: 10000,
   fields: [
     {
@@ -143,6 +145,7 @@ export const transfersConfig: AquaCrudConfig = {
   description: 'aqua.pages.transfers.description',
   endpoint: 'Transfer',
   postingSlug: 'transfer',
+  autoPostOnSave: true,
   listStaleTimeMs: 10000,
   fields: [
     {
@@ -173,12 +176,50 @@ export const transfersConfig: AquaCrudConfig = {
   defaultValues: { status: 0 },
 };
 
+export const shipmentsConfig: AquaCrudConfig = {
+  key: 'shipments',
+  title: 'aqua.pages.shipments.title',
+  description: 'aqua.pages.shipments.description',
+  endpoint: 'Shipment',
+  postingSlug: 'shipment',
+  autoPostOnSave: true,
+  listStaleTimeMs: 10000,
+  fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'shipmentNo', label: 'aqua.fields.shipmentNo', type: 'text', required: true },
+    { key: 'shipmentDate', label: 'aqua.fields.shipmentDate', type: 'date', required: true },
+    { key: 'status', label: 'aqua.fields.status', type: 'select', required: true, options: documentStatusOptions },
+    { key: 'note', label: 'aqua.fields.note', type: 'textarea' },
+  ],
+  columns: [
+    { key: 'shipmentNo', label: 'aqua.fields.shipmentNo' },
+    { key: 'shipmentDate', label: 'aqua.fields.shipmentDate' },
+    { key: 'projectCode', label: 'aqua.fields.projectCode' },
+    { key: 'projectName', label: 'aqua.fields.projectName' },
+    { key: 'status', label: 'aqua.fields.status' },
+  ],
+  defaultValues: { status: 0 },
+};
+
 export const weighingsConfig: AquaCrudConfig = {
   key: 'weighings',
   title: 'aqua.pages.weighings.title',
   description: 'aqua.pages.weighings.description',
   endpoint: 'Weighing',
   postingSlug: 'weighing',
+  autoPostOnSave: true,
   listStaleTimeMs: 10000,
   fields: [
     {
@@ -215,6 +256,7 @@ export const stockConvertsConfig: AquaCrudConfig = {
   description: 'aqua.pages.stockConverts.description',
   endpoint: 'StockConvert',
   postingSlug: 'stock-convert',
+  autoPostOnSave: true,
   listStaleTimeMs: 10000,
   fields: [
     {
@@ -309,6 +351,7 @@ export const netOperationsConfig: AquaCrudConfig = {
   description: 'aqua.pages.netOperations.description',
   endpoint: 'NetOperation',
   postingSlug: 'net-operation',
+  autoPostOnSave: true,
   listStaleTimeMs: 15000,
   fields: [
     {
@@ -628,6 +671,63 @@ export const transferLinesConfig: AquaCrudConfig = {
     { key: 'fishBatchId', label: 'aqua.fields.fishBatchId' },
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'averageGram', label: 'aqua.fields.averageGram' },
+  ],
+};
+
+export const shipmentLinesConfig: AquaCrudConfig = {
+  key: 'shipmentLines',
+  title: 'aqua.pages.shipmentLines.title',
+  description: 'aqua.pages.shipmentLines.description',
+  endpoint: 'ShipmentLine',
+  listStaleTimeMs: 10000,
+  fields: [
+    {
+      key: 'shipmentId',
+      label: 'aqua.fields.shipmentId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'Shipment',
+        labelKeys: ['shipmentNo'],
+        valueKey: 'id',
+        staleTimeMs: 30000,
+      },
+    },
+    {
+      key: 'fishBatchId',
+      label: 'aqua.fields.fishBatchId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'FishBatch',
+        labelKeys: ['batchCode'],
+        valueKey: 'id',
+        staleTimeMs: 30000,
+      },
+    },
+    {
+      key: 'fromProjectCageId',
+      label: 'aqua.fields.fromProjectCageId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'ProjectCage',
+        labelKeys: ['projectCode', 'cageCode'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 30000,
+      },
+    },
+    { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', required: true },
+    { key: 'averageGram', label: 'aqua.fields.averageGram', type: 'number', required: true },
+    { key: 'biomassGram', label: 'aqua.fields.biomassGram', type: 'number', required: true },
+  ],
+  columns: [
+    { key: 'shipmentId', label: 'aqua.fields.shipmentId' },
+    { key: 'fishBatchId', label: 'aqua.fields.fishBatchId' },
+    { key: 'fishCount', label: 'aqua.fields.fishCount' },
+    { key: 'averageGram', label: 'aqua.fields.averageGram' },
+    { key: 'biomassGram', label: 'aqua.fields.biomassGram' },
   ],
 };
 
