@@ -128,31 +128,31 @@
     "imageSettings": "خصائص الصورة",
     "imageUrl": "عنوان URL للصورة",
     "uploadFromFile": "تحميل من الملف",
-    "imageUrlPlaceholder": "https://... veya /logo.png",
+    "imageUrlPlaceholder": "رابط الصورة",
     "dropdown": {
-      "minCharsHint": "En az {{count}} karakter"
+      "minCharsHint": "يرجى إدخال {{count}} أحرف على الأقل."
     },
     "advancedFilter": {
-      "title": "Gelişmiş Filtre",
-      "add": "Filtre Ekle",
-      "column": "Sütun",
-      "operator": "Operatör",
-      "value": "Değer",
-      "search": "Ara",
-      "clear": "Temizle",
-      "remove": "Kaldır",
-      "operatorContains": "İçerir",
-      "operatorStartsWith": "Şununla başlar",
-      "operatorEndsWith": "Şununla biter",
-      "operatorEquals": "Eşittir",
-      "operator>": ">",
-      "operator>=": ">=",
-      "operator<": "<",
-      "operator<=": "<=",
-      "true": "Evet",
-      "false": "Hayır"
+      "title": "تصفية متقدمة",
+      "add": "إضافة عامل تصفية",
+      "column": "العمود",
+      "operator": "المعامل",
+      "value": "القيمة",
+      "search": "بحث",
+      "clear": "مسح",
+      "remove": "إزالة",
+      "operatorContains": "يحتوي على",
+      "operatorStartsWith": "يبدأ بـ",
+      "operatorEndsWith": "ينتهي بـ",
+      "operatorEquals": "يساوي",
+      "operator>": "أكبر من",
+      "operator>=": "أكبر من أو يساوي",
+      "operator<": "أصغر من",
+      "operator<=": "أصغر من أو يساوي",
+      "true": "صحيح",
+      "false": "خطأ"
     },
-    "inactive": "Pasif"
+    "inactive": "غير نشط"
   },
   "auth": {
     "login": {
@@ -326,7 +326,7 @@
     "aquaGoodsReceipts": "استلام البضائع (سمك/علف)",
     "aquaFeedings": "التغذية (صباح/مساء)",
     "aquaMortalities": "النفوق",
-    "aquaTransfers": "النقل",
+    "aquaTransfers": "التحويلات",
     "aquaShipments": "الشحن",
     "aquaWeighings": "الوزن",
     "aquaStockConverts": "تحويل المخزون",
@@ -4654,9 +4654,9 @@
     }
   },
   "welcome": {
-    "title": "Hoş Geldiniz",
-    "greeting": "Merhaba, {{name}}",
-    "subtitle": "Sol menüden işlemlere ve raporlara erişebilirsiniz.",
-    "userFallback": "Kullanıcı"
+    "title": "مرحبًا",
+    "greeting": "مرحبًا، {{name}}",
+    "subtitle": "يمكنك المتابعة من القائمة على اليسار.",
+    "userFallback": "مستخدم"
   }
 }

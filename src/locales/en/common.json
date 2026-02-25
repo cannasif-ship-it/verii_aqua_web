@@ -73,7 +73,7 @@
       "page": "Page {{current}} / {{total}}"
     },
     "ok": "OK",
-    "imageUrlPlaceholder": "https://... veya /logo.png",
+    "imageUrlPlaceholder": "Image URL",
     "serverErrorTitle": "Server error",
     "serverErrorRetrying": "The connection is lost. Automatically retrying...",
     "serverErrorDescription": "Could not load credentials. Please try again.",
@@ -85,7 +85,7 @@
     "select": "Select",
     "voiceSearch": "Voice Search",
     "dropdown": {
-      "minCharsHint": "Minimum {{count}} characters"
+      "minCharsHint": "Please type at least {{count}} characters."
     },
     "update": "Update",
     "deleting": "Deleting...",
@@ -111,12 +111,12 @@
       "operatorStartsWith": "Starts with",
       "operatorEndsWith": "Ends with",
       "operatorEquals": "Equals",
-      "operator>": ">",
-      "operator>=": ">=",
-      "operator<": "<",
-      "operator<=": "<=",
-      "true": "Yes",
-      "false": "No"
+      "operator>": "Greater than",
+      "operator>=": "Greater than or equal",
+      "operator<": "Less than",
+      "operator<=": "Less than or equal",
+      "true": "True",
+      "false": "False"
     },
     "selectAll": "Select All",
     "export": "Export",
@@ -152,7 +152,7 @@
     "imageSettings": "Image Properties",
     "imageUrl": "Image URL",
     "uploadFromFile": "Load from file",
-    "inactive": "Pasif"
+    "inactive": "Inactive"
   },
   "auth": {
     "login": {
@@ -203,7 +203,7 @@
   "welcome": {
     "title": "Welcome",
     "greeting": "Hello, {{name}}",
-    "subtitle": "Use the sidebar to access operations and reports.",
+    "subtitle": "You can continue from the menu on the left.",
     "userFallback": "User"
   },
   "powerbiRls": {
@@ -340,7 +340,7 @@
     "aquaFeedingDistributions": "Feeding Distributions",
     "aquaMortalities": "Mortality",
     "aquaMortalityLines": "Mortality Lines",
-    "aquaTransfers": "Transfer",
+    "aquaTransfers": "Transfers",
     "aquaTransferLines": "Transfer Lines",
     "aquaShipments": "Shipment",
     "aquaShipmentLines": "Shipment Lines",

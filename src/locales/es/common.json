@@ -128,31 +128,31 @@
     "imageSettings": "Propiedades de la imagen",
     "imageUrl": "URL de la imagen",
     "uploadFromFile": "Cargar desde archivo",
-    "imageUrlPlaceholder": "https://... veya /logo.png",
+    "imageUrlPlaceholder": "URL de imagen",
     "dropdown": {
-      "minCharsHint": "En az {{count}} karakter"
+      "minCharsHint": "Por favor, escribe al menos {{count}} caracteres."
     },
     "advancedFilter": {
-      "title": "Gelişmiş Filtre",
-      "add": "Filtre Ekle",
-      "column": "Sütun",
-      "operator": "Operatör",
-      "value": "Değer",
-      "search": "Ara",
-      "clear": "Temizle",
-      "remove": "Kaldır",
-      "operatorContains": "İçerir",
-      "operatorStartsWith": "Şununla başlar",
-      "operatorEndsWith": "Şununla biter",
-      "operatorEquals": "Eşittir",
-      "operator>": ">",
-      "operator>=": ">=",
-      "operator<": "<",
-      "operator<=": "<=",
-      "true": "Evet",
-      "false": "Hayır"
+      "title": "Filtro avanzado",
+      "add": "Agregar filtro",
+      "column": "Columna",
+      "operator": "Operador",
+      "value": "Valor",
+      "search": "Buscar",
+      "clear": "Limpiar",
+      "remove": "Eliminar",
+      "operatorContains": "Contiene",
+      "operatorStartsWith": "Empieza con",
+      "operatorEndsWith": "Termina con",
+      "operatorEquals": "Igual",
+      "operator>": "Mayor que",
+      "operator>=": "Mayor o igual",
+      "operator<": "Menor que",
+      "operator<=": "Menor o igual",
+      "true": "Verdadero",
+      "false": "Falso"
     },
-    "inactive": "Pasif"
+    "inactive": "Inactivo"
   },
   "auth": {
     "login": {
@@ -326,7 +326,7 @@
     "aquaGoodsReceipts": "Recepción de Mercancía (Pez/Alimento)",
     "aquaFeedings": "Alimentación (Mañana/Tarde)",
     "aquaMortalities": "Mortalidad",
-    "aquaTransfers": "Transferencia",
+    "aquaTransfers": "Transferencias",
     "aquaShipments": "Envío",
     "aquaWeighings": "Pesaje",
     "aquaStockConverts": "Conversión de Stock",
@@ -4654,9 +4654,9 @@
     }
   },
   "welcome": {
-    "title": "Hoş Geldiniz",
-    "greeting": "Merhaba, {{name}}",
-    "subtitle": "Sol menüden işlemlere ve raporlara erişebilirsiniz.",
-    "userFallback": "Kullanıcı"
+    "title": "Bienvenido",
+    "greeting": "Hola, {{name}}",
+    "subtitle": "Puedes continuar desde el menú de la izquierda.",
+    "userFallback": "Usuario"
   }
 }
