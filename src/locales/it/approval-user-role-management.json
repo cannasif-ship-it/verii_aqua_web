@@ -43,9 +43,9 @@
       "cancel": "Annulla"
     },
     "advancedFilter": {
-      "columnUserFullName": "Kullanıcı",
-      "columnApprovalRoleName": "Onay Rolü",
-      "columnCreatedBy": "Oluşturan"
+      "columnUserFullName": "Utente",
+      "columnApprovalRoleName": "Ruolo di approvazione",
+      "columnCreatedBy": "Creato da"
     }
   }
 }

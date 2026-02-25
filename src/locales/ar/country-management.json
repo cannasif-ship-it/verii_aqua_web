@@ -50,8 +50,8 @@
     "confirmMessage": "هل أنت متأكد من حذف {{name}}؟"
   },
   "advancedFilter": {
-    "columnName": "Ülke Adı",
-    "columnCode": "Ülke Kodu",
-    "columnErpCode": "ERP Kodu"
+    "columnName": "اسم الدولة",
+    "columnCode": "رمز الدولة",
+    "columnErpCode": "رمز ERP"
   }
 }

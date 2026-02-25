@@ -43,9 +43,9 @@
       "cancel": "إلغاء"
     },
     "advancedFilter": {
-      "columnUserFullName": "Kullanıcı",
-      "columnApprovalRoleName": "Onay Rolü",
-      "columnCreatedBy": "Oluşturan"
+      "columnUserFullName": "المستخدم",
+      "columnApprovalRoleName": "دور الموافقة",
+      "columnCreatedBy": "أنشأه"
     }
   }
 }

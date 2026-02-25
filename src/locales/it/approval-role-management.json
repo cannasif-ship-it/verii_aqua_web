@@ -48,9 +48,9 @@
       "saving": "Salvataggio..."
     },
     "advancedFilter": {
-      "columnName": "Rol Adı",
-      "columnApprovalRoleGroupName": "Rol Grubu",
-      "columnMaxAmount": "Maks. Tutar"
+      "columnName": "Nome ruolo",
+      "columnApprovalRoleGroupName": "Gruppo ruolo",
+      "columnMaxAmount": "Importo max"
     }
   }
 }

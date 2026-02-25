@@ -54,7 +54,7 @@
     "deleteError": "تعذر حذف نوع العميل"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Tipi Adı",
-    "columnDescription": "Açıklama"
+    "columnName": "اسم نوع العميل",
+    "columnDescription": "الوصف"
   }
 }

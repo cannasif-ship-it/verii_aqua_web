@@ -54,7 +54,7 @@
     "deleteError": "Customer type could not be deleted"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Tipi Adı",
-    "columnDescription": "Açıklama"
+    "columnName": "Name des Kundentyps",
+    "columnDescription": "Beschreibung"
   }
 }

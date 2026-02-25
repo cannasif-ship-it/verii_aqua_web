@@ -50,10 +50,10 @@
       "order": "طلب شراء"
     },
     "advancedFilter": {
-      "columnDocumentType": "Belge Tipi",
-      "columnDescription": "Açıklama",
-      "columnIsActive": "Aktif",
-      "columnCreatedBy": "Oluşturan"
+      "columnDocumentType": "نوع المستند",
+      "columnDescription": "الوصف",
+      "columnIsActive": "نشط",
+      "columnCreatedBy": "أنشأه"
     }
   },
   "approvalFlowStep": {

@@ -50,10 +50,10 @@
       "order": "Bestellung"
     },
     "advancedFilter": {
-      "columnDocumentType": "Belge Tipi",
-      "columnDescription": "Açıklama",
-      "columnIsActive": "Aktif",
-      "columnCreatedBy": "Oluşturan"
+      "columnDocumentType": "Dokumenttyp",
+      "columnDescription": "Beschreibung",
+      "columnIsActive": "Aktiv",
+      "columnCreatedBy": "Erstellt von"
     }
   },
   "approvalFlowStep": {

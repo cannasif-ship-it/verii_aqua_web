@@ -167,12 +167,12 @@
     "columnPriority": "الأولوية",
     "columnDueDate": "تاريخ الانتهاء",
     "columnIsCompleted": "مكتمل",
-    "filterButton": "Gelişmiş Filtre"
+    "filterButton": "تصفية متقدمة"
   },
   "columnCustomization": {
-    "hiddenColumns": "Gizlenen Sütunlar",
-    "visibleColumns": "Gösterilecek Sütunlar",
-    "moveUp": "Yukarı",
-    "moveDown": "Aşağı"
+    "hiddenColumns": "الأعمدة المخفية",
+    "visibleColumns": "الأعمدة الظاهرة",
+    "moveUp": "أعلى",
+    "moveDown": "أسفل"
   }
 }

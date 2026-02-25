@@ -54,7 +54,7 @@
     "deleteError": "No se pudo eliminar el tipo de cliente"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Tipi Adı",
-    "columnDescription": "Açıklama"
+    "columnName": "Nombre del tipo de cliente",
+    "columnDescription": "Descripción"
   }
 }

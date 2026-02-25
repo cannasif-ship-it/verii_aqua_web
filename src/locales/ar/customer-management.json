@@ -116,11 +116,11 @@
     "deleteError": "تعذر حذف العميل"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Adı",
-    "columnCustomerCode": "Müşteri Kodu",
-    "columnEmail": "E-posta",
-    "columnPhone": "Telefon",
-    "columnTaxNumber": "Vergi No",
-    "columnCityName": "Şehir"
+    "columnName": "اسم العميل",
+    "columnCustomerCode": "رمز العميل",
+    "columnEmail": "البريد الإلكتروني",
+    "columnPhone": "الهاتف",
+    "columnTaxNumber": "الرقم الضريبي",
+    "columnCityName": "المدينة"
   }
 }

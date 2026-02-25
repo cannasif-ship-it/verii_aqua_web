@@ -43,9 +43,9 @@
       "approvalRoleIdRequired": "Approval role selection is required"
     },
     "advancedFilter": {
-      "columnUserFullName": "Kullanıcı",
-      "columnApprovalRoleName": "Onay Rolü",
-      "columnCreatedBy": "Oluşturan"
+      "columnUserFullName": "Benutzer",
+      "columnApprovalRoleName": "Freigaberolle",
+      "columnCreatedBy": "Erstellt von"
     }
   }
 }

@@ -116,11 +116,11 @@
     "deleteError": "Échec de la suppression du client"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Adı",
-    "columnCustomerCode": "Müşteri Kodu",
-    "columnEmail": "E-posta",
-    "columnPhone": "Telefon",
-    "columnTaxNumber": "Vergi No",
-    "columnCityName": "Şehir"
+    "columnName": "Nom du client",
+    "columnCustomerCode": "Code client",
+    "columnEmail": "E-mail",
+    "columnPhone": "Téléphone",
+    "columnTaxNumber": "N° fiscal",
+    "columnCityName": "Ville"
   }
 }

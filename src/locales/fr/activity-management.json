@@ -168,12 +168,12 @@
     "columnPriority": "Priorité",
     "columnDueDate": "Date de fin",
     "columnIsCompleted": "Terminé",
-    "filterButton": "Gelişmiş Filtre"
+    "filterButton": "Filtre avancé"
   },
   "columnCustomization": {
-    "hiddenColumns": "Gizlenen Sütunlar",
-    "visibleColumns": "Gösterilecek Sütunlar",
-    "moveUp": "Yukarı",
-    "moveDown": "Aşağı"
+    "hiddenColumns": "Colonnes masquées",
+    "visibleColumns": "Colonnes visibles",
+    "moveUp": "Haut",
+    "moveDown": "Bas"
   }
 }

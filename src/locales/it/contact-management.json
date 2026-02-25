@@ -93,13 +93,13 @@
     "deleteError": "Impossibile eliminare il contatto"
   },
   "advancedFilter": {
-    "columnFullName": "Ad Soyad",
-    "columnFirstName": "Ad",
-    "columnLastName": "Soyad",
-    "columnEmail": "E-posta",
-    "columnPhone": "Telefon",
-    "columnMobile": "Mobil",
-    "columnCustomerName": "Müşteri",
-    "columnTitleName": "Ünvan"
+    "columnFullName": "Nome completo",
+    "columnFirstName": "Nome",
+    "columnLastName": "Cognome",
+    "columnEmail": "Email",
+    "columnPhone": "Telefono",
+    "columnMobile": "Cellulare",
+    "columnCustomerName": "Cliente",
+    "columnTitleName": "Titolo"
   }
 }

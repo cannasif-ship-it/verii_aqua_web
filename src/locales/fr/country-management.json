@@ -63,8 +63,8 @@
     "confirmMessage": "Êtes-vous sûr de vouloir supprimer le pays {{name}} ?"
   },
   "advancedFilter": {
-    "columnName": "Ülke Adı",
-    "columnCode": "Ülke Kodu",
-    "columnErpCode": "ERP Kodu"
+    "columnName": "Nom du pays",
+    "columnCode": "Code pays",
+    "columnErpCode": "Code ERP"
   }
 }

@@ -48,9 +48,9 @@
       "maxAmountMin": "Max amount cannot be less than 0"
     },
     "advancedFilter": {
-      "columnName": "Rol Adı",
-      "columnApprovalRoleGroupName": "Rol Grubu",
-      "columnMaxAmount": "Maks. Tutar"
+      "columnName": "Nom du rôle",
+      "columnApprovalRoleGroupName": "Groupe de rôles",
+      "columnMaxAmount": "Montant max."
     }
   }
 }

@@ -116,11 +116,11 @@
     "deleteError": "Impossibile eliminare il cliente"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Adı",
-    "columnCustomerCode": "Müşteri Kodu",
-    "columnEmail": "E-posta",
-    "columnPhone": "Telefon",
-    "columnTaxNumber": "Vergi No",
-    "columnCityName": "Şehir"
+    "columnName": "Nome cliente",
+    "columnCustomerCode": "Codice cliente",
+    "columnEmail": "Email",
+    "columnPhone": "Telefono",
+    "columnTaxNumber": "Partita IVA",
+    "columnCityName": "Città"
   }
 }

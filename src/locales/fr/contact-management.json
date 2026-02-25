@@ -93,13 +93,13 @@
     "deleteError": "Le contact n'a pas pu être supprimé"
   },
   "advancedFilter": {
-    "columnFullName": "Ad Soyad",
-    "columnFirstName": "Ad",
-    "columnLastName": "Soyad",
-    "columnEmail": "E-posta",
-    "columnPhone": "Telefon",
-    "columnMobile": "Mobil",
-    "columnCustomerName": "Müşteri",
-    "columnTitleName": "Ünvan"
+    "columnFullName": "Nom complet",
+    "columnFirstName": "Prénom",
+    "columnLastName": "Nom",
+    "columnEmail": "E-mail",
+    "columnPhone": "Téléphone",
+    "columnMobile": "Mobile",
+    "columnCustomerName": "Client",
+    "columnTitleName": "Titre"
   }
 }

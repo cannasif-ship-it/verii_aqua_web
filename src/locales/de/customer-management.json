@@ -116,11 +116,11 @@
     "deleteError": "Customer could not be deleted"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Adı",
-    "columnCustomerCode": "Müşteri Kodu",
-    "columnEmail": "E-posta",
+    "columnName": "Kundenname",
+    "columnCustomerCode": "Kundencode",
+    "columnEmail": "E-Mail",
     "columnPhone": "Telefon",
-    "columnTaxNumber": "Vergi No",
-    "columnCityName": "Şehir"
+    "columnTaxNumber": "Steuernummer",
+    "columnCityName": "Stadt"
   }
 }

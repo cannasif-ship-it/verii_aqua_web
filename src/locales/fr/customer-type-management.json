@@ -54,7 +54,7 @@
     "deleteError": "Échec de la suppression du type de client"
   },
   "advancedFilter": {
-    "columnName": "Müşteri Tipi Adı",
-    "columnDescription": "Açıklama"
+    "columnName": "Nom du type de client",
+    "columnDescription": "Description"
   }
 }

@@ -48,9 +48,9 @@
       "saving": "جاري الحفظ..."
     },
     "advancedFilter": {
-      "columnName": "Rol Adı",
-      "columnApprovalRoleGroupName": "Rol Grubu",
-      "columnMaxAmount": "Maks. Tutar"
+      "columnName": "اسم الدور",
+      "columnApprovalRoleGroupName": "مجموعة الدور",
+      "columnMaxAmount": "الحد الأقصى للمبلغ"
     }
   }
 }

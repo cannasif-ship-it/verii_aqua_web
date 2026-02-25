@@ -48,9 +48,9 @@
       "saving": "Guardando..."
     },
     "advancedFilter": {
-      "columnName": "Rol Adı",
-      "columnApprovalRoleGroupName": "Rol Grubu",
-      "columnMaxAmount": "Maks. Tutar"
+      "columnName": "Nombre del rol",
+      "columnApprovalRoleGroupName": "Grupo de rol",
+      "columnMaxAmount": "Monto máx."
     }
   }
 }
