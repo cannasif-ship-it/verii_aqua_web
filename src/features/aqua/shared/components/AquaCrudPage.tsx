@@ -15,15 +15,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Combobox } from '@/components/ui/combobox';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Plus, RefreshCw } from 'lucide-react';
+import { Plus, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import type { AquaCrudConfig, AquaCrudContextFilter, AquaFieldConfig } from '../types/aqua-crud';
 import { aquaCrudApi } from '../api/aqua-crud-api';
 
@@ -218,6 +210,7 @@ export function AquaCrudPage({
   const [formOpen, setFormOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [formValues, setFormValues] = useState<Record<string, unknown>>(() => getInitialValues(config));
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>({ key: 'Id', direction: 'desc' });
 
   useEffect(() => {
     if (disablePageTitleSync) return;
@@ -233,13 +226,13 @@ export function AquaCrudPage({
   const canQueryList = contextFilter ? contextFilter.value != null : true;
 
   const listQuery = useQuery({
-    queryKey: ['aqua', config.key, pageNumber, contextFilter?.fieldKey, contextFilter?.value],
+    queryKey: ['aqua', config.key, pageNumber, contextFilter?.fieldKey, contextFilter?.value, sortConfig],
     queryFn: () =>
       aquaCrudApi.getList(config.endpoint, {
         pageNumber,
         pageSize: PAGE_SIZE,
-        sortBy: 'Id',
-        sortDirection: 'desc',
+        sortBy: sortConfig?.key ?? 'Id',
+        sortDirection: sortConfig?.direction ?? 'desc',
         filters: effectiveFilters,
         filterLogic: 'and',
       }),
@@ -511,9 +504,36 @@ export function AquaCrudPage({
     createMutation.mutate(payload);
   };
 
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
   const rangeStart = totalCount === 0 ? 0 : (pageNumber - 1) * PAGE_SIZE + 1;
   const rangeEnd = totalCount === 0 ? 0 : Math.min(pageNumber * PAGE_SIZE, totalCount);
+
+  // CRM Tablo Stilleri (Tailwind)
+  const headStyle = `
+    text-slate-500 dark:text-slate-400 
+    font-bold text-xs uppercase tracking-wider 
+    py-2 px-4 
+    hover:text-pink-600 dark:hover:text-pink-400 
+    transition-colors cursor-pointer select-none
+    border-r border-slate-200 dark:border-white/[0.03] last:border-r-0
+    whitespace-nowrap bg-slate-50/90 dark:bg-[#130822]/90
+    text-left
+  `;
+
+  const cellStyle = `
+    text-slate-600 dark:text-slate-400 
+    px-4 py-2
+    border-r border-slate-100 dark:border-white/[0.03] last:border-r-0
+    text-sm align-middle whitespace-nowrap
+  `;
 
   return (
     <div className="space-y-4">
@@ -564,92 +584,131 @@ export function AquaCrudPage({
         </div>
       )}
 
-      <div className="rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden bg-white dark:bg-[#0b0713]">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t('aqua.common.id')}</TableHead>
-              {columns.map((column) => (
-                <TableHead key={column.key}>{t(column.label)}</TableHead>
-              ))}
-              <TableHead className="text-right">{t('aqua.common.actions')}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {!canQueryList ? (
-              <TableRow>
-                <TableCell colSpan={columns.length + 2} className="text-center py-10">
-                  {t('aqua.common.noData')}
-                </TableCell>
-              </TableRow>
-            ) : listQuery.isLoading ? (
-              <TableRow>
-                <TableCell colSpan={columns.length + 2} className="text-center py-10">
-                  {t('aqua.common.loading')}
-                </TableCell>
-              </TableRow>
-            ) : rows.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={columns.length + 2} className="text-center py-10">
-                  {t('aqua.common.noData')}
-                </TableCell>
-              </TableRow>
-            ) : (
-              rows.map((row) => {
-                const id = Number(row.id ?? row.Id);
-                const status = Number(row.status ?? row.Status);
-
-                return (
-                  <TableRow
-                    key={id}
-                    className={rowSelectionEnabled && selectedRowId === id ? 'bg-sky-50 dark:bg-sky-900/20' : undefined}
-                    onClick={() => {
-                      if (!rowSelectionEnabled) return;
-                      onRowSelect?.(row);
-                    }}
+      {/* DÜZELTİLEN KISIM: overflow-hidden eklendi, flex-col yapıldı */}
+      <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0b0713] flex flex-col overflow-hidden">
+        
+        {/* Sadece tabloyu sarmalayan ve yatay scroll olmasını sağlayan div */}
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[680px] sm:min-w-[820px] caption-bottom text-sm relative">
+            <thead className="bg-[#151025] sticky top-0 z-10 shadow-sm">
+              <tr className="h-10 hover:bg-transparent border-b border-slate-200 dark:border-white/10">
+                <th 
+                  className={headStyle}
+                  onClick={() => handleSort('Id')}
+                >
+                  <div className="flex items-center gap-2">
+                    {t('aqua.common.id')}
+                    {sortConfig?.key === 'Id' ? (
+                      sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />
+                    ) : (
+                      <ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />
+                    )}
+                  </div>
+                </th>
+                {columns.map((column) => (
+                  <th 
+                    key={column.key} 
+                    className={headStyle}
+                    onClick={() => handleSort(column.key)}
                   >
-                    <TableCell>{id}</TableCell>
-                    {columns.map((column) => (
-                      <TableCell key={column.key}>
-                        {(() => {
-                          const rawValue = row[column.key];
-                          const lookupLabel = lookupLabelsByFieldAndValue[column.key]?.[String(rawValue)];
-                          const selectLabel = selectOptionLabelsByFieldAndValue[column.key]?.[String(rawValue)];
-                          return lookupLabel ?? selectLabel ?? formatCellValue(rawValue, t);
-                        })()}
-                      </TableCell>
-                    ))}
-                    <TableCell>
-                      <div className="flex items-center justify-end gap-2">
-                        {!config.readOnly && (
-                          <>
-                            <Button variant="outline" size="sm" onClick={() => handleEdit(row)}>
-                              {t('aqua.common.edit')}
-                            </Button>
-                            <Button variant="outline" size="sm" onClick={() => handleDelete(row)}>
-                              {t('aqua.common.delete')}
-                            </Button>
-                          </>
-                        )}
-                        {config.postingSlug && !config.autoPostOnSave && status === 0 && (
-                          <Button
-                            size="sm"
-                            onClick={() => postMutation.mutate({ slug: config.postingSlug!, id })}
-                            disabled={postMutation.isPending}
-                          >
-                            {t('aqua.common.post')}
-                          </Button>
-                        )}
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+                    <div className="flex items-center gap-2">
+                      {t(column.label)}
+                      {sortConfig?.key === column.key ? (
+                        sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />
+                      ) : (
+                        <ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />
+                      )}
+                    </div>
+                  </th>
+                ))}
+                <th className={`${headStyle} text-right cursor-default hover:text-slate-500 dark:hover:text-slate-400`}>
+                  {t('aqua.common.actions')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {!canQueryList ? (
+                <tr>
+                  <td colSpan={columns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
+                    {t('aqua.common.noData')}
+                  </td>
+                </tr>
+              ) : listQuery.isLoading ? (
+                <tr>
+                  <td colSpan={columns.length + 2} className="text-center py-20">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-current text-pink-500" />
+                      <span className="text-sm font-medium text-muted-foreground animate-pulse">
+                        {t('aqua.common.loading')}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              ) : rows.length === 0 ? (
+                <tr>
+                  <td colSpan={columns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
+                    {t('aqua.common.noData')}
+                  </td>
+                </tr>
+              ) : (
+                rows.map((row) => {
+                  const id = Number(row.id ?? row.Id);
+                  const status = Number(row.status ?? row.Status);
+                  const isSelected = rowSelectionEnabled && selectedRowId === id;
 
-        <div className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                  return (
+                    <tr
+                      key={id}
+                      className={`h-10 border-b border-slate-100 dark:border-white/5 transition-colors duration-200 hover:bg-pink-50/40 dark:hover:bg-pink-500/5 group last:border-0 ${rowSelectionEnabled ? 'cursor-pointer' : ''} ${isSelected ? 'bg-pink-50/60 dark:bg-pink-500/10' : ''}`}
+                      onClick={() => {
+                        if (!rowSelectionEnabled) return;
+                        onRowSelect?.(row);
+                      }}
+                    >
+                      <td className={`${cellStyle} font-mono text-xs`}>{id}</td>
+                      {columns.map((column) => (
+                        <td key={column.key} className={cellStyle}>
+                          {(() => {
+                            const rawValue = row[column.key];
+                            const lookupLabel = lookupLabelsByFieldAndValue[column.key]?.[String(rawValue)];
+                            const selectLabel = selectOptionLabelsByFieldAndValue[column.key]?.[String(rawValue)];
+                            return lookupLabel ?? selectLabel ?? formatCellValue(rawValue, t);
+                          })()}
+                        </td>
+                      ))}
+                      <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
+                        <div className="flex items-center justify-end gap-2">
+                          {!config.readOnly && (
+                            <>
+                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleEdit(row); }}>
+                                {t('aqua.common.edit')}
+                              </Button>
+                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(row); }}>
+                                {t('aqua.common.delete')}
+                              </Button>
+                            </>
+                          )}
+                          {config.postingSlug && !config.autoPostOnSave && status === 0 && (
+                            <Button
+                              size="sm"
+                              onClick={(e) => { e.stopPropagation(); postMutation.mutate({ slug: config.postingSlug!, id }); }}
+                              disabled={postMutation.isPending}
+                            >
+                              {t('aqua.common.post')}
+                            </Button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Sayfalama (Pagination) kısmı scroll dışında kaldı, böylece her zaman tam ekran genişliğinde sabit duracak */}
+        <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0">
           <span className="text-sm text-slate-500">
             {rangeStart}-{rangeEnd} / {totalCount}
           </span>
