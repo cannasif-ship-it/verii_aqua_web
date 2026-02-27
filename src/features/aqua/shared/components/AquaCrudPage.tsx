@@ -3,6 +3,7 @@ import { useMutation, useQueries, useQuery, useQueryClient } from '@tanstack/rea
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { useUIStore } from '@/stores/ui-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,9 +16,19 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Combobox } from '@/components/ui/combobox';
-import { Plus, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { Plus, ArrowUpDown, ArrowUp, ArrowDown, ChevronDown } from 'lucide-react';
 import type { AquaCrudConfig, AquaCrudContextFilter, AquaFieldConfig } from '../types/aqua-crud';
 import { aquaCrudApi } from '../api/aqua-crud-api';
+
+// Yeni Shared UI Bileşenleri (CRM'den taşınanlar)
+import { PageToolbar, ColumnPreferencesPopover } from '@/components/shared';
+import { loadColumnPreferences } from '@/lib/column-preferences';
 
 interface AquaCrudPageProps {
   config: AquaCrudConfig;
@@ -28,8 +39,6 @@ interface AquaCrudPageProps {
   selectedRowId?: number | null;
   onRowSelect?: (row: Record<string, unknown>) => void;
 }
-
-const PAGE_SIZE = 20;
 
 const DOC_STATUS_OPTIONS = [
   { label: 'Draft', value: 0 },
@@ -202,15 +211,47 @@ export function AquaCrudPage({
 }: AquaCrudPageProps): ReactElement {
   const { t } = useTranslation();
   const { setPageTitle } = useUIStore();
+  const { user } = useAuthStore();
   const queryClient = useQueryClient();
   const localizedTitle = t(config.title);
   const localizedDescription = t(config.description);
 
+  // --- State'ler (Araç Çubuğu ve Sayfalama İçin) ---
+  const [searchTerm, setSearchTerm] = useState('');
+  const [pageSize, setPageSize] = useState<number>(20);
   const [pageNumber, setPageNumber] = useState(1);
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>({ key: 'Id', direction: 'desc' });
+
   const [formOpen, setFormOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [formValues, setFormValues] = useState<Record<string, unknown>>(() => getInitialValues(config));
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>({ key: 'Id', direction: 'desc' });
+
+  // Sütun Konfigürasyonları ve Kullanıcı Tercihleri
+  const baseColumns = useMemo(() => {
+    if (config.columns && config.columns.length > 0) {
+      return config.columns;
+    }
+    return config.fields.slice(0, 5).map((field) => ({ key: field.key, label: field.label }));
+  }, [config.columns, config.fields]);
+
+  const defaultColumnKeys = useMemo(() => baseColumns.map((c) => c.key), [baseColumns]);
+  const [columnOrder, setColumnOrder] = useState<string[]>(() => defaultColumnKeys);
+  const [visibleColumns, setVisibleColumns] = useState<string[]>(() => defaultColumnKeys);
+
+  useEffect(() => {
+    // Sütun tercihlerini yükle
+    const prefs = loadColumnPreferences(`aqua-${config.key}`, user?.id, defaultColumnKeys);
+    setVisibleColumns(prefs.visibleKeys);
+    setColumnOrder(prefs.order);
+  }, [user?.id, defaultColumnKeys, config.key]);
+
+  // Görünür ve sıralanmış sütunları hesapla
+  const displayedColumns = useMemo(() => {
+    const visible = baseColumns.filter((col) => visibleColumns.includes(col.key));
+    if (!columnOrder || columnOrder.length === 0) return visible;
+    const orderMap = new Map(columnOrder.map((k, i) => [k, i]));
+    return [...visible].sort((a, b) => (orderMap.get(a.key) ?? 999) - (orderMap.get(b.key) ?? 999));
+  }, [baseColumns, visibleColumns, columnOrder]);
 
   useEffect(() => {
     if (disablePageTitleSync) return;
@@ -218,19 +259,27 @@ export function AquaCrudPage({
     return () => setPageTitle(null);
   }, [disablePageTitleSync, localizedTitle, setPageTitle]);
 
+  // Arama, sayfa boyutu vb. değiştiğinde ilk sayfaya dön
+  useEffect(() => {
+    setPageNumber(1);
+  }, [searchTerm, pageSize, sortConfig]);
+
   const effectiveFilters = useMemo(() => {
-    if (!contextFilter || contextFilter.value == null) return undefined;
-    return [{ column: contextFilter.fieldKey, operator: 'eq', value: String(contextFilter.value) }];
+    const filters = [];
+    if (contextFilter && contextFilter.value != null) {
+      filters.push({ column: contextFilter.fieldKey, operator: 'eq', value: String(contextFilter.value) });
+    }
+    return filters.length > 0 ? filters : undefined;
   }, [contextFilter]);
 
   const canQueryList = contextFilter ? contextFilter.value != null : true;
 
   const listQuery = useQuery({
-    queryKey: ['aqua', config.key, pageNumber, contextFilter?.fieldKey, contextFilter?.value, sortConfig],
+    queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, contextFilter?.fieldKey, contextFilter?.value, sortConfig],
     queryFn: () =>
       aquaCrudApi.getList(config.endpoint, {
         pageNumber,
-        pageSize: PAGE_SIZE,
+        pageSize,
         sortBy: sortConfig?.key ?? 'Id',
         sortDirection: sortConfig?.direction ?? 'desc',
         filters: effectiveFilters,
@@ -353,18 +402,6 @@ export function AquaCrudPage({
     },
   });
 
-  const rows = canQueryList ? listQuery.data?.data ?? [] : [];
-  const totalCount = listQuery.data?.totalCount ?? 0;
-  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
-
-  const columns = useMemo(() => {
-    if (config.columns && config.columns.length > 0) {
-      return config.columns;
-    }
-
-    return config.fields.slice(0, 5).map((field) => ({ key: field.key, label: field.label }));
-  }, [config.columns, config.fields]);
-
   const lookupOptionsByField = useMemo((): Record<string, Array<{ label: string; value: string }>> => {
     const result: Record<string, Array<{ label: string; value: string }>> = {};
 
@@ -431,6 +468,10 @@ export function AquaCrudPage({
       return true;
     });
   }, [config.fields, contextFilter, config.postingSlug]);
+
+  const handleRefresh = async (): Promise<void> => {
+    await listQuery.refetch();
+  };
 
   const handleCreate = (): void => {
     if (contextFilter?.lockValue && contextFilter.value == null) {
@@ -513,10 +554,24 @@ export function AquaCrudPage({
   };
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
-  const rangeStart = totalCount === 0 ? 0 : (pageNumber - 1) * PAGE_SIZE + 1;
-  const rangeEnd = totalCount === 0 ? 0 : Math.min(pageNumber * PAGE_SIZE, totalCount);
+  
+  // Frontend Arama İşlemi
+  let rows = canQueryList ? listQuery.data?.data ?? [] : [];
+  if (searchTerm && rows.length > 0) {
+    const lowerSearch = searchTerm.toLowerCase();
+    rows = rows.filter((row) =>
+      Object.values(row).some((val) =>
+        String(val).toLowerCase().includes(lowerSearch)
+      )
+    );
+  }
 
-  // CRM Tablo Stilleri (Tailwind)
+  const totalCount = listQuery.data?.totalCount ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+  const rangeStart = totalCount === 0 ? 0 : (pageNumber - 1) * pageSize + 1;
+  const rangeEnd = totalCount === 0 ? 0 : Math.min(pageNumber * pageSize, totalCount);
+
+  // CRM Tablo Stilleri
   const headStyle = `
     text-slate-500 dark:text-slate-400 
     font-bold text-xs uppercase tracking-wider 
@@ -537,90 +592,92 @@ export function AquaCrudPage({
 
   return (
     <div className="space-y-4">
-      {!hidePageHeader && (
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">{localizedTitle}</h1>
-            <p className="text-sm text-muted-foreground mt-1">{localizedDescription}</p>
-          </div>
-
-          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
-            <Button
-              variant="outline"
-              onClick={() => void listQuery.refetch()}
-              disabled={listQuery.isFetching || !canQueryList}
-              className="w-full sm:w-auto"
-            >
-              <RefreshCw size={16} className={listQuery.isFetching ? 'mr-2 animate-spin' : 'mr-2'} />
-              {t('aqua.common.refresh')}
-            </Button>
-            {!config.readOnly && (
-              <Button onClick={handleCreate} disabled={!canQueryList} className="w-full sm:w-auto">
-                <Plus size={16} className="mr-2" />
-                {t('aqua.common.new')}
-              </Button>
-            )}
-          </div>
-        </div>
-      )}
-
-      {hidePageHeader && (
-        <div className="flex flex-wrap items-center justify-end gap-2">
-          <Button
-            variant="outline"
-            onClick={() => void listQuery.refetch()}
-            disabled={listQuery.isFetching || !canQueryList}
-            className="w-full sm:w-auto"
-          >
-            <RefreshCw size={16} className={listQuery.isFetching ? 'mr-2 animate-spin' : 'mr-2'} />
-            {t('aqua.common.refresh')}
-          </Button>
-          {!config.readOnly && (
-            <Button onClick={handleCreate} disabled={!canQueryList} className="w-full sm:w-auto">
-              <Plus size={16} className="mr-2" />
-              {t('aqua.common.new')}
-            </Button>
-          )}
-        </div>
-      )}
-
-      {/* DÜZELTİLEN KISIM: overflow-hidden eklendi, flex-col yapıldı */}
-      <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0b0713] flex flex-col overflow-hidden">
+      {/* 1. Header (Başlık ve Araç Çubuğu) */}
+      <div className="flex flex-col gap-4 bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl p-4 transition-all duration-300">
         
-        {/* Sadece tabloyu sarmalayan ve yatay scroll olmasını sağlayan div */}
+        {!hidePageHeader && (
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">{localizedTitle}</h1>
+            <p className="text-sm text-muted-foreground">{localizedDescription}</p>
+          </div>
+        )}
+
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-3 border-t border-white/5 pt-4">
+          <PageToolbar
+            searchPlaceholder={t('aqua.common.quickSearch', 'Hızlı Ara...')}
+            searchValue={searchTerm}
+            onSearchChange={setSearchTerm}
+            onRefresh={handleRefresh}
+            rightSlot={
+              <div className="flex flex-wrap items-center gap-2">
+                
+                {/* Sayfa Başına Kayıt Seçici */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300 bg-transparent text-gray-400 border-white/10 hover:bg-white/5 hover:text-white">
+                      <span className="font-medium text-sm">{pageSize}</span>
+                      <ChevronDown size={16} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-20 bg-[#151025] border border-white/10 shadow-2xl rounded-xl overflow-hidden p-1">
+                      {[10, 20, 50, 100].map((size) => (
+                          <DropdownMenuItem 
+                              key={size} 
+                              onClick={() => setPageSize(size)}
+                              className={`flex items-center justify-center text-xs font-medium px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${pageSize === size ? 'bg-pink-500/10 text-pink-500' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                          >
+                              {size}
+                          </DropdownMenuItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* Sütunları Düzenle - Lokalizasyon Korundu */}
+                <ColumnPreferencesPopover
+                  pageKey={`aqua-${config.key}`}
+                  userId={user?.id}
+                  columns={baseColumns.map((col) => ({ key: col.key, label: t(col.label) }))}
+                  visibleColumns={visibleColumns}
+                  columnOrder={columnOrder}
+                  onVisibleColumnsChange={setVisibleColumns}
+                  onColumnOrderChange={setColumnOrder}
+                />
+
+                {/* Yeni Kayıt Ekle Butonu */}
+                {!config.readOnly && (
+                  <Button onClick={handleCreate} disabled={!canQueryList} className="ml-2">
+                    <Plus size={16} className="mr-2" />
+                    {t('aqua.common.new')}
+                  </Button>
+                )}
+              </div>
+            }
+          />
+        </div>
+      </div>
+
+      {/* 2. Tablo Gövdesi */}
+      <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0b0713] flex flex-col overflow-hidden shadow-sm">
         <div className="overflow-x-auto w-full">
           <table className="w-full min-w-[680px] sm:min-w-[820px] caption-bottom text-sm relative">
             <thead className="bg-[#151025] sticky top-0 z-10 shadow-sm">
               <tr className="h-10 hover:bg-transparent border-b border-slate-200 dark:border-white/10">
-                <th 
-                  className={headStyle}
-                  onClick={() => handleSort('Id')}
-                >
+                <th className={headStyle} onClick={() => handleSort('Id')}>
                   <div className="flex items-center gap-2">
                     {t('aqua.common.id')}
-                    {sortConfig?.key === 'Id' ? (
-                      sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />
-                    ) : (
-                      <ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />
-                    )}
+                    {sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}
                   </div>
                 </th>
-                {columns.map((column) => (
-                  <th 
-                    key={column.key} 
-                    className={headStyle}
-                    onClick={() => handleSort(column.key)}
-                  >
+                
+                {displayedColumns.map((column) => (
+                  <th key={column.key} className={headStyle} onClick={() => handleSort(column.key)}>
                     <div className="flex items-center gap-2">
                       {t(column.label)}
-                      {sortConfig?.key === column.key ? (
-                        sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />
-                      ) : (
-                        <ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />
-                      )}
+                      {sortConfig?.key === column.key ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}
                     </div>
                   </th>
                 ))}
+
                 <th className={`${headStyle} text-right cursor-default hover:text-slate-500 dark:hover:text-slate-400`}>
                   {t('aqua.common.actions')}
                 </th>
@@ -629,13 +686,13 @@ export function AquaCrudPage({
             <tbody>
               {!canQueryList ? (
                 <tr>
-                  <td colSpan={columns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
+                  <td colSpan={displayedColumns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
                     {t('aqua.common.noData')}
                   </td>
                 </tr>
               ) : listQuery.isLoading ? (
                 <tr>
-                  <td colSpan={columns.length + 2} className="text-center py-20">
+                  <td colSpan={displayedColumns.length + 2} className="text-center py-20">
                     <div className="flex flex-col items-center gap-3">
                       <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-current text-pink-500" />
                       <span className="text-sm font-medium text-muted-foreground animate-pulse">
@@ -646,7 +703,7 @@ export function AquaCrudPage({
                 </tr>
               ) : rows.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
+                  <td colSpan={displayedColumns.length + 2} className="text-center py-20 text-muted-foreground bg-slate-50 dark:bg-white/5 font-medium">
                     {t('aqua.common.noData')}
                   </td>
                 </tr>
@@ -657,16 +714,10 @@ export function AquaCrudPage({
                   const isSelected = rowSelectionEnabled && selectedRowId === id;
 
                   return (
-                    <tr
-                      key={id}
-                      className={`h-10 border-b border-slate-100 dark:border-white/5 transition-colors duration-200 hover:bg-pink-50/40 dark:hover:bg-pink-500/5 group last:border-0 ${rowSelectionEnabled ? 'cursor-pointer' : ''} ${isSelected ? 'bg-pink-50/60 dark:bg-pink-500/10' : ''}`}
-                      onClick={() => {
-                        if (!rowSelectionEnabled) return;
-                        onRowSelect?.(row);
-                      }}
-                    >
+                    <tr key={id} className={`h-10 border-b border-slate-100 dark:border-white/5 transition-colors duration-200 hover:bg-pink-50/40 dark:hover:bg-pink-500/5 group last:border-0 ${rowSelectionEnabled ? 'cursor-pointer' : ''} ${isSelected ? 'bg-pink-50/60 dark:bg-pink-500/10' : ''}`} onClick={() => { if (rowSelectionEnabled) onRowSelect?.(row); }}>
                       <td className={`${cellStyle} font-mono text-xs`}>{id}</td>
-                      {columns.map((column) => (
+                      
+                      {displayedColumns.map((column) => (
                         <td key={column.key} className={cellStyle}>
                           {(() => {
                             const rawValue = row[column.key];
@@ -676,16 +727,13 @@ export function AquaCrudPage({
                           })()}
                         </td>
                       ))}
+                      
                       <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
                         <div className="flex items-center justify-end gap-2">
                           {!config.readOnly && (
                             <>
-                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleEdit(row); }}>
-                                {t('aqua.common.edit')}
-                              </Button>
-                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(row); }}>
-                                {t('aqua.common.delete')}
-                              </Button>
+                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleEdit(row); }}>{t('aqua.common.edit')}</Button>
+                              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(row); }}>{t('aqua.common.delete')}</Button>
                             </>
                           )}
                           {config.postingSlug && !config.autoPostOnSave && status === 0 && (
@@ -707,32 +755,17 @@ export function AquaCrudPage({
           </table>
         </div>
 
-        {/* Sayfalama (Pagination) kısmı scroll dışında kaldı, böylece her zaman tam ekran genişliğinde sabit duracak */}
+        {/* 3. Sayfalama (Pagination) */}
         <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0">
-          <span className="text-sm text-slate-500">
-            {rangeStart}-{rangeEnd} / {totalCount}
-          </span>
+          <span className="text-sm text-slate-500">{rangeStart}-{rangeEnd} / {totalCount}</span>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))}
-              disabled={pageNumber <= 1}
-            >
-              {t('aqua.common.previous')}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setPageNumber((prev) => Math.min(totalPages, prev + 1))}
-              disabled={pageNumber >= totalPages}
-            >
-              {t('aqua.common.next')}
-            </Button>
+            <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))} disabled={pageNumber <= 1}>{t('aqua.common.previous')}</Button>
+            <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.min(totalPages, prev + 1))} disabled={pageNumber >= totalPages}>{t('aqua.common.next')}</Button>
           </div>
         </div>
       </div>
 
+      {/* 4. Form Dialog */}
       {!config.readOnly && (
         <Dialog open={formOpen} onOpenChange={setFormOpen}>
           <DialogContent className="sm:max-w-2xl">
