@@ -34,7 +34,10 @@ import {
   FileText,
   ChevronRight,
   Edit,
-  Trash2
+  Trash2,
+  Menu,
+  FileSpreadsheet,
+  Presentation
 } from 'lucide-react';
 import type { AquaCrudConfig, AquaCrudContextFilter, AquaFieldConfig } from '../types/aqua-crud';
 import { aquaCrudApi } from '../api/aqua-crud-api';
@@ -463,12 +466,86 @@ export function AquaCrudPage({
   const rangeStart = totalCount === 0 ? 0 : (pageNumber - 1) * pageSize + 1;
   const rangeEnd = totalCount === 0 ? 0 : Math.min(pageNumber * pageSize, totalCount);
 
+  const getFormattedCellValue = (row: Record<string, unknown>, columnKey: string): string => {
+    const rawValue = row[columnKey];
+    const lookupLabel = lookupLabelsByFieldAndValue[columnKey]?.[String(rawValue)];
+    const selectLabel = selectOptionLabelsByFieldAndValue[columnKey]?.[String(rawValue)];
+    return String(lookupLabel ?? selectLabel ?? formatCellValue(rawValue, t));
+  };
+
+  const handleExportExcel = async () => {
+    try {
+      const dataToExport = rows.map((row) => {
+        const exportRow: Record<string, string | number> = {};
+        exportRow[t('aqua.common.id', 'ID')] = Number(row.id ?? row.Id);
+        displayedColumns.forEach((col) => {
+          exportRow[t(col.label)] = getFormattedCellValue(row, col.key);
+        });
+        return exportRow;
+      });
+      const XLSX = await import('xlsx');
+      const ws = XLSX.utils.json_to_sheet(dataToExport);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Export");
+      XLSX.writeFile(wb, `${config.key}-export.xlsx`);
+      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
+    } catch (error) {
+      console.error(error);
+      toast.error(t('aqua.common.exportError', 'Excel kütüphanesi eksik veya hata oluştu.'));
+    }
+  };
+
+  const handleExportPDF = async () => {
+    try {
+      const [{ default: JsPDF }, { default: autoTable }] = await Promise.all([
+        import('jspdf'),
+        import('jspdf-autotable'),
+      ]);
+      const doc = new JsPDF();
+      const tableColumn = [t('aqua.common.id', 'ID'), ...displayedColumns.map((col) => t(col.label))];
+      const tableRows = rows.map((row) => [
+        String(Number(row.id ?? row.Id)),
+        ...displayedColumns.map((col) => getFormattedCellValue(row, col.key))
+      ]);
+      autoTable(doc, { head: [tableColumn], body: tableRows });
+      doc.save(`${config.key}-export.pdf`);
+      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
+    } catch (error) {
+      console.error(error);
+      toast.error(t('aqua.common.exportError', 'PDF kütüphanesi eksik veya hata oluştu.'));
+    }
+  };
+
+  const handleExportPowerPoint = async () => {
+    try {
+      const { default: PptxGenJS } = await import('pptxgenjs');
+      const pptx = new PptxGenJS();
+      const slide = pptx.addSlide();
+      slide.addText(localizedTitle, { x: 0.5, y: 0.5, w: '90%', fontSize: 24, bold: true });
+      const headers = [t('aqua.common.id', 'ID'), ...displayedColumns.map((col) => t(col.label))];
+      const tableRows = rows.map((row) => [
+        String(Number(row.id ?? row.Id)),
+        ...displayedColumns.map((col) => getFormattedCellValue(row, col.key))
+      ]);
+      const tableData: Array<Array<{ text: string }>> = [
+        headers.map(text => ({ text })),
+        ...tableRows.map(rowArr => rowArr.map(text => ({ text }))),
+      ];
+      slide.addTable(tableData, { x: 0.5, y: 1.5, w: '90%' });
+      pptx.writeFile({ fileName: `${config.key}-export.pptx` });
+      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
+    } catch (error) {
+      console.error(error);
+      toast.error(t('aqua.common.exportError', 'PowerPoint kütüphanesi eksik veya hata oluştu.'));
+    }
+  };
+
   const headStyle = `text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider py-2 px-4 hover:text-pink-600 dark:hover:text-pink-400 transition-colors cursor-pointer select-none border-r border-slate-200 dark:border-white/[0.05] last:border-r-0 whitespace-nowrap bg-transparent text-left`;
   const cellStyle = `text-slate-600 dark:text-slate-400 px-4 py-2 border-r border-slate-100 dark:border-white/[0.05] last:border-r-0 text-sm align-middle whitespace-nowrap`;
 
   const tableContainerClass = hidePageHeader
     ? "w-full flex flex-col bg-transparent"
-    : "bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl p-0 sm:p-1 transition-all duration-300 overflow-hidden";
+    : "bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl flex flex-col overflow-hidden transition-all duration-300";
 
   return (
     <div className={hidePageHeader ? "w-full" : "w-full space-y-6 relative"}>
@@ -505,7 +582,7 @@ export function AquaCrudPage({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-20 bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 shadow-2xl rounded-xl overflow-hidden p-1">
                         {[10, 20, 50, 100].map((size) => (
-                            <DropdownMenuItem key={size} onClick={() => setPageSize(size)} className={`flex items-center justify-center text-xs font-medium px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${pageSize === size ? 'bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-500' : 'text-slate-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'}`}>
+                            <DropdownMenuItem key={size} onSelect={() => setPageSize(size)} className={`flex items-center justify-center text-xs font-medium px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${pageSize === size ? 'bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-500' : 'text-slate-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'}`}>
                                 {size}
                             </DropdownMenuItem>
                         ))}
@@ -521,6 +598,39 @@ export function AquaCrudPage({
                     onVisibleColumnsChange={setVisibleColumns}
                     onColumnOrderChange={setColumnOrder}
                   />
+
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="flex items-center justify-center h-10 w-10 p-0 rounded-xl border transition-all duration-300 bg-transparent text-gray-400 border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white">
+                        <Menu size={18} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 shadow-2xl rounded-xl overflow-hidden p-0">
+                      <div className="p-2">
+                        <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider">
+                          {t('aqua.common.actions', 'İşlemler')}
+                        </div>
+                      </div>
+                      <div className="h-px bg-slate-200 dark:bg-white/5 my-1"></div>
+                      <div className="p-2 flex flex-col gap-1">
+                        <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider">
+                          {t('aqua.common.export', 'Dışa Aktar')}
+                        </div>
+                        <DropdownMenuItem onSelect={handleExportExcel} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+                          <FileSpreadsheet size={16} className="text-emerald-500" />
+                          <span>{t('aqua.common.exportExcel', "Excel'e Aktar")}</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onSelect={handleExportPDF} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+                          <FileText size={16} className="text-red-400" />
+                          <span>{t('aqua.common.exportPDF', "PDF'e Aktar")}</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onSelect={handleExportPowerPoint} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+                          <Presentation size={16} className="text-orange-400" />
+                          <span>{t('aqua.common.exportPPT', "PowerPoint'e Aktar")}</span>
+                        </DropdownMenuItem>
+                      </div>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               }
             />
@@ -531,11 +641,11 @@ export function AquaCrudPage({
       <div className={tableContainerClass}>
         <div className="overflow-x-auto w-full">
           <table className="w-full min-w-[680px] sm:min-w-[820px] caption-bottom text-sm relative">
-            <thead className="bg-transparent sticky top-0 z-10 border-b border-slate-200 dark:border-white/5">
+            <thead className="bg-[#0b0713] sticky top-0 z-10 border-b border-slate-200 dark:border-white/5">
               <tr className="h-10 hover:bg-transparent">
                 <th className={headStyle} onClick={() => handleSort('Id')}>
                   <div className="flex items-center gap-2">
-                    {t('aqua.common.id')}
+                    {t('aqua.common.id', 'ID')}
                     {sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}
                   </div>
                 </th>
@@ -574,12 +684,7 @@ export function AquaCrudPage({
                       <td className={`${cellStyle} font-mono text-xs`}>{id}</td>
                       {displayedColumns.map((column) => (
                         <td key={column.key} className={cellStyle}>
-                          {(() => {
-                            const rawValue = row[column.key];
-                            const lookupLabel = lookupLabelsByFieldAndValue[column.key]?.[String(rawValue)];
-                            const selectLabel = selectOptionLabelsByFieldAndValue[column.key]?.[String(rawValue)];
-                            return lookupLabel ?? selectLabel ?? formatCellValue(rawValue, t);
-                          })()}
+                          {getFormattedCellValue(row, column.key)}
                         </td>
                       ))}
                       <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
@@ -607,7 +712,7 @@ export function AquaCrudPage({
           </table>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-white/5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0 bg-transparent">
+        <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-white/5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0 bg-[#0b0713]">
           <span className="text-sm text-slate-500">{rangeStart}-{rangeEnd} / {totalCount}</span>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))} disabled={pageNumber <= 1} className="rounded-lg dark:border-white/10 bg-transparent">{t('aqua.common.previous')}</Button>
