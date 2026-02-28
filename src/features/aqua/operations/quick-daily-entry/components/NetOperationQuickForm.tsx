@@ -60,70 +60,80 @@ export function NetOperationQuickForm({
     ...(Array.isArray(fishBatches) ? fishBatches : []).map((b) => ({ value: String(b.id), label: String(b.id) })),
   ];
 
+  const labelStyle = "text-xs font-semibold text-slate-400 uppercase tracking-wide ml-1";
+  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl";
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('aqua.quickDailyEntry.netOperation.title')}</CardTitle>
+    <Card className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 shadow-sm rounded-2xl overflow-hidden transition-all duration-300">
+      <CardHeader className="border-b border-white/5 px-6 py-5 bg-transparent">
+        <CardTitle className="text-xl font-bold tracking-tight text-white">{t('aqua.quickDailyEntry.netOperation.title')}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="netOperationTypeId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('aqua.quickDailyEntry.netOperation.operationType')}</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      options={netOperationTypeOptions}
-                      value={field.value ? String(field.value) : ''}
-                      onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
-                      placeholder={t('aqua.quickDailyEntry.netOperation.selectType')}
-                      searchPlaceholder={t('common.search')}
-                      emptyText={t('common.noResults')}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fishBatchId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('aqua.quickDailyEntry.netOperation.batch')}</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      options={fishBatchOptions}
-                      value={field.value ? String(field.value) : ''}
-                      onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
-                      placeholder={t('aqua.quickDailyEntry.netOperation.selectBatch')}
-                      searchPlaceholder={t('common.search')}
-                      emptyText={t('common.noResults')}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('aqua.quickDailyEntry.netOperation.description')}</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={disabled || isSubmitting}>
-              {t('aqua.quickDailyEntry.netOperation.save')}
-            </Button>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="netOperationTypeId"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.netOperation.operationType')}</FormLabel>
+                      <FormControl>
+                        <Combobox
+                          options={netOperationTypeOptions}
+                          value={field.value ? String(field.value) : ''}
+                          onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                          placeholder={t('aqua.quickDailyEntry.netOperation.selectType')}
+                          searchPlaceholder={t('common.search')}
+                          emptyText={t('common.noResults')}
+                          className={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="fishBatchId"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.netOperation.batch')}</FormLabel>
+                      <FormControl>
+                        <Combobox
+                          options={fishBatchOptions}
+                          value={field.value ? String(field.value) : ''}
+                          onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                          placeholder={t('aqua.quickDailyEntry.netOperation.selectBatch')}
+                          searchPlaceholder={t('common.search')}
+                          emptyText={t('common.noResults')}
+                          className={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2 md:col-span-2">
+                      <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.netOperation.description')}</FormLabel>
+                      <FormControl>
+                        <Input className={inputStyle} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            </div>
+            
+            <div className="pt-2 flex justify-end border-t border-white/5">
+                <Button type="submit" disabled={disabled || isSubmitting} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 mt-4">
+                  {t('aqua.quickDailyEntry.netOperation.save')}
+                </Button>
+            </div>
           </form>
         </Form>
       </CardContent>

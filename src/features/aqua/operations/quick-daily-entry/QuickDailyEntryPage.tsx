@@ -387,8 +387,6 @@ export function QuickDailyEntryPage(): ReactElement {
       try {
         await aquaQuickDailyApi.postTransfer(transfer.id);
       } catch {
-        // TransferLine servisi arka tarafta otomatik post deneyebilir.
-        // Buradaki ek post çağrısı hata dönerse kullanıcı akışını bozmuyoruz.
       }
       await Promise.all([refetchProjectCages(), refetchTransferTargetProjectCages()]);
       setIsTransferSuccessDialogOpen(true);
@@ -454,35 +452,44 @@ export function QuickDailyEntryPage(): ReactElement {
 
   return (
     <>
-      <div className="space-y-6 w-full max-w-5xl">
-        <h1 className="text-2xl font-semibold">{t('aqua.quickDailyEntry.pageTitle')}</h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2 w-full">
-            <label className="text-sm font-medium">{t('aqua.quickDailyEntry.project')}</label>
-            <Combobox
-              options={projectOptions}
-              value={projectId != null ? String(projectId) : ''}
-              onValueChange={handleProjectChange}
-              placeholder={t('aqua.quickDailyEntry.selectProject')}
-              searchPlaceholder={t('common.search')}
-              emptyText={t('common.noResults')}
-              className="w-full"
-            />
-          </div>
-          <div className="space-y-2 w-full">
-            <label className="text-sm font-medium">{t('aqua.quickDailyEntry.cage')}</label>
-            <Combobox
-              options={cageOptions}
-              value={projectCageId != null ? String(projectCageId) : ''}
-              onValueChange={handleCageChange}
-              placeholder={t('aqua.quickDailyEntry.selectCage')}
-              searchPlaceholder={t('common.search')}
-              emptyText={t('common.noResults')}
-              disabled={!projectId}
-              className="w-full"
-            />
-          </div>
+      <div className="space-y-6 w-full relative">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">{t('aqua.quickDailyEntry.pageTitle')}</h1>
+              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">Günlük operasyon girişlerinizi yapın.</p>
+            </div>
         </div>
+
+        <div className="bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl p-6 transition-all duration-300">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div className="space-y-3 w-full">
+                <label className="text-sm font-semibold text-slate-400 uppercase tracking-wide ml-1">{t('aqua.quickDailyEntry.project')}</label>
+                <Combobox
+                  options={projectOptions}
+                  value={projectId != null ? String(projectId) : ''}
+                  onValueChange={handleProjectChange}
+                  placeholder={t('aqua.quickDailyEntry.selectProject')}
+                  searchPlaceholder={t('common.search')}
+                  emptyText={t('common.noResults')}
+                  className="w-full bg-[#0b0713] border-white/10 text-white"
+                />
+              </div>
+              <div className="space-y-3 w-full">
+                <label className="text-sm font-semibold text-slate-400 uppercase tracking-wide ml-1">{t('aqua.quickDailyEntry.cage')}</label>
+                <Combobox
+                  options={cageOptions}
+                  value={projectCageId != null ? String(projectCageId) : ''}
+                  onValueChange={handleCageChange}
+                  placeholder={t('aqua.quickDailyEntry.selectCage')}
+                  searchPlaceholder={t('common.search')}
+                  emptyText={t('common.noResults')}
+                  disabled={!projectId}
+                  className="w-full bg-[#0b0713] border-white/10 text-white"
+                />
+              </div>
+            </div>
+        </div>
+        
         <OperationTypeTabs
           feedingTab={
             <FeedingQuickForm
@@ -545,14 +552,14 @@ export function QuickDailyEntryPage(): ReactElement {
       </div>
 
       <AlertDialog open={isTransferSuccessDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-[#0b0713] border border-white/10 text-white">
           <AlertDialogHeader>
-            <AlertDialogTitle>
+            <AlertDialogTitle className="text-white">
               {t('aqua.quickDailyEntry.transferSuccessDialog.title', {
                 defaultValue: 'İşlem Başarılı',
               })}
             </AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="text-slate-400">
               {t('aqua.quickDailyEntry.transferSuccessDialog.description', {
                 defaultValue:
                   'Kafes değişimi başarıyla kaydedildi. Kafes değiştiği için veri yenilenmelidir.',
@@ -561,6 +568,7 @@ export function QuickDailyEntryPage(): ReactElement {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction
+              className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0"
               onClick={() => {
                 setIsTransferSuccessDialogOpen(false);
                 window.location.reload();

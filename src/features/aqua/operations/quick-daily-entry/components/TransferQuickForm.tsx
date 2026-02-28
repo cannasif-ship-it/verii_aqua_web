@@ -48,7 +48,7 @@ export function TransferQuickForm({
 
   useEffect(() => {
     form.reset({ toProjectCageId: 0, fishCount: 0, description: '' });
-  }, [projectId, projectCageId]);
+  }, [projectId, projectCageId, form]);
 
   useEffect(() => {
     form.setValue('fishCount', Number(sourceBatch?.liveCount ?? 0), {
@@ -91,17 +91,20 @@ export function TransferQuickForm({
 
   const disabled = projectId == null || projectCageId == null || sourceBatch == null;
 
+  const labelStyle = "text-xs font-semibold text-slate-400 uppercase tracking-wide ml-1";
+  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl disabled:opacity-50";
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
+    <Card className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 shadow-sm rounded-2xl overflow-hidden transition-all duration-300">
+      <CardHeader className="border-b border-white/5 px-6 py-5 bg-transparent">
+        <CardTitle className="text-xl font-bold tracking-tight text-white">
           {t('aqua.quickDailyEntry.transfer.title', { defaultValue: 'Kafes Değişimi' })}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-            <div className="rounded-md border border-dashed border-cyan-400/40 bg-cyan-500/10 p-3 text-sm text-cyan-100">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+            <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-4 text-sm text-cyan-400 backdrop-blur-md">
               {sourceBatch
                 ? t('aqua.quickDailyEntry.transfer.sourceInfo', {
                     fishBatchId: sourceBatch.fishBatchId,
@@ -112,64 +115,71 @@ export function TransferQuickForm({
                     defaultValue: 'Seçili kafeste aktif batch bulunamadı.',
                   })}
             </div>
-            <FormField
-              control={form.control}
-              name="toProjectCageId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t('aqua.quickDailyEntry.transfer.targetCage', { defaultValue: 'Hedef Kafes' })}
-                  </FormLabel>
-                  <FormControl>
-                    <Combobox
-                      options={targetCageOptions}
-                      value={field.value ? String(field.value) : ''}
-                      onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
-                      placeholder={t('aqua.quickDailyEntry.selectCage')}
-                      searchPlaceholder={t('common.search')}
-                      emptyText={t('common.noResults')}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fishCount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t('aqua.quickDailyEntry.transfer.fishCount', { defaultValue: 'Adet' })}
-                  </FormLabel>
-                  <FormControl>
-                    <Input type="number" min={1} step={1} {...field} readOnly disabled />
-                  </FormControl>
-                  <p className="text-xs text-muted-foreground">
-                    {t('aqua.quickDailyEntry.transfer.fishCountAutoInfo', {
-                      defaultValue: 'Adet otomatik olarak kaynak kafesteki canlı sayısından alınır.',
-                    })}
-                  </p>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('aqua.quickDailyEntry.transfer.description', { defaultValue: 'Açıklama' })}</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={disabled || isSubmitting}>
-              {t('aqua.quickDailyEntry.transfer.save', { defaultValue: 'Kaydet' })}
-            </Button>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="toProjectCageId"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className={labelStyle}>
+                        {t('aqua.quickDailyEntry.transfer.targetCage', { defaultValue: 'Hedef Kafes' })}
+                      </FormLabel>
+                      <FormControl>
+                        <Combobox
+                          options={targetCageOptions}
+                          value={field.value ? String(field.value) : ''}
+                          onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                          placeholder={t('aqua.quickDailyEntry.selectCage')}
+                          searchPlaceholder={t('common.search')}
+                          emptyText={t('common.noResults')}
+                          className={inputStyle}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="fishCount"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className={labelStyle}>
+                        {t('aqua.quickDailyEntry.transfer.fishCount', { defaultValue: 'Adet' })}
+                      </FormLabel>
+                      <FormControl>
+                        <Input type="number" min={1} step={1} className={inputStyle} {...field} readOnly disabled />
+                      </FormControl>
+                      <p className="text-xs text-slate-500 ml-1">
+                        {t('aqua.quickDailyEntry.transfer.fishCountAutoInfo', {
+                          defaultValue: 'Adet otomatik olarak kaynak kafesteki canlı sayısından alınır.',
+                        })}
+                      </p>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2 md:col-span-2">
+                      <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.transfer.description', { defaultValue: 'Açıklama' })}</FormLabel>
+                      <FormControl>
+                        <Input className={inputStyle} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            </div>
+            
+            <div className="pt-2 flex justify-end border-t border-white/5">
+                <Button type="submit" disabled={disabled || isSubmitting} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 mt-4">
+                  {t('aqua.quickDailyEntry.transfer.save', { defaultValue: 'Kaydet' })}
+                </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
