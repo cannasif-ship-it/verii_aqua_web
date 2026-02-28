@@ -1,415 +1,113 @@
 import { type ReactElement, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslation } from 'react-i18next';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import { Combobox } from '@/components/ui/combobox';
-import {
-  userFormSchema,
-  userUpdateFormSchema,
-  type UserFormSchema,
-  type UserUpdateFormSchema,
-} from '../types/user-types';
-import type { UserDto } from '../types/user-types';
+import { Loader2, User, Mail, Lock, Shield, Power } from 'lucide-react';
+import { userFormSchema, userUpdateFormSchema } from '../types/user-types';
 import { useUserAuthorityOptionsQuery } from '../hooks/useUserAuthorityOptionsQuery';
-import type { RoleOption } from '../hooks/useUserAuthorityOptionsQuery';
 import { useUserPermissionGroupsForForm } from '../hooks/useUserPermissionGroupsForForm';
 import { UserFormPermissionGroupSelect } from './UserFormPermissionGroupSelect';
 
-interface UserFormProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onSubmit: (data: UserFormSchema | UserUpdateFormSchema) => void | Promise<void>;
-  user?: UserDto | null;
-  isLoading?: boolean;
-}
-
-const EMPTY_ROLE_OPTIONS: RoleOption[] = [];
-
-export function UserForm({
-  open,
-  onOpenChange,
-  onSubmit,
-  user,
-  isLoading = false,
-}: UserFormProps): ReactElement {
-  const { t } = useTranslation('user-management');
-  const userId = user?.id ?? null;
-  const userUsername = user?.username ?? '';
-  const userEmail = user?.email ?? '';
-  const userFirstName = user?.firstName ?? '';
-  const userLastName = user?.lastName ?? '';
-  const userPhoneNumber = user?.phoneNumber ?? '';
-  const userRoleLabel = user?.role ?? '';
-  const userRoleId = user?.roleId ?? 0;
-  const userIsActive = user?.isActive ?? true;
-  const isEditMode = userId != null;
+export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any): ReactElement {
+  const isEditMode = !!user;
   const roleOptionsQuery = useUserAuthorityOptionsQuery();
-  const roleOptions = roleOptionsQuery.data ?? EMPTY_ROLE_OPTIONS;
-  const userPermissionGroupsQuery = useUserPermissionGroupsForForm(
-    userId
-  );
+  const permissionGroups = useUserPermissionGroupsForForm(user?.id ?? null);
 
-  const form = useForm<UserFormSchema | UserUpdateFormSchema>({
+  const form = useForm({
     resolver: zodResolver(isEditMode ? userUpdateFormSchema : userFormSchema),
-    mode: 'onChange',
-    reValidateMode: 'onChange',
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      roleId: 0,
-      isActive: true,
-      permissionGroupIds: [],
-    },
+    defaultValues: { username: '', email: '', password: '', firstName: '', lastName: '', phoneNumber: '', roleId: 0, isActive: true, permissionGroupIds: [] },
   });
-  const isFormValid = form.formState.isValid;
 
   useEffect(() => {
-    if (!open) {
-      return;
+    if (open) {
+      if (user) {
+        form.reset({
+          ...user,
+          password: '',
+          roleId: user.roleId || 0,
+          permissionGroupIds: permissionGroups.data || []
+        });
+      } else {
+        form.reset({ username: '', email: '', password: '', firstName: '', lastName: '', phoneNumber: '', roleId: 0, isActive: true, permissionGroupIds: [] });
+      }
     }
+  }, [open, user, permissionGroups.data]);
 
-    if (userId != null) {
-      form.reset({
-        username: userUsername,
-        email: userEmail,
-        firstName: userFirstName,
-        lastName: userLastName,
-        phoneNumber: userPhoneNumber,
-        roleId: userRoleId,
-        isActive: userIsActive,
-        permissionGroupIds: [],
-      });
-      return;
-    }
-
-    form.reset({
-      username: '',
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      roleId: 0,
-      isActive: true,
-      permissionGroupIds: [],
-    });
-  }, [
-    open,
-    userId,
-    userUsername,
-    userEmail,
-    userFirstName,
-    userLastName,
-    userPhoneNumber,
-    userIsActive,
-    userRoleId,
-    form,
-  ]);
-
-  useEffect(() => {
-    if (!open || userId == null) {
-      return;
-    }
-
-    if (userPermissionGroupsQuery.isLoading || userPermissionGroupsQuery.data == null) {
-      return;
-    }
-
-    const current = form.getValues('permissionGroupIds') ?? [];
-    const next = userPermissionGroupsQuery.data;
-    const same =
-      current.length === next.length &&
-      current.every((value, index) => value === next[index]);
-
-    if (!same) {
-      form.setValue('permissionGroupIds', next, { shouldDirty: false, shouldTouch: false });
-    }
-  }, [open, userId, userPermissionGroupsQuery.isLoading, userPermissionGroupsQuery.data, form]);
-
-  useEffect(() => {
-    if (!open || userId == null || roleOptions.length === 0) {
-      return;
-    }
-
-    const currentRole = form.getValues('roleId');
-    if (currentRole && currentRole > 0) {
-      return;
-    }
-
-    const matchedRole = roleOptions.find((r) => r.label === userRoleLabel);
-    if (matchedRole) {
-      form.setValue('roleId', matchedRole.value, { shouldDirty: false, shouldTouch: false });
-    }
-  }, [open, userId, userRoleLabel, roleOptions, form]);
-
-  const handleSubmit = async (data: UserFormSchema | UserUpdateFormSchema): Promise<void> => {
-    await onSubmit(data);
-    if (!isLoading) {
-      form.reset({
-        username: '',
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        roleId: 0,
-        isActive: true,
-        permissionGroupIds: [],
-      });
-      onOpenChange(false);
-    }
-  };
+  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 h-11 rounded-xl";
+  const labelStyle = "text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>
-            {user
-              ? t('userManagement.form.editUser')
-              : t('userManagement.form.addUser')}
-          </DialogTitle>
-          <DialogDescription>
-            {user
-              ? t('userManagement.form.editDescription')
-              : t('userManagement.form.addDescription')}
-          </DialogDescription>
+      <DialogContent className="max-w-2xl bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-0 overflow-hidden">
+        <DialogHeader className="p-8 border-b border-white/5 bg-white/2">
+          <DialogTitle className="text-2xl font-bold">{isEditMode ? 'Kullanıcıyı Düzenle' : 'Yeni Kullanıcı'}</DialogTitle>
+          <DialogDescription className="text-slate-400">Kullanıcı bilgilerini ve yetkilerini buradan yönetebilirsiniz.</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.username')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={t('userManagement.form.usernamePlaceholder')}
-                        maxLength={50}
-                        disabled={isEditMode}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.email')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="email"
-                        placeholder={t('userManagement.form.emailPlaceholder')}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="p-8 space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <FormField name="username" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelStyle}><User className="size-3" /> Kullanıcı Adı</FormLabel>
+                  <FormControl><Input {...field} className={inputStyle} disabled={isEditMode} /></FormControl>
+                  <FormMessage className="text-[10px]" />
+                </FormItem>
+              )} />
+              <FormField name="email" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelStyle}><Mail className="size-3" /> E-Posta</FormLabel>
+                  <FormControl><Input {...field} type="email" className={inputStyle} /></FormControl>
+                  <FormMessage className="text-[10px]" />
+                </FormItem>
+              )} />
             </div>
 
             {!isEditMode && (
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.password')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder={t('userManagement.form.passwordPlaceholder')}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormField name="password" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelStyle}><Lock className="size-3" /> Şifre</FormLabel>
+                  <FormControl><Input {...field} type="password" className={inputStyle} /></FormControl>
+                  <FormMessage className="text-[10px]" />
+                </FormItem>
+              )} />
             )}
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.firstName')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={t('userManagement.form.firstNamePlaceholder')}
-                        maxLength={50}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.lastName')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={t('userManagement.form.lastNamePlaceholder')}
-                        maxLength={50}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.phoneNumber')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={t('userManagement.form.phoneNumberPlaceholder')}
-                        maxLength={20}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="roleId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('userManagement.form.role')}
-                      {!isEditMode && <span className="text-destructive ml-1">*</span>}
-                    </FormLabel>
-                    <FormControl>
-                      <Combobox
-                        options={roleOptions.map((opt) => ({
-                          value: String(opt.value),
-                          label: opt.label,
-                        }))}
-                        value={field.value ? String(field.value) : ''}
-                        onValueChange={(v) => field.onChange(v ? parseInt(v, 10) : 0)}
-                        placeholder={t('userManagement.form.rolePlaceholder')}
-                        searchPlaceholder={t('common.search')}
-                        emptyText={t('common.noResults')}
-                        disabled={isLoading}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="permissionGroupIds"
-              render={({ field }) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <FormField name="roleId" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t('userManagement.form.permissionGroups')}
-                  </FormLabel>
-                  <FormControl>
-                    <UserFormPermissionGroupSelect
-                      value={field.value ?? []}
-                      onChange={field.onChange}
-                      disabled={isLoading}
-                    />
-                  </FormControl>
-                  <FormMessage />
+                  <FormLabel className={labelStyle}><Shield className="size-3" /> Rol</FormLabel>
+                  <Combobox 
+                    options={(roleOptionsQuery.data || []).map(o => ({ value: String(o.value), label: o.label }))}
+                    value={String(field.value)}
+                    onValueChange={(v) => field.onChange(Number(v))}
+                    className={inputStyle}
+                  />
+                  <FormMessage className="text-[10px]" />
                 </FormItem>
-              )}
-            />
+              )} />
+              <FormItem className="flex flex-row items-center justify-between rounded-xl border border-white/5 p-4 bg-white/2 self-end h-11">
+                <FormLabel className="text-xs font-bold text-white flex items-center gap-2"><Power className="size-3.5 text-emerald-500" /> Aktif mi?</FormLabel>
+                <Switch checked={form.watch('isActive')} onCheckedChange={(v) => form.setValue('isActive', v)} className="data-[state=checked]:bg-pink-600" />
+              </FormItem>
+            </div>
 
-            <FormField
-              control={form.control}
-              name="isActive"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <FormLabel>
-                    {t('userManagement.form.isActive')}
-                  </FormLabel>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField name="permissionGroupIds" render={({ field }) => (
+              <FormItem>
+                <FormLabel className={labelStyle}>Yetki Grupları</FormLabel>
+                <UserFormPermissionGroupSelect value={field.value} onChange={field.onChange} />
+              </FormItem>
+            )} />
 
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => onOpenChange(false)}
-                disabled={isLoading}
-              >
-                {t('userManagement.form.cancel')}
-              </Button>
-              <Button type="submit" disabled={isLoading || !isFormValid}>
-                {isLoading
-                  ? t('userManagement.form.saving')
-                  : t('userManagement.form.save')}
+            <DialogFooter className="pt-6 border-t border-white/5">
+              <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} className="text-slate-400 hover:text-white">İptal</Button>
+              <Button type="submit" disabled={isLoading} className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold h-11 px-8 rounded-xl border-0">
+                {isLoading ? <Loader2 className="size-4 animate-spin mr-2" /> : null} Kaydet
               </Button>
             </DialogFooter>
           </form>

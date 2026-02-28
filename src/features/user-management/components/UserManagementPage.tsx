@@ -1,4 +1,3 @@
-/* [USER_MGMT_STAGE_6_DONE] */
 import { type ReactElement, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUIStore } from '@/stores/ui-store';
@@ -8,8 +7,8 @@ import { UserTable } from './UserTable';
 import { UserForm } from './UserForm';
 import { useCreateUser } from '../hooks/useCreateUser';
 import { useUpdateUser } from '../hooks/useUpdateUser';
-import type { UserDto, CreateUserDto, UpdateUserDto } from '../types/user-types';
-import type { UserFormSchema, UserUpdateFormSchema } from '../types/user-types';
+import { UserPlus, Users } from 'lucide-react';
+import type { UserDto } from '../types/user-types';
 
 export function UserManagementPage(): ReactElement {
   const { t } = useTranslation();
@@ -17,104 +16,63 @@ export function UserManagementPage(): ReactElement {
   const [formOpen, setFormOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<UserDto | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(20);
   const [sortBy, setSortBy] = useState('Id');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
-  const [filters] = useState<Record<string, unknown>>({});
 
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
 
   useEffect(() => {
     setPageTitle(t('userManagement.menu'));
-    return () => {
-      setPageTitle(null);
-    };
+    return () => setPageTitle(null);
   }, [t, setPageTitle]);
 
-  const handleAddClick = (): void => {
-    setEditingUser(null);
-    setFormOpen(true);
-  };
-
-  const handleFormSubmit = async (data: UserFormSchema | UserUpdateFormSchema): Promise<void> => {
-    if (editingUser) {
-      const updateData: UpdateUserDto = {
-        email: data.email,
-        firstName: data.firstName || undefined,
-        lastName: data.lastName || undefined,
-        phoneNumber: data.phoneNumber || undefined,
-        roleId: data.roleId && data.roleId > 0 ? data.roleId : undefined,
-        isActive: data.isActive,
-        permissionGroupIds: data.permissionGroupIds,
-      };
-      await updateUser.mutateAsync({
-        id: editingUser.id,
-        data: updateData,
-      });
-    } else {
-      const createFormData = data as UserFormSchema;
-      const createData: CreateUserDto = {
-        username: createFormData.username!,
-        email: createFormData.email!,
-        password: createFormData.password || undefined,
-        firstName: createFormData.firstName || undefined,
-        lastName: createFormData.lastName || undefined,
-        phoneNumber: createFormData.phoneNumber || undefined,
-        roleId: createFormData.roleId!,
-        isActive: createFormData.isActive,
-        permissionGroupIds: createFormData.permissionGroupIds,
-      };
-      await createUser.mutateAsync(createData);
-    }
-    setFormOpen(false);
-    setEditingUser(null);
-  };
-
-  const handleSortChange = (newSortBy: string, newSortDirection: 'asc' | 'desc'): void => {
-    setSortBy(newSortBy);
-    setSortDirection(newSortDirection);
-    setPageNumber(1);
-  };
-
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">
-            {t('userManagement.menu')}
-          </h1>
-          <p className="text-muted-foreground mt-1 text-sm">
-            {t('userManagement.description')}
-          </p>
+    <div className="space-y-8 pb-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-pink-500/10 text-pink-500 border border-pink-500/20 shadow-lg shadow-pink-500/5">
+            <Users className="size-6" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-white">{t('userManagement.menu')}</h1>
+            <p className="text-slate-400 mt-1 text-sm font-medium">{t('userManagement.description')}</p>
+          </div>
         </div>
-        <Button onClick={handleAddClick}>
+        <Button 
+          onClick={() => { setEditingUser(null); setFormOpen(true); }}
+          className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold h-11 px-6 rounded-xl shadow-lg shadow-pink-500/20 border-0 hover:opacity-90 transition-all"
+        >
+          <UserPlus className="mr-2 size-4" />
           {t('userManagement.addButton')}
         </Button>
       </div>
 
       <UserStats />
 
-      <div className="space-y-4">
+      <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
         <UserTable
           pageNumber={pageNumber}
-          pageSize={pageSize}
+          pageSize={20}
           sortBy={sortBy}
           sortDirection={sortDirection}
-          filters={filters}
           onPageChange={setPageNumber}
-          onSortChange={handleSortChange}
-          onEdit={(u) => {
-            setEditingUser(u);
-            setFormOpen(true);
-          }}
+          onSortChange={(s: string, d: 'asc' | 'desc') => { setSortBy(s); setSortDirection(d); }}
+          onEdit={(u: UserDto) => { setEditingUser(u); setFormOpen(true); }}
         />
       </div>
 
       <UserForm
         open={formOpen}
         onOpenChange={setFormOpen}
-        onSubmit={handleFormSubmit}
+        onSubmit={async (data: any) => {
+          if (editingUser) {
+            await updateUser.mutateAsync({ id: editingUser.id, data });
+          } else {
+            await createUser.mutateAsync(data);
+          }
+          setFormOpen(false);
+        }}
         user={editingUser}
         isLoading={createUser.isPending || updateUser.isPending}
       />

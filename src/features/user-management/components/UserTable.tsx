@@ -1,280 +1,83 @@
 import { type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { useUserList } from '../hooks/useUserList';
 import { useUpdateUser } from '../hooks/useUpdateUser';
+import { Edit2, ChevronsUpDown, MailCheck } from 'lucide-react';
 import type { UserDto } from '../types/user-types';
-import type { PagedFilter } from '@/types/api';
+import { cn } from '@/lib/utils';
 
-interface UserTableProps {
-  pageNumber: number;
-  pageSize: number;
-  sortBy?: string;
-  sortDirection?: 'asc' | 'desc';
-  filters?: PagedFilter[] | Record<string, unknown>;
-  onPageChange: (page: number) => void;
-  onSortChange: (sortBy: string, sortDirection: 'asc' | 'desc') => void;
-  onEdit?: (user: UserDto) => void;
-}
-
-export function UserTable({
-  pageNumber,
-  pageSize,
-  sortBy = 'Id',
-  sortDirection = 'asc',
-  filters = {},
-  onPageChange,
-  onSortChange,
-  onEdit,
-}: UserTableProps): ReactElement {
+export function UserTable({ pageNumber, pageSize, sortBy, sortDirection, onPageChange, onSortChange, onEdit }: any): ReactElement {
   const { t, i18n } = useTranslation();
-
-  const { data, isLoading } = useUserList({
-    pageNumber,
-    pageSize,
-    sortBy,
-    sortDirection,
-    filters: Array.isArray(filters) ? filters : undefined,
-  });
-
+  const { data, isLoading } = useUserList({ pageNumber, pageSize, sortBy, sortDirection });
   const updateUser = useUpdateUser();
 
-  const handleStatusChange = async (user: UserDto, checked: boolean): Promise<void> => {
-    await updateUser.mutateAsync({
-      id: user.id,
-      data: { isActive: checked },
-    });
+  const handleSort = (column: string) => {
+    onSortChange(column, sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc');
   };
 
-  const handleSort = (column: string): void => {
-    const newDirection =
-      sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';
-    onSortChange(column, newDirection);
-  };
-
-  const SortIcon = ({ column }: { column: string }): ReactElement => {
-    if (sortBy !== column) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="ml-1 inline-block text-muted-foreground"
-        >
-          <path d="M8 9l4-4 4 4" />
-          <path d="M16 15l-4 4-4-4" />
-        </svg>
-      );
-    }
-    return sortDirection === 'asc' ? (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="ml-1 inline-block"
-      >
-        <path d="M8 9l4-4 4 4" />
-      </svg>
-    ) : (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="ml-1 inline-block"
-      >
-        <path d="M16 15l-4 4-4-4" />
-      </svg>
-    );
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="text-muted-foreground">
-          {t('userManagement.table.loading')}
-        </div>
-      </div>
-    );
-  }
+  if (isLoading) return <div className="py-24 text-center text-slate-500 font-medium animate-pulse">Veriler yükleniyor...</div>;
 
   const users = data?.data || [];
-  
-  if (!data || users.length === 0) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="text-muted-foreground">
-          {t('userManagement.table.noData')}
-        </div>
-      </div>
-    );
-  }
-
-  const totalPages = Math.ceil((data.totalCount || 0) / pageSize);
+  const totalPages = Math.ceil((data?.totalCount || 0) / pageSize);
 
   return (
-    <>
-      <div className="rounded-md border">
+    <div className="w-full">
+      <div className="overflow-x-auto">
         <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort('Id')}
-              >
-                <div className="flex items-center">
-                  {t('userManagement.table.id')}
-                  <SortIcon column="Id" />
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort('Username')}
-              >
-                <div className="flex items-center">
-                  {t('userManagement.table.username')}
-                  <SortIcon column="Username" />
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort('Email')}
-              >
-                <div className="flex items-center">
-                  {t('userManagement.table.email')}
-                  <SortIcon column="Email" />
-                </div>
-              </TableHead>
-              <TableHead>
-                {t('userManagement.table.fullName')}
-              </TableHead>
-              <TableHead>
-                {t('userManagement.table.role')}
-              </TableHead>
-              <TableHead>
-                {t('userManagement.table.status')}
-              </TableHead>
-              <TableHead>
-                {t('userManagement.table.createdDate')}
-              </TableHead>
-              {onEdit && (
-                <TableHead className="w-[80px]">
-                  {t('common.actions')}
+          <TableHeader className="bg-white/2">
+            <TableRow className="border-b border-white/5 hover:bg-transparent">
+              {['Id', 'Username', 'Email'].map((col) => (
+                <TableHead key={col} className="cursor-pointer select-none text-xs font-bold uppercase text-slate-400 hover:text-pink-400" onClick={() => handleSort(col)}>
+                  <div className="flex items-center gap-1">{t(`userManagement.table.${col.toLowerCase()}`)} <ChevronsUpDown className="size-3 opacity-30" /></div>
                 </TableHead>
-              )}
+              ))}
+              <TableHead className="text-xs font-bold uppercase text-slate-400">{t('userManagement.table.role')}</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-400">{t('userManagement.table.status')}</TableHead>
+              <TableHead className="text-xs font-bold uppercase text-slate-400">{t('userManagement.table.createdDate')}</TableHead>
+              <TableHead className="w-[60px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.map((user: UserDto) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.id}</TableCell>
-                <TableCell className="font-medium">{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.fullName || '-'}</TableCell>
-                <TableCell>
-                  <Badge variant="outline">{user.role || '-'}</Badge>
+              <TableRow key={user.id} className="border-b border-white/5 hover:bg-white/2 group transition-colors">
+                <TableCell className="font-mono text-xs text-slate-500">#{user.id}</TableCell>
+                <TableCell className="font-bold text-slate-200 group-hover:text-pink-400">{user.username}</TableCell>
+                <TableCell className="text-slate-400 text-sm">
+                   <div className="flex items-center gap-2">
+                     {user.email} {user.isEmailConfirmed && <MailCheck className="size-3 text-emerald-500" />}
+                   </div>
                 </TableCell>
+                <TableCell><Badge className="bg-white/5 text-slate-300 border-0">{user.role || '-'}</Badge></TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Switch
-                      checked={user.isActive}
-                      onCheckedChange={(checked) => handleStatusChange(user, checked)}
-                      disabled={updateUser.isPending}
-                    />
-                    <span className="text-sm text-muted-foreground">
-                        {user.isActive
-                            ? t('userManagement.table.active')
-                            : t('userManagement.table.inactive')}
+                    <Switch checked={user.isActive} onCheckedChange={(isActive) => updateUser.mutate({ id: user.id, data: { isActive } })} className="data-[state=checked]:bg-pink-600 scale-90" />
+                    <span className={cn("text-[10px] font-bold uppercase", user.isActive ? "text-emerald-500" : "text-rose-500")}>
+                      {user.isActive ? 'Aktif' : 'Pasif'}
                     </span>
-                    {user.isEmailConfirmed && (
-                      <Badge variant="outline" className="text-xs">
-                        {t('userManagement.table.confirmed')}
-                      </Badge>
-                    )}
                   </div>
                 </TableCell>
+                <TableCell className="text-slate-500 text-xs">{user.creationTime ? new Date(user.creationTime).toLocaleDateString(i18n.language) : '-'}</TableCell>
                 <TableCell>
-                  {user.creationTime
-                    ? new Date(user.creationTime).toLocaleDateString(i18n.language)
-                    : '-'}
+                  <Button variant="ghost" size="icon" onClick={() => onEdit(user)} className="size-8 text-slate-400 hover:text-pink-400 hover:bg-pink-500/10 rounded-lg">
+                    <Edit2 className="size-4" />
+                  </Button>
                 </TableCell>
-                {onEdit && (
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => onEdit(user)}
-                    >
-                      {t('common.edit')}
-                    </Button>
-                  </TableCell>
-                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
-
-      <div className="flex items-center justify-between py-4">
-        <div className="text-sm text-muted-foreground">
-          {t('userManagement.table.showing', {
-            from: (pageNumber - 1) * pageSize + 1,
-            to: Math.min(pageNumber * pageSize, data.totalCount || 0),
-            total: data.totalCount || 0,
-          })}
-        </div>
+      <div className="flex items-center justify-between px-6 py-4 bg-[#0b0713]/50 border-t border-white/5">
+        <span className="text-xs text-slate-500">Toplam <b className="text-slate-200">{data?.totalCount || 0}</b> kayıt</span>
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onPageChange(pageNumber - 1)}
-            disabled={pageNumber <= 1}
-          >
-            {t('userManagement.table.previous')}
-          </Button>
-          <div className="flex items-center px-4 text-sm">
-            {t('userManagement.table.page', {
-              current: pageNumber,
-              total: totalPages,
-            })}
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onPageChange(pageNumber + 1)}
-            disabled={pageNumber >= totalPages}
-          >
-            {t('userManagement.table.next')}
-          </Button>
+          <Button variant="outline" size="sm" onClick={() => onPageChange(pageNumber - 1)} disabled={pageNumber <= 1} className="h-8 border-white/10 bg-transparent text-white hover:bg-white/5">Geri</Button>
+          <Button variant="outline" size="sm" onClick={() => onPageChange(pageNumber + 1)} disabled={pageNumber >= totalPages} className="h-8 border-white/10 bg-transparent text-white hover:bg-white/5">İleri</Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
