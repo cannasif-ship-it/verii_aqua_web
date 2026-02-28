@@ -27,6 +27,8 @@ import { FieldHelpTooltip } from './FieldHelpTooltip';
 import { createPermissionGroupSchema, type CreatePermissionGroupSchema } from '../schemas/permission-group-schema';
 import type { PermissionGroupDto } from '../types/access-control.types';
 import { isZodFieldRequired } from '@/lib/zod-required';
+import { Shield, Settings2, Power, Save, Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface PermissionGroupFormProps {
   open: boolean;
@@ -48,7 +50,6 @@ export function PermissionGroupForm({
   const form = useForm<CreatePermissionGroupSchema>({
     resolver: zodResolver(createPermissionGroupSchema),
     mode: 'onChange',
-    reValidateMode: 'onChange',
     defaultValues: {
       name: '',
       description: '',
@@ -57,25 +58,26 @@ export function PermissionGroupForm({
       permissionDefinitionIds: [],
     },
   });
-  const isFormValid = form.formState.isValid;
 
   useEffect(() => {
-    if (item) {
-      form.reset({
-        name: item.name,
-        description: item.description ?? '',
-        isSystemAdmin: item.isSystemAdmin,
-        isActive: item.isActive,
-        permissionDefinitionIds: item.permissionDefinitionIds ?? [],
-      });
-    } else {
-      form.reset({
-        name: '',
-        description: '',
-        isSystemAdmin: false,
-        isActive: true,
-        permissionDefinitionIds: [],
-      });
+    if (open) {
+      if (item) {
+        form.reset({
+          name: item.name,
+          description: item.description ?? '',
+          isSystemAdmin: item.isSystemAdmin,
+          isActive: item.isActive,
+          permissionDefinitionIds: item.permissionDefinitionIds ?? [],
+        });
+      } else {
+        form.reset({
+          name: '',
+          description: '',
+          isSystemAdmin: false,
+          isActive: true,
+          permissionDefinitionIds: [],
+        });
+      }
     }
   }, [item, form, open]);
 
@@ -87,23 +89,25 @@ export function PermissionGroupForm({
     }
   };
 
+  const labelStyle = "text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2";
+  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 rounded-xl transition-all duration-300 h-11";
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white dark:bg-[#130822] border border-slate-100 dark:border-white/10 text-slate-900 dark:text-white max-w-2xl w-[95%] sm:w-full shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
-        <DialogHeader className="px-6 py-5 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-[#1a1025]/50">
-          <DialogTitle className="text-xl font-bold">
-            {item
-              ? t('permissionGroups.form.editTitle')
-              : t('permissionGroups.form.addTitle')}
+      <DialogContent className="bg-[#0b0713] border-white/10 text-white max-w-2xl w-[95%] sm:w-full shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
+        <DialogHeader className="px-8 py-6 border-b border-white/5 bg-white/2">
+          <DialogTitle className="text-2xl font-bold flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-pink-500/10 border border-pink-500/20">
+              <Shield className="w-5 h-5 text-pink-500" />
+            </div>
+            {item ? t('permissionGroups.form.editTitle') : t('permissionGroups.form.addTitle')}
           </DialogTitle>
-          <DialogDescription>
-            {item
-              ? t('permissionGroups.form.editDescription')
-              : t('permissionGroups.form.addDescription')}
+          <DialogDescription className="text-slate-400 mt-1">
+            {item ? t('permissionGroups.form.editDescription') : t('permissionGroups.form.addDescription')}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           <Form {...form}>
             <form id="permission-group-form" onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
               <FormField
@@ -111,75 +115,85 @@ export function PermissionGroupForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="inline-flex items-center" required={isZodFieldRequired(createPermissionGroupSchema, 'name')}>
+                    <FormLabel className={labelStyle} required={isZodFieldRequired(createPermissionGroupSchema, 'name')}>
                       {t('permissionGroups.form.name')}
                       <FieldHelpTooltip text={t('help.permissionGroup.name')} />
                     </FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={t('permissionGroups.form.namePlaceholder')} maxLength={100} />
+                      <Input {...field} className={inputStyle} placeholder={t('permissionGroups.form.namePlaceholder')} maxLength={100} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[10px] text-rose-500" />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('permissionGroups.form.description')}</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} value={field.value ?? ''} placeholder={t('permissionGroups.form.descriptionPlaceholder')} maxLength={500} className="min-h-[80px]" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="isSystemAdmin"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                    <FormLabel className="inline-flex items-center">
-                      {t('permissionGroups.form.isSystemAdmin')}
-                      <FieldHelpTooltip text={t('help.permissionGroup.isSystemAdmin')} />
+                    <FormLabel className={labelStyle}>
+                      {t('permissionGroups.form.description')}
                     </FormLabel>
                     <FormControl>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Textarea {...field} value={field.value ?? ''} className={cn(inputStyle, "min-h-[100px] resize-none py-3")} placeholder={t('permissionGroups.form.descriptionPlaceholder')} maxLength={500} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[10px] text-rose-500" />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="isActive"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                    <FormLabel className="inline-flex items-center">
-                      {t('permissionGroups.form.isActive')}
-                      <FieldHelpTooltip text={t('help.permissionGroup.isActive')} />
-                    </FormLabel>
-                    <FormControl>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="isSystemAdmin"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-between rounded-xl border border-white/5 p-4 bg-white/2 hover:bg-white/4 transition-colors">
+                      <FormLabel className="inline-flex items-center text-xs font-bold text-slate-300 cursor-pointer">
+                        <Settings2 className="w-4 h-4 mr-2 text-orange-500" />
+                        {t('permissionGroups.form.isSystemAdmin')}
+                        <FieldHelpTooltip text={t('help.permissionGroup.isSystemAdmin')} />
+                      </FormLabel>
+                      <FormControl>
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-pink-600 scale-90" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="isActive"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-between rounded-xl border border-white/5 p-4 bg-white/2 hover:bg-white/4 transition-colors">
+                      <FormLabel className="inline-flex items-center text-xs font-bold text-slate-300 cursor-pointer">
+                        <Power className="w-4 h-4 mr-2 text-emerald-500" />
+                        {t('permissionGroups.form.isActive')}
+                        <FieldHelpTooltip text={t('help.permissionGroup.isActive')} />
+                      </FormLabel>
+                      <FormControl>
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-pink-600 scale-90" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
                 name="permissionDefinitionIds"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="inline-flex items-center">
+                    <FormLabel className={labelStyle}>
                       {t('permissionGroups.form.permissions')}
                       <FieldHelpTooltip text={t('help.permissionGroup.permissions')} />
                     </FormLabel>
                     <FormControl>
-                      <PermissionDefinitionMultiSelect value={field.value} onChange={field.onChange} disabled={isLoading} />
+                      <div className="bg-white/1 rounded-xl border border-white/5 overflow-hidden">
+                        <PermissionDefinitionMultiSelect value={field.value} onChange={field.onChange} disabled={isLoading} />
+                      </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[10px] text-rose-500" />
                   </FormItem>
                 )}
               />
@@ -187,16 +201,19 @@ export function PermissionGroupForm({
           </Form>
         </div>
 
-        <DialogFooter className="px-6 py-5 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-[#1a1025]/50">
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isLoading}>
+        <DialogFooter className="px-8 py-6 border-t border-white/5 bg-white/2">
+          <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} disabled={isLoading} className="text-slate-400 hover:text-white hover:bg-white/5 px-6 font-bold">
             {t('common.cancel')}
           </Button>
-          <span className="inline-flex items-center gap-1">
-            <FieldHelpTooltip text={t('help.permissionGroup.save')} side="top" />
-            <Button type="submit" form="permission-group-form" disabled={isLoading || !isFormValid}>
-              {isLoading ? t('common.saving') : t('common.save')}
-            </Button>
-          </span>
+          <Button 
+            type="submit" 
+            form="permission-group-form" 
+            disabled={isLoading || !form.formState.isValid}
+            className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold h-11 px-10 rounded-xl border-0 shadow-lg shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+            {isLoading ? t('common.saving') : t('common.save')}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
