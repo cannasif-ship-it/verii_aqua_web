@@ -182,7 +182,7 @@ export function PermissionGroupsPage(): ReactElement {
       <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <Table>
-            <TableHeader className="bg-white/[0.02]">
+            <TableHeader className="bg-white/2">
               <TableRow className="border-b border-white/5 hover:bg-transparent">
                 <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider px-6">{t('permissionGroups.table.name')}</TableHead>
                 <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider">{t('permissionGroups.table.isSystemAdmin')}</TableHead>
