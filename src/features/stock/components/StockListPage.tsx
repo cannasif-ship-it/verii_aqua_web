@@ -53,21 +53,15 @@ export function StockListPage(): ReactElement {
   };
 
   return (
-    <div className="relative min-h-screen space-y-6 p-4 md:p-8 overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/10 blur-[120px] pointer-events-none dark:block hidden" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 blur-[120px] pointer-events-none dark:block hidden" />
-
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+    <div className="relative min-h-screen space-y-6 overflow-hidden w-full">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 pt-2">
         <div className="space-y-1">
-          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-foreground">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white transition-colors">
             {t('stock.list.title')}
           </h1>
-          <div className="flex flex-col gap-1">
-            <p className="text-zinc-500 dark:text-muted-foreground text-sm flex items-center gap-2 font-medium">
-              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse shadow-[0_0_8px_rgba(236,72,153,0.6)]" />
-              {t('stock.list.description')}
-            </p>
-          </div>
+          <p className="text-slate-400 text-sm flex items-center gap-2 font-medium transition-colors">
+            {t('stock.list.description')}
+          </p>
         </div>
 
         <div className="w-full md:w-auto">
@@ -80,7 +74,7 @@ export function StockListPage(): ReactElement {
         </div>
       </div>
 
-      <div className="relative z-10 bg-white/50 dark:bg-card/30 backdrop-blur-xl border border-white/20 dark:border-border/50 rounded-2xl shadow-sm dark:shadow-2xl overflow-hidden">
+      <div className="relative z-10 bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
         <StockTable
           pageNumber={pageNumber}
           pageSize={pageSize}
