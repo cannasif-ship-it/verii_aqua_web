@@ -1,7 +1,7 @@
 import { type ReactElement, useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUIStore } from '@/stores/ui-store';
-import { Plus, Search, RefreshCw, X } from 'lucide-react';
+import { Plus, Search, RefreshCw, X, ShieldAlert, Edit2, Trash2 } from 'lucide-react';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,8 +32,9 @@ import { PermissionDefinitionForm } from './PermissionDefinitionForm';
 import type { PermissionDefinitionDto } from '../types/access-control.types';
 import type { CreatePermissionDefinitionSchema } from '../schemas/permission-definition-schema';
 import { getPermissionDisplayMeta, PERMISSION_CODE_CATALOG } from '../utils/permission-config';
-const EMPTY_PERMISSION_DEFINITIONS: PermissionDefinitionDto[] = [];
+import { cn } from '@/lib/utils';
 
+const EMPTY_PERMISSION_DEFINITIONS: PermissionDefinitionDto[] = [];
 
 export function PermissionDefinitionsPage(): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
@@ -57,7 +58,6 @@ export function PermissionDefinitionsPage(): ReactElement {
   const createMutation = useCreatePermissionDefinitionMutation();
   const updateMutation = useUpdatePermissionDefinitionMutation();
   const deleteMutation = useDeletePermissionDefinitionMutation();
-
   const syncMutation = useSyncPermissionDefinitionsMutation();
 
   const items = data?.data ?? EMPTY_PERMISSION_DEFINITIONS;
@@ -88,15 +88,13 @@ export function PermissionDefinitionsPage(): ReactElement {
     await queryClient.invalidateQueries({ queryKey: ['permissions', 'definitions'] });
   };
 
-
   const handleSyncFromRoutes = async (): Promise<void> => {
-    const items = PERMISSION_CODE_CATALOG.map((code) => {
+    const itemsToSync = PERMISSION_CODE_CATALOG.map((code) => {
       const meta = getPermissionDisplayMeta(code);
       const name = meta ? t(meta.key, meta.fallback) : code;
       return { code, name, isActive: true };
     });
-
-    await syncMutation.mutateAsync({ items });
+    await syncMutation.mutateAsync({ items: itemsToSync });
   };
 
   const handleAddClick = (): void => {
@@ -134,84 +132,96 @@ export function PermissionDefinitionsPage(): ReactElement {
   };
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-8 pb-10">
       <Breadcrumb items={[{ label: t('sidebar.accessControl') }, { label: t('sidebar.permissionDefinitions'), isActive: true }]} />
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pt-2">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">
-            {t('permissionDefinitions.title')}
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors">
-            {t('permissionDefinitions.description')}
-          </p>
+      
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-1">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+            <ShieldAlert className="size-6" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-white leading-none">
+              {t('permissionDefinitions.title')}
+            </h1>
+            <p className="text-slate-400 mt-2 text-sm font-medium">
+              {t('permissionDefinitions.description')}
+            </p>
+          </div>
         </div>
-        <Button onClick={handleAddClick}>
-          <Plus size={18} className="mr-2" />
-          {t('permissionDefinitions.add')}
-        </Button>
+        <div className="flex gap-3">
+          <Button 
+            variant="outline" 
+            onClick={handleSyncFromRoutes}
+            disabled={isLoading || syncMutation.isPending}
+            className="h-11 border-amber-500/20 bg-amber-500/5 text-amber-400 hover:bg-amber-500/10 hover:text-amber-300 rounded-xl transition-all"
+          >
+            <RefreshCw size={16} className={cn("mr-2", syncMutation.isPending && "animate-spin")} />
+            {t('permissionDefinitions.syncFromRoutes')}
+          </Button>
+          <Button 
+            onClick={handleAddClick}
+            className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold h-11 px-6 rounded-xl shadow-lg shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all border-0"
+          >
+            <Plus size={18} className="mr-2" />
+            {t('permissionDefinitions.add')}
+          </Button>
+        </div>
       </div>
 
-      <div className="bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-5">
+      <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
         <div className="relative group w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-pink-500 transition-colors" />
           <Input
             placeholder={t('common.search')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 h-10"
+            className="pl-10 h-11 bg-[#0b0713] border-white/5 text-white focus-visible:ring-pink-500/20 rounded-xl"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-white/10 rounded-full transition-colors"
             >
-              <X size={14} className="text-slate-400" />
+              <X size={14} className="text-slate-400 hover:text-white" />
             </button>
           )}
         </div>
-        <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          onClick={handleSyncFromRoutes}
-          disabled={isLoading || syncMutation.isPending}
-        >
-          <RefreshCw size={18} className={syncMutation.isPending ? 'animate-spin mr-2' : 'mr-2'} />
-          {t('permissionDefinitions.syncFromRoutes')}
+        <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading} className="h-11 w-11 border-white/10 bg-transparent text-white hover:bg-white/5 rounded-xl shrink-0">
+          <RefreshCw size={18} className={cn(isLoading && "animate-spin")} />
         </Button>
-        <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading}>
-          <RefreshCw size={18} className={isLoading ? 'animate-spin' : ''} />
-        </Button>
-      </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden bg-white dark:bg-[#0b0713] shadow-sm">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-20 min-h-[300px]">
-            <div className="animate-pulse text-slate-500">{t('common.loading')}</div>
-          </div>
-        ) : filteredItems.length === 0 ? (
-          <div className="flex items-center justify-center py-20 min-h-[300px]">
-            <p className="text-slate-500 dark:text-slate-400">{t('common.noData')}</p>
-          </div>
-        ) : (
-          <>
-            <Table>
-              <TableHeader>
+      <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader className="bg-white/2">
+              <TableRow className="border-b border-white/5 hover:bg-transparent">
+                <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider px-6">{t('permissionDefinitions.table.code')}</TableHead>
+                <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider">{t('permissionDefinitions.table.name')}</TableHead>
+                <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider">{t('permissionDefinitions.table.isActive')}</TableHead>
+                <TableHead className="text-xs font-bold uppercase text-slate-400 tracking-wider">{t('permissionDefinitions.table.updatedDate')}</TableHead>
+                <TableHead className="text-right text-xs font-bold uppercase text-slate-400 tracking-wider px-6">{t('common.actions')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
                 <TableRow>
-                  <TableHead>{t('permissionDefinitions.table.code')}</TableHead>
-                  <TableHead>{t('permissionDefinitions.table.name')}</TableHead>
-                  <TableHead>{t('permissionDefinitions.table.isActive')}</TableHead>
-                  <TableHead>{t('permissionDefinitions.table.updatedDate')}</TableHead>
-                  <TableHead className="text-right">{t('common.actions')}</TableHead>
+                  <TableCell colSpan={5} className="h-40 text-center text-slate-500 animate-pulse font-medium">{t('common.loading')}</TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredItems.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell className="font-mono text-sm">{item.code}</TableCell>
+              ) : filteredItems.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-40 text-center text-slate-400 font-medium">{t('common.noData')}</TableCell>
+                </TableRow>
+              ) : (
+                filteredItems.map((item) => (
+                  <TableRow key={item.id} className="border-b border-white/5 hover:bg-white/2 group transition-colors">
+                    <TableCell className="font-mono text-xs font-medium text-pink-400 px-6 tracking-tight">
+                      {item.code}
+                    </TableCell>
                     <TableCell>
-                      <div className="flex flex-col">
-                        <span>
+                      <div className="flex flex-col gap-1">
+                        <span className="font-bold text-slate-200 group-hover:text-amber-400 transition-colors">
                           {(() => {
                             const meta = getPermissionDisplayMeta(item.code);
                             return meta ? t(meta.key, meta.fallback) : item.name;
@@ -220,57 +230,54 @@ export function PermissionDefinitionsPage(): ReactElement {
                         {(() => {
                           const meta = getPermissionDisplayMeta(item.code);
                           const displayName = meta ? t(meta.key, meta.fallback) : item.name;
-                          const storedName = item.name;
-                          if (!meta) return null;
-                          if (storedName.trim().toLowerCase() === displayName.trim().toLowerCase()) return null;
-                          return (
-                            <span className="text-xs text-slate-500 dark:text-slate-400">
-                              {storedName}
-                            </span>
-                          );
+                          if (!meta || item.name.trim().toLowerCase() === displayName.trim().toLowerCase()) return null;
+                          return <span className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">{item.name}</span>;
                         })()}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={item.isActive ? 'default' : 'secondary'}>
+                      <Badge className={cn("border-0 rounded-md text-[10px] font-bold uppercase tracking-tighter px-2", item.isActive ? "bg-emerald-500/20 text-emerald-500" : "bg-rose-500/20 text-rose-500")}>
                         {item.isActive ? t('common.yes') : t('common.no')}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-slate-500 text-sm">
+                    <TableCell className="text-slate-400 text-xs">
                       {item.updatedDate ? new Date(item.updatedDate).toLocaleDateString() : '-'}
                     </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" onClick={() => handleEditClick(item)}>
-                        {t('common.edit')}
-                      </Button>
-                      <Button variant="ghost" size="sm" className="text-red-600" onClick={() => handleDeleteClick(item)}>
-                        {t('common.delete')}
-                      </Button>
+                    <TableCell className="text-right px-6">
+                      <div className="flex justify-end gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => handleEditClick(item)} className="size-8 text-slate-400 hover:text-pink-400 hover:bg-pink-500/10 rounded-lg transition-colors">
+                          <Edit2 size={16} />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="size-8 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors" onClick={() => handleDeleteClick(item)}>
+                          <Trash2 size={16} />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between p-4 border-t">
-                <span className="text-sm text-slate-500">
-                  {t('permissionDefinitions.table.showing', {
-                    from: (pageNumber - 1) * pageSize + 1,
-                    to: Math.min(pageNumber * pageSize, totalCount),
-                    total: totalCount,
-                  })}
-                </span>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => setPageNumber((p) => Math.max(1, p - 1))} disabled={pageNumber <= 1}>
-                    {t('common.previous')}
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={() => setPageNumber((p) => Math.min(totalPages, p + 1))} disabled={pageNumber >= totalPages}>
-                    {t('common.next')}
-                  </Button>
-                </div>
-              </div>
-            )}
-          </>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between px-6 py-4 bg-[#0b0713]/50 border-t border-white/5">
+            <span className="text-xs text-slate-500 font-medium">
+              {t('permissionDefinitions.table.showing', {
+                from: (pageNumber - 1) * pageSize + 1,
+                to: Math.min(pageNumber * pageSize, totalCount),
+                total: totalCount,
+              })}
+            </span>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setPageNumber((p) => Math.max(1, p - 1))} disabled={pageNumber <= 1} className="h-8 px-4 border-white/10 bg-transparent text-white hover:bg-white/5 rounded-lg text-xs font-bold">
+                {t('common.previous')}
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => setPageNumber((p) => Math.min(totalPages, p + 1))} disabled={pageNumber >= totalPages} className="h-8 px-4 border-white/10 bg-transparent text-white hover:bg-white/5 rounded-lg text-xs font-bold">
+                {t('common.next')}
+              </Button>
+            </div>
+          </div>
         )}
       </div>
 
@@ -283,20 +290,23 @@ export function PermissionDefinitionsPage(): ReactElement {
       />
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t('permissionDefinitions.delete.confirmTitle')}</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-8 max-w-md">
+          <DialogHeader className="p-0">
+            <DialogTitle className="text-xl font-bold flex items-center gap-3">
+              <Trash2 className="size-5 text-rose-500" />
+              {t('permissionDefinitions.delete.confirmTitle')}
+            </DialogTitle>
+            <DialogDescription className="text-slate-400 mt-2 text-sm">
               {t('permissionDefinitions.delete.confirmMessage', {
                 name: itemToDelete?.name ?? '',
               })}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)} disabled={deleteMutation.isPending}>
+          <DialogFooter className="mt-8 gap-3 sm:gap-0">
+            <Button variant="ghost" onClick={() => setDeleteDialogOpen(false)} disabled={deleteMutation.isPending} className="text-slate-400 hover:text-white hover:bg-white/5 font-bold">
               {t('common.cancel')}
             </Button>
-            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending}>
+            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending} className="bg-rose-600 hover:bg-rose-500 rounded-xl px-8 font-bold border-0 shadow-lg shadow-rose-500/20">
               {deleteMutation.isPending ? t('common.processing') : t('common.delete')}
             </Button>
           </DialogFooter>
