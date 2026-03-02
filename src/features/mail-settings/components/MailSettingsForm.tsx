@@ -94,9 +94,9 @@ export function MailSettingsForm({
 
   if (isLoading) {
     return (
-      <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl p-8 space-y-6">
+      <div className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 rounded-2xl p-6 md:p-8 space-y-6">
         <Skeleton className="h-10 w-full bg-white/5 rounded-xl" />
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <Skeleton className="h-10 w-full bg-white/5 rounded-xl" />
           <Skeleton className="h-10 w-full bg-white/5 rounded-xl" />
         </div>

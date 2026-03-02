@@ -290,7 +290,7 @@ export function PermissionDefinitionsPage(): ReactElement {
       />
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <DialogContent className="bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-8 max-w-md">
+        <DialogContent className="bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-5 sm:p-6 md:p-8 w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] max-w-md">
           <DialogHeader className="p-0">
             <DialogTitle className="text-xl font-bold flex items-center gap-3">
               <Trash2 className="size-5 text-rose-500" />

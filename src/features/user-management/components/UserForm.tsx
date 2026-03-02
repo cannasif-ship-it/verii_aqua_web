@@ -43,14 +43,14 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-0 overflow-hidden">
-        <DialogHeader className="p-8 border-b border-white/5 bg-white/2">
-          <DialogTitle className="text-2xl font-bold">{isEditMode ? 'Kullanıcıyı Düzenle' : 'Yeni Kullanıcı'}</DialogTitle>
+      <DialogContent className="w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] max-w-2xl max-h-[90dvh] bg-[#0b0713] border-white/10 text-white rounded-2xl shadow-2xl p-0 overflow-hidden flex flex-col">
+        <DialogHeader className="p-5 sm:p-6 md:p-8 border-b border-white/5 bg-white/2 shrink-0">
+          <DialogTitle className="text-xl sm:text-2xl font-bold">{isEditMode ? 'Kullanıcıyı Düzenle' : 'Yeni Kullanıcı'}</DialogTitle>
           <DialogDescription className="text-slate-400">Kullanıcı bilgilerini ve yetkilerini buradan yönetebilirsiniz.</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="p-8 space-y-5">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto min-h-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <FormField name="username" render={({ field }) => (
                 <FormItem>
@@ -104,7 +104,7 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
               </FormItem>
             )} />
 
-            <DialogFooter className="pt-6 border-t border-white/5">
+            <DialogFooter className="pt-6 border-t border-white/5 sticky bottom-0 bg-[#0b0713]">
               <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} className="text-slate-400 hover:text-white">İptal</Button>
               <Button type="submit" disabled={isLoading} className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold h-11 px-8 rounded-xl border-0">
                 {isLoading ? <Loader2 className="size-4 animate-spin mr-2" /> : null} Kaydet
