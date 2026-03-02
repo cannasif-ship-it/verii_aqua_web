@@ -77,7 +77,7 @@ export function FishDistributionStepCard({
       <CardContent className="p-6 space-y-6">
         <div className="flex items-center justify-between gap-4 flex-wrap bg-white/2 border border-white/5 p-4 rounded-xl">
           <div className="flex items-center gap-3 flex-wrap">
-              <div className="min-w-[220px]">
+              <div className="w-full sm:w-auto sm:min-w-[220px]">
                 <Select
                   value={selectedAvailableCageId != null ? String(selectedAvailableCageId) : undefined}
                   onValueChange={(value) => onSelectAvailableCage(value ? Number(value) : null)}
@@ -131,7 +131,7 @@ export function FishDistributionStepCard({
             <TableHeader className="bg-white/2 border-b border-white/5">
                 <TableRow className="hover:bg-transparent border-0">
                 <TableHead className="text-slate-400 font-semibold">{t('aqua.quickSetup.cage')}</TableHead>
-                <TableHead className="text-slate-400 font-semibold w-[200px]">{t('aqua.quickSetup.count')}</TableHead>
+                <TableHead className="text-slate-400 font-semibold w-[140px] sm:w-[200px]">{t('aqua.quickSetup.count')}</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -174,7 +174,7 @@ export function FishDistributionStepCard({
             </Table>
         </div>
 
-        <div className="flex items-center justify-between pt-2">
+        <div className="flex flex-col items-start gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm font-medium text-slate-400 bg-white/2 px-4 py-2 rounded-lg border border-white/5">
             {t('aqua.quickSetup.total')}: <span className={isValid ? 'text-emerald-400' : 'text-red-400'}>{totalAllocated}</span> / {totalFishCount}
             </div>

@@ -157,7 +157,7 @@ export function GoodsReceiptStepCard({
         ) : existingReceipt?.status === 1 ? (
           <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-5 text-sm space-y-2 backdrop-blur-md">
             <p className="font-semibold text-emerald-400 mb-3">{t('aqua.quickSetup.existingGoodsReceiptFound')}</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <p className="text-emerald-500/80"><span className="text-emerald-500/50">{t('aqua.quickSetup.receiptNo')}:</span> {existingReceipt.receiptNo}</p>
                 <p className="text-emerald-500/80"><span className="text-emerald-500/50">{t('aqua.quickSetup.date')}:</span> {existingReceipt.receiptDate}</p>
                 <p className="text-emerald-500/80"><span className="text-emerald-500/50">{t('aqua.quickSetup.stock')}:</span> {fishStockLabel}</p>
@@ -314,7 +314,7 @@ export function GoodsReceiptStepCard({
                 </Form>
               </div>
 
-              <div className="pt-2 flex items-center justify-between">
+              <div className="pt-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <Button type="submit" disabled={isSubmitting} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20">
                     {existingReceipt ? t('common.save') : t('aqua.quickSetup.createGoodsReceipt')}
                   </Button>

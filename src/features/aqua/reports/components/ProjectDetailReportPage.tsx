@@ -1030,7 +1030,7 @@ export function ProjectDetailReportPage(): ReactElement {
       )}
 
       <Dialog open={detailDialog.open} onOpenChange={(open) => setDetailDialog((prev) => ({ ...prev, open }))}>
-        <DialogContent className="max-h-[80vh] max-w-2xl overflow-hidden border border-white/10 bg-[#0b0713] p-0 shadow-2xl rounded-2xl">
+        <DialogContent className="w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] max-h-[85dvh] max-w-2xl overflow-hidden border border-white/10 bg-[#0b0713] p-0 shadow-2xl rounded-2xl">
           <DialogHeader className="border-b border-white/5 bg-white/2 px-6 py-5">
             <div className="flex items-baseline justify-between gap-4">
               <DialogTitle className="text-lg font-semibold tracking-tight text-white">

@@ -640,7 +640,7 @@ export function AquaCrudPage({
 
       <div className={tableContainerClass}>
         <div className="overflow-x-auto w-full">
-          <table className="w-full min-w-[680px] sm:min-w-[820px] caption-bottom text-sm relative">
+          <table className="w-full min-w-[560px] sm:min-w-[700px] lg:min-w-[820px] caption-bottom text-sm relative">
             <thead className="bg-[#0b0713] sticky top-0 z-10 border-b border-slate-200 dark:border-white/5">
               <tr className="h-10 hover:bg-transparent">
                 <th className={headStyle} onClick={() => handleSort('Id')}>
