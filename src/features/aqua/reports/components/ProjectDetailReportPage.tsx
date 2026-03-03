@@ -1,6 +1,7 @@
-import { type ReactElement, useMemo, useState } from 'react';
+import { type ReactElement, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import {
   Fish,
   Scale,
@@ -57,6 +58,13 @@ function clampPercent(value: number): number {
   if (value < 0) return 0;
   if (value > 100) return 100;
   return value;
+}
+
+function parsePositiveInt(value: string | null): number | null {
+  if (!value) return null;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed <= 0) return null;
+  return parsed;
 }
 
 function ReportGuideCard({ t }: { t: (key: string, options?: Record<string, unknown>) => string }): ReactElement {
@@ -469,13 +477,24 @@ function ProjectCurrentSnapshotCards({
 
 export function ProjectDetailReportPage(): ReactElement {
   const { t } = useTranslation('common');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [projectId, setProjectId] = useState<number | null>(null);
+  const [openAccordionItem, setOpenAccordionItem] = useState<string>('');
   const [detailDialog, setDetailDialog] = useState<DetailDialogState>({
     open: false,
     title: '',
     description: '',
     items: [],
   });
+
+  const requestedProjectId = useMemo(() => parsePositiveInt(searchParams.get('projectId')), [searchParams]);
+  const requestedCageId = useMemo(() => parsePositiveInt(searchParams.get('cageId')), [searchParams]);
+
+  useEffect(() => {
+    if (requestedProjectId == null) return;
+    if (projectId === requestedProjectId) return;
+    setProjectId(requestedProjectId);
+  }, [projectId, requestedProjectId]);
 
   const openDetailDialog = (cage: CageProjectReport, row: CageDailyRow, type: DetailType): void => {
     const titleMap: Record<DetailType, string> = {
@@ -606,6 +625,29 @@ export function ProjectDetailReportPage(): ReactElement {
     };
   }, [projectSummary, reportQuery.data]);
 
+  useEffect(() => {
+    if (!reportQuery.data || requestedCageId == null) return;
+    const hasCage = reportQuery.data.cages.some((cage) => cage.projectCageId === requestedCageId);
+    if (hasCage) {
+      setOpenAccordionItem(`cage-${requestedCageId}`);
+    }
+  }, [reportQuery.data, requestedCageId]);
+
+  const handleProjectChange = (nextProjectId: number | null): void => {
+    setProjectId(nextProjectId);
+    setOpenAccordionItem('');
+
+    const nextParams = new URLSearchParams(searchParams);
+    if (nextProjectId == null) {
+      nextParams.delete('projectId');
+      nextParams.delete('cageId');
+    } else {
+      nextParams.set('projectId', String(nextProjectId));
+      nextParams.delete('cageId');
+    }
+    setSearchParams(nextParams, { replace: true });
+  };
+
   return (
     <div className="min-h-[60vh] space-y-6 pb-8">
       <Card className="relative overflow-hidden border border-white/5 bg-[#1a1025]/60 backdrop-blur-xl shadow-sm rounded-2xl">
@@ -630,7 +672,7 @@ export function ProjectDetailReportPage(): ReactElement {
               <Combobox
                 options={projectOptions}
                 value={projectId != null ? String(projectId) : ''}
-                onValueChange={(v) => setProjectId(v ? Number(v) : null)}
+                onValueChange={(v) => handleProjectChange(v ? Number(v) : null)}
                 placeholder={t('aqua.projectDetailReport.selectProject')}
                 searchPlaceholder={t('common.search')}
                 emptyText={t('common.noResults')}
@@ -766,7 +808,13 @@ export function ProjectDetailReportPage(): ReactElement {
               </div>
             ) : (
               <div className="px-6 pt-6 pb-6 bg-transparent">
-              <Accordion type="single" collapsible className="w-full space-y-4">
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full space-y-4"
+                value={openAccordionItem}
+                onValueChange={setOpenAccordionItem}
+              >
                 {reportQuery.data.cages.map((cage, idx) => (
                   <AccordionItem
                     key={cage.projectCageId}
