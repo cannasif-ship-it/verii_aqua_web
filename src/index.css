@@ -241,3 +241,12 @@ input:-webkit-autofill:active {
   flex-direction: column;
   min-height: 100vh;
 }
+
+[data-hdrag-scroll='true'] {
+  cursor: grab;
+}
+
+[data-hdrag-scroll='true'].hdrag-scroll-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
