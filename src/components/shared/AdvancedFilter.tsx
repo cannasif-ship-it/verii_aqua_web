@@ -25,6 +25,18 @@ function generateId(): string {
   return `filter-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
+// YENİ: JSON dosyasında çeviri yoksa devreye girecek kurtarıcı sözlük!
+const OPERATOR_FALLBACKS: Record<string, string> = {
+  'Contains': 'İçerir',
+  'StartsWith': 'İle Başlar',
+  'EndsWith': 'İle Biter',
+  'Equals': 'Eşittir',
+  '>': 'Büyüktür',
+  '>=': 'Büyük Eşittir',
+  '<': 'Küçüktür',
+  '<=': 'Küçük Eşittir',
+};
+
 export function AdvancedFilter({
   columns,
   defaultColumn,
@@ -69,87 +81,100 @@ export function AdvancedFilter({
     return fallback ?? key;
   };
 
+  const getColumnLabel = (c: FilterColumnConfig & { translatedLabel?: string }): string => {
+    if (c.translatedLabel) return c.translatedLabel;
+
+    const nsVal = t(c.labelKey, { ns: translationNamespace });
+    if (nsVal && nsVal !== c.labelKey) return nsVal;
+    
+    const globalVal = t(c.labelKey, { ns: 'common' });
+    if (globalVal && globalVal !== c.labelKey) return globalVal;
+    
+    return c.value;
+  };
+
   return (
-    <div className={embedded ? 'p-4 space-y-4' : 'rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-card/50 p-4 space-y-4'}>
+    <div className={embedded ? 'p-4 space-y-4' : 'rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-[#0b0713] p-4 space-y-4'}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <Search className="w-4 h-4 text-pink-500" />
           {getLabel('title', 'Gelişmiş Filtre')}
         </h3>
         <div className="flex flex-wrap gap-2">
-          <Button type="button" variant="outline" size="sm" onClick={addRow}>
+          <Button type="button" variant="outline" size="sm" onClick={addRow} className="h-8 border-slate-200 dark:border-white/10 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5">
             <Plus className="h-4 w-4 mr-1" />
             {getLabel('add', 'Filtre Ekle')}
           </Button>
-          <Button type="button" variant="outline" size="sm" onClick={onClear}>
+          <Button type="button" variant="outline" size="sm" onClick={onClear} className="h-8 border-slate-200 dark:border-white/10 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5">
             {getLabel('clear', 'Temizle')}
           </Button>
-          <Button type="button" size="sm" onClick={onSearch}>
-            <Search className="h-4 w-4 mr-1" />
+          <Button type="button" size="sm" onClick={onSearch} className="h-8 bg-pink-600 hover:bg-pink-500 text-white border-0 shadow-md shadow-pink-500/20">
             {getLabel('search', 'Ara')}
           </Button>
         </div>
       </div>
       {draftRows.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-3 mt-4">
           {draftRows.map((row) => {
             const colConfig = columns.find((c) => c.value === row.column);
             const isDate = colConfig?.type === 'date';
             return (
-              <div key={row.id} className="flex flex-wrap items-center gap-2">
+              <div key={row.id} className="flex flex-wrap items-center gap-2 bg-slate-50/50 dark:bg-white/2 p-2 rounded-xl border border-slate-100 dark:border-white/5 transition-all">
                 <Combobox
                   options={columns.map((c) => ({
                     value: c.value,
-                    label: t(c.labelKey, { ns: translationNamespace, defaultValue: c.value }),
+                    label: getColumnLabel(c),
                   }))}
                   value={row.column}
                   onValueChange={(v) => updateRow(row.id, { column: v })}
-                  placeholder={getLabel('column')}
-                  searchPlaceholder={t('common.search')}
-                  emptyText={t('common.noResults')}
-                  className="w-full sm:w-[160px]"
+                  placeholder={getLabel('column', 'Kolon Seç')}
+                  searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
+                  emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                  className="w-full sm:w-[160px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
                 />
                 <Combobox
                   options={getOperatorsForColumn(row.column, columns).map((op) => ({
                     value: op,
-                    label: t(`advancedFilter.operator${op}`, { ns: 'common', defaultValue: op }),
+                    // ÇÖZÜM BURADA: Çeviri yoksa OPERATOR_FALLBACKS'ten Türkçesini çeker!
+                    label: t(`advancedFilter.operator${op}`, { ns: 'common', defaultValue: OPERATOR_FALLBACKS[op] || op }),
                   }))}
                   value={row.operator}
                   onValueChange={(v) => updateRow(row.id, { operator: v })}
-                  placeholder={getLabel('operator')}
-                  searchPlaceholder={t('common.search')}
-                  emptyText={t('common.noResults')}
-                  className="w-full sm:w-[130px]"
+                  placeholder={getLabel('operator', 'Operatör')}
+                  searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
+                  emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                  className="w-full sm:w-[130px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
                 />
                 {colConfig?.type === 'boolean' ? (
                   <Combobox
                     options={[
-                      { value: '_none', label: getLabel('value') },
-                      { value: 'true', label: t('advancedFilter.true', { ns: 'common' }) },
-                      { value: 'false', label: t('advancedFilter.false', { ns: 'common' }) },
+                      { value: '_none', label: getLabel('value', 'Değer Seç') },
+                      { value: 'true', label: t('advancedFilter.true', { ns: 'common', defaultValue: 'Evet' }) },
+                      { value: 'false', label: t('advancedFilter.false', { ns: 'common', defaultValue: 'Hayır' }) },
                     ]}
                     value={row.value.toLowerCase() === 'true' ? 'true' : row.value.toLowerCase() === 'false' ? 'false' : '_none'}
                     onValueChange={(v) => updateRow(row.id, { value: v === '_none' ? '' : v })}
-                    placeholder={getLabel('value')}
-                    searchPlaceholder={t('common.search')}
-                    emptyText={t('common.noResults')}
-                    className="w-full sm:w-[160px]"
+                    placeholder={getLabel('value', 'Değer Seç')}
+                    searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
+                    emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                    className="w-full sm:w-[160px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
                   />
                 ) : (
                   <Input
                     type={isDate ? 'date' : 'text'}
-                    placeholder={getLabel('value')}
+                    placeholder={getLabel('value', 'Değer')}
                     value={row.value}
                     onChange={(e) => updateRow(row.id, { value: e.target.value })}
-                    className="w-full sm:w-[160px]"
+                    className="w-full sm:w-[160px] h-10 bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10 focus-visible:border-pink-500 rounded-lg"
                   />
                 )}
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="shrink-0 text-slate-500 hover:text-destructive"
+                  className="shrink-0 h-10 w-10 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors"
                   onClick={() => removeRow(row.id)}
-                  aria-label={getLabel('remove')}
+                  aria-label={getLabel('remove', 'Kaldır')}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

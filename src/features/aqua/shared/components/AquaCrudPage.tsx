@@ -23,6 +23,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { 
   Plus, 
   ArrowUpDown, 
@@ -37,12 +42,14 @@ import {
   Trash2,
   Menu,
   FileSpreadsheet,
-  Presentation
+  Presentation,
+  Filter
 } from 'lucide-react';
 import type { AquaCrudConfig, AquaCrudContextFilter, AquaFieldConfig } from '../types/aqua-crud';
 import { aquaCrudApi } from '../api/aqua-crud-api';
-import { PageToolbar, ColumnPreferencesPopover } from '@/components/shared';
+import { PageToolbar, ColumnPreferencesPopover, AdvancedFilter } from '@/components/shared';
 import { loadColumnPreferences } from '@/lib/column-preferences';
+import type { FilterRow, FilterColumnConfig } from '@/lib/advanced-filter-types';
 
 interface AquaCrudPageProps {
   config: AquaCrudConfig;
@@ -192,10 +199,34 @@ export function AquaCrudPage({
   const [pageNumber, setPageNumber] = useState(1);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>({ key: 'Id', direction: 'desc' });
 
+  // Filter States
+  const [showFilters, setShowFilters] = useState(false);
+  const [draftFilterRows, setDraftFilterRows] = useState<FilterRow[]>([]);
+  const [appliedFilterRows, setAppliedFilterRows] = useState<FilterRow[]>([]);
+
   const [formOpen, setFormOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [formValues, setFormValues] = useState<Record<string, unknown>>(() => getInitialValues(config));
   const [rowToDelete, setRowToDelete] = useState<Record<string, unknown> | null>(null);
+
+  // Dinamik Filtre Kolonları (Hack: translatedLabel ile yolluyoruz)
+  const filterColumns = useMemo<FilterColumnConfig[]>(() => {
+    return config.fields.map(field => {
+      let type: 'string' | 'number' | 'date' | 'boolean' = 'string';
+      if (field.type === 'number') type = 'number';
+      if (field.type === 'date' || field.type === 'datetime') type = 'date';
+      if ((field.type as string) === 'checkbox' || (field.type as string) === 'boolean') {
+         type = 'boolean';
+      }
+      
+      return {
+        value: field.key,
+        type,
+        labelKey: field.label,
+        translatedLabel: t(field.label)
+      } as FilterColumnConfig & { translatedLabel: string };
+    });
+  }, [config.fields, t]);
 
   const baseColumns = useMemo(() => {
     if (config.columns && config.columns.length > 0) return config.columns;
@@ -227,20 +258,44 @@ export function AquaCrudPage({
 
   useEffect(() => {
     setPageNumber(1);
-  }, [searchTerm, pageSize, sortConfig]);
+  }, [searchTerm, pageSize, sortConfig, appliedFilterRows]);
+
+  const handleAdvancedSearch = () => {
+    setAppliedFilterRows(draftFilterRows);
+    setShowFilters(false);
+  };
+
+  const handleAdvancedClear = () => {
+    setDraftFilterRows([]);
+    setAppliedFilterRows([]);
+  };
+
+  const hasFiltersActive = appliedFilterRows.some((r) => r.value != null && String(r.value).trim() !== '');
 
   const effectiveFilters = useMemo(() => {
-    const filters = [];
+    const filters: Array<{ column: string; operator: string; value: string }> = [];
+    
     if (contextFilter && contextFilter.value != null) {
       filters.push({ column: contextFilter.fieldKey, operator: 'eq', value: String(contextFilter.value) });
     }
+
+    appliedFilterRows.forEach(row => {
+      if (row.column && row.value != null && String(row.value).trim() !== '') {
+         filters.push({
+           column: row.column,
+           operator: row.operator || 'contains',
+           value: String(row.value)
+         });
+      }
+    });
+
     return filters.length > 0 ? filters : undefined;
-  }, [contextFilter]);
+  }, [contextFilter, appliedFilterRows]);
 
   const canQueryList = contextFilter ? contextFilter.value != null : true;
 
   const listQuery = useQuery({
-    queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, contextFilter?.fieldKey, contextFilter?.value, sortConfig],
+    queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, sortConfig, effectiveFilters],
     queryFn: () =>
       aquaCrudApi.getList(config.endpoint, {
         pageNumber,
@@ -588,6 +643,35 @@ export function AquaCrudPage({
                         ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
+
+                  {/* FİLTRE BUTONU VE POPOVER */}
+                  <Popover open={showFilters} onOpenChange={setShowFilters}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={hasFiltersActive ? 'default' : 'outline'}
+                        className={`h-10 px-4 rounded-xl border transition-all duration-300 ${
+                          hasFiltersActive
+                            ? 'bg-pink-500/20 text-pink-500 border-pink-500/30 hover:bg-pink-500/30 shadow-[0_0_15px_rgba(236,72,153,0.15)]'
+                            : 'bg-transparent text-slate-400 border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        <Filter className="mr-2 h-4 w-4" />
+                        {t('common.filters', 'Filtreler')}
+                        {hasFiltersActive && <span className="ml-2 flex h-2 w-2 rounded-full bg-pink-500 animate-pulse" />}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent side="bottom" align="end" className="w-[420px] p-0 bg-[#151025] border border-white/10 shadow-2xl rounded-2xl overflow-hidden z-50">
+                      <AdvancedFilter
+                        columns={filterColumns}
+                        defaultColumn={filterColumns[0]?.value}
+                        draftRows={draftFilterRows}
+                        onDraftRowsChange={setDraftFilterRows}
+                        onSearch={handleAdvancedSearch}
+                        onClear={handleAdvancedClear}
+                        embedded
+                      />
+                    </PopoverContent>
+                  </Popover>
 
                   <ColumnPreferencesPopover
                     pageKey={`aqua-${config.key}`}
