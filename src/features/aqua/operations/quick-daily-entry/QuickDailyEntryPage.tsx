@@ -60,7 +60,6 @@ export function QuickDailyEntryPage(): ReactElement {
   const [projectCageId, setProjectCageId] = useState<number | null>(null);
   const [sourceBatch, setSourceBatch] = useState<ActiveCageBatchSnapshot | null>(null);
   const [sourceBatchByCageId, setSourceBatchByCageId] = useState<Record<number, ActiveCageBatchSnapshot | null>>({});
-  const [targetBatchByCageId, setTargetBatchByCageId] = useState<Record<number, ActiveCageBatchSnapshot | null>>({});
   const [isTransferSuccessDialogOpen, setIsTransferSuccessDialogOpen] = useState(false);
 
   const { data: projects } = useProjectListQuery();
@@ -144,34 +143,6 @@ export function QuickDailyEntryPage(): ReactElement {
       active = false;
     };
   }, [projectCages]);
-
-  useEffect(() => {
-    let active = true;
-    const cages = Array.isArray(transferTargetProjectCages) ? transferTargetProjectCages : [];
-    if (cages.length === 0) {
-      setTargetBatchByCageId({});
-      return;
-    }
-
-    void (async () => {
-      const entries = await Promise.all(
-        cages.map(async (cage) => {
-          try {
-            const snapshot = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(cage.id);
-            return [cage.id, snapshot] as const;
-          } catch {
-            return [cage.id, null] as const;
-          }
-        })
-      );
-      if (!active) return;
-      setTargetBatchByCageId(Object.fromEntries(entries));
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [transferTargetProjectCages]);
 
   const sourceProjectCages = useMemo(
     () =>
@@ -460,10 +431,10 @@ export function QuickDailyEntryPage(): ReactElement {
             </div>
         </div>
 
-        <div className="bg-white/70 dark:bg-[#1a1025]/60 backdrop-blur-xl border border-white/60 dark:border-white/5 shadow-sm rounded-2xl p-6 transition-all duration-300">
+        <div className="bg-card dark:bg-[#1a1025]/60 backdrop-blur-xl border border-border dark:border-white/5 shadow-sm rounded-2xl p-6 transition-all duration-300">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="space-y-3 w-full">
-                <label className="text-sm font-semibold text-slate-400 uppercase tracking-wide ml-1">{t('aqua.quickDailyEntry.project')}</label>
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">{t('aqua.quickDailyEntry.project')}</label>
                 <Combobox
                   options={projectOptions}
                   value={projectId != null ? String(projectId) : ''}
@@ -471,11 +442,11 @@ export function QuickDailyEntryPage(): ReactElement {
                   placeholder={t('aqua.quickDailyEntry.selectProject')}
                   searchPlaceholder={t('common.search')}
                   emptyText={t('common.noResults')}
-                  className="w-full bg-[#0b0713] border-white/10 text-white"
+                  className="w-full bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground h-11 rounded-xl"
                 />
               </div>
               <div className="space-y-3 w-full">
-                <label className="text-sm font-semibold text-slate-400 uppercase tracking-wide ml-1">{t('aqua.quickDailyEntry.cage')}</label>
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">{t('aqua.quickDailyEntry.cage')}</label>
                 <Combobox
                   options={cageOptions}
                   value={projectCageId != null ? String(projectCageId) : ''}
@@ -484,7 +455,7 @@ export function QuickDailyEntryPage(): ReactElement {
                   searchPlaceholder={t('common.search')}
                   emptyText={t('common.noResults')}
                   disabled={!projectId}
-                  className="w-full bg-[#0b0713] border-white/10 text-white"
+                  className="w-full bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground h-11 rounded-xl"
                 />
               </div>
             </div>
@@ -533,7 +504,6 @@ export function QuickDailyEntryPage(): ReactElement {
               projectCageId={projectCageId}
               projectCages={transferTargetProjectCages}
               sourceBatch={sourceBatch}
-              activeBatchByCageId={targetBatchByCageId}
               onSubmit={handleTransferSubmit}
               isSubmitting={createTransfer.isPending || createTransferLine.isPending}
             />
@@ -552,14 +522,14 @@ export function QuickDailyEntryPage(): ReactElement {
       </div>
 
       <AlertDialog open={isTransferSuccessDialogOpen}>
-        <AlertDialogContent className="bg-[#0b0713] border border-white/10 text-white">
+        <AlertDialogContent className="bg-background dark:bg-[#0b0713] border border-border dark:border-white/10 text-foreground sm:rounded-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">
+            <AlertDialogTitle className="text-foreground dark:text-white">
               {t('aqua.quickDailyEntry.transferSuccessDialog.title', {
                 defaultValue: 'İşlem Başarılı',
               })}
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-400">
+            <AlertDialogDescription className="text-muted-foreground dark:text-slate-400">
               {t('aqua.quickDailyEntry.transferSuccessDialog.description', {
                 defaultValue:
                   'Kafes değişimi başarıyla kaydedildi. Kafes değiştiği için veri yenilenmelidir.',
@@ -568,7 +538,7 @@ export function QuickDailyEntryPage(): ReactElement {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction
-              className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0"
+              className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl"
               onClick={() => {
                 setIsTransferSuccessDialogOpen(false);
                 window.location.reload();

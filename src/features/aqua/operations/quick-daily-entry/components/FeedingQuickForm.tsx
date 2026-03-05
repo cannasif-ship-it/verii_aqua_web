@@ -62,13 +62,16 @@ export function FeedingQuickForm({
     label: s.code ?? s.name ?? String(s.id),
   }));
 
-  const labelStyle = "text-xs font-semibold text-slate-400 uppercase tracking-wide ml-1";
-  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl";
+  // AKILLI STİLLER: Gündüz belirgin, gece premium görünüm
+  const labelStyle = "text-xs font-bold text-muted-foreground dark:text-slate-400 uppercase tracking-wider ml-1";
+  const inputStyle = "bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground dark:text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl transition-all";
 
   return (
-    <Card className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 shadow-sm rounded-2xl overflow-hidden transition-all duration-300">
-      <CardHeader className="border-b border-white/5 px-6 py-5 bg-transparent">
-        <CardTitle className="text-xl font-bold tracking-tight text-white">{t('aqua.quickDailyEntry.feeding.title')}</CardTitle>
+    <Card className="bg-card dark:bg-[#1a1025]/60 backdrop-blur-xl border border-border dark:border-white/5 shadow-sm dark:shadow-2xl rounded-2xl overflow-hidden transition-all duration-300">
+      <CardHeader className="border-b border-border dark:border-white/5 px-6 py-5 bg-muted/30 dark:bg-transparent">
+        <CardTitle className="text-xl font-bold tracking-tight text-foreground dark:text-white">
+          {t('aqua.quickDailyEntry.feeding.title')}
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         <Form {...form}>
@@ -91,7 +94,7 @@ export function FeedingQuickForm({
                           className={inputStyle}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-xs text-rose-500" />
                     </FormItem>
                   )}
                 />
@@ -113,7 +116,7 @@ export function FeedingQuickForm({
                           className={inputStyle}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-xs text-rose-500" />
                     </FormItem>
                   )}
                 />
@@ -126,7 +129,7 @@ export function FeedingQuickForm({
                       <FormControl>
                         <Input type="number" min={0} className={inputStyle} {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-xs text-rose-500" />
                     </FormItem>
                   )}
                 />
@@ -139,14 +142,18 @@ export function FeedingQuickForm({
                       <FormControl>
                         <Input type="number" min={0} step="0.01" className={inputStyle} {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-xs text-rose-500" />
                     </FormItem>
                   )}
                 />
             </div>
             
-            <div className="pt-2 flex justify-end border-t border-white/5">
-                <Button type="submit" disabled={disabled || isSubmitting} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 mt-4">
+            <div className="pt-4 flex justify-end border-t border-border dark:border-white/5">
+                <Button 
+                  type="submit" 
+                  disabled={disabled || isSubmitting} 
+                  className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold hover:opacity-95 border-0 h-11 px-10 w-full sm:w-auto rounded-xl shadow-lg shadow-pink-500/20 transition-all duration-200"
+                >
                   {t('aqua.quickDailyEntry.feeding.save')}
                 </Button>
             </div>

@@ -72,15 +72,10 @@ export function QuickSetupPage(): ReactElement {
               const line = await aquaQuickApi.getGoodsReceiptLineById(context.fishLineId);
               const fishCount = Number(line.fishCount ?? 0);
               const averageFromLine = Number(line.fishAverageGram ?? 0);
-              const averageFromFishTotal =
-                fishCount > 0 ? Number(line.fishTotalGram ?? 0) / fishCount : 0;
-              const averageFromUnit =
-                Number(line.gramPerUnit ?? 0) > 0 ? Number(line.gramPerUnit ?? 0) : 0;
-              const averageGram = averageFromLine > 0
-                ? averageFromLine
-                : averageFromFishTotal > 0
-                  ? averageFromFishTotal
-                  : averageFromUnit;
+              const averageFromFishTotal = fishCount > 0 ? Number(line.fishTotalGram ?? 0) / fishCount : 0;
+              const averageFromUnit = Number(line.gramPerUnit ?? 0) > 0 ? Number(line.gramPerUnit ?? 0) : 0;
+              const averageGram = averageFromLine > 0 ? averageFromLine : averageFromFishTotal > 0 ? averageFromFishTotal : averageFromUnit;
+              
               if (averageGram > 0) {
                 const fishBatch = await mutations.createFishBatch.mutateAsync({
                   projectId,
@@ -126,9 +121,7 @@ export function QuickSetupPage(): ReactElement {
       }
     })();
 
-    return () => {
-      isActive = false;
-    };
+    return () => { isActive = false; };
   }, [projectId, t]);
 
   useEffect(() => {
@@ -150,9 +143,7 @@ export function QuickSetupPage(): ReactElement {
       }
     })();
 
-    return () => {
-      isActive = false;
-    };
+    return () => { isActive = false; };
   }, [projectId, projectCages]);
 
   const allocationRows = useMemo((): CageAllocationRow[] => {
@@ -161,14 +152,7 @@ export function QuickSetupPage(): ReactElement {
     if (allocations.length === cages.length) return allocations;
     return cages.map((pc) => {
       const existing = allocations.find((a) => a.projectCageId === pc.id);
-      return (
-        existing ?? {
-          projectCageId: pc.id,
-          cageCode: pc.cageCode,
-          cageName: pc.cageName,
-          fishCount: 0,
-        }
-      );
+      return existing ?? { projectCageId: pc.id, cageCode: pc.cageCode, cageName: pc.cageName, fishCount: 0 };
     });
   }, [projectCages, allocations]);
 
@@ -183,19 +167,11 @@ export function QuickSetupPage(): ReactElement {
     }
   };
 
-  const handleReceiptSubmit = async (data: {
-    receipt: GoodsReceiptFormSchema;
-    fishLine: FishLineFormSchema;
-    feedLine: FeedLineFormSchema | null;
-  }): Promise<void> => {
+  const handleReceiptSubmit = async (data: { receipt: GoodsReceiptFormSchema; fishLine: FishLineFormSchema; feedLine: FeedLineFormSchema | null; }): Promise<void> => {
     if (projectId == null) return;
     try {
       const existingDraft = existingReceipt?.status === 0 ? existingReceipt : null;
-      const headerPayload = {
-        projectId,
-        receiptNo: data.receipt.receiptNo,
-        receiptDate: data.receipt.receiptDate,
-      };
+      const headerPayload = { projectId, receiptNo: data.receipt.receiptNo, receiptDate: data.receipt.receiptDate };
       const fishLinePayload = {
         stockId: data.fishLine.stockId,
         itemType: GOODS_RECEIPT_ITEM_TYPE_FISH,
@@ -206,48 +182,18 @@ export function QuickSetupPage(): ReactElement {
         totalGram: data.fishLine.fishCount * data.fishLine.currentAverageGram,
       };
 
-      const receipt = existingDraft
-        ? await aquaQuickApi.updateGoodsReceipt(existingDraft.receiptId, headerPayload)
-        : await mutations.createGoodsReceipt.mutateAsync(headerPayload);
-
-      const line = existingDraft?.fishLineId
-        ? await aquaQuickApi.updateGoodsReceiptLine(existingDraft.fishLineId, {
-            goodsReceiptId: receipt.id,
-            fishBatchId: existingDraft.fishBatchId ?? undefined,
-            ...fishLinePayload,
-          })
-        : await mutations.createGoodsReceiptLine.mutateAsync({
-            goodsReceiptId: receipt.id,
-            ...fishLinePayload,
-          });
+      const receipt = existingDraft ? await aquaQuickApi.updateGoodsReceipt(existingDraft.receiptId, headerPayload) : await mutations.createGoodsReceipt.mutateAsync(headerPayload);
+      const line = existingDraft?.fishLineId ? await aquaQuickApi.updateGoodsReceiptLine(existingDraft.fishLineId, { goodsReceiptId: receipt.id, fishBatchId: existingDraft.fishBatchId ?? undefined, ...fishLinePayload }) : await mutations.createGoodsReceiptLine.mutateAsync({ goodsReceiptId: receipt.id, ...fishLinePayload });
 
       let batchId = existingDraft?.fishBatchId ?? null;
       if (batchId == null) {
-        const fishBatch = await mutations.createFishBatch.mutateAsync({
-          projectId,
-          batchCode: data.fishLine.batchCode,
-          fishStockId: data.fishLine.stockId,
-          currentAverageGram: data.fishLine.currentAverageGram,
-          startDate: data.receipt.receiptDate,
-          sourceGoodsReceiptLineId: line.id,
-        });
+        const fishBatch = await mutations.createFishBatch.mutateAsync({ projectId, batchCode: data.fishLine.batchCode, fishStockId: data.fishLine.stockId, currentAverageGram: data.fishLine.currentAverageGram, startDate: data.receipt.receiptDate, sourceGoodsReceiptLineId: line.id });
         batchId = fishBatch.id;
       } else {
-        await aquaQuickApi.updateFishBatch(batchId, {
-          projectId,
-          batchCode: data.fishLine.batchCode,
-          fishStockId: data.fishLine.stockId,
-          currentAverageGram: data.fishLine.currentAverageGram,
-          startDate: data.receipt.receiptDate,
-          sourceGoodsReceiptLineId: line.id,
-        });
+        await aquaQuickApi.updateFishBatch(batchId, { projectId, batchCode: data.fishLine.batchCode, fishStockId: data.fishLine.stockId, currentAverageGram: data.fishLine.currentAverageGram, startDate: data.receipt.receiptDate, sourceGoodsReceiptLineId: line.id });
       }
 
-      await aquaQuickApi.updateGoodsReceiptLine(line.id, {
-        goodsReceiptId: receipt.id,
-        fishBatchId: batchId,
-        ...fishLinePayload,
-      });
+      await aquaQuickApi.updateGoodsReceiptLine(line.id, { goodsReceiptId: receipt.id, fishBatchId: batchId, ...fishLinePayload });
 
       setGoodsReceiptId(receipt.id);
       setFishLineId(line.id);
@@ -263,20 +209,13 @@ export function QuickSetupPage(): ReactElement {
         setFishCount(refreshed.fishCount);
       }
       await refetchProjectCages();
-      toast.success(
-        existingDraft ? t('aqua.quickSetup.toast.goodsReceiptUpdated') : t('aqua.quickSetup.toast.goodsReceiptCreated')
-      );
+      toast.success(existingDraft ? t('aqua.quickSetup.toast.goodsReceiptUpdated') : t('aqua.quickSetup.toast.goodsReceiptCreated'));
+      
       if (data.feedLine && data.feedLine.stockId > 0) {
         try {
-          await mutations.createGoodsReceiptLine.mutateAsync({
-            goodsReceiptId: receipt.id,
-            stockId: data.feedLine.stockId,
-            qtyUnit: data.feedLine.qtyUnit,
-          });
+          await mutations.createGoodsReceiptLine.mutateAsync({ goodsReceiptId: receipt.id, stockId: data.feedLine.stockId, qtyUnit: data.feedLine.qtyUnit });
         } catch (feedErr) {
-          toast.warning(
-            feedErr instanceof Error ? feedErr.message : t('aqua.quickSetup.toast.feedLineCreateFailed')
-          );
+          toast.warning(feedErr instanceof Error ? feedErr.message : t('aqua.quickSetup.toast.feedLineCreateFailed'));
         }
       }
     } catch (e) {
@@ -292,8 +231,7 @@ export function QuickSetupPage(): ReactElement {
             toast.info(t('aqua.quickSetup.toast.existingGoodsReceiptFound'));
             return;
           }
-        } catch {
-        }
+        } catch {}
       }
       toast.error(e instanceof Error ? e.message : t('aqua.quickSetup.toast.goodsReceiptCreateFailed'));
       throw e;
@@ -305,12 +243,7 @@ export function QuickSetupPage(): ReactElement {
     try {
       for (const row of allocationRows) {
         if (row.fishCount <= 0) continue;
-        await mutations.createFishDistribution.mutateAsync({
-          goodsReceiptLineId: fishLineId,
-          projectCageId: row.projectCageId,
-          fishBatchId,
-          fishCount: row.fishCount,
-        });
+        await mutations.createFishDistribution.mutateAsync({ goodsReceiptLineId: fishLineId, projectCageId: row.projectCageId, fishBatchId, fishCount: row.fishCount });
       }
       await mutations.postGoodsReceipt.mutateAsync(goodsReceiptId);
       toast.success(t('aqua.quickSetup.toast.savedAndPosted'));
@@ -346,16 +279,16 @@ export function QuickSetupPage(): ReactElement {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">
-            {t('aqua.quickSetup.pageTitle')}
+            {t('aqua.quickSetup.pageTitle', { defaultValue: 'Hızlı Kurulum' })}
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">
-            Hızlı kurulum adımlarını tamamlayın.
+            {t('aqua.quickSetup.pageDescription', { defaultValue: 'Hızlı kurulum adımlarını tamamlayın.' })}
           </p>
         </div>
       </div>
 
       {projectId != null && projectCageError instanceof Error && (
-        <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-500 backdrop-blur-md">
+        <div className="rounded-xl border border-red-200 bg-red-50 dark:border-red-500/20 dark:bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-500 backdrop-blur-md">
           {projectCageError.message}
         </div>
       )}
@@ -375,18 +308,9 @@ export function QuickSetupPage(): ReactElement {
         existingReceipt={existingReceipt}
         isCheckingExistingReceipt={isCheckingExistingReceipt}
         onSubmitReceipt={handleReceiptSubmit}
-        isSubmitting={
-          mutations.createGoodsReceipt.isPending ||
-          mutations.createGoodsReceiptLine.isPending ||
-          mutations.createFishBatch.isPending
-        }
+        isSubmitting={mutations.createGoodsReceipt.isPending || mutations.createGoodsReceiptLine.isPending || mutations.createFishBatch.isPending}
       />
-      {projectId != null &&
-        goodsReceiptId != null &&
-        fishLineId != null &&
-        fishBatchId != null &&
-        fishCount > 0 &&
-        (existingReceipt == null || existingReceipt.status === 0) && (
+      {projectId != null && goodsReceiptId != null && fishLineId != null && fishBatchId != null && fishCount > 0 && (existingReceipt == null || existingReceipt.status === 0) && (
         <FishDistributionStepCard
           allocations={allocationRows}
           totalFishCount={fishCount}

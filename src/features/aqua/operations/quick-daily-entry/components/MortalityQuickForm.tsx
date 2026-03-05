@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect } from 'react';
+import { type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,10 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  mortalityQuickFormSchema,
-  type MortalityQuickFormSchema,
-} from '../schema/quick-daily-entry-schema';
+import { mortalityQuickFormSchema, type MortalityQuickFormSchema } from '../schema/quick-daily-entry-schema';
 
 interface MortalityQuickFormProps {
   projectId: number | null;
@@ -38,10 +35,6 @@ export function MortalityQuickForm({
     defaultValues: { deadCount: 0 },
   });
 
-  useEffect(() => {
-    form.reset({ deadCount: 0 });
-  }, [projectId, projectCageId, form]);
-
   const handleSubmit: SubmitHandler<MortalityQuickFormSchema> = async (data) => {
     await onSubmit(data);
     form.reset({ deadCount: 0 });
@@ -49,41 +42,42 @@ export function MortalityQuickForm({
 
   const disabled = projectId == null || projectCageId == null;
 
-  const labelStyle = "text-xs font-semibold text-slate-400 uppercase tracking-wide ml-1";
-  const inputStyle = "bg-[#0b0713] border-white/10 text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl";
+  // AKILLI STİLLER
+  const labelStyle = "text-xs font-bold text-muted-foreground dark:text-slate-400 uppercase tracking-wider ml-1";
+  const inputStyle = "bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground dark:text-white focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl transition-all";
 
   return (
-    <Card className="bg-[#1a1025]/60 backdrop-blur-xl border border-white/5 shadow-sm rounded-2xl overflow-hidden transition-all duration-300">
-      <CardHeader className="border-b border-white/5 px-6 py-5 bg-transparent">
-        <CardTitle className="text-xl font-bold tracking-tight text-white">{t('aqua.quickDailyEntry.mortality.title')}</CardTitle>
+    <Card className="bg-card dark:bg-[#1a1025]/60 backdrop-blur-xl border border-border dark:border-white/5 shadow-sm dark:shadow-2xl rounded-2xl overflow-hidden transition-all duration-300">
+      <CardHeader className="border-b border-border dark:border-white/5 px-6 py-5 bg-muted/30 dark:bg-transparent">
+        <CardTitle className="text-xl font-bold tracking-tight text-foreground dark:text-white">
+          {t('aqua.quickDailyEntry.mortality.title')}
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-400 backdrop-blur-md">
-              {t('aqua.quickDailyEntry.mortality.autoBatchInfo', {
-                defaultValue: 'Batch kafes eşleşmesine göre otomatik seçilecektir.',
-              })}
+            <div className="max-w-md">
+              <FormField
+                control={form.control}
+                name="deadCount"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.mortality.count')}</FormLabel>
+                    <FormControl>
+                      <Input type="number" min={0} className={inputStyle} {...field} />
+                    </FormControl>
+                    <FormMessage className="text-xs text-rose-500" />
+                  </FormItem>
+                )}
+              />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="deadCount"
-                  render={({ field }) => (
-                    <FormItem className="space-y-2">
-                      <FormLabel className={labelStyle}>{t('aqua.quickDailyEntry.mortality.deadCount')}</FormLabel>
-                      <FormControl>
-                        <Input type="number" min={1} className={inputStyle} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-            </div>
-            
-            <div className="pt-2 flex justify-end border-t border-white/5">
-                <Button type="submit" disabled={disabled || isSubmitting} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 mt-4">
+            <div className="pt-4 flex justify-end border-t border-border dark:border-white/5">
+                <Button 
+                  type="submit" 
+                  disabled={disabled || isSubmitting} 
+                  className="bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold hover:opacity-95 border-0 h-11 px-10 w-full sm:w-auto rounded-xl shadow-lg shadow-pink-500/20 transition-all duration-200"
+                >
                   {t('aqua.quickDailyEntry.mortality.save')}
                 </Button>
             </div>
