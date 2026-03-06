@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronRight, X } from 'lucide-react';
 
 const LOGO_URL = '/v3logo.png';
-const VERII_LOGO_URL = '/logo.png';
+const VERII_LOGO_URL = '/v3riiaqua.png';
 
 interface NavItem {
   title: string;
@@ -65,7 +65,7 @@ function SubMenuComponent({ item, pathname, searchQuery }: { item: NavItem; path
           "flex items-center justify-between w-full px-3 py-2 rounded-lg transition-colors text-sm group select-none relative",
           isOpen || hasActiveChild
             ? "text-slate-900 dark:text-white font-medium" 
-            : "text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5"
+            : "text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-[#5c7c99] dark:hover:bg-[#00f7ff]/10 dark:hover:text-[#00f7ff]"
         )}
       >
         <span className="whitespace-normal leading-tight text-left wrap-break-word pr-2">{item.title}</span>
@@ -85,15 +85,15 @@ function SubMenuComponent({ item, pathname, searchQuery }: { item: NavItem; path
                  className={cn(
                    "flex items-center justify-between px-3 py-2 rounded-lg transition-colors text-xs w-full relative",
                    isSubLinkActive
-                     ? 'bg-slate-100 text-slate-900 font-medium dark:bg-white/10 dark:text-white'
-                     : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5'
+                     ? 'bg-slate-100 text-slate-900 font-medium dark:bg-[#00f7ff]/15 dark:text-[#00f7ff]'
+                     : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-[#5c7c99] dark:hover:bg-[#00f7ff]/10 dark:hover:text-[#00f7ff]'
                  )}
                  onClick={() => {
                    if (window.innerWidth < 1024) useUIStore.getState().setSidebarOpen(false);
                  }}
                >
                  <span className="whitespace-normal leading-tight text-left wrap-break-word">{child.title}</span>
-                 {isSubLinkActive && <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-pink-500 shrink-0 ml-2" />}
+                 {isSubLinkActive && <span className="w-2 h-2 rounded-full bg-[#00f7ff] shrink-0 ml-2 shadow-[0_0_8px_rgba(0,247,255,0.8)]" />}
                </Link>
              );
           })}
@@ -190,7 +190,7 @@ function NavItemComponent({
             type="button"
             className={cn(
                 "relative flex w-full items-center gap-3 rounded-xl px-3 py-2 transition-colors cursor-pointer select-none text-left group",
-                visualActive ? 'bg-purple-50 dark:bg-white/5' : 'hover:bg-slate-100 dark:hover:bg-white/5',
+                visualActive ? 'bg-slate-50 dark:bg-[#00f7ff]/10' : 'hover:bg-slate-100 dark:hover:bg-white/5',
                 !isSidebarOpen && "justify-center px-0"
             )}
             onClick={(e) => {
@@ -204,7 +204,7 @@ function NavItemComponent({
           {item.icon && (
             <div className={cn(
                 "w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0",
-                visualActive ? 'bg-purple-100 text-purple-700 dark:bg-pink-500/20 dark:text-pink-400' : 'bg-white border border-slate-200 text-slate-500 dark:bg-slate-800 dark:border-none dark:text-slate-400'
+                visualActive ? 'bg-white text-slate-800 dark:bg-transparent dark:text-[#ff4d79] dark:drop-shadow-[0_0_8px_rgba(255,77,121,0.5)]' : 'bg-white border border-slate-200 text-slate-500 dark:bg-transparent dark:border-none dark:text-[#5c7c99]'
             )}>
               {item.icon}
             </div>
@@ -212,11 +212,11 @@ function NavItemComponent({
           {isSidebarOpen && (
              <span className={cn(
                "flex-1 text-sm font-medium transition-colors whitespace-normal leading-tight text-left wrap-break-word pr-2",
-               visualActive ? 'text-purple-900 font-semibold dark:text-white' : 'text-slate-600 dark:text-slate-300'
+               visualActive ? 'text-slate-800 font-semibold dark:text-white' : 'text-slate-600 dark:text-[#5c7c99]'
              )}>{item.title}</span>
           )}
           {isSidebarOpen && (
-            <div className="text-slate-400 dark:text-slate-500 shrink-0">
+            <div className={cn("shrink-0 transition-colors", visualActive ? "text-slate-600 dark:text-[#ff4d79]" : "text-slate-400 dark:text-[#5c7c99]")}>
                 {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
             </div>
           )}
@@ -232,12 +232,12 @@ function NavItemComponent({
                     to={child.href || '#'}
                     className={cn(
                       "flex items-center justify-between px-3 py-2 rounded-lg transition-colors text-sm w-full relative",
-                      location.pathname === child.href ? 'bg-purple-50 text-purple-700 font-semibold dark:bg-white/10 dark:text-white' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5'
+                      location.pathname === child.href ? 'bg-slate-50 text-slate-800 font-semibold dark:bg-[#00f7ff]/15 dark:text-[#00f7ff]' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-[#5c7c99] dark:hover:bg-[#00f7ff]/10 dark:hover:text-[#00f7ff]'
                     )}
                     onClick={() => { if (window.innerWidth < 1024) useUIStore.getState().setSidebarOpen(false); }}
                   >
                     <span className="whitespace-normal leading-tight text-left wrap-break-word">{child.title}</span>
-                    {location.pathname === child.href && <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-pink-500 shrink-0 ml-2" />}
+                    {location.pathname === child.href && <span className="w-2 h-2 rounded-full bg-[#00f7ff] shrink-0 ml-2 shadow-[0_0_8px_rgba(0,247,255,0.8)]" />}
                   </Link>
             ))}
           </div>
@@ -250,19 +250,19 @@ function NavItemComponent({
     <div className="mb-1">
         <Link 
           to={item.href || '#'} 
-          className={cn("relative flex items-center gap-3 rounded-xl px-3 py-2 transition-colors group", isActive ? 'bg-purple-50 dark:bg-white/5' : 'hover:bg-slate-100 dark:hover:bg-white/5', !isSidebarOpen && "justify-center px-0")}
+          className={cn("relative flex items-center gap-3 rounded-xl px-3 py-2 transition-colors group", isActive ? 'bg-slate-50 dark:bg-[#00f7ff]/10' : 'hover:bg-slate-100 dark:hover:bg-white/5', !isSidebarOpen && "justify-center px-0")}
           onClick={(e) => {
             if (!isSidebarOpen) handleOpenAndExpand(e);
             else if (window.innerWidth < 1024) setSidebarOpen(false);
           }}
         >
             {item.icon && (
-                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0", isActive ? 'bg-purple-100 text-purple-700 dark:bg-pink-500/20 dark:text-pink-400' : 'bg-white border border-slate-200 text-slate-500 dark:bg-slate-800 dark:border-none dark:text-slate-400')}>
+                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0", isActive ? 'bg-white text-slate-800 dark:bg-transparent dark:text-[#ff4d79] dark:drop-shadow-[0_0_8px_rgba(255,77,121,0.5)]' : 'bg-white border border-slate-200 text-slate-500 dark:bg-transparent dark:border-none dark:text-[#5c7c99]')}>
                     {item.icon}
                 </div>
             )}
-            {isSidebarOpen && <span className={cn("text-sm font-medium transition-colors whitespace-normal leading-tight text-left wrap-break-word pr-2", isActive ? 'text-purple-900 font-semibold dark:text-white' : 'text-slate-600 dark:text-slate-300')}>{item.title}</span>}
-            {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-linear-to-b from-purple-500 to-pink-500" />}
+            {isSidebarOpen && <span className={cn("text-sm font-medium transition-colors whitespace-normal leading-tight text-left wrap-break-word pr-2", isActive ? 'text-slate-800 font-semibold dark:text-white' : 'text-slate-600 dark:text-[#5c7c99]')}>{item.title}</span>}
+            {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-gradient-to-b from-[#ff4d79] to-[#ffb703] shadow-[0_0_10px_rgba(255,77,121,0.5)]" />}
         </Link>
     </div>
   );
@@ -321,7 +321,7 @@ export function Sidebar({ items }: SidebarProps): ReactElement {
   return (
     <>
       {isSidebarOpen && <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => useUIStore.getState().setSidebarOpen(false)} />}
-      <aside className={cn('fixed lg:sticky top-0 h-dvh z-50 flex flex-col transition-all duration-300 ease-in-out shrink-0 overflow-hidden shadow-2xl bg-white border-r border-slate-200 dark:bg-[#130822]/90 dark:border-white/5 dark:backdrop-blur-2xl', isSidebarOpen ? "w-72 translate-x-0" : "w-72 -translate-x-full lg:w-20 lg:translate-x-0")}>
+      <aside className={cn('fixed lg:sticky top-0 h-dvh z-50 flex flex-col transition-all duration-300 ease-in-out shrink-0 overflow-hidden shadow-2xl bg-white border-r border-slate-200 dark:bg-[#061423] dark:border-white/5', isSidebarOpen ? "w-72 translate-x-0" : "w-72 -translate-x-full lg:w-20 lg:translate-x-0")}>
         <div className={cn("h-24 flex items-center justify-center border-b border-slate-100 dark:border-white/5 shrink-0 relative", isSidebarOpen ? "px-4" : "px-0")}>
           {isSidebarOpen ? (
             <div className="w-full flex items-center justify-between">

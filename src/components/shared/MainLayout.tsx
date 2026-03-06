@@ -110,10 +110,17 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
   }, [navItems, defaultNavItems, permissions, isLoading, isError]);
 
   return (
-    <div className="relative flex h-dvh w-full overflow-hidden bg-[#f8f9fc] dark:bg-[#0c0516] font-['Outfit'] transition-colors duration-300">
+ 
+    <div className="relative flex h-dvh w-full overflow-hidden bg-[#f8f9fc] dark:bg-[#020c16] font-['Outfit'] transition-colors duration-300">
+      
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-         <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] rounded-full bg-pink-300/30 dark:bg-pink-600/5 blur-[120px] mix-blend-multiply dark:mix-blend-normal transition-colors duration-500" />
-         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-orange-300/30 dark:bg-orange-600/5 blur-[100px] mix-blend-multiply dark:mix-blend-normal transition-colors duration-500" />
+ 
+         <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] rounded-full bg-[#00f7ff]/15 dark:bg-transparent blur-[120px] mix-blend-multiply transition-colors duration-500" />
+         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#ff4d79]/10 dark:bg-transparent blur-[100px] mix-blend-multiply transition-colors duration-500" />
+
+ 
+         <div className="absolute top-[-30%] left-[20%] w-[80vw] h-[150vh] bg-gradient-to-b from-[#ffedb3]/10 via-[#00f7ff]/5 to-transparent blur-[120px] -rotate-12 mix-blend-screen opacity-0 dark:opacity-100 transition-opacity duration-500" />
+         <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[120vh] bg-gradient-to-b from-[#00cec9]/10 via-[#0984e3]/5 to-transparent blur-[100px] rotate-[15deg] mix-blend-screen opacity-0 dark:opacity-100 transition-opacity duration-500" />
       </div>
 
       <div className="relative z-20 h-full">
