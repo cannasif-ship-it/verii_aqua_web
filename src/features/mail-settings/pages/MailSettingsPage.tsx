@@ -35,15 +35,16 @@ export function MailSettingsPage(): ReactElement {
 
   return (
     <div className="relative min-h-screen space-y-8 pb-10 overflow-hidden w-full">
-      {/* Arka Plan Modern Parlama Efektleri - Hem Light Hem Dark için optimize edildi */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-pink-500/5 dark:bg-pink-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-orange-500/5 dark:bg-orange-500/10 blur-[120px] pointer-events-none" />
+      {/* Arka Plan Modern Aqua Parlama Efektleri - Cyan & Blue */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/5 dark:bg-cyan-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/5 dark:bg-blue-500/10 blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1 px-1">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-pink-500/10 border border-pink-200 dark:border-pink-500/20 shadow-lg shadow-pink-500/5 transition-colors">
-              <Mail className="w-6 h-6 text-pink-600 dark:text-pink-500" />
+            {/* Aqua Konsepti: Pembe yerine Cyan vurgulu ikon kutusu */}
+            <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 shadow-lg shadow-cyan-500/5 transition-colors">
+              <Mail className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">
               {t('mailSettings.PageTitle')}
