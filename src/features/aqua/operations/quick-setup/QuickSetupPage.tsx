@@ -278,7 +278,7 @@ export function QuickSetupPage(): ReactElement {
     <div className="w-full space-y-6 relative">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors">
             {t('aqua.quickSetup.pageTitle', { defaultValue: 'Hızlı Kurulum' })}
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">
@@ -288,11 +288,13 @@ export function QuickSetupPage(): ReactElement {
       </div>
 
       {projectId != null && projectCageError instanceof Error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 dark:border-red-500/20 dark:bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-500 backdrop-blur-md">
+        // Yeşil hata kutusunu (Emerald) daha şık bir amber-Deep Blue kutuya çevirdik.
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 dark:border-amber-500/20 dark:bg-blue-950/40 p-4 text-sm font-medium text-amber-600 dark:text-amber-400 backdrop-blur-xl shadow-sm">
           {projectCageError.message}
         </div>
       )}
 
+      {/* DİKKAT: Mor ve yeşil renkler aşağıdaki kart bileşenlerinin içinde saklı! */}
       <ProjectStepCard
         projects={projects}
         isLoadingProjects={isLoadingProjects}
@@ -301,6 +303,7 @@ export function QuickSetupPage(): ReactElement {
         onSelectProject={setProjectId}
         isCreating={mutations.createProject.isPending}
       />
+      
       <GoodsReceiptStepCard
         projectId={projectId}
         stocks={stocks}
@@ -310,6 +313,7 @@ export function QuickSetupPage(): ReactElement {
         onSubmitReceipt={handleReceiptSubmit}
         isSubmitting={mutations.createGoodsReceipt.isPending || mutations.createGoodsReceiptLine.isPending || mutations.createFishBatch.isPending}
       />
+      
       {projectId != null && goodsReceiptId != null && fishLineId != null && fishBatchId != null && fishCount > 0 && (existingReceipt == null || existingReceipt.status === 0) && (
         <FishDistributionStepCard
           allocations={allocationRows}
