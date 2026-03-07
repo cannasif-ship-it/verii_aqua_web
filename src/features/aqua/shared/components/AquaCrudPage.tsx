@@ -52,7 +52,6 @@ import { PageToolbar, ColumnPreferencesPopover, AdvancedFilter } from '@/compone
 import { loadColumnPreferences, saveColumnPreferences } from '@/lib/column-preferences';
 import type { FilterRow, FilterColumnConfig } from '@/lib/advanced-filter-types';
 
-// DND-KIT Sürükle Bırak Paketleri
 import {
   DndContext, 
   closestCenter,
@@ -88,16 +87,15 @@ const DOC_STATUS_OPTIONS = [
 ];
 const LOOKUP_PAGE_SIZE = 500;
 
-// Light Mode ve Dark Mode Uyumlu Input Stilleri
 const INPUT_STYLE = `
   h-11 rounded-xl w-full
-  bg-slate-50 dark:bg-transparent
-  border border-slate-200 dark:border-white/5 
-  text-slate-900 dark:text-white text-sm
-  placeholder:text-slate-400 dark:placeholder:text-slate-600 
-  focus-visible:bg-white dark:focus-visible:bg-white/5
-  focus-visible:border-pink-500 dark:focus-visible:border-pink-500/70
-  focus-visible:ring-2 focus-visible:ring-pink-500/10 focus-visible:ring-offset-0
+  bg-slate-50 dark:bg-blue-950/50
+  border border-slate-200 dark:border-cyan-800/50
+  text-slate-900 dark:text-slate-100 text-sm
+  placeholder:text-slate-400 dark:placeholder:text-slate-500 
+  focus-visible:bg-white dark:focus-visible:bg-blue-950
+  focus-visible:border-cyan-500 dark:focus-visible:border-cyan-500/70
+  focus-visible:ring-2 focus-visible:ring-cyan-500/10 focus-visible:ring-offset-0
   transition-all duration-200
   read-only:opacity-80 read-only:cursor-default
 `;
@@ -198,7 +196,6 @@ function resolveLookupLabel(item: Record<string, unknown>, field: AquaFieldConfi
   return parts.join(field.lookup.labelSeparator ?? ' - ');
 }
 
-// DND Sürükle Bırak Kolon Başlığı
 interface DraggableThProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
   id: string;
 }
@@ -211,14 +208,14 @@ const DraggableTh = ({ id, children, className, onClick, ...props }: DraggableTh
     opacity: isDragging ? 0.9 : 1,
     zIndex: isDragging ? 50 : 'auto',
     position: isDragging ? 'relative' : 'static',
-    backgroundColor: isDragging ? 'rgba(236, 72, 153, 0.05)' : undefined, 
+    backgroundColor: isDragging ? 'rgba(6, 182, 212, 0.05)' : undefined, 
   };
 
   return (
     <th
       ref={setNodeRef}
       style={style}
-      className={`${className} ${isDragging ? 'shadow-2xl ring-1 ring-pink-500/20 backdrop-blur-xl' : ''}`}
+      className={`${className} ${isDragging ? 'shadow-2xl ring-1 ring-cyan-500/20 backdrop-blur-xl' : ''}`}
       {...props}
     >
       <div className="flex items-center gap-1.5">
@@ -226,12 +223,12 @@ const DraggableTh = ({ id, children, className, onClick, ...props }: DraggableTh
           type="button"
           {...attributes}
           {...listeners}
-          className="cursor-grab active:cursor-grabbing hover:bg-slate-200 dark:hover:bg-white/10 p-1 rounded-md transition-colors touch-none text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
+          className="cursor-grab active:cursor-grabbing hover:bg-slate-200 dark:hover:bg-blue-900/50 p-1 rounded-md transition-colors touch-none text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
           title="Sürükle bırak ile sıralamayı değiştir"
         >
           <GripVertical size={14} />
         </button>
-        <div className="flex-1 flex items-center gap-2 cursor-pointer hover:text-pink-600 dark:hover:text-pink-400 transition-colors select-none" onClick={onClick}>
+        <div className="flex-1 flex items-center gap-2 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors select-none" onClick={onClick}>
           {children}
         </div>
       </div>
@@ -260,12 +257,10 @@ export function AquaCrudPage({
   const [pageNumber, setPageNumber] = useState(1);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>({ key: 'Id', direction: 'desc' });
 
-  // Filtreleme Durumları
   const [showFilters, setShowFilters] = useState(false);
   const [draftFilterRows, setDraftFilterRows] = useState<FilterRow[]>([]);
   const [appliedFilterRows, setAppliedFilterRows] = useState<FilterRow[]>([]);
 
-  // Form ve Silme Durumları
   const [formOpen, setFormOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [formValues, setFormValues] = useState<Record<string, unknown>>(() => getInitialValues(config));
@@ -295,7 +290,6 @@ export function AquaCrudPage({
   const [columnOrder, setColumnOrder] = useState<string[]>(() => defaultColumnKeys);
   const [visibleColumns, setVisibleColumns] = useState<string[]>(() => defaultColumnKeys);
 
-  // Sürükle Bırak Sensörleri
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -668,291 +662,289 @@ export function AquaCrudPage({
     }
   };
 
-  const headStyle = `text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider py-3 px-4 border-r border-slate-200 dark:border-white/[0.05] last:border-r-0 bg-slate-50 dark:bg-transparent text-left`;
-  const cellStyle = `text-slate-700 dark:text-slate-300 px-4 py-3 border-r border-slate-200 dark:border-white/[0.05] last:border-r-0 text-sm align-middle whitespace-nowrap`;
+  const headStyle = `text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider py-3 px-4 border-r border-slate-200 dark:border-cyan-800/30 last:border-r-0 bg-slate-50 dark:bg-blue-950/80 text-left transition-colors`;
+  const cellStyle = `text-slate-700 dark:text-slate-300 px-4 py-3 border-r border-slate-200 dark:border-cyan-800/30 last:border-r-0 text-sm align-middle whitespace-nowrap transition-colors`;
 
   const tableContainerClass = hidePageHeader
     ? "w-full flex flex-col bg-transparent"
-    : "bg-white dark:bg-[#1a1025]/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 shadow-sm rounded-2xl flex flex-col overflow-hidden transition-all duration-300";
+    : "bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl flex flex-col overflow-hidden transition-all duration-300";
 
   return (
-    <div className={hidePageHeader ? "w-full" : "w-full space-y-6 relative"}>
-      {!hidePageHeader && (
-        <>
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">{localizedTitle}</h1>
-              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">{localizedDescription}</p>
+    <>
+      <div className={hidePageHeader ? "w-full" : "w-full space-y-6 relative"}>
+        {!hidePageHeader && (
+          <>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors">{localizedTitle}</h1>
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">{localizedDescription}</p>
+              </div>
+
+              {!config.readOnly && (
+                <Button onClick={handleCreate} disabled={!canQueryList} className="px-6 py-2 bg-linear-to-r from-cyan-600 to-blue-600 rounded-xl text-white text-sm font-bold shadow-lg shadow-cyan-500/20 hover:scale-105 transition-transform border-0 hover:text-white h-11">
+                  <Plus size={18} className="mr-2" />
+                  {t('aqua.common.new')}
+                </Button>
+              )}
             </div>
 
-            {!config.readOnly && (
-              <Button onClick={handleCreate} disabled={!canQueryList} className="px-6 py-2 bg-linear-to-r from-pink-600 to-orange-600 rounded-xl text-white text-sm font-bold shadow-lg shadow-pink-500/20 hover:scale-105 transition-transform border-0 hover:text-white h-11">
-                <Plus size={18} className="mr-2" />
-                {t('aqua.common.new')}
-              </Button>
-            )}
-          </div>
+            <div className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl p-5 flex flex-col gap-5 transition-all duration-300">
+              <PageToolbar
+                searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
+                searchValue={searchTerm}
+                onSearchChange={setSearchTerm}
+                onRefresh={async () => { await listQuery.refetch(); }}
+                rightSlot={
+                  <div className="flex flex-wrap items-center gap-2">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 hover:text-slate-900 dark:hover:text-white">
+                          <span className="font-medium text-sm">{pageSize}</span>
+                          <ChevronDown size={16} />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-20 bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-xl overflow-hidden p-1">
+                          {[10, 20, 50, 100].map((size) => (
+                              <DropdownMenuItem key={size} onSelect={() => setPageSize(size)} className={`flex items-center justify-center text-xs font-medium px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${pageSize === size ? 'bg-cyan-50 dark:bg-cyan-800/30 text-cyan-600 dark:text-cyan-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-blue-900/50 hover:text-slate-900 dark:hover:text-white'}`}>
+                                  {size}
+                              </DropdownMenuItem>
+                          ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
 
-          <div className="bg-white dark:bg-[#1a1025]/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 shadow-sm rounded-2xl p-5 flex flex-col gap-5 transition-all duration-300">
-            <PageToolbar
-              searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
-              searchValue={searchTerm}
-              onSearchChange={setSearchTerm}
-              // FIX: TypeScript 'onRefresh' hatası async/await ile tamamen çözüldü
-              onRefresh={async () => { await listQuery.refetch(); }}
-              rightSlot={
-                <div className="flex flex-wrap items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 bg-slate-50 dark:bg-transparent text-slate-600 dark:text-gray-400 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white">
-                        <span className="font-medium text-sm">{pageSize}</span>
-                        <ChevronDown size={16} />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-20 bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 shadow-2xl rounded-xl overflow-hidden p-1">
-                        {[10, 20, 50, 100].map((size) => (
-                            <DropdownMenuItem key={size} onSelect={() => setPageSize(size)} className={`flex items-center justify-center text-xs font-medium px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${pageSize === size ? 'bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-500' : 'text-slate-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'}`}>
-                                {size}
-                            </DropdownMenuItem>
-                        ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                    <Popover open={showFilters} onOpenChange={setShowFilters}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={hasFiltersActive ? 'default' : 'outline'}
+                          className={`h-10 px-4 rounded-xl border transition-all duration-300 ${
+                            hasFiltersActive
+                              ? 'bg-cyan-50 dark:bg-cyan-800/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-700 hover:bg-cyan-100 dark:hover:bg-cyan-800/50'
+                              : 'bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 hover:text-slate-900 dark:hover:text-white'
+                          }`}
+                        >
+                          <Filter className="mr-2 h-4 w-4" />
+                          {t('common.filters', 'Filtreler')}
+                          {hasFiltersActive && <span className="ml-2 flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent side="bottom" align="end" className="w-[420px] p-0 bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-2xl overflow-hidden z-50">
+                        <AdvancedFilter
+                          columns={filterColumns}
+                          defaultColumn={filterColumns[0]?.value}
+                          draftRows={draftFilterRows}
+                          onDraftRowsChange={setDraftFilterRows}
+                          onSearch={handleAdvancedSearch}
+                          onClear={handleAdvancedClear}
+                          embedded
+                        />
+                      </PopoverContent>
+                    </Popover>
 
-                  <Popover open={showFilters} onOpenChange={setShowFilters}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={hasFiltersActive ? 'default' : 'outline'}
-                        className={`h-10 px-4 rounded-xl border transition-all duration-300 ${
-                          hasFiltersActive
-                            ? 'bg-pink-50 dark:bg-pink-500/20 text-pink-600 dark:text-pink-500 border-pink-200 dark:border-pink-500/30 hover:bg-pink-100 dark:hover:bg-pink-500/30'
-                            : 'bg-slate-50 dark:bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'
-                        }`}
-                      >
-                        <Filter className="mr-2 h-4 w-4" />
-                        {t('common.filters', 'Filtreler')}
-                        {hasFiltersActive && <span className="ml-2 flex h-2 w-2 rounded-full bg-pink-500 animate-pulse" />}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent side="bottom" align="end" className="w-[420px] p-0 bg-white dark:bg-[#151025] border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden z-50">
-                      <AdvancedFilter
-                        columns={filterColumns}
-                        defaultColumn={filterColumns[0]?.value}
-                        draftRows={draftFilterRows}
-                        onDraftRowsChange={setDraftFilterRows}
-                        onSearch={handleAdvancedSearch}
-                        onClear={handleAdvancedClear}
-                        embedded
-                      />
-                    </PopoverContent>
-                  </Popover>
+                    <ColumnPreferencesPopover
+                      pageKey={`aqua-${config.key}`}
+                      userId={user?.id}
+                      columns={baseColumns.map((col) => ({ key: col.key, label: t(col.label) }))}
+                      visibleColumns={visibleColumns}
+                      columnOrder={columnOrder}
+                      onVisibleColumnsChange={setVisibleColumns}
+                      onColumnOrderChange={setColumnOrder}
+                    />
 
-                  <ColumnPreferencesPopover
-                    pageKey={`aqua-${config.key}`}
-                    userId={user?.id}
-                    columns={baseColumns.map((col) => ({ key: col.key, label: t(col.label) }))}
-                    visibleColumns={visibleColumns}
-                    columnOrder={columnOrder}
-                    onVisibleColumnsChange={setVisibleColumns}
-                    onColumnOrderChange={setColumnOrder}
-                  />
-
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="flex items-center justify-center h-10 w-10 p-0 rounded-xl border transition-all duration-300 bg-slate-50 dark:bg-transparent text-slate-600 dark:text-gray-400 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white">
-                        <Menu size={18} />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 shadow-2xl rounded-xl overflow-hidden p-0">
-                      <div className="p-2">
-                        <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider">
-                          {t('aqua.common.actions', 'İşlemler')}
-                        </div>
-                      </div>
-                      <div className="h-px bg-slate-200 dark:bg-white/5 my-1"></div>
-                      <div className="p-2 flex flex-col gap-1">
-                        <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider">
-                          {t('aqua.common.export', 'Dışa Aktar')}
-                        </div>
-                        <DropdownMenuItem onSelect={handleExportExcel} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
-                          <FileSpreadsheet size={16} className="text-emerald-500" />
-                          <span>{t('aqua.common.exportExcel', "Excel'e Aktar")}</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={handleExportPDF} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
-                          <FileText size={16} className="text-red-400" />
-                          <span>{t('aqua.common.exportPDF', "PDF'e Aktar")}</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={handleExportPowerPoint} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
-                          <Presentation size={16} className="text-orange-400" />
-                          <span>{t('aqua.common.exportPPT', "PowerPoint'e Aktar")}</span>
-                        </DropdownMenuItem>
-                      </div>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              }
-            />
-          </div>
-        </>
-      )}
-
-      {/* Sürükle Bırak Bağlamı (DndContext) */}
-      <div className={tableContainerClass}>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <div className="overflow-x-auto w-full">
-            <table className="w-full min-w-[560px] sm:min-w-[700px] lg:min-w-[820px] caption-bottom text-sm relative border-collapse">
-              <thead className="bg-slate-100 dark:bg-[#0b0713] sticky top-0 z-10 border-b border-slate-200 dark:border-white/5">
-                <tr className="h-10 hover:bg-transparent">
-                  <th className={`${headStyle} cursor-pointer hover:text-pink-600 dark:hover:text-pink-500`} onClick={() => handleSort('Id')}>
-                    <div className="flex items-center gap-2">
-                      {t('aqua.common.id', 'ID')}
-                      {sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500" /> : <ArrowDown size={14} className="text-pink-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}
-                    </div>
-                  </th>
-
-                  <SortableContext items={displayedColumns.map(c => c.key)} strategy={horizontalListSortingStrategy}>
-                    {displayedColumns.map((column) => (
-                      <DraggableTh 
-                        key={column.key} 
-                        id={column.key} 
-                        className={headStyle} 
-                        onClick={() => handleSort(column.key)}
-                      >
-                        {t(column.label)}
-                        {sortConfig?.key === column.key ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-pink-500 ml-1" /> : <ArrowDown size={14} className="text-pink-500 ml-1" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100 ml-1" />)}
-                      </DraggableTh>
-                    ))}
-                  </SortableContext>
-
-                  <th className={`${headStyle} text-right cursor-default hover:text-slate-500 dark:hover:text-slate-400`}>{t('aqua.common.actions')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {!canQueryList ? (
-                  <tr><td colSpan={displayedColumns.length + 2} className="text-center py-20 text-slate-500 dark:text-muted-foreground font-medium">{t('aqua.common.noData')}</td></tr>
-                ) : listQuery.isLoading ? (
-                  <tr>
-                    <td colSpan={displayedColumns.length + 2} className="text-center py-20">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-current text-pink-500" />
-                        <span className="text-sm font-medium text-slate-500 dark:text-muted-foreground animate-pulse">{t('aqua.common.loading')}</span>
-                      </div>
-                    </td>
-                  </tr>
-                ) : rows.length === 0 ? (
-                  <tr><td colSpan={displayedColumns.length + 2} className="text-center py-20 text-slate-500 dark:text-muted-foreground font-medium">{t('aqua.common.noData')}</td></tr>
-                ) : (
-                  rows.map((row) => {
-                    const id = Number(row.id ?? row.Id);
-                    const status = Number(row.status ?? row.Status);
-                    const isSelected = rowSelectionEnabled && selectedRowId === id;
-                    return (
-                      <tr key={id} className={`h-10 border-b border-slate-200 dark:border-white/5 transition-colors duration-200 hover:bg-slate-50 dark:hover:bg-pink-500/5 group last:border-0 bg-transparent ${rowSelectionEnabled ? 'cursor-pointer' : ''} ${isSelected ? 'bg-pink-50 dark:bg-pink-500/10' : ''}`} onClick={() => { if (rowSelectionEnabled) onRowSelect?.(row); }}>
-                        <td className={`${cellStyle} font-mono text-xs`}>{id}</td>
-                        {displayedColumns.map((column) => (
-                          <td key={column.key} className={cellStyle}>
-                            {getFormattedCellValue(row, column.key)}
-                          </td>
-                        ))}
-                        <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
-                          <div className="flex items-center justify-end gap-1">
-                            {!config.readOnly && (
-                              <>
-                                <Button variant="ghost" size="icon" title={t('aqua.common.edit', 'Düzenle')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-500/10 transition-colors">
-                                  <Edit size={16} />
-                                </Button>
-                                <Button variant="ghost" size="icon" title={t('aqua.common.delete', 'Sil')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
-                                  <Trash2 size={16} />
-                                </Button>
-                              </>
-                            )}
-                            {config.postingSlug && !config.autoPostOnSave && status === 0 && (
-                              <Button size="sm" onClick={(e) => { e.stopPropagation(); postMutation.mutate({ slug: config.postingSlug!, id }); }} disabled={postMutation.isPending}>{t('aqua.common.post')}</Button>
-                            )}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" className="flex items-center justify-center h-10 w-10 p-0 rounded-xl border transition-all duration-300 bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 hover:text-slate-900 dark:hover:text-white">
+                          <Menu size={18} />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-xl overflow-hidden p-0">
+                        <div className="p-2">
+                          <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            {t('aqua.common.actions', 'İşlemler')}
                           </div>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </DndContext>
+                        </div>
+                        <div className="h-px bg-slate-200 dark:bg-cyan-800/30 my-1"></div>
+                        <div className="p-2 flex flex-col gap-1">
+                          <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            {t('aqua.common.export', 'Dışa Aktar')}
+                          </div>
+                          <DropdownMenuItem onSelect={handleExportExcel} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
+                            <FileSpreadsheet size={16} className="text-emerald-500" />
+                            <span>{t('aqua.common.exportExcel', "Excel'e Aktar")}</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onSelect={handleExportPDF} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
+                            <FileText size={16} className="text-red-400" />
+                            <span>{t('aqua.common.exportPDF', "PDF'e Aktar")}</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onSelect={handleExportPowerPoint} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
+                            <Presentation size={16} className="text-orange-400" />
+                            <span>{t('aqua.common.exportPPT', "PowerPoint'e Aktar")}</span>
+                          </DropdownMenuItem>
+                        </div>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                }
+              />
+            </div>
+          </>
+        )}
 
-        <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-white/5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0 bg-slate-50 dark:bg-[#0b0713]">
-          <span className="text-sm text-slate-600 dark:text-slate-500 font-medium">{rangeStart}-{rangeEnd} / {totalCount}</span>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))} disabled={pageNumber <= 1} className="rounded-lg bg-white dark:bg-transparent border-slate-200 dark:border-white/10 text-slate-700 dark:text-white">{t('aqua.common.previous')}</Button>
-            <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.min(totalPages, prev + 1))} disabled={pageNumber >= totalPages} className="rounded-lg bg-white dark:bg-transparent border-slate-200 dark:border-white/10 text-slate-700 dark:text-white">{t('aqua.common.next')}</Button>
+        <div className={tableContainerClass}>
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <div className="overflow-x-auto w-full">
+              <table className="w-full min-w-[560px] sm:min-w-[700px] lg:min-w-[820px] caption-bottom text-sm relative border-collapse">
+                <thead className="bg-slate-100 dark:bg-blue-950 sticky top-0 z-10 border-b border-slate-200 dark:border-cyan-800/30">
+                  <tr className="h-10 hover:bg-transparent">
+                    <th className={`${headStyle} cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400`} onClick={() => handleSort('Id')}>
+                      <div className="flex items-center gap-2">
+                        {t('aqua.common.id', 'ID')}
+                        {sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-cyan-500" /> : <ArrowDown size={14} className="text-cyan-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}
+                      </div>
+                    </th>
+
+                    <SortableContext items={displayedColumns.map(c => c.key)} strategy={horizontalListSortingStrategy}>
+                      {displayedColumns.map((column) => (
+                        <DraggableTh 
+                          key={column.key} 
+                          id={column.key} 
+                          className={headStyle} 
+                          onClick={() => handleSort(column.key)}
+                        >
+                          {t(column.label)}
+                          {sortConfig?.key === column.key ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-cyan-500 ml-1" /> : <ArrowDown size={14} className="text-cyan-500 ml-1" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100 ml-1" />)}
+                        </DraggableTh>
+                      ))}
+                    </SortableContext>
+
+                    <th className={`${headStyle} text-right cursor-default hover:text-slate-500 dark:hover:text-slate-400`}>{t('aqua.common.actions')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {!canQueryList ? (
+                    <tr><td colSpan={displayedColumns.length + 2} className="text-center py-20 text-slate-500 dark:text-slate-400 font-medium">{t('aqua.common.noData')}</td></tr>
+                  ) : listQuery.isLoading ? (
+                    <tr>
+                      <td colSpan={displayedColumns.length + 2} className="text-center py-20">
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-current text-cyan-500" />
+                          <span className="text-sm font-medium text-slate-500 dark:text-slate-400 animate-pulse">{t('aqua.common.loading')}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : rows.length === 0 ? (
+                    <tr><td colSpan={displayedColumns.length + 2} className="text-center py-20 text-slate-500 dark:text-slate-400 font-medium">{t('aqua.common.noData')}</td></tr>
+                  ) : (
+                    rows.map((row) => {
+                      const id = Number(row.id ?? row.Id);
+                      const status = Number(row.status ?? row.Status);
+                      const isSelected = rowSelectionEnabled && selectedRowId === id;
+                      return (
+                        <tr key={id} className={`h-10 border-b border-slate-200 dark:border-cyan-800/30 transition-colors duration-200 hover:bg-slate-50 dark:hover:bg-blue-900/40 group last:border-0 bg-transparent ${rowSelectionEnabled ? 'cursor-pointer' : ''} ${isSelected ? 'bg-cyan-50 dark:bg-cyan-800/20' : ''}`} onClick={() => { if (rowSelectionEnabled) onRowSelect?.(row); }}>
+                          <td className={`${cellStyle} font-mono text-xs`}>{id}</td>
+                          {displayedColumns.map((column) => (
+                            <td key={column.key} className={cellStyle}>
+                              {getFormattedCellValue(row, column.key)}
+                            </td>
+                          ))}
+                          <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
+                            <div className="flex items-center justify-end gap-1">
+                              {!config.readOnly && (
+                                <>
+                                  <Button variant="ghost" size="icon" title={t('aqua.common.edit', 'Düzenle')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-blue-900/50 transition-colors">
+                                    <Edit size={16} />
+                                  </Button>
+                                  <Button variant="ghost" size="icon" title={t('aqua.common.delete', 'Sil')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                                    <Trash2 size={16} />
+                                  </Button>
+                                </>
+                              )}
+                              {config.postingSlug && !config.autoPostOnSave && status === 0 && (
+                                <Button size="sm" onClick={(e) => { e.stopPropagation(); postMutation.mutate({ slug: config.postingSlug!, id }); }} disabled={postMutation.isPending}>{t('aqua.common.post')}</Button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </DndContext>
+
+          <div className="flex flex-col gap-2 border-t border-slate-200 dark:border-cyan-800/30 px-4 py-3 sm:flex-row sm:items-center sm:justify-between w-full shrink-0 bg-slate-50 dark:bg-blue-950/50">
+            <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">{rangeStart}-{rangeEnd} / {totalCount}</span>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))} disabled={pageNumber <= 1} className="rounded-lg bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50">{t('aqua.common.previous')}</Button>
+              <Button variant="outline" size="sm" onClick={() => setPageNumber((prev) => Math.min(totalPages, prev + 1))} disabled={pageNumber >= totalPages} className="rounded-lg bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50">{t('aqua.common.next')}</Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Form Dialog */}
-      {!config.readOnly && (
-        <Dialog open={formOpen} onOpenChange={setFormOpen}>
-          <DialogContent className="[&>button]:hidden bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white max-w-3xl w-[95%] sm:w-full shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
-            <DialogHeader className="px-6 py-5 border-b border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-transparent flex flex-row items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
-              <div className="flex items-center gap-4">
-                 <div className="h-12 w-12 rounded-2xl bg-linear-to-br from-pink-500 to-orange-500 p-0.5 shadow-lg shadow-pink-500/20">
-                   <div className="h-full w-full bg-white dark:bg-[#0b0713] rounded-[14px] flex items-center justify-center">
-                     <FileText size={24} className="text-pink-600 dark:text-pink-500" />
+        {!config.readOnly && (
+          <Dialog open={formOpen} onOpenChange={setFormOpen}>
+            <DialogContent className="[&>button]:hidden bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 text-slate-900 dark:text-white max-w-3xl w-[95%] sm:w-full shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
+              <DialogHeader className="px-6 py-5 border-b border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex flex-row items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
+                <div className="flex items-center gap-4">
+                   <div className="h-12 w-12 rounded-2xl bg-linear-to-br from-cyan-500 to-blue-500 p-0.5 shadow-lg shadow-cyan-500/20">
+                     <div className="h-full w-full bg-white dark:bg-blue-950 rounded-[14px] flex items-center justify-center">
+                       <FileText size={24} className="text-cyan-600 dark:text-cyan-500" />
+                     </div>
                    </div>
-                 </div>
-                 <div className="space-y-1 text-left">
-                    <DialogTitle className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                      {editingRow ? t('aqua.common.editRecord', 'Kaydı Düzenle') : t('aqua.common.createRecord', 'Yeni Kayıt')}
-                    </DialogTitle>
-                    <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{localizedTitle} modülü için bilgileri doldurun.</DialogDescription>
+                   <div className="space-y-1 text-left">
+                      <DialogTitle className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        {editingRow ? t('aqua.common.editRecord', 'Kaydı Düzenle') : t('aqua.common.createRecord', 'Yeni Kayıt')}
+                      </DialogTitle>
+                      <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{localizedTitle} modülü için bilgileri doldurun.</DialogDescription>
+                   </div>
+                </div>
+                <Button variant="ghost" size="icon" onClick={() => setFormOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full"><X size={20} /></Button>
+              </DialogHeader>
+              <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar bg-white dark:bg-transparent">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6">
+                  {visibleFields.map((field) => (
+                    <div key={field.key} className={field.type === 'textarea' ? 'col-span-1 md:col-span-2' : ''}>
+                      <Label htmlFor={field.key} className={LABEL_STYLE}>
+                        <ChevronRight size={14} className="text-cyan-500" />
+                        {t(field.label)} {field.required && <span className="text-red-500 ml-1">*</span>}
+                      </Label>
+                      {field.type === 'textarea' && (
+                        <Textarea id={field.key} placeholder={field.placeholder} value={String(formValues[field.key] ?? '')} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={`${INPUT_STYLE} min-h-[100px] py-3 resize-none`} />
+                      )}
+                      {field.type === 'select' && (
+                        <Combobox options={field.lookup ? (lookupOptionsByField[field.key] ?? []).map((o) => ({ value: String(o.value), label: o.label })) : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((o) => ({ value: String(o.value), label: t(o.label) }))} value={String(formValues[field.key] ?? '')} onValueChange={(value) => setFormValues((prev) => ({ ...prev, [field.key]: value }))} placeholder={t('aqua.common.select')} searchPlaceholder={t('common.search')} emptyText={t('common.noResults')} className="bg-slate-50 dark:bg-blue-950/50 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30" />
+                      )}
+                      {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
+                        <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} required={field.required} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <DialogFooter className="px-6 py-5 border-t border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex-col sm:flex-row gap-3 sticky bottom-0 z-10 backdrop-blur-sm">
+                <Button type="button" variant="outline" onClick={() => setFormOpen(false)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 text-slate-700 dark:text-slate-200">{t('aqua.common.cancel')}</Button>
+                <Button onClick={handleSubmit} disabled={isSubmitting} className="w-full sm:w-auto h-11 rounded-xl bg-linear-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/25 hover:opacity-95 border-0 font-bold">{isSubmitting ? t('aqua.common.saving') : t('aqua.common.save')}</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
+
+        <Dialog open={!!rowToDelete} onOpenChange={(open) => !open && setRowToDelete(null)}>
+          <DialogContent className="[&>button]:hidden bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 text-slate-900 dark:text-white max-w-sm w-[95%] shadow-2xl sm:rounded-2xl p-0 overflow-hidden">
+              <div className="p-8 flex flex-col items-center justify-center text-center space-y-5">
+                 <div className="h-16 w-16 rounded-full bg-red-100 dark:bg-red-600/10 flex items-center justify-center"><AlertTriangle size={32} className="text-red-600 dark:text-red-500" /></div>
+                 <div className="space-y-3">
+                   <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{t('aqua.common.confirmDelete', 'Emin misiniz?')}</h2>
+                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">Bu kaydı kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?</p>
                  </div>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => setFormOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-full"><X size={20} /></Button>
-            </DialogHeader>
-            <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar bg-white dark:bg-transparent">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6">
-                {visibleFields.map((field) => (
-                  <div key={field.key} className={field.type === 'textarea' ? 'col-span-1 md:col-span-2' : ''}>
-                    <Label htmlFor={field.key} className={LABEL_STYLE}>
-                      <ChevronRight size={14} className="text-pink-500" />
-                      {t(field.label)} {field.required && <span className="text-red-500 ml-1">*</span>}
-                    </Label>
-                    {field.type === 'textarea' && (
-                      <Textarea id={field.key} placeholder={field.placeholder} value={String(formValues[field.key] ?? '')} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={`${INPUT_STYLE} min-h-[100px] py-3 resize-none`} />
-                    )}
-                    {field.type === 'select' && (
-                      <Combobox options={field.lookup ? (lookupOptionsByField[field.key] ?? []).map((o) => ({ value: String(o.value), label: o.label })) : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((o) => ({ value: String(o.value), label: t(o.label) }))} value={String(formValues[field.key] ?? '')} onValueChange={(value) => setFormValues((prev) => ({ ...prev, [field.key]: value }))} placeholder={t('aqua.common.select')} searchPlaceholder={t('common.search')} emptyText={t('common.noResults')} className="bg-slate-50 dark:bg-[#0b0713] text-slate-900 dark:text-white border-slate-200 dark:border-white/10" />
-                    )}
-                    {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
-                      <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} required={field.required} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <DialogFooter className="px-6 py-5 border-t border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-transparent flex-col sm:flex-row gap-3 sticky bottom-0 z-10 backdrop-blur-sm">
-              <Button type="button" variant="outline" onClick={() => setFormOpen(false)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-700 dark:text-white">{t('aqua.common.cancel')}</Button>
-              <Button onClick={handleSubmit} disabled={isSubmitting} className="w-full sm:w-auto h-11 rounded-xl bg-linear-to-r from-pink-600 to-orange-600 text-white shadow-lg shadow-pink-500/25 hover:opacity-95 border-0 font-bold">{isSubmitting ? t('aqua.common.saving') : t('aqua.common.save')}</Button>
-            </DialogFooter>
+              <DialogFooter className="px-6 py-4 border-t border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex-col sm:flex-row gap-3">
+                <Button variant="outline" onClick={() => setRowToDelete(null)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 text-slate-700 dark:text-slate-200 font-medium">{t('aqua.common.cancel', 'İptal')}</Button>
+                <Button onClick={confirmDelete} disabled={isDeleting} className="w-full sm:w-auto h-11 rounded-xl bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/25 border-0 font-bold">{isDeleting ? t('aqua.common.deleting', 'Siliniyor...') : t('aqua.common.delete', 'Sil')}</Button>
+              </DialogFooter>
           </DialogContent>
         </Dialog>
-      )}
-
-      {/* Silme Onay Dialogu */}
-      <Dialog open={!!rowToDelete} onOpenChange={(open) => !open && setRowToDelete(null)}>
-        <DialogContent className="[&>button]:hidden bg-white dark:bg-[#0b0713] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white max-w-sm w-[95%] shadow-2xl sm:rounded-2xl p-0 overflow-hidden">
-            <div className="p-8 flex flex-col items-center justify-center text-center space-y-5">
-               <div className="h-16 w-16 rounded-full bg-red-100 dark:bg-red-500/10 flex items-center justify-center"><AlertTriangle size={32} className="text-red-600 dark:text-red-500" /></div>
-               <div className="space-y-3">
-                 <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{t('aqua.common.confirmDelete', 'Emin misiniz?')}</h2>
-                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">Bu kaydı kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?</p>
-               </div>
-            </div>
-            <DialogFooter className="px-6 py-4 border-t border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-transparent flex-col sm:flex-row gap-3">
-              <Button variant="outline" onClick={() => setRowToDelete(null)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-700 dark:text-white font-medium">{t('aqua.common.cancel', 'İptal')}</Button>
-              <Button onClick={confirmDelete} disabled={isDeleting} className="w-full sm:w-auto h-11 rounded-xl bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/25 border-0 font-bold">{isDeleting ? t('aqua.common.deleting', 'Siliniyor...') : t('aqua.common.delete', 'Sil')}</Button>
-            </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      </div>
+    </>
   );
 }

@@ -25,7 +25,6 @@ function generateId(): string {
   return `filter-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-// YENİ: JSON dosyasında çeviri yoksa devreye girecek kurtarıcı sözlük!
 const OPERATOR_FALLBACKS: Record<string, string> = {
   'Contains': 'İçerir',
   'StartsWith': 'İle Başlar',
@@ -94,18 +93,18 @@ export function AdvancedFilter({
   };
 
   return (
-    <div className={embedded ? 'p-4 space-y-4' : 'rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-[#0b0713] p-4 space-y-4'}>
+    <div className={embedded ? 'p-4 space-y-4' : 'rounded-xl border border-slate-200 dark:border-cyan-800/30 bg-white/50 dark:bg-blue-950/60 backdrop-blur-xl p-4 space-y-4'}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2">
           <Search className="w-4 h-4 text-pink-500" />
           {getLabel('title', 'Gelişmiş Filtre')}
         </h3>
         <div className="flex flex-wrap gap-2">
-          <Button type="button" variant="outline" size="sm" onClick={addRow} className="h-8 border-slate-200 dark:border-white/10 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5">
-            <Plus className="h-4 w-4 mr-1" />
+          <Button type="button" variant="outline" size="sm" onClick={addRow} className="h-8 border-slate-200 dark:border-cyan-800/50 bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-blue-900/50">
+            <Plus className="h-4 w-4 mr-1 text-pink-500" />
             {getLabel('add', 'Filtre Ekle')}
           </Button>
-          <Button type="button" variant="outline" size="sm" onClick={onClear} className="h-8 border-slate-200 dark:border-white/10 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5">
+          <Button type="button" variant="outline" size="sm" onClick={onClear} className="h-8 border-slate-200 dark:border-cyan-800/50 bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-blue-900/50">
             {getLabel('clear', 'Temizle')}
           </Button>
           <Button type="button" size="sm" onClick={onSearch} className="h-8 bg-pink-600 hover:bg-pink-500 text-white border-0 shadow-md shadow-pink-500/20">
@@ -119,7 +118,7 @@ export function AdvancedFilter({
             const colConfig = columns.find((c) => c.value === row.column);
             const isDate = colConfig?.type === 'date';
             return (
-              <div key={row.id} className="flex flex-wrap items-center gap-2 bg-slate-50/50 dark:bg-white/2 p-2 rounded-xl border border-slate-100 dark:border-white/5 transition-all">
+              <div key={row.id} className="flex flex-wrap items-center gap-2 bg-slate-50/50 dark:bg-blue-900/20 p-2 rounded-xl border border-slate-100 dark:border-cyan-800/30 transition-all hover:border-pink-500/30">
                 <Combobox
                   options={columns.map((c) => ({
                     value: c.value,
@@ -130,12 +129,11 @@ export function AdvancedFilter({
                   placeholder={getLabel('column', 'Kolon Seç')}
                   searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
                   emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
-                  className="w-full sm:w-[160px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
+                  className="w-full sm:w-[160px] bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-slate-200 focus-visible:ring-pink-500/20"
                 />
                 <Combobox
                   options={getOperatorsForColumn(row.column, columns).map((op) => ({
                     value: op,
-                    // ÇÖZÜM BURADA: Çeviri yoksa OPERATOR_FALLBACKS'ten Türkçesini çeker!
                     label: t(`advancedFilter.operator${op}`, { ns: 'common', defaultValue: OPERATOR_FALLBACKS[op] || op }),
                   }))}
                   value={row.operator}
@@ -143,7 +141,7 @@ export function AdvancedFilter({
                   placeholder={getLabel('operator', 'Operatör')}
                   searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
                   emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
-                  className="w-full sm:w-[130px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
+                  className="w-full sm:w-[130px] bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-slate-200 focus-visible:ring-pink-500/20"
                 />
                 {colConfig?.type === 'boolean' ? (
                   <Combobox
@@ -157,7 +155,7 @@ export function AdvancedFilter({
                     placeholder={getLabel('value', 'Değer Seç')}
                     searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
                     emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
-                    className="w-full sm:w-[160px] bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10"
+                    className="w-full sm:w-[160px] bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-slate-200 focus-visible:ring-pink-500/20"
                   />
                 ) : (
                   <Input
@@ -165,14 +163,14 @@ export function AdvancedFilter({
                     placeholder={getLabel('value', 'Değer')}
                     value={row.value}
                     onChange={(e) => updateRow(row.id, { value: e.target.value })}
-                    className="w-full sm:w-[160px] h-10 bg-white dark:bg-[#151025] border-slate-200 dark:border-white/10 focus-visible:border-pink-500 rounded-lg"
+                    className="w-full sm:w-[160px] h-10 bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-slate-200 focus-visible:border-pink-500 focus-visible:ring-pink-500/20 rounded-lg placeholder:text-slate-400 dark:placeholder:text-slate-500"
                   />
                 )}
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="shrink-0 h-10 w-10 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors"
+                  className="shrink-0 h-10 w-10 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg transition-colors"
                   onClick={() => removeRow(row.id)}
                   aria-label={getLabel('remove', 'Kaldır')}
                 >

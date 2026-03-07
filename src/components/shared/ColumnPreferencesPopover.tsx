@@ -73,18 +73,22 @@ export function ColumnPreferencesPopover({
         <Button
           variant="outline"
           size="sm"
-          className="h-9 border-dashed border-slate-300 dark:border-white/20 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 text-xs sm:text-sm"
+          className="h-10 border-slate-200 dark:border-cyan-800/30 bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-blue-900/50 rounded-xl transition-all text-xs sm:text-sm"
         >
           <Columns3 className="mr-2 h-4 w-4" />
           {t('common.editColumns')}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-72 p-0 bg-white/95 dark:bg-[#1a1025]/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-xl rounded-xl z-50">
+      
+      {/* BURASI POP-UP'IN ANA ARKA PLANI: Deep Blue & Glassmorphism */}
+      <PopoverContent align="end" className="w-72 p-0 bg-white/95 dark:bg-blue-950/95 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/40 shadow-2xl rounded-2xl z-50 overflow-hidden">
         <div className="p-2 space-y-2">
-          <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-2 py-1.5">
+          {/* Pembe Vurgulu Başlık */}
+          <div className="text-[10px] font-bold text-pink-600 dark:text-pink-400 uppercase tracking-widest px-2 py-1.5 flex items-center gap-2">
+            <Eye className="w-3 h-3" />
             {t('activityManagement.columnCustomization.visibleColumns')}
           </div>
-          <div className="space-y-1 max-h-48 overflow-y-auto">
+          <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar">
             {displayColumns.map((key) => {
               const col = columnMap.get(key);
               if (!col) return null;
@@ -93,7 +97,7 @@ export function ColumnPreferencesPopover({
               return (
                 <div
                   key={key}
-                  className="flex items-center gap-1 rounded-lg px-2 py-1.5 hover:bg-slate-50 dark:hover:bg-white/5 group"
+                  className="flex items-center gap-1 rounded-lg px-2 py-1.5 hover:bg-slate-50 dark:hover:bg-blue-900/40 group transition-colors"
                 >
                   <div className="flex items-center gap-1 flex-1 min-w-0">
                     {!isId && (
@@ -101,7 +105,7 @@ export function ColumnPreferencesPopover({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100"
+                          className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-pink-500 dark:hover:bg-blue-900/60"
                           onClick={() => moveColumn(key, 'up')}
                           disabled={idx <= 1}
                         >
@@ -110,7 +114,7 @@ export function ColumnPreferencesPopover({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100"
+                          className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-pink-500 dark:hover:bg-blue-900/60"
                           onClick={() => moveColumn(key, 'down')}
                           disabled={idx >= displayColumns.length - 1}
                         >
@@ -118,13 +122,13 @@ export function ColumnPreferencesPopover({
                         </Button>
                       </>
                     )}
-                    <span className="text-sm truncate">{col.label}</span>
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{col.label}</span>
                   </div>
                   {!isId && (
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-6 w-6 shrink-0 text-slate-400 hover:text-destructive"
+                      className="h-6 w-6 shrink-0 text-slate-400 hover:text-rose-500 dark:hover:bg-rose-500/10"
                       onClick={() => toggleColumn(key)}
                       title={t('activityManagement.columnCustomization.hiddenColumns')}
                     >
@@ -137,7 +141,8 @@ export function ColumnPreferencesPopover({
           </div>
           {hiddenColumns.length > 0 && (
             <>
-              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-2 py-1.5 pt-2 border-t border-slate-100 dark:border-white/10">
+              <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest px-2 py-1.5 pt-3 border-t border-slate-100 dark:border-cyan-800/30 flex items-center gap-2">
+                 <EyeOff className="w-3 h-3" />
                 {t('activityManagement.columnCustomization.hiddenColumns')}
               </div>
               <div className="space-y-1">
@@ -147,15 +152,15 @@ export function ColumnPreferencesPopover({
                   return (
                     <div
                       key={key}
-                      className="flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-slate-50 dark:hover:bg-white/5"
+                      className="flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-slate-50 dark:hover:bg-blue-900/40 transition-colors"
                     >
-                      <span className="text-sm text-slate-500 dark:text-slate-400 truncate">
+                      <span className="text-sm text-slate-500 dark:text-slate-500 truncate line-through decoration-slate-400/30">
                         {col.label}
                       </span>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6 shrink-0"
+                        className="h-6 w-6 shrink-0 text-slate-400 hover:text-emerald-500 dark:hover:bg-emerald-500/10"
                         onClick={() => toggleColumn(key)}
                         title={t('activityManagement.columnCustomization.visibleColumns')}
                       >
