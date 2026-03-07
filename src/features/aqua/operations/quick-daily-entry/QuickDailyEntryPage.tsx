@@ -53,6 +53,7 @@ import {
   formatStockConvertNo,
   localDateString,
 } from './utils/quick-operations';
+import { ChevronRight } from 'lucide-react'; // Aqua konsepti label ikonu eklendi
 
 export function QuickDailyEntryPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -426,15 +427,18 @@ export function QuickDailyEntryPage(): ReactElement {
       <div className="space-y-6 w-full relative">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors">{t('aqua.quickDailyEntry.pageTitle')}</h1>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors">{t('aqua.quickDailyEntry.pageTitle')}</h1>
               <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">Günlük operasyon girişlerinizi yapın.</p>
             </div>
         </div>
 
-        <div className="bg-card dark:bg-[#1a1025]/60 backdrop-blur-xl border border-border dark:border-white/5 shadow-sm rounded-2xl p-6 transition-all duration-300">
+        <div className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl p-6 transition-all duration-300">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="space-y-3 w-full">
-                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">{t('aqua.quickDailyEntry.project')}</label>
+                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 mb-2 flex items-center gap-1.5">
+                  <ChevronRight size={14} className="text-cyan-500" />
+                  {t('aqua.quickDailyEntry.project')}
+                </label>
                 <Combobox
                   options={projectOptions}
                   value={projectId != null ? String(projectId) : ''}
@@ -442,11 +446,14 @@ export function QuickDailyEntryPage(): ReactElement {
                   placeholder={t('aqua.quickDailyEntry.selectProject')}
                   searchPlaceholder={t('common.search')}
                   emptyText={t('common.noResults')}
-                  className="w-full bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground h-11 rounded-xl"
+                  className="w-full bg-slate-50 dark:bg-blue-950/50 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-11 rounded-xl"
                 />
               </div>
               <div className="space-y-3 w-full">
-                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">{t('aqua.quickDailyEntry.cage')}</label>
+                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 mb-2 flex items-center gap-1.5">
+                  <ChevronRight size={14} className="text-cyan-500" />
+                  {t('aqua.quickDailyEntry.cage')}
+                </label>
                 <Combobox
                   options={cageOptions}
                   value={projectCageId != null ? String(projectCageId) : ''}
@@ -455,7 +462,7 @@ export function QuickDailyEntryPage(): ReactElement {
                   searchPlaceholder={t('common.search')}
                   emptyText={t('common.noResults')}
                   disabled={!projectId}
-                  className="w-full bg-background dark:bg-[#0b0713] border-border dark:border-white/10 text-foreground h-11 rounded-xl"
+                  className="w-full bg-slate-50 dark:bg-blue-950/50 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-11 rounded-xl"
                 />
               </div>
             </div>
@@ -522,14 +529,14 @@ export function QuickDailyEntryPage(): ReactElement {
       </div>
 
       <AlertDialog open={isTransferSuccessDialogOpen}>
-        <AlertDialogContent className="bg-background dark:bg-[#0b0713] border border-border dark:border-white/10 text-foreground sm:rounded-2xl">
+        <AlertDialogContent className="bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl sm:rounded-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-foreground dark:text-white">
+            <AlertDialogTitle className="text-slate-900 dark:text-white">
               {t('aqua.quickDailyEntry.transferSuccessDialog.title', {
                 defaultValue: 'İşlem Başarılı',
               })}
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-muted-foreground dark:text-slate-400">
+            <AlertDialogDescription className="text-slate-500 dark:text-slate-400">
               {t('aqua.quickDailyEntry.transferSuccessDialog.description', {
                 defaultValue:
                   'Kafes değişimi başarıyla kaydedildi. Kafes değiştiği için veri yenilenmelidir.',
@@ -538,7 +545,7 @@ export function QuickDailyEntryPage(): ReactElement {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction
-              className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl"
+              className="bg-linear-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/25 hover:opacity-95 border-0 font-bold h-11 px-8 rounded-xl"
               onClick={() => {
                 setIsTransferSuccessDialogOpen(false);
                 window.location.reload();
