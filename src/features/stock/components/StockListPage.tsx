@@ -56,12 +56,11 @@ export function StockListPage(): ReactElement {
     <div className="relative min-h-screen space-y-6 overflow-hidden w-full">
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 pt-2">
         <div className="space-y-1">
-          {/* FIX: text-white yerine text-slate-900 dark:text-white */}
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">
+          {/* Aqua konsepti: Slate-900 ve Slate-100 uyumu */}
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors">
             {t('stock.list.title')}
           </h1>
-          {/* FIX: text-slate-400 yerine text-slate-500 dark:text-slate-400 */}
-          <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-2 font-medium transition-colors">
+          <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-2 font-medium transition-colors mt-1">
             {t('stock.list.description')}
           </p>
         </div>
@@ -76,8 +75,8 @@ export function StockListPage(): ReactElement {
         </div>
       </div>
 
-      {/* FIX: Dış çerçevenin sabit rengi akıllı temaya geçirildi */}
-      <div className="relative z-10 bg-white dark:bg-[#1a1025]/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
+      {/* Aqua konsepti: Blue-950 cam efekti ve Cyan kenarlıklar */}
+      <div className="relative z-10 bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
         <StockTable
           pageNumber={pageNumber}
           pageSize={pageSize}

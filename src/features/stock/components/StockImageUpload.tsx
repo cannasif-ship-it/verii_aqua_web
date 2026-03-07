@@ -152,33 +152,32 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
 
   return (
     <div className="space-y-6">
-      
       <div
         className={cn(
-            "relative group border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-300",
+            "relative group border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all duration-300",
             isDragging 
-                ? "border-pink-500 bg-pink-50 dark:bg-pink-900/10 scale-[1.01]" 
-                : "border-zinc-200 dark:border-zinc-700 hover:border-pink-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
+                ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-900/10 scale-[1.01]" 
+                : "border-slate-200 dark:border-cyan-800/30 hover:border-cyan-400 hover:bg-slate-50 dark:hover:bg-blue-900/20"
         )}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-orange-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
         
         <div className="relative z-10 flex flex-col items-center gap-3">
             <div className={cn(
-                "p-4 rounded-full bg-zinc-100 dark:bg-zinc-800 transition-colors duration-300",
-                isDragging ? "bg-pink-100 text-pink-600 dark:bg-pink-900/30" : "group-hover:text-pink-600"
+                "p-4 rounded-full bg-slate-100 dark:bg-blue-900/40 transition-colors duration-300",
+                isDragging ? "bg-cyan-100 text-cyan-600 dark:bg-cyan-900/60" : "group-hover:text-cyan-600 dark:group-hover:text-cyan-400 text-slate-400"
             )}>
                 <CloudUpload className="h-8 w-8" />
             </div>
             <div>
-                <p className="text-base font-semibold text-zinc-900 dark:text-white">
+                <p className="text-base font-bold text-slate-900 dark:text-white">
                     {t('stock.images.upload')}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
                     {t('stock.images.uploadHint')}
                 </p>
             </div>
@@ -197,7 +196,7 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
       {selectedFiles.length > 0 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-medium text-zinc-500 dark:text-zinc-400 pl-1">
+            <Label className="text-sm font-bold text-slate-500 dark:text-slate-400 pl-1 uppercase tracking-wide">
               {t('stock.images.selectedFiles')} ({selectedFiles.length})
             </Label>
           </div>
@@ -207,15 +206,15 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
               <div
                 key={index}
                 className="
-                    relative flex items-start gap-4 p-3 
-                    bg-white/60 dark:bg-zinc-900/60 
-                    border border-zinc-200 dark:border-white/10 
-                    rounded-xl shadow-sm
+                    relative flex items-start gap-4 p-4 
+                    bg-white dark:bg-blue-950/40 
+                    border border-slate-200 dark:border-cyan-800/30 
+                    rounded-2xl shadow-sm
                     backdrop-blur-sm
                     group
                 "
               >
-                <div className="relative h-16 w-16 shrink-0 rounded-lg overflow-hidden border border-zinc-100 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800">
+                <div className="relative h-16 w-16 shrink-0 rounded-xl overflow-hidden border border-slate-100 dark:border-cyan-800/50 bg-slate-100 dark:bg-blue-950">
                     <img 
                         src={previews[index]} 
                         alt="Preview" 
@@ -225,26 +224,26 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
 
                 <div className="flex-1 min-w-0 space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-medium text-zinc-900 dark:text-zinc-200 truncate" title={file.name}>
+                      <p className="text-sm font-bold text-slate-900 dark:text-slate-200 truncate" title={file.name}>
                         {file.name}
                       </p>
-                      <span className="text-xs text-zinc-400 shrink-0">
+                      <span className="text-[10px] font-bold text-slate-400 shrink-0 tabular-nums">
                         {(file.size / 1024 / 1024).toFixed(2)} MB
                       </span>
                   </div>
                   
                   <div className="relative">
-                      <FileText className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
+                      <FileText className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-cyan-500/70" />
                       <Input
                         type="text"
                         placeholder={t('stock.images.altText')}
                         value={altTexts[index] || ''}
                         onChange={(e) => handleAltTextChange(index, e.target.value)}
                         className="
-                            h-8 pl-8 text-xs 
-                            bg-transparent 
-                            border-zinc-200 dark:border-zinc-700
-                            focus-visible:ring-1 focus-visible:ring-pink-500
+                            h-8 pl-8 text-xs rounded-lg
+                            bg-slate-50 dark:bg-blue-950/50
+                            border-slate-200 dark:border-cyan-800/30
+                            focus-visible:ring-1 focus-visible:ring-cyan-500
                         "
                       />
                   </div>
@@ -253,7 +252,7 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg -mt-1 -mr-1"
+                  className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg -mt-1 -mr-1"
                   onClick={() => handleRemoveFile(index)}
                 >
                   <X className="h-4 w-4" />
@@ -268,11 +267,11 @@ export function StockImageUpload({ stockId }: StockImageUploadProps): ReactEleme
                 disabled={uploadImages.isPending || uploading}
                 className="
                     w-full h-11 relative overflow-hidden
-                    bg-linear-to-r from-pink-600 to-orange-600 
-                    hover:from-pink-500 hover:to-orange-500
+                    bg-linear-to-r from-cyan-600 to-blue-600 
+                    hover:opacity-95
                     text-white font-bold tracking-wide rounded-xl
-                    shadow-lg shadow-pink-500/25 
-                    hover:shadow-pink-500/40 hover:scale-[1.01] active:scale-[0.99]
+                    shadow-lg shadow-cyan-500/25 
+                    hover:scale-[1.01] active:scale-[0.99]
                     transition-all duration-300
                     border-0
                 "
