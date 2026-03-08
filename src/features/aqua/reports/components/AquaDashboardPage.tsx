@@ -2,13 +2,13 @@ import { type MouseEvent, type ReactElement, useEffect, useState, useMemo } from
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { 
-  Activity, Fish, Layers, Skull, UtensilsCrossed, Waves, Search, 
+  Activity, Fish, Layers, Skull, UtensilsCrossed, Waves, 
   BarChart3, Droplets, Info, TrendingUp, TrendingDown, 
   AlertTriangle, CheckCircle2 
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Combobox } from '@/components/ui/combobox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { PageLoader } from '@/components/shared/PageLoader';
@@ -19,7 +19,6 @@ import { cn } from '@/lib/utils';
 
 const DASHBOARD_QUERY_KEY = ['aqua', 'reports', 'dashboard', 'summaries'] as const;
 const PROJECT_DETAIL_QUERY_KEY = ['aqua', 'reports', 'dashboard', 'project-detail'] as const;
-const PROJECTS_PER_PAGE = 3;
 type DetailType = 'feeding' | 'netOperation' | 'transfer' | 'stockConvert' | 'shipment';
 
 // Sütun genişliklerini sabitlemek için Grid Yapısı (Kaymayı önler)
@@ -99,7 +98,7 @@ function CageCard({ cage, onClick, isSelected = false, clickable = false }: any)
         <div className="px-4 pb-4">
           <div className="flex justify-between items-end mb-1"><span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Yaşam Oranı</span><span className={cn("text-[10px] font-black", isCritical ? "text-rose-500" : isWarning ? "text-amber-500" : "text-emerald-500")}>%{survivalRate.toFixed(1)}</span></div>
           <div className="h-1.5 w-full bg-slate-100 dark:bg-cyan-950/50 rounded-full overflow-hidden">
-            <div className={cn("h-full transition-all duration-1000 ease-out rounded-full", isCritical ? "bg-rose-50" : isWarning ? "bg-amber-500" : "bg-emerald-500")} style={{ width: `${survivalRate}%` }} />
+            <div className={cn("h-full transition-all duration-1000 ease-out rounded-full", isCritical ? "bg-rose-500" : isWarning ? "bg-amber-500" : "bg-emerald-500")} style={{ width: `${survivalRate}%` }} />
           </div>
         </div>
       </div>
@@ -109,8 +108,10 @@ function CageCard({ cage, onClick, isSelected = false, clickable = false }: any)
 
 export function AquaDashboardPage(): ReactElement {
   const { t } = useTranslation('common');
-  const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_PAGE);
-  const [searchTerm, setSearchTerm] = useState('');
+  
+  // YENİ: Dashboard Ana Ekran Seçili Proje State'i
+  const [activeDashboardProjectId, setActiveDashboardProjectId] = useState<number | null>(null);
+  
   const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
   const [selectedCageId, setSelectedCageId] = useState<number | null>(null);
@@ -124,12 +125,23 @@ export function AquaDashboardPage(): ReactElement {
   });
 
   const summaries = summariesQuery.data ?? [];
-  const filteredSummaries = useMemo(() => {
-    if (!searchTerm.trim()) return summaries;
-    const lower = searchTerm.toLowerCase();
-    return summaries.filter(p => p.projectName.toLowerCase().includes(lower) || p.projectCode.toLowerCase().includes(lower));
-  }, [summaries, searchTerm]);
 
+  // Data yüklendiğinde ve henüz proje seçilmediyse İLK projeyi otomatik seç
+  useEffect(() => {
+    if (summaries.length > 0 && activeDashboardProjectId == null) {
+      setActiveDashboardProjectId(summaries[0].projectId);
+    }
+  }, [summaries, activeDashboardProjectId]);
+
+  // Combobox seçenekleri
+  const dashboardProjectOptions = useMemo(() => {
+    return summaries.map(p => ({
+      value: String(p.projectId),
+      label: `${p.projectCode} - ${p.projectName}`
+    }));
+  }, [summaries]);
+
+  // Tesis Genel Özeti Hesaplamaları (Tüm Projeler)
   const globalStats = useMemo(() => {
     return summaries.reduce((acc, curr) => {
       acc.totalFish += curr.currentFish;
@@ -139,16 +151,15 @@ export function AquaDashboardPage(): ReactElement {
     }, { totalFish: 0, totalCages: 0, totalBio: 0, totalFeed: 0, totalDead: 0 });
   }, [summaries]);
 
-  const visibleSummaries = filteredSummaries.slice(0, visibleCount);
-  const selectedProjectSummary = summaries.find((project) => project.projectId === selectedProjectId) ?? null;
+  // Sadece ekranda gösterilecek aktif proje
+  const activeProject = summaries.find(p => p.projectId === activeDashboardProjectId) ?? null;
 
+  // Detay Modal Query'si (Detay Raporu butonuna tıklandığında çalışır)
   const detailQuery = useQuery({
     queryKey: [...PROJECT_DETAIL_QUERY_KEY, selectedProjectId],
     queryFn: async () => projectDetailReportApi.getProjectDetailReport(selectedProjectId as number),
     enabled: selectedProjectId != null,
   });
-
-  useEffect(() => { setVisibleCount(PROJECTS_PER_PAGE); }, [filteredSummaries.length]);
 
   const openProjectDetail = (projectId: number, cageId?: number): void => {
     setSelectedProjectId(projectId);
@@ -183,6 +194,8 @@ export function AquaDashboardPage(): ReactElement {
 
   return (
     <div className="space-y-8 pb-10 animate-in fade-in duration-700">
+      
+      {/* BAŞLIK VE YENİ PROJE SEÇİCİ ALANI */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-1">
         <div>
           <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
@@ -191,54 +204,96 @@ export function AquaDashboardPage(): ReactElement {
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium ml-1">Tesisinizin genel üretim ve proje durumları.</p>
         </div>
-        <div className="relative group w-full md:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-cyan-500 transition-colors" />
-          <Input placeholder="Proje ara..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 h-11 bg-white dark:bg-blue-950/40 border-slate-200 dark:border-cyan-800/30 rounded-xl" />
+        
+        {/* ESKİ ARAMA ÇUBUĞU YERİNE YENİ COMBOBOX */}
+        <div className="w-full md:w-[350px]">
+          <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-cyan-400 mb-2 block ml-1">
+            Görüntülenen Proje
+          </label>
+          <Combobox
+            options={dashboardProjectOptions}
+            value={activeDashboardProjectId ? String(activeDashboardProjectId) : ''}
+            onValueChange={(v) => setActiveDashboardProjectId(v ? Number(v) : null)}
+            placeholder="Tüm Projeler Arasından Seçin..."
+            searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
+            emptyText={t('common.noResults', { defaultValue: 'Sonuç bulunamadı' })}
+            className="w-full h-12 bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/50 rounded-xl focus-visible:ring-pink-500/20 focus-visible:border-pink-500 transition-all font-semibold"
+          />
         </div>
       </div>
 
-      {/* Global Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
-        {[
-          { label: 'Aktif Kafes', val: globalStats.totalCages, icon: Waves, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/10 border-cyan-100' },
-          { label: 'Canlı Balık', val: globalStats.totalFish, icon: Fish, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100' },
-          { label: 'Toplam Biyo', val: `${formatNumber(globalStats.totalBio)}g`, icon: Layers, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100' },
-          { label: 'Toplam Yem', val: `${formatNumber(globalStats.totalFeed)}g`, icon: UtensilsCrossed, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/10 border-amber-100' },
-        ].map((stat, i) => (
-          <Card key={i} className="bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-3xl overflow-hidden hover:scale-[1.02] transition-transform">
-            <CardContent className="p-5 sm:p-6">
-              <div className="flex justify-between items-center gap-2">
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">{stat.label}</p>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1 tabular-nums">{typeof stat.val === 'number' ? formatNumber(stat.val) : stat.val}</h3>
+      {/* TESİS GENEL ÖZETİ */}
+      <div className="space-y-4">
+        <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 px-1 flex items-center gap-2">
+          <Activity className="size-5 text-cyan-500" />
+          Tesis Genel Özeti
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
+          {[
+            { label: 'Aktif Kafes', val: globalStats.totalCages, icon: Waves, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/10 border-cyan-100 dark:border-cyan-800/30' },
+            { label: 'Canlı Balık', val: globalStats.totalFish, icon: Fish, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-800/30' },
+            { label: 'Toplam Biyo', val: `${formatNumber(globalStats.totalBio)}g`, icon: Layers, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100 dark:border-blue-800/30' },
+            { label: 'Toplam Yem', val: `${formatNumber(globalStats.totalFeed)}g`, icon: UtensilsCrossed, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-800/30' },
+          ].map((stat, i) => (
+            <Card key={i} className="bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-3xl overflow-hidden transition-transform">
+              <CardContent className="p-5 sm:p-6">
+                <div className="flex justify-between items-center gap-2">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">{stat.label}</p>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1 tabular-nums">{typeof stat.val === 'number' ? formatNumber(stat.val) : stat.val}</h3>
+                  </div>
+                  <div className={cn("p-3 rounded-2xl border shrink-0", stat.bg, stat.color)}><stat.icon className="size-5 sm:size-6" /></div>
                 </div>
-                <div className={cn("p-3 rounded-2xl border shrink-0", stat.bg, stat.color)}><stat.icon className="size-5 sm:size-6" /></div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
 
-      {/* Project List */}
-      <div className="space-y-8">
-        {visibleSummaries.map((project) => (
-          <Card key={project.projectId} className="border border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/40 dark:backdrop-blur-xl rounded-3xl overflow-hidden cursor-pointer group transition-all" onClick={() => openProjectDetail(project.projectId)}>
-            <CardHeader className="border-b border-slate-100 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/10 px-6 py-5 group-hover:bg-slate-100/50 dark:group-hover:bg-cyan-900/10 transition-colors">
+      {/* SEÇİLEN PROJE DETAY KARTI (Sadece 1 Tane) */}
+      <div className="space-y-4 pt-4">
+        <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 px-1 flex items-center gap-2">
+          <Layers className="size-5 text-pink-500" />
+          Proje Detayı
+        </h2>
+        
+        {summariesQuery.isError ? (
+          <Card className="border-rose-200 bg-rose-50 dark:border-rose-500/30 dark:bg-rose-500/10 rounded-3xl">
+            <CardContent className="py-12 text-sm font-bold text-rose-600 dark:text-rose-400 text-center flex items-center justify-center gap-2">
+              <Info className="size-5" /> Veriler alınamadı.
+            </CardContent>
+          </Card>
+        ) : activeProject ? (
+          <Card key={activeProject.projectId} className="border border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/40 dark:backdrop-blur-xl rounded-3xl overflow-hidden cursor-pointer group transition-all hover:shadow-lg dark:hover:border-cyan-700/50" onClick={() => openProjectDetail(activeProject.projectId)}>
+            <CardHeader className="border-b border-slate-100 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/20 px-6 py-5 group-hover:bg-slate-100/50 dark:group-hover:bg-blue-900/40 transition-colors">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <CardTitle className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-                    <div className="h-3 w-3 shrink-0 rounded-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.6)] animate-pulse" />
-                    <span className="truncate">{project.projectCode} - {project.projectName}</span>
+                    <div className="h-3 w-3 shrink-0 rounded-full bg-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.6)] animate-pulse" />
+                    <span className="truncate">{activeProject.projectCode} - {activeProject.projectName}</span>
                   </CardTitle>
                 </div>
-                <Button type="button" className="bg-linear-to-r from-cyan-600 to-blue-600 text-white h-10 px-6 rounded-xl font-bold shadow-lg shadow-cyan-500/20 border-0" onClick={(e) => { e.stopPropagation(); openProjectDetail(project.projectId); }}>
+                <Button type="button" className="bg-linear-to-r from-pink-600 to-orange-600 text-white h-10 px-6 rounded-xl font-bold shadow-lg shadow-pink-500/20 border-0 transition-transform hover:scale-105" onClick={(e) => { e.stopPropagation(); openProjectDetail(activeProject.projectId); }}>
                   <BarChart3 className="size-4 mr-2" /> Detay Raporu
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="p-5 sm:p-6"><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">{project.cages.map((cage: any) => (<CageCard key={cage.projectCageId} cage={cage} t={t} clickable onClick={() => openDailyFromProjectList(project.projectId, cage.projectCageId)} />))}</div></CardContent>
+            <CardContent className="p-5 sm:p-6 bg-transparent">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                {activeProject.cages.map((cage: any) => (
+                  <CageCard key={cage.projectCageId} cage={cage} t={t} clickable onClick={() => openDailyFromProjectList(activeProject.projectId, cage.projectCageId)} />
+                ))}
+              </div>
+            </CardContent>
           </Card>
-        ))}
+        ) : (
+          <Card className="bg-white border-slate-200 dark:border-cyan-800/20 dark:bg-blue-950/40 dark:backdrop-blur-xl rounded-3xl">
+            <CardContent className="py-20 text-center text-slate-500 dark:text-slate-400 font-medium">
+              <Fish className="size-16 mx-auto mb-4 text-slate-300 dark:text-cyan-900/50" />
+              Lütfen detaylarını görmek için yukarıdan bir proje seçiniz.
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* GÜNLÜK DETAY TABLOSU DIALOG */}
@@ -258,7 +313,7 @@ export function AquaDashboardPage(): ReactElement {
               <div className={cn(TABLE_GRID_LAYOUT, "px-6 py-4 bg-slate-100/80 dark:bg-blue-900/40 border-b border-slate-200 dark:border-cyan-800/30 text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest")}>
                 <span>Tarih</span><span className="text-center">Yem (g)</span><span className="text-center">Stok</span><span className="text-center text-rose-500">Ölü</span><span className="text-center">Delta</span><span className="text-center text-blue-500">Biyo Delta</span><span>Hava</span><span className="text-center">Ağ</span><span className="text-center">Trans.</span><span className="text-center">Sevk</span><span className="text-right">Durum</span>
               </div>
-              <div className="max-h-[500px] overflow-y-auto divide-y divide-slate-100 dark:divide-cyan-800/10">
+              <div className="max-h-[500px] overflow-y-auto divide-y divide-slate-100 dark:divide-cyan-800/10 custom-scrollbar">
                 {selectedCageFromDetail?.dailyRows.map((row: any, index: number) => {
                   const prevRow = selectedCageFromDetail.dailyRows[index + 1];
                   const deadDiff = prevRow ? row.deadCount - prevRow.deadCount : 0;
@@ -293,8 +348,8 @@ export function AquaDashboardPage(): ReactElement {
         <DialogContent className="w-[95vw] max-w-4xl max-h-[90dvh] overflow-hidden bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30 p-0 rounded-4xl shadow-2xl flex flex-col outline-none">
           <DialogHeader className="px-6 py-5 sm:px-8 sm:py-6 border-b border-slate-100 dark:border-cyan-800/20 bg-slate-50/80 dark:bg-blue-900/10 shrink-0">
             <DialogTitle className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400"><BarChart3 className="size-5" /></div>
-              {selectedProjectSummary ? `${selectedProjectSummary.projectCode} - ${selectedProjectSummary.projectName}` : '-'}
+              <div className="p-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-600 dark:text-pink-400"><BarChart3 className="size-5" /></div>
+              {summaries.find(p => p.projectId === selectedProjectId) ? `${summaries.find(p => p.projectId === selectedProjectId)?.projectCode} - ${summaries.find(p => p.projectId === selectedProjectId)?.projectName}` : '-'}
             </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 custom-scrollbar">
