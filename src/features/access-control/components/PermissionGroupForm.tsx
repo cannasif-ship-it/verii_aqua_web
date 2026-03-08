@@ -94,9 +94,9 @@ export function PermissionGroupForm({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30 text-slate-900 dark:text-white max-w-2xl w-[95%] sm:w-full shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh] transition-colors duration-300">
-        <DialogHeader className="px-8 py-6 border-b border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10">
-          <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+      <DialogContent className="bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30 text-slate-900 dark:text-white w-[95vw] max-w-[800px]! shadow-2xl sm:rounded-2xl p-0 overflow-hidden flex flex-col max-h-[90vh] transition-colors duration-300">
+        <DialogHeader className="px-6 py-5 sm:px-8 sm:py-6 border-b border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10 shrink-0">
+          <DialogTitle className="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
             <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 shadow-sm">
               <Shield className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
             </div>
@@ -107,7 +107,7 @@ export function PermissionGroupForm({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 custom-scrollbar">
           <Form {...form}>
             <form id="permission-group-form" onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
               <FormField
@@ -184,7 +184,7 @@ export function PermissionGroupForm({
           </Form>
         </div>
 
-        <DialogFooter className="px-8 py-6 border-t border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10">
+        <DialogFooter className="px-6 py-5 sm:px-8 sm:py-6 border-t border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10 shrink-0">
           <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} disabled={isLoading} className="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 px-6 font-bold transition-colors rounded-xl">
             {t('common.cancel')}
           </Button>
