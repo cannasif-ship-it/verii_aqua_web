@@ -103,5 +103,19 @@
     "setPrimarySuccess": "Primärbild erfolgreich festgelegt",
     "relationCreateSuccess": "Related stock added successfully",
     "error": "Ein Fehler ist aufgetreten"
+  },
+  "api": {
+    "listLoadFailed": "Bestandsliste konnte nicht geladen werden",
+    "dataUnavailable": "Bestandsdaten sind nicht verfügbar",
+    "detailLoadFailed": "Bestandsdetail konnte nicht geladen werden",
+    "createFailed": "Bestandsdetail konnte nicht erstellt werden",
+    "updateFailed": "Bestandsdetail konnte nicht aktualisiert werden",
+    "imagesLoadFailed": "Bestandsbilder konnten nicht geladen werden",
+    "imageDeleteFailed": "Bestandsbild konnte nicht gelöscht werden",
+    "primaryImageSetFailed": "Hauptbild konnte nicht festgelegt werden",
+    "relationsLoadFailed": "Verknüpfte Bestände konnten nicht geladen werden",
+    "relationCreateFailed": "Verknüpfter Bestand konnte nicht erstellt werden",
+    "relationDeleteFailed": "Verknüpfter Bestand konnte nicht gelöscht werden",
+    "visualListLoadFailed": "Visuelle Bestandsliste konnte nicht geladen werden"
   }
 }

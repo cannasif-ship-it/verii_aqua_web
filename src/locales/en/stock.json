@@ -98,5 +98,19 @@
     "setPrimarySuccess": "Primary image set successfully",
     "relationCreateSuccess": "Related stock added successfully",
     "error": "An error occurred"
+  },
+  "api": {
+    "listLoadFailed": "Stock list could not be loaded",
+    "dataUnavailable": "Stock data is unavailable",
+    "detailLoadFailed": "Stock detail could not be loaded",
+    "createFailed": "Stock detail could not be created",
+    "updateFailed": "Stock detail could not be updated",
+    "imagesLoadFailed": "Stock images could not be loaded",
+    "imageDeleteFailed": "Stock image could not be deleted",
+    "primaryImageSetFailed": "Primary image could not be set",
+    "relationsLoadFailed": "Related stocks could not be loaded",
+    "relationCreateFailed": "Related stock could not be created",
+    "relationDeleteFailed": "Related stock could not be deleted",
+    "visualListLoadFailed": "Stock visual list could not be loaded"
   }
 }

@@ -101,10 +101,11 @@ export function StockBasicInfo({ stock }: StockBasicInfoProps): ReactElement {
 }
 
 function InfoItem({ label, value, icon: Icon, copyable, featured }: any) {
+    const { t } = useTranslation();
     const handleCopy = () => {
         if (value) {
             navigator.clipboard.writeText(value);
-            toast.success('Kopyalandı');
+            toast.success(t('stock.detail.copied', { defaultValue: 'Kopyalandı' }));
         }
     };
 

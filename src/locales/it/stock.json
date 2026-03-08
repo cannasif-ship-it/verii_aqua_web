@@ -127,5 +127,19 @@
     "setPrimarySuccess": "Immagine principale aggiornata",
     "relationCreateSuccess": "Relazione creata correttamente",
     "error": "Si è verificato un errore"
+  },
+  "api": {
+    "listLoadFailed": "Impossibile caricare l’elenco stock",
+    "dataUnavailable": "I dati di stock non sono disponibili",
+    "detailLoadFailed": "Impossibile caricare il dettaglio stock",
+    "createFailed": "Impossibile creare il dettaglio stock",
+    "updateFailed": "Impossibile aggiornare il dettaglio stock",
+    "imagesLoadFailed": "Impossibile caricare le immagini stock",
+    "imageDeleteFailed": "Impossibile eliminare l’immagine stock",
+    "primaryImageSetFailed": "Impossibile impostare l’immagine principale",
+    "relationsLoadFailed": "Impossibile caricare gli stock correlati",
+    "relationCreateFailed": "Impossibile creare lo stock correlato",
+    "relationDeleteFailed": "Impossibile eliminare lo stock correlato",
+    "visualListLoadFailed": "Impossibile caricare l’elenco visivo stock"
   }
 }

@@ -127,5 +127,19 @@
     "setPrimarySuccess": "تم تحديث الصورة الرئيسية",
     "relationCreateSuccess": "تم إنشاء العلاقة بنجاح",
     "error": "حدث خطأ"
+  },
+  "api": {
+    "listLoadFailed": "تعذر تحميل قائمة المخزون",
+    "dataUnavailable": "بيانات المخزون غير متاحة",
+    "detailLoadFailed": "تعذر تحميل تفاصيل المخزون",
+    "createFailed": "تعذر إنشاء تفاصيل المخزون",
+    "updateFailed": "تعذر تحديث تفاصيل المخزون",
+    "imagesLoadFailed": "تعذر تحميل صور المخزون",
+    "imageDeleteFailed": "تعذر حذف صورة المخزون",
+    "primaryImageSetFailed": "تعذر تعيين الصورة الرئيسية",
+    "relationsLoadFailed": "تعذر تحميل المخزونات المرتبطة",
+    "relationCreateFailed": "تعذر إنشاء المخزون المرتبط",
+    "relationDeleteFailed": "تعذر حذف المخزون المرتبط",
+    "visualListLoadFailed": "تعذر تحميل القائمة المرئية للمخزون"
   }
 }

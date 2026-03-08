@@ -98,5 +98,19 @@
     "setPrimarySuccess": "Ana görsel başarıyla ayarlandı",
     "relationCreateSuccess": "Bağlı stok başarıyla eklendi",
     "error": "Bir hata oluştu"
+  },
+  "api": {
+    "listLoadFailed": "Stok listesi yüklenemedi",
+    "dataUnavailable": "Stok verisi alınamadı",
+    "detailLoadFailed": "Stok detayı yüklenemedi",
+    "createFailed": "Stok detayı oluşturulamadı",
+    "updateFailed": "Stok detayı güncellenemedi",
+    "imagesLoadFailed": "Stok görselleri yüklenemedi",
+    "imageDeleteFailed": "Stok görseli silinemedi",
+    "primaryImageSetFailed": "Ana görsel ayarlanamadı",
+    "relationsLoadFailed": "Bağlı stoklar yüklenemedi",
+    "relationCreateFailed": "Bağlı stok oluşturulamadı",
+    "relationDeleteFailed": "Bağlı stok silinemedi",
+    "visualListLoadFailed": "Stok görsel listesi yüklenemedi"
   }
 }

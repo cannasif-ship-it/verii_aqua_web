@@ -127,5 +127,19 @@
     "setPrimarySuccess": "Imagen principal actualizada",
     "relationCreateSuccess": "Relación creada correctamente",
     "error": "Ocurrió un error"
+  },
+  "api": {
+    "listLoadFailed": "No se pudo cargar la lista de stock",
+    "dataUnavailable": "Los datos de stock no están disponibles",
+    "detailLoadFailed": "No se pudo cargar el detalle del stock",
+    "createFailed": "No se pudo crear el detalle del stock",
+    "updateFailed": "No se pudo actualizar el detalle del stock",
+    "imagesLoadFailed": "No se pudieron cargar las imágenes del stock",
+    "imageDeleteFailed": "No se pudo eliminar la imagen del stock",
+    "primaryImageSetFailed": "No se pudo establecer la imagen principal",
+    "relationsLoadFailed": "No se pudieron cargar los stocks relacionados",
+    "relationCreateFailed": "No se pudo crear el stock relacionado",
+    "relationDeleteFailed": "No se pudo eliminar el stock relacionado",
+    "visualListLoadFailed": "No se pudo cargar la lista visual del stock"
   }
 }

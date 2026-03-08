@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import type { ApiResponse, PagedResponse, PagedParams, PagedFilter } from '@/types/api';
 import type {
   StockGetDto,
@@ -28,11 +29,11 @@ export const stockApi = {
     );
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok listesi yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.listLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Stok listesi verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     const pagedData = response.data;
@@ -52,11 +53,11 @@ export const stockApi = {
     const response = await api.get<ApiResponse<StockGetDto>>(`/api/Stock/${id}`);
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok detayı yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.detailLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Stok detayı verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -70,7 +71,7 @@ export const stockApi = {
     }
 
     if (!response.success) {
-      throw new Error(response.message || 'Stok detayı yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.detailLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
@@ -84,11 +85,11 @@ export const stockApi = {
     const response = await api.post<ApiResponse<StockDetailGetDto>>('/api/StockDetail', data);
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok detayı oluşturulamadı');
+      throw new Error(response.message || i18n.t('stock.api.createFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Stok detayı verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -98,11 +99,11 @@ export const stockApi = {
     const response = await api.put<ApiResponse<StockDetailGetDto>>(`/api/StockDetail/${id}`, data);
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok detayı güncellenemedi');
+      throw new Error(response.message || i18n.t('stock.api.updateFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Stok detayı verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -130,11 +131,11 @@ export const stockApi = {
     );
     
     if (!response.success) {
-      throw new Error(response.message || 'Görseller yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.imagesLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Görsel verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -144,7 +145,7 @@ export const stockApi = {
     const response = await api.get<ApiResponse<StockImageDto[]>>(`/api/StockImage/by-stock/${stockId}`);
     
     if (!response.success) {
-      throw new Error(response.message || 'Görseller yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.imagesLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
@@ -157,7 +158,7 @@ export const stockApi = {
   deleteImage: async (id: number): Promise<void> => {
     const response = await api.delete<ApiResponse<object>>(`/api/StockImage/${id}`);
     if (!response.success) {
-      throw new Error(response.message || 'Görsel silinemedi');
+      throw new Error(response.message || i18n.t('stock.api.imageDeleteFailed', { ns: 'stock' }));
     }
   },
 
@@ -165,11 +166,11 @@ export const stockApi = {
     const response = await api.put<ApiResponse<StockImageDto>>(`/api/StockImage/set-primary/${id}`);
     
     if (!response.success) {
-      throw new Error(response.message || 'Ana görsel ayarlanamadı');
+      throw new Error(response.message || i18n.t('stock.api.primaryImageSetFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Ana görsel verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -179,7 +180,7 @@ export const stockApi = {
     const response = await api.get<ApiResponse<StockRelationDto[]>>(`/api/StockRelation/by-stock/${stockId}`);
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok ilişkileri yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.relationsLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
@@ -193,11 +194,11 @@ export const stockApi = {
     const response = await api.post<ApiResponse<StockRelationDto>>('/api/StockRelation', data);
     
     if (!response.success) {
-      throw new Error(response.message || 'Stok ilişkisi oluşturulamadı');
+      throw new Error(response.message || i18n.t('stock.api.relationCreateFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Stok ilişkisi verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     return response.data;
@@ -206,7 +207,7 @@ export const stockApi = {
   deleteRelation: async (id: number): Promise<void> => {
     const response = await api.delete<ApiResponse<object>>(`/api/StockRelation/${id}`);
     if (!response.success) {
-      throw new Error(response.message || 'Stok ilişkisi silinemedi');
+      throw new Error(response.message || i18n.t('stock.api.relationDeleteFailed', { ns: 'stock' }));
     }
   },
 
@@ -226,11 +227,11 @@ export const stockApi = {
     );
     
     if (!response.success) {
-      throw new Error(response.message || 'Görselli stok listesi yüklenemedi');
+      throw new Error(response.message || i18n.t('stock.api.visualListLoadFailed', { ns: 'stock' }));
     }
 
     if (!response.data) {
-      throw new Error('Görselli stok listesi verisi alınamadı');
+      throw new Error(i18n.t('stock.api.dataUnavailable', { ns: 'stock' }));
     }
 
     const pagedData = response.data;
