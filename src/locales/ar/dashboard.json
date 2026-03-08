@@ -71,5 +71,70 @@
   "reportDownloaded": "تم تنزيل التقرير.",
   "reportError": "لا يمكن استلام التقرير.",
   "noDate": "لا يوجد تاريخ",
-  "unnamedActivity": "نشاط مجهول"
+  "unnamedActivity": "نشاط مجهول",
+  "errors": {
+    "listLoadFailed": "تعذر تحميل القائمة",
+    "pathListLoadFailed": "تعذر تحميل قائمة المسارات",
+    "projectNotFound": "المشروع غير موجود"
+  },
+  "aquaDashboard": {
+    "title": "لوحة تحكم أكوا",
+    "description": "الحالة العامة للإنتاج والمشاريع في منشأتك.",
+    "selectedProject": "المشروع المعروض",
+    "selectProjectPlaceholder": "اختر من بين جميع المشاريع...",
+    "facilitySummary": "ملخص المنشأة",
+    "projectDetail": "تفاصيل المشروع",
+    "dataLoadFailed": "تعذر تحميل البيانات.",
+    "detailReportButton": "تقرير تفصيلي",
+    "selectProjectHint": "يرجى اختيار مشروع من الأعلى لعرض تفاصيله.",
+    "dailyFlow": "تدفق البيانات اليومي",
+    "stats": {
+      "activeCages": "الأقفاص النشطة",
+      "liveFish": "الأسماك الحية",
+      "totalBiomass": "الكتلة الحيوية الإجمالية",
+      "totalFeed": "إجمالي العلف"
+    },
+    "detailTypes": {
+      "feeding": "تفاصيل التغذية",
+      "netOperation": "عملية الشبك",
+      "transfer": "تحويل",
+      "stockConvert": "تحويل المخزون",
+      "shipment": "شحنة"
+    },
+    "detailDialog": {
+      "date": "التاريخ: {{date}}"
+    },
+    "dailyTable": {
+      "date": "التاريخ",
+      "feedGram": "العلف (غ)",
+      "stock": "المخزون",
+      "dead": "نافِق",
+      "delta": "التغير",
+      "biomassDelta": "تغير الكتلة الحيوية",
+      "weather": "الطقس",
+      "net": "الشبك",
+      "transfer": "تحويل",
+      "shipment": "شحنة",
+      "status": "الحالة",
+      "stockCount": "{{count}} مخزون",
+      "operationCount": "{{count}} عملية",
+      "fed": "تَمّت التغذية",
+      "notFed": "لم تتم التغذية"
+    },
+    "projectDialog": {
+      "fish": "الأسماك",
+      "dead": "النفوق",
+      "feedGram": "العلف (غ)",
+      "cages": "الأقفاص",
+      "cagePools": "أحواض الأقفاص",
+      "clickForDailyDetail": "انقر لعرض التفاصيل اليومية"
+    },
+    "cageCard": {
+      "fishUnit": "سمكة",
+      "totalDead": "النفوق",
+      "feed": "العلف",
+      "biomass": "الكتلة الحيوية",
+      "survivalRate": "معدل البقاء"
+    }
+  }
 }

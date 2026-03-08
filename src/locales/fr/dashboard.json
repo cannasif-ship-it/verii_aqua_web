@@ -71,5 +71,70 @@
     "orderCreateWizard": "Créer Nouveau Devis",
     "activities": "Planification",
     "activityManagement": "Gestion des activités"
+  },
+  "errors": {
+    "listLoadFailed": "La liste n’a pas pu être chargée",
+    "pathListLoadFailed": "La liste des chemins n’a pas pu être chargée",
+    "projectNotFound": "Projet introuvable"
+  },
+  "aquaDashboard": {
+    "title": "Tableau de bord Aqua",
+    "description": "État général de production et des projets de votre installation.",
+    "selectedProject": "Projet affiché",
+    "selectProjectPlaceholder": "Sélectionner parmi tous les projets...",
+    "facilitySummary": "Résumé de l’installation",
+    "projectDetail": "Détail du projet",
+    "dataLoadFailed": "Les données n’ont pas pu être chargées.",
+    "detailReportButton": "Rapport détaillé",
+    "selectProjectHint": "Veuillez sélectionner un projet ci-dessus pour voir ses détails.",
+    "dailyFlow": "Flux quotidien des données",
+    "stats": {
+      "activeCages": "Cages actives",
+      "liveFish": "Poissons vivants",
+      "totalBiomass": "Biomasse totale",
+      "totalFeed": "Alimentation totale"
+    },
+    "detailTypes": {
+      "feeding": "Détail d’alimentation",
+      "netOperation": "Opération de filet",
+      "transfer": "Transfert",
+      "stockConvert": "Conversion de stock",
+      "shipment": "Expédition"
+    },
+    "detailDialog": {
+      "date": "Date : {{date}}"
+    },
+    "dailyTable": {
+      "date": "Date",
+      "feedGram": "Aliment (g)",
+      "stock": "Stock",
+      "dead": "Mort",
+      "delta": "Delta",
+      "biomassDelta": "Delta biomasse",
+      "weather": "Météo",
+      "net": "Filet",
+      "transfer": "Transfert",
+      "shipment": "Expédition",
+      "status": "Statut",
+      "stockCount": "{{count}} stock",
+      "operationCount": "{{count}} opération",
+      "fed": "NOURRI",
+      "notFed": "NON NOURRI"
+    },
+    "projectDialog": {
+      "fish": "Poissons",
+      "dead": "Mortalité",
+      "feedGram": "Aliment (g)",
+      "cages": "Cages",
+      "cagePools": "Bassins de cages",
+      "clickForDailyDetail": "Cliquez pour le détail quotidien"
+    },
+    "cageCard": {
+      "fishUnit": "poissons",
+      "totalDead": "Mortalité",
+      "feed": "Aliment",
+      "biomass": "Biomasse",
+      "survivalRate": "Taux de survie"
+    }
   }
 }

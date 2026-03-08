@@ -71,5 +71,70 @@
     "orderCreateWizard": "Neue Bestellung erstellen",
     "activities": "Planung",
     "activityManagement": "Aktivitätsmanagement"
+  },
+  "errors": {
+    "listLoadFailed": "Liste konnte nicht geladen werden",
+    "pathListLoadFailed": "Pfadliste konnte nicht geladen werden",
+    "projectNotFound": "Projekt nicht gefunden"
+  },
+  "aquaDashboard": {
+    "title": "Aqua-Dashboard",
+    "description": "Allgemeiner Produktions- und Projektstatus Ihrer Anlage.",
+    "selectedProject": "Angezeigtes Projekt",
+    "selectProjectPlaceholder": "Aus allen Projekten auswählen...",
+    "facilitySummary": "Anlagenübersicht",
+    "projectDetail": "Projektdetail",
+    "dataLoadFailed": "Daten konnten nicht geladen werden.",
+    "detailReportButton": "Detailbericht",
+    "selectProjectHint": "Bitte wählen Sie oben ein Projekt aus, um die Details anzuzeigen.",
+    "dailyFlow": "Täglicher Datenfluss",
+    "stats": {
+      "activeCages": "Aktive Käfige",
+      "liveFish": "Lebende Fische",
+      "totalBiomass": "Gesamtbiomasse",
+      "totalFeed": "Gesamtfutter"
+    },
+    "detailTypes": {
+      "feeding": "Fütterungsdetail",
+      "netOperation": "Netzvorgang",
+      "transfer": "Transfer",
+      "stockConvert": "Bestandsumwandlung",
+      "shipment": "Versand"
+    },
+    "detailDialog": {
+      "date": "Datum: {{date}}"
+    },
+    "dailyTable": {
+      "date": "Datum",
+      "feedGram": "Futter (g)",
+      "stock": "Bestand",
+      "dead": "Tot",
+      "delta": "Delta",
+      "biomassDelta": "Biomasse-Delta",
+      "weather": "Wetter",
+      "net": "Netz",
+      "transfer": "Transfer",
+      "shipment": "Versand",
+      "status": "Status",
+      "stockCount": "{{count}} Bestand",
+      "operationCount": "{{count}} Vorgang",
+      "fed": "GEFÜTTERT",
+      "notFed": "NICHT GEFÜTTERT"
+    },
+    "projectDialog": {
+      "fish": "Fische",
+      "dead": "Sterblichkeit",
+      "feedGram": "Futter (g)",
+      "cages": "Käfige",
+      "cagePools": "Käfigbecken",
+      "clickForDailyDetail": "Für Tagesdetails klicken"
+    },
+    "cageCard": {
+      "fishUnit": "Fische",
+      "totalDead": "Sterblichkeit",
+      "feed": "Futter",
+      "biomass": "Biomasse",
+      "survivalRate": "Überlebensrate"
+    }
   }
 }

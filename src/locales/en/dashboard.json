@@ -68,5 +68,70 @@
     "orderCreateWizard": "Create New Order",
     "activities": "Planning",
     "activityManagement": "Activity Management"
+  },
+  "errors": {
+    "listLoadFailed": "List could not be loaded",
+    "pathListLoadFailed": "Path list could not be loaded",
+    "projectNotFound": "Project not found"
+  },
+  "aquaDashboard": {
+    "title": "Aqua Dashboard",
+    "description": "General production and project status of your facility.",
+    "selectedProject": "Displayed Project",
+    "selectProjectPlaceholder": "Select from all projects...",
+    "facilitySummary": "Facility Summary",
+    "projectDetail": "Project Detail",
+    "dataLoadFailed": "Data could not be loaded.",
+    "detailReportButton": "Detail Report",
+    "selectProjectHint": "Please select a project above to see its details.",
+    "dailyFlow": "Daily Data Flow",
+    "stats": {
+      "activeCages": "Active Cages",
+      "liveFish": "Live Fish",
+      "totalBiomass": "Total Biomass",
+      "totalFeed": "Total Feed"
+    },
+    "detailTypes": {
+      "feeding": "Feeding Detail",
+      "netOperation": "Net Operation",
+      "transfer": "Transfer",
+      "stockConvert": "Stock Conversion",
+      "shipment": "Shipment"
+    },
+    "detailDialog": {
+      "date": "Date: {{date}}"
+    },
+    "dailyTable": {
+      "date": "Date",
+      "feedGram": "Feed (g)",
+      "stock": "Stock",
+      "dead": "Dead",
+      "delta": "Delta",
+      "biomassDelta": "Biomass Delta",
+      "weather": "Weather",
+      "net": "Net",
+      "transfer": "Transfer",
+      "shipment": "Shipment",
+      "status": "Status",
+      "stockCount": "{{count}} stock",
+      "operationCount": "{{count}} operation",
+      "fed": "FED",
+      "notFed": "NOT FED"
+    },
+    "projectDialog": {
+      "fish": "Fish",
+      "dead": "Mortality",
+      "feedGram": "Feed (g)",
+      "cages": "Cages",
+      "cagePools": "Cage Pools",
+      "clickForDailyDetail": "Click for daily detail"
+    },
+    "cageCard": {
+      "fishUnit": "fish",
+      "totalDead": "Mortality",
+      "feed": "Feed",
+      "biomass": "Biomass",
+      "survivalRate": "Survival Rate"
+    }
   }
 }

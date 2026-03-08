@@ -71,5 +71,70 @@
     "orderCreateWizard": "Crea Nuovo Preventivo",
     "activities": "Pianificazione",
     "activityManagement": "Gestione Attività"
+  },
+  "errors": {
+    "listLoadFailed": "Impossibile caricare l’elenco",
+    "pathListLoadFailed": "Impossibile caricare l’elenco percorsi",
+    "projectNotFound": "Progetto non trovato"
+  },
+  "aquaDashboard": {
+    "title": "Dashboard Aqua",
+    "description": "Stato generale della produzione e dei progetti del tuo impianto.",
+    "selectedProject": "Progetto visualizzato",
+    "selectProjectPlaceholder": "Seleziona tra tutti i progetti...",
+    "facilitySummary": "Riepilogo impianto",
+    "projectDetail": "Dettaglio progetto",
+    "dataLoadFailed": "Impossibile caricare i dati.",
+    "detailReportButton": "Report dettagliato",
+    "selectProjectHint": "Seleziona un progetto sopra per vederne i dettagli.",
+    "dailyFlow": "Flusso dati giornaliero",
+    "stats": {
+      "activeCages": "Gabbie attive",
+      "liveFish": "Pesci vivi",
+      "totalBiomass": "Biomassa totale",
+      "totalFeed": "Mangime totale"
+    },
+    "detailTypes": {
+      "feeding": "Dettaglio alimentazione",
+      "netOperation": "Operazione rete",
+      "transfer": "Trasferimento",
+      "stockConvert": "Conversione stock",
+      "shipment": "Spedizione"
+    },
+    "detailDialog": {
+      "date": "Data: {{date}}"
+    },
+    "dailyTable": {
+      "date": "Data",
+      "feedGram": "Mangime (g)",
+      "stock": "Stock",
+      "dead": "Morti",
+      "delta": "Delta",
+      "biomassDelta": "Delta biomassa",
+      "weather": "Meteo",
+      "net": "Rete",
+      "transfer": "Trasferimento",
+      "shipment": "Spedizione",
+      "status": "Stato",
+      "stockCount": "{{count}} stock",
+      "operationCount": "{{count}} operazione",
+      "fed": "NUTRITO",
+      "notFed": "NON NUTRITO"
+    },
+    "projectDialog": {
+      "fish": "Pesci",
+      "dead": "Mortalità",
+      "feedGram": "Mangime (g)",
+      "cages": "Gabbie",
+      "cagePools": "Vasche gabbia",
+      "clickForDailyDetail": "Clicca per il dettaglio giornaliero"
+    },
+    "cageCard": {
+      "fishUnit": "pesci",
+      "totalDead": "Mortalità",
+      "feed": "Mangime",
+      "biomass": "Biomassa",
+      "survivalRate": "Tasso di sopravvivenza"
+    }
   }
 }

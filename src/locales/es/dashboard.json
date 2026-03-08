@@ -71,5 +71,70 @@
     "orderCreateWizard": "Crear Nueva Cotización",
     "activities": "Planificación",
     "activityManagement": "Gestión de actividades"
+  },
+  "errors": {
+    "listLoadFailed": "No se pudo cargar la lista",
+    "pathListLoadFailed": "No se pudo cargar la lista de rutas",
+    "projectNotFound": "Proyecto no encontrado"
+  },
+  "aquaDashboard": {
+    "title": "Panel Aqua",
+    "description": "Estado general de producción y de proyectos de su instalación.",
+    "selectedProject": "Proyecto mostrado",
+    "selectProjectPlaceholder": "Seleccionar entre todos los proyectos...",
+    "facilitySummary": "Resumen de la instalación",
+    "projectDetail": "Detalle del proyecto",
+    "dataLoadFailed": "No se pudieron cargar los datos.",
+    "detailReportButton": "Informe detallado",
+    "selectProjectHint": "Seleccione un proyecto arriba para ver sus detalles.",
+    "dailyFlow": "Flujo diario de datos",
+    "stats": {
+      "activeCages": "Jaulas activas",
+      "liveFish": "Peces vivos",
+      "totalBiomass": "Biomasa total",
+      "totalFeed": "Alimento total"
+    },
+    "detailTypes": {
+      "feeding": "Detalle de alimentación",
+      "netOperation": "Operación de red",
+      "transfer": "Transferencia",
+      "stockConvert": "Conversión de stock",
+      "shipment": "Envío"
+    },
+    "detailDialog": {
+      "date": "Fecha: {{date}}"
+    },
+    "dailyTable": {
+      "date": "Fecha",
+      "feedGram": "Alimento (g)",
+      "stock": "Stock",
+      "dead": "Muertos",
+      "delta": "Delta",
+      "biomassDelta": "Delta biomasa",
+      "weather": "Clima",
+      "net": "Red",
+      "transfer": "Transferencia",
+      "shipment": "Envío",
+      "status": "Estado",
+      "stockCount": "{{count}} stock",
+      "operationCount": "{{count}} operación",
+      "fed": "ALIMENTADO",
+      "notFed": "SIN ALIMENTAR"
+    },
+    "projectDialog": {
+      "fish": "Peces",
+      "dead": "Mortalidad",
+      "feedGram": "Alimento (g)",
+      "cages": "Jaulas",
+      "cagePools": "Piscinas de jaulas",
+      "clickForDailyDetail": "Haz clic para el detalle diario"
+    },
+    "cageCard": {
+      "fishUnit": "peces",
+      "totalDead": "Mortalidad",
+      "feed": "Alimento",
+      "biomass": "Biomasa",
+      "survivalRate": "Tasa de supervivencia"
+    }
   }
 }
