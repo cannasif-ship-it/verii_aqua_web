@@ -1,6 +1,7 @@
 import { type ReactElement, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/lib/i18n';
 import { toast } from 'sonner';
 import { useUIStore } from '@/stores/ui-store';
 import { useAuthStore } from '@/stores/auth-store';
@@ -224,7 +225,7 @@ const DraggableTh = ({ id, children, className, onClick, ...props }: DraggableTh
           {...attributes}
           {...listeners}
           className="cursor-grab active:cursor-grabbing hover:bg-slate-200 dark:hover:bg-blue-900/50 p-1 rounded-md transition-colors touch-none text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
-          title="Sürükle bırak ile sıralamayı değiştir"
+                      title={i18n.t('aqua.crud.reorderTitle', { ns: 'common' })}
         >
           <GripVertical size={14} />
         </button>
@@ -895,7 +896,7 @@ export function AquaCrudPage({
                       <DialogTitle className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                         {editingRow ? t('aqua.common.editRecord', 'Kaydı Düzenle') : t('aqua.common.createRecord', 'Yeni Kayıt')}
                       </DialogTitle>
-                      <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{localizedTitle} modülü için bilgileri doldurun.</DialogDescription>
+                      <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{t('aqua.crud.formDescription', { module: localizedTitle })}</DialogDescription>
                    </div>
                 </div>
                 <Button variant="ghost" size="icon" onClick={() => setFormOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full"><X size={20} /></Button>
@@ -935,7 +936,7 @@ export function AquaCrudPage({
                  <div className="h-16 w-16 rounded-full bg-red-100 dark:bg-red-600/10 flex items-center justify-center"><AlertTriangle size={32} className="text-red-600 dark:text-red-500" /></div>
                  <div className="space-y-3">
                    <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{t('aqua.common.confirmDelete', 'Emin misiniz?')}</h2>
-                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">Bu kaydı kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?</p>
+                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">{t('aqua.crud.deleteDescription')}</p>
                  </div>
               </div>
               <DialogFooter className="px-6 py-4 border-t border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex-col sm:flex-row gap-3">

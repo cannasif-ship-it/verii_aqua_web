@@ -81,7 +81,7 @@ export function MortalityQuickForm({
                         type="number" 
                         min={0} 
                         className={inputStyle} 
-                        placeholder="Örn: 15"
+                        placeholder={t('aqua.quickDailyEntry.mortality.exampleCount')}
                         {...field} 
                       />
                     </FormControl>

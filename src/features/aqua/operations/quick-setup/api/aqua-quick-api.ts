@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import type { ApiResponse } from '@/types/api';
 import type {
   ProjectDto,
@@ -152,7 +153,7 @@ async function getAllAquaItems<T>(endpoint: string, pageSize = 500): Promise<T[]
 
   while (true) {
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`/api/aqua/${endpoint}?${buildPagedQuery(page, pageSize)}`);
-    const raw = ensureSuccess(response, `${endpoint} listesi yüklenemedi`);
+    const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
     const items = extractPagedItems(raw);
     all.push(...items);
 
@@ -167,13 +168,13 @@ export const aquaQuickApi = {
   getProjects: async (): Promise<ProjectDto[]> => {
     const query = buildPagedQuery(1, 500);
     const response = await api.get<ApiResponse<PagedResultRaw<ProjectDto>>>(`/api/aqua/Project?${query}`);
-    const raw = ensureSuccess(response, 'Projeler yüklenemedi');
+    const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
     return extractPagedItems(raw);
   },
 
   createProject: async (payload: CreateProjectPayload): Promise<ProjectDto> => {
     const response = await api.post<ApiResponse<ProjectDto>>('/api/aqua/Project', payload);
-    return ensureSuccess(response, 'Proje oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   getStocks: async (): Promise<StockDto[]> => {
@@ -186,7 +187,7 @@ export const aquaQuickApi = {
       filterLogic: 'and',
     });
     const response = await api.get<ApiResponse<PagedResultRaw<StockListResponseItem>>>(`/api/Stock?${query.toString()}`);
-    const raw = ensureSuccess(response, 'Stoklar yüklenemedi');
+    const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
     return extractStockList(raw);
   },
 
@@ -254,7 +255,7 @@ export const aquaQuickApi = {
       assignedDate,
       releasedDate: null,
     });
-    return ensureSuccess(response, 'Proje kafesi oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   getExistingGoodsReceiptContext: async (projectId: number): Promise<ExistingGoodsReceiptContext | null> => {
@@ -262,7 +263,7 @@ export const aquaQuickApi = {
     const receiptResponse = await api.get<ApiResponse<PagedResultRaw<GoodsReceiptListResponseItem>>>(
       `/api/aqua/GoodsReceipt?${draftReceiptQuery}`
     );
-    const receiptRaw = ensureSuccess(receiptResponse, 'Mal kabul bilgisi yüklenemedi');
+    const receiptRaw = ensureSuccess(receiptResponse, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
     const receipts = extractPagedItems(receiptRaw).filter(
       (x) => Number(x.projectId ?? 0) === projectId && Number(x.status ?? -1) !== 2
     );
@@ -276,7 +277,7 @@ export const aquaQuickApi = {
     const lineResponse = await api.get<ApiResponse<PagedResultRaw<GoodsReceiptLineListResponseItem>>>(
       `/api/aqua/GoodsReceiptLine?${fishLineQuery}`
     );
-    const lineRaw = ensureSuccess(lineResponse, 'Mal kabul satır bilgisi yüklenemedi');
+    const lineRaw = ensureSuccess(lineResponse, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
     const line = extractPagedItems(lineRaw)[0];
     const fishCount = Number(line?.fishCount ?? 0);
     const averageFromLine = Number(line?.fishAverageGram ?? 0);
@@ -295,7 +296,7 @@ export const aquaQuickApi = {
         const fishBatchResponse = await api.get<ApiResponse<FishBatchResponseItem>>(
           `/api/aqua/FishBatch/${line.fishBatchId}`
         );
-        const fishBatch = ensureSuccess(fishBatchResponse, 'Balık batch bilgisi yüklenemedi');
+        const fishBatch = ensureSuccess(fishBatchResponse, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
         fishBatchCode = fishBatch.batchCode ?? null;
       } catch {
         fishBatchCode = null;
@@ -323,7 +324,7 @@ export const aquaQuickApi = {
       '/api/aqua/GoodsReceipt',
       payload
     );
-    return ensureSuccess(response, 'Mal kabul oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   updateGoodsReceipt: async (
@@ -337,7 +338,7 @@ export const aquaQuickApi = {
         status: 0,
       }
     );
-    return ensureSuccess(response, 'Mal kabul güncellenemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.updateFailed', { ns: 'common' }));
   },
 
   createGoodsReceiptLine: async (
@@ -347,14 +348,14 @@ export const aquaQuickApi = {
       '/api/aqua/GoodsReceiptLine',
       payload
     );
-    return ensureSuccess(response, 'Mal kabul satırı oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   getGoodsReceiptLineById: async (id: number): Promise<GoodsReceiptLineListResponseItem> => {
     const response = await api.get<ApiResponse<GoodsReceiptLineListResponseItem>>(
       `/api/aqua/GoodsReceiptLine/${id}`
     );
-    return ensureSuccess(response, 'Mal kabul satırı yüklenemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
   },
 
   updateGoodsReceiptLine: async (
@@ -365,7 +366,7 @@ export const aquaQuickApi = {
       `/api/aqua/GoodsReceiptLine/${id}`,
       payload
     );
-    return ensureSuccess(response, 'Mal kabul satırı güncellenemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.updateFailed', { ns: 'common' }));
   },
 
   createGoodsReceiptFishDistribution: async (
@@ -375,7 +376,7 @@ export const aquaQuickApi = {
       '/api/aqua/GoodsReceiptFishDistribution',
       payload
     );
-    return ensureSuccess(response, 'Dağıtım oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   createFishBatch: async (
@@ -385,7 +386,7 @@ export const aquaQuickApi = {
       '/api/aqua/FishBatch',
       payload
     );
-    return ensureSuccess(response, 'Balık batch oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   updateFishBatch: async (
@@ -396,13 +397,13 @@ export const aquaQuickApi = {
       `/api/aqua/FishBatch/${id}`,
       payload
     );
-    return ensureSuccess(response, 'Balık batch güncellenemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.updateFailed', { ns: 'common' }));
   },
 
   postGoodsReceipt: async (id: number): Promise<boolean> => {
     const response = await api.post<ApiResponse<boolean>>(
       `/api/aqua/posting/goods-receipt/${id}`
     );
-    return ensureSuccess(response, 'Post işlemi başarısız');
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
   },
 };

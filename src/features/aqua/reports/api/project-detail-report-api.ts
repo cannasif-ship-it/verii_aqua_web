@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import { calculateBiomassGram, calculateIncrementedAverageGram, roundGram } from '@/features/aqua/shared/batch-math';
 import type { ApiResponse } from '@/types/api';
 import type {
@@ -94,7 +95,7 @@ async function getAllPagedItems<T>(endpoint: string, filters?: FilterDescriptor[
   while (pageNumber <= MAX_PAGE_GUARD) {
     const query = buildPagedQuery(pageNumber, filters);
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`/api/aqua/${endpoint}?${query}`);
-    const raw = ensureSuccess(response, `${endpoint} listesi alınamadı`);
+    const raw = ensureSuccess(response, i18n.t('errors.listLoadFailed', { ns: 'dashboard' }));
     const pageItems = extractPagedItems(raw);
     const totalCount = extractTotalCount(raw, result.length + pageItems.length);
 
@@ -116,7 +117,7 @@ async function getAllPagedItemsByPath<T>(path: string, filters?: FilterDescripto
   while (pageNumber <= MAX_PAGE_GUARD) {
     const query = buildPagedQuery(pageNumber, filters);
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`${path}?${query}`);
-    const raw = ensureSuccess(response, `${path} listesi alınamadı`);
+    const raw = ensureSuccess(response, i18n.t('errors.pathListLoadFailed', { ns: 'dashboard' }));
     const pageItems = extractPagedItems(raw);
     const totalCount = extractTotalCount(raw, result.length + pageItems.length);
 
@@ -755,7 +756,7 @@ export const projectDetailReportApi = {
     ]);
     const project = projects[0];
     if (!project) {
-      throw new Error('Proje bulunamadı');
+      throw new Error(i18n.t('errors.projectNotFound', { ns: 'dashboard' }));
     }
 
     const [projectCages, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines, batchCageBalances, dailyWeathers, netOperations, netOperationLines, transfers, transferLines, shipments, shipmentLines, weighings, weighingLines, stockConverts, stockConvertLines, batchMovements, stocks] =

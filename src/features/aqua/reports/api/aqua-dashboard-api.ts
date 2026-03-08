@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import type { ApiResponse } from '@/types/api';
 import type {
   BatchCageBalanceDto,
@@ -77,7 +78,7 @@ async function getAllPagedItems<T>(endpoint: string): Promise<T[]> {
   while (pageNumber <= MAX_PAGE_GUARD) {
     const query = buildPagedQuery(pageNumber);
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`/api/aqua/${endpoint}?${query}`);
-    const raw = ensureSuccess(response, `${endpoint} listesi alınamadı`);
+    const raw = ensureSuccess(response, i18n.t('errors.listLoadFailed', { ns: 'dashboard' }));
     const pageItems = extractPagedItems(raw);
     const totalCount = extractTotalCount(raw, result.length + pageItems.length);
 
@@ -236,4 +237,3 @@ export const aquaDashboardApi = {
       .sort((a, b) => a.projectCode.localeCompare(b.projectCode));
   },
 };
-

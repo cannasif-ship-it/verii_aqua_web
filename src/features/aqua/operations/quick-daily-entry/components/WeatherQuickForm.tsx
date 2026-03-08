@@ -25,7 +25,9 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
 
   const severityOptions = (severities || []).map((s: any) => ({ value: String(s.id), label: s.name }));
   const typeOptions = [
-    { value: '1', label: 'Güneşli' }, { value: '2', label: 'Bulutlu' }, { value: '3', label: 'Yağmurlu' }
+    { value: '1', label: t('aqua.quickDailyEntry.weather.options.sunny') },
+    { value: '2', label: t('aqua.quickDailyEntry.weather.options.cloudy') },
+    { value: '3', label: t('aqua.quickDailyEntry.weather.options.rainy') },
   ];
 
   // AQUA KONSEPT STİLLERİ
@@ -47,7 +49,7 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                 <FormItem className="space-y-2">
                   <FormLabel className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    Hava Durumu
+                    {t('aqua.quickDailyEntry.weather.title')}
                   </FormLabel>
                   <FormControl><Combobox options={typeOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -57,7 +59,7 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                 <FormItem className="space-y-2">
                   <FormLabel className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    Şiddet
+                    {t('aqua.quickDailyEntry.weather.severity')}
                   </FormLabel>
                   <FormControl><Combobox options={severityOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -67,7 +69,7 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                 <FormItem className="space-y-2">
                   <FormLabel className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    Not
+                    {t('aqua.quickDailyEntry.weather.description')}
                   </FormLabel>
                   <FormControl><Input className={inputStyle} {...field} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -81,7 +83,7 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 hover:opacity-95 transition-all duration-200 border-0 flex items-center gap-2"
               >
                 <Save size={18} />
-                Kaydet
+                {t('aqua.quickDailyEntry.weather.save')}
               </Button>
             </div>
           </form>

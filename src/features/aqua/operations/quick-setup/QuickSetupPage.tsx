@@ -219,7 +219,7 @@ export function QuickSetupPage(): ReactElement {
         }
       }
     } catch (e) {
-      if (projectId != null && e instanceof Error && e.message.includes('zaten bir mal kabul kaydı mevcut')) {
+      if (projectId != null && e instanceof Error && e.message.includes(t('aqua.quickSetup.toast.goodsReceiptAlreadyExists'))) {
         try {
           const context = await aquaQuickApi.getExistingGoodsReceiptContext(projectId);
           if (context) {

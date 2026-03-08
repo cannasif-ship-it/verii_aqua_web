@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import type { ApiResponse } from '@/types/api';
 import type { AquaListParams, AquaListResponse } from '../types/aqua-crud';
 
@@ -66,27 +67,27 @@ export const aquaCrudApi = {
     const query = buildQuery(params);
     const basePath = resolveEndpointPath(endpoint);
     const response = await api.get<ApiResponse<AquaListResponseRaw>>(`${basePath}${query ? `?${query}` : ''}`);
-    const raw = ensureSuccess(response, 'Liste verisi alınamadı');
+    const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
     return normalizeListResponse(raw);
   },
 
   async create(endpoint: string, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
     const response = await api.post<ApiResponse<Record<string, unknown>>>(`/api/aqua/${endpoint}`, payload);
-    return ensureSuccess(response, 'Kayıt oluşturulamadı');
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
   async update(endpoint: string, id: number, payload: Record<string, unknown>): Promise<Record<string, unknown>> {
     const response = await api.put<ApiResponse<Record<string, unknown>>>(`/api/aqua/${endpoint}/${id}`, payload);
-    return ensureSuccess(response, 'Kayıt güncellenemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.updateFailed', { ns: 'common' }));
   },
 
   async remove(endpoint: string, id: number): Promise<boolean> {
     const response = await api.delete<ApiResponse<boolean>>(`/api/aqua/${endpoint}/${id}`);
-    return ensureSuccess(response, 'Kayıt silinemedi');
+    return ensureSuccess(response, i18n.t('aqua.api.deleteFailed', { ns: 'common' }));
   },
 
   async postDocument(slug: string, id: number): Promise<boolean> {
     const response = await api.post<ApiResponse<boolean>>(`/api/aqua/posting/${slug}/${id}`);
-    return ensureSuccess(response, 'Posting işlemi başarısız');
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
   },
 };

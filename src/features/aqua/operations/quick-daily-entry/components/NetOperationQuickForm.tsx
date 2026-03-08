@@ -45,7 +45,7 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
                 <FormItem className="space-y-2">
                   <FormLabel className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    İşlem Tipi
+                    {t('aqua.quickDailyEntry.netOperation.operationType')}
                   </FormLabel>
                   <FormControl><Combobox options={typeOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -66,7 +66,7 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
               <FormItem className="space-y-2">
                 <FormLabel className={labelStyle}>
                   <ChevronRight size={14} className="text-cyan-500" />
-                  Not
+                  {t('aqua.quickDailyEntry.netOperation.description')}
                 </FormLabel>
                 <FormControl><Input className={inputStyle} {...field} /></FormControl>
                 <FormMessage className="text-xs text-red-500" />
@@ -79,7 +79,7 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 transition-all hover:opacity-95 border-0 flex items-center gap-2"
               >
                 <Save size={18} />
-                Kaydet
+                {t('aqua.quickDailyEntry.netOperation.save')}
               </Button>
             </div>
           </form>
