@@ -97,5 +97,12 @@
     "table": {
       "loading": "Loading..."
     }
+  },
+  "api": {
+    "listLoadFailed": "User list could not be loaded",
+    "detailLoadFailed": "User detail could not be loaded",
+    "createFailed": "User could not be created",
+    "updateFailed": "User could not be updated",
+    "deleteFailed": "User could not be deleted"
   }
 }

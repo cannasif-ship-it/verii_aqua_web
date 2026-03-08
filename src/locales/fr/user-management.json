@@ -97,5 +97,12 @@
     "table": {
       "loading": "Chargement..."
     }
+  },
+  "api": {
+    "listLoadFailed": "La liste des utilisateurs n’a pas pu être chargée",
+    "detailLoadFailed": "Le détail de l’utilisateur n’a pas pu être chargé",
+    "createFailed": "L’utilisateur n’a pas pu être créé",
+    "updateFailed": "L’utilisateur n’a pas pu être mis à jour",
+    "deleteFailed": "L’utilisateur n’a pas pu être supprimé"
   }
 }

@@ -97,5 +97,12 @@
     "table": {
       "loading": "Yükleniyor..."
     }
+  },
+  "api": {
+    "listLoadFailed": "Kullanıcı listesi yüklenemedi",
+    "detailLoadFailed": "Kullanıcı detayı yüklenemedi",
+    "createFailed": "Kullanıcı oluşturulamadı",
+    "updateFailed": "Kullanıcı güncellenemedi",
+    "deleteFailed": "Kullanıcı silinemedi"
   }
 }

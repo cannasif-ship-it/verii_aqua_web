@@ -113,5 +113,12 @@
     "table": {
       "loading": "جاري التحميل..."
     }
+  },
+  "api": {
+    "listLoadFailed": "تعذر تحميل قائمة المستخدمين",
+    "detailLoadFailed": "تعذر تحميل تفاصيل المستخدم",
+    "createFailed": "تعذر إنشاء المستخدم",
+    "updateFailed": "تعذر تحديث المستخدم",
+    "deleteFailed": "تعذر حذف المستخدم"
   }
 }

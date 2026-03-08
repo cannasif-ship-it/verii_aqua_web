@@ -97,5 +97,12 @@
     "table": {
       "loading": "Laden..."
     }
+  },
+  "api": {
+    "listLoadFailed": "Benutzerliste konnte nicht geladen werden",
+    "detailLoadFailed": "Benutzerdetail konnte nicht geladen werden",
+    "createFailed": "Benutzer konnte nicht erstellt werden",
+    "updateFailed": "Benutzer konnte nicht aktualisiert werden",
+    "deleteFailed": "Benutzer konnte nicht gelöscht werden"
   }
 }

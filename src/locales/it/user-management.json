@@ -113,5 +113,12 @@
     "table": {
       "loading": "Caricamento..."
     }
+  },
+  "api": {
+    "listLoadFailed": "Impossibile caricare l’elenco utenti",
+    "detailLoadFailed": "Impossibile caricare il dettaglio utente",
+    "createFailed": "Impossibile creare l’utente",
+    "updateFailed": "Impossibile aggiornare l’utente",
+    "deleteFailed": "Impossibile eliminare l’utente"
   }
 }
