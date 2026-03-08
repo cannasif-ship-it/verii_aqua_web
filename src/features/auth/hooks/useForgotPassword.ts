@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import i18n from '@/lib/i18n';
 import { toast } from 'sonner';
 import { authApi } from '../api/auth-api';
 
@@ -7,7 +8,7 @@ export const useForgotPassword = () => {
     mutationFn: (email: string) => authApi.requestPasswordReset(email),
     onSuccess: (response) => {
       if (response.success) {
-        const message = response.message || 'Şifre sıfırlama linki e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin.';
+        const message = response.message || i18n.t('auth.forgotPassword.successMessage', { ns: 'auth' });
         toast.success(message, {
           style: {
             background: '#140a1e', // Sayfanın koyu mor teması
@@ -18,7 +19,7 @@ export const useForgotPassword = () => {
           className: 'text-white border-pink-500/20 shadow-xl shadow-pink-500/10'
         });
       } else {
-        const errorMessage = response.message || 'Bu e-posta adresi sistemde kayıtlı değil.';
+        const errorMessage = response.message || i18n.t('auth.forgotPassword.emailNotFound', { ns: 'auth' });
         toast.error(errorMessage, {
           style: {
             background: '#140a1e',
@@ -32,7 +33,7 @@ export const useForgotPassword = () => {
     },
     onError: (error: Error) => {
       console.error('Forgot password error:', error);
-      const errorMessage = 'Bu e-posta adresi sistemde kayıtlı değil.';
+      const errorMessage = i18n.t('auth.forgotPassword.emailNotFound', { ns: 'auth' });
       toast.error(errorMessage, {
         style: {
           background: '#140a1e',
