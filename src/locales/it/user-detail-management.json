@@ -74,5 +74,13 @@
   "enterEmail": "esempio@azienda.com",
   "invalidUrl": "Inserisci un URL valido",
   "invalidEmail": "Inserisci un indirizzo email valido",
-  "phoneNumberMaxLength": "Il numero di telefono deve avere al massimo 20 caratteri"
+  "phoneNumberMaxLength": "Il numero di telefono deve avere al massimo 20 caratteri",
+  "api": {
+    "listLoadFailed": "Impossibile caricare l’elenco dettagli utente",
+    "detailLoadFailed": "Impossibile caricare il dettaglio utente",
+    "createFailed": "Impossibile creare il dettaglio utente",
+    "updateFailed": "Impossibile aggiornare il dettaglio utente",
+    "deleteFailed": "Impossibile eliminare il dettaglio utente",
+    "uploadFailed": "Impossibile caricare il file"
+  }
 }

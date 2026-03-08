@@ -52,5 +52,13 @@
   "enterEmail": "example@company.com",
   "invalidUrl": "Please enter a valid URL",
   "invalidEmail": "Please enter a valid email address",
-  "phoneNumberMaxLength": "Phone number can be at most 20 characters"
+  "phoneNumberMaxLength": "Phone number can be at most 20 characters",
+  "api": {
+    "listLoadFailed": "User detail list could not be loaded",
+    "detailLoadFailed": "User detail could not be loaded",
+    "createFailed": "User detail could not be created",
+    "updateFailed": "User detail could not be updated",
+    "deleteFailed": "User detail could not be deleted",
+    "uploadFailed": "File could not be uploaded"
+  }
 }

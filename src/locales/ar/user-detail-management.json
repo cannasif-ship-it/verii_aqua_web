@@ -74,5 +74,13 @@
   "enterEmail": "example@company.com",
   "invalidUrl": "الرجاء إدخال عنوان URL صالح",
   "invalidEmail": "الرجاء إدخال عنوان بريد إلكتروني صالح",
-  "phoneNumberMaxLength": "يجب أن يكون رقم الهاتف 20 حرف كحد أقصى"
+  "phoneNumberMaxLength": "يجب أن يكون رقم الهاتف 20 حرف كحد أقصى",
+  "api": {
+    "listLoadFailed": "تعذر تحميل قائمة تفاصيل المستخدم",
+    "detailLoadFailed": "تعذر تحميل تفاصيل المستخدم",
+    "createFailed": "تعذر إنشاء تفاصيل المستخدم",
+    "updateFailed": "تعذر تحديث تفاصيل المستخدم",
+    "deleteFailed": "تعذر حذف تفاصيل المستخدم",
+    "uploadFailed": "تعذر رفع الملف"
+  }
 }

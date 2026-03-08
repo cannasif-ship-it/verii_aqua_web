@@ -52,5 +52,13 @@
   "enterEmail": "exemple@entreprise.com",
   "invalidUrl": "Veuillez saisir une URL valide",
   "invalidEmail": "Veuillez entrer une adresse e-mail valide",
-  "phoneNumberMaxLength": "Le numéro de téléphone doit contenir au maximum 20 caractères"
+  "phoneNumberMaxLength": "Le numéro de téléphone doit contenir au maximum 20 caractères",
+  "api": {
+    "listLoadFailed": "La liste des détails utilisateur n’a pas pu être chargée",
+    "detailLoadFailed": "Le détail utilisateur n’a pas pu être chargé",
+    "createFailed": "Le détail utilisateur n’a pas pu être créé",
+    "updateFailed": "Le détail utilisateur n’a pas pu être mis à jour",
+    "deleteFailed": "Le détail utilisateur n’a pas pu être supprimé",
+    "uploadFailed": "Le fichier n’a pas pu être téléversé"
+  }
 }

@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios';
+import i18n from '@/lib/i18n';
 import type { ApiResponse, PagedResponse, PagedParams, PagedFilter } from '@/types/api';
 import type { UserDetailDto, CreateUserDetailDto, UpdateUserDetailDto } from '../types/user-detail-types';
 
@@ -31,7 +32,7 @@ export const userDetailApi = {
       
       return pagedData;
     }
-    throw new Error(response.message || 'Kullanıcı detay listesi yüklenemedi');
+    throw new Error(response.message || i18n.t('api.listLoadFailed', { ns: 'user-detail-management' }));
   },
 
   getById: async (id: number): Promise<UserDetailDto> => {
@@ -39,7 +40,7 @@ export const userDetailApi = {
     if (response.success && response.data) {
       return response.data;
     }
-    throw new Error(response.message || 'Kullanıcı detayı yüklenemedi');
+    throw new Error(response.message || i18n.t('api.detailLoadFailed', { ns: 'user-detail-management' }));
   },
 
   getByUserId: async (userId: number): Promise<UserDetailDto | null> => {
@@ -50,7 +51,7 @@ export const userDetailApi = {
     if (response.statusCode === 404) {
       return null;
     }
-    throw new Error(response.message || 'Kullanıcı detayı yüklenemedi');
+    throw new Error(response.message || i18n.t('api.detailLoadFailed', { ns: 'user-detail-management' }));
   },
 
   create: async (data: CreateUserDetailDto): Promise<UserDetailDto> => {
@@ -58,7 +59,7 @@ export const userDetailApi = {
     if (response.success && response.data) {
       return response.data;
     }
-    throw new Error(response.message || 'Kullanıcı detayı oluşturulamadı');
+    throw new Error(response.message || i18n.t('api.createFailed', { ns: 'user-detail-management' }));
   },
 
   update: async (id: number, data: UpdateUserDetailDto): Promise<UserDetailDto> => {
@@ -66,13 +67,13 @@ export const userDetailApi = {
     if (response.success && response.data) {
       return response.data;
     }
-    throw new Error(response.message || 'Kullanıcı detayı güncellenemedi');
+    throw new Error(response.message || i18n.t('api.updateFailed', { ns: 'user-detail-management' }));
   },
 
   delete: async (id: number): Promise<void> => {
     const response = await api.delete<ApiResponse<object>>(`/api/UserDetail/${id}`);
     if (!response.success) {
-      throw new Error(response.message || 'Kullanıcı detayı silinemedi');
+      throw new Error(response.message || i18n.t('api.deleteFailed', { ns: 'user-detail-management' }));
     }
   },
 
@@ -92,6 +93,6 @@ export const userDetailApi = {
     if (response.success && response.data) {
       return response.data;
     }
-    throw new Error(response.message || 'Profil resmi yüklenemedi');
+    throw new Error(response.message || i18n.t('api.uploadFailed', { ns: 'user-detail-management' }));
   },
 };

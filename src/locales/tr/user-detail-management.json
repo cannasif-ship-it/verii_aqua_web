@@ -52,5 +52,13 @@
   "enterEmail": "ornek@sirket.com",
   "invalidUrl": "Geçerli bir URL giriniz",
   "invalidEmail": "Geçerli bir e-posta adresi giriniz",
-  "phoneNumberMaxLength": "Telefon numarası en fazla 20 karakter olabilir"
+  "phoneNumberMaxLength": "Telefon numarası en fazla 20 karakter olabilir",
+  "api": {
+    "listLoadFailed": "Kullanıcı detay listesi yüklenemedi",
+    "detailLoadFailed": "Kullanıcı detayı yüklenemedi",
+    "createFailed": "Kullanıcı detayı oluşturulamadı",
+    "updateFailed": "Kullanıcı detayı güncellenemedi",
+    "deleteFailed": "Kullanıcı detayı silinemedi",
+    "uploadFailed": "Dosya yüklenemedi"
+  }
 }

@@ -52,5 +52,13 @@
   "enterEmail": "example@company.com",
   "invalidUrl": "Bitte geben Sie eine gültige URL ein",
   "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
-  "phoneNumberMaxLength": "Die Telefonnummer kann bis zu 20 Zeichen lang sein"
+  "phoneNumberMaxLength": "Die Telefonnummer kann bis zu 20 Zeichen lang sein",
+  "api": {
+    "listLoadFailed": "Benutzerdetailliste konnte nicht geladen werden",
+    "detailLoadFailed": "Benutzerdetail konnte nicht geladen werden",
+    "createFailed": "Benutzerdetail konnte nicht erstellt werden",
+    "updateFailed": "Benutzerdetail konnte nicht aktualisiert werden",
+    "deleteFailed": "Benutzerdetail konnte nicht gelöscht werden",
+    "uploadFailed": "Datei konnte nicht hochgeladen werden"
+  }
 }
