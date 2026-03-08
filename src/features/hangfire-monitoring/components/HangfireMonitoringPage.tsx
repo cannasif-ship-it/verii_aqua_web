@@ -62,7 +62,6 @@ export function HangfireMonitoringPage(): ReactElement {
   const failedTotalPages = Math.max(1, Math.ceil((failedQuery.data?.total ?? 0) / PAGE_SIZE));
   const deadLetterHasNext = (deadLetterQuery.data?.items?.length ?? 0) === PAGE_SIZE;
 
-  // Ortak tablo başlık stilleri
   const headStyle = "text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 py-4";
 
   return (
@@ -111,9 +110,7 @@ export function HangfireMonitoringPage(): ReactElement {
         ].map((stat) => (
           <Card key={stat.key} className={cn(
             "backdrop-blur-xl border shadow-sm rounded-2xl overflow-hidden transition-all duration-300",
-            stat.key === 'failed' 
-              ? "bg-rose-50/30 dark:bg-rose-500/5 border-rose-100 dark:border-rose-500/20" 
-              : "bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/30"
+            "bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/30"
           )}>
             <CardContent className="p-6">
               <div className="flex justify-between items-start">
@@ -133,7 +130,7 @@ export function HangfireMonitoringPage(): ReactElement {
                   stat.color === 'blue' ? "bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-500/20" :
                   stat.color === 'amber' ? "bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-500/20" :
                   stat.color === 'emerald' ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/20" :
-                  "bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-400 border-rose-200"
+                  "bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-500/20"
                 )}>
                   <stat.icon className="size-5" />
                 </div>
