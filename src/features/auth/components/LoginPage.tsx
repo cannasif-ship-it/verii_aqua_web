@@ -91,9 +91,10 @@ export function LoginPage(): React.JSX.Element {
     }
   };
 
-  const inputGroupBase = 'flex items-stretch rounded-xl border border-white/5 bg-[#020712]/70 overflow-hidden transition-all duration-300 focus-within:border-[#ff4d79]/40 focus-within:bg-[#020712]/90 focus-within:ring-1 focus-within:ring-[#ff4d79]/20';
+  // AQUA Konsept Input Stilleri (Parlaklıklar %50 azaltıldı)
+  const inputGroupBase = 'flex items-stretch rounded-xl border border-white/5 bg-[#020712]/70 overflow-hidden transition-all duration-300 focus-within:border-[#00f7ff]/20 focus-within:bg-[#020712]/90 focus-within:ring-1 focus-within:ring-[#00f7ff]/10';
   const inputGroupInvalid = 'border-red-500/50 focus-within:border-red-500 focus-within:ring-red-500/20';
-  const iconSlotBase = 'flex items-center justify-center w-11 shrink-0 bg-transparent text-[#5c7c99] transition-colors duration-300 group-focus-within:text-[#ff4d79]';
+  const iconSlotBase = 'flex items-center justify-center w-11 shrink-0 bg-transparent text-[#5c7c99] transition-colors duration-300 group-focus-within:text-[#00f7ff]';
 
   return (
     <div className="relative w-full min-h-dvh overflow-x-hidden bg-[#020c16] text-[#d0e6ff] font-['Plus_Jakarta_Sans'] flex flex-col">
@@ -107,15 +108,16 @@ export function LoginPage(): React.JSX.Element {
           -webkit-box-shadow: 0 0 0 30px #020712 inset !important;
           -webkit-text-fill-color: #ffffff !important;
           transition: background-color 5000s ease-in-out 0s;
-          caret-color: #ff4d79;
+          caret-color: #00f7ff;
           color-scheme: dark;
         }
       `}</style>
 
+      {/* Arka plan efektleri (Opaklıklar kısıldı) */}
       <div className={`fixed inset-0 z-0 transition-opacity duration-1000 ease-in-out ${showAnimation ? 'opacity-0' : 'opacity-100'}`}>
-        <div className="absolute top-[-30%] left-[30%] w-[80vw] h-[150vh] bg-gradient-to-b from-[#ffedb3]/15 via-[#70d6ff]/5 to-transparent blur-[120px] -rotate-12 mix-blend-screen pointer-events-none" />
-        <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[120vh] bg-gradient-to-b from-[#00cec9]/10 via-[#0984e3]/5 to-transparent blur-[100px] rotate-[15deg] mix-blend-screen pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#010408] via-[#020c16]/70 to-transparent pointer-events-none" />
+        <div className="absolute top-[-30%] left-[30%] w-[80vw] h-[150vh] bg-linear-to-b from-[#00f7ff]/10 via-[#70d6ff]/5 to-transparent blur-[120px] -rotate-12 mix-blend-screen pointer-events-none" />
+        <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[120vh] bg-linear-to-b from-[#00cec9]/5 via-[#0984e3]/5 to-transparent blur-[100px] rotate-15 mix-blend-screen pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#010408] via-[#020c16]/70 to-transparent pointer-events-none" />
       </div>
 
       <AuthBackground isActive={showAnimation} />
@@ -127,7 +129,7 @@ export function LoginPage(): React.JSX.Element {
           className={`
             flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 backdrop-blur-xl
             ${showAnimation
-              ? 'bg-[#00f7ff]/15 border-[#00f7ff]/40 text-[#00f7ff] hover:bg-[#00f7ff]/25 shadow-[0_0_15px_rgba(247,255,255,0.25)]'
+              ? 'bg-[#00f7ff]/10 border-[#00f7ff]/30 text-[#00f7ff] hover:bg-[#00f7ff]/20 shadow-[0_0_10px_rgba(0,247,255,0.15)]'
               : 'bg-[#091b30]/40 border-white/10 text-[#5c7c99] hover:text-[#00f7ff] hover:bg-[#00f7ff]/10'}
           `}
           title={showAnimation ? t('auth.login.animationOff') : t('auth.login.animationOn')}
@@ -138,12 +140,12 @@ export function LoginPage(): React.JSX.Element {
 
       <div className="relative z-10 w-full min-h-dvh flex flex-col justify-between items-center px-4 sm:px-6 py-8 sm:py-12 pb-24 sm:pb-12">
         <div className="w-full max-w-[390px] flex-1 flex flex-col justify-center min-h-0">
-          <div className="rounded-[24px] border border-white/5 border-t-white/20 bg-[#091b30]/35 backdrop-blur-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] py-8 px-5 sm:px-8 relative overflow-hidden">
+          <div className="rounded-[24px] border border-white/5 border-t-white/10 bg-[#091b30]/35 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] py-8 px-5 sm:px-8 relative overflow-hidden">
             <div className="text-center mb-6 relative z-10">
               <img
                 src={loginImage}
                 alt="V3RII AQUA"
-                className="mx-auto h-24 sm:h-46 w-auto object-contain drop-shadow-[0_0_20px_rgba(255,77,121,0.35)]"
+                className="mx-auto h-24 sm:h-46 w-auto object-contain drop-shadow-[0_0_15px_rgba(0,247,255,0.15)]"
               />
               <h1 className="mt-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#5c7c99]">
                 {t('auth.login.title')}
@@ -222,7 +224,7 @@ export function LoginPage(): React.JSX.Element {
                           <button
                             type="button"
                             onClick={() => setIsPasswordVisible((v) => !v)}
-                            className="flex items-center justify-center w-10 sm:w-11 shrink-0 text-[#5c7c99] hover:text-[#ff4d79] transition-colors"
+                            className="flex items-center justify-center w-10 sm:w-11 shrink-0 text-[#5c7c99] hover:text-[#00f7ff] transition-colors"
                             aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
                           >
                             {isPasswordVisible ? <ViewOffIcon size={18} /> : <ViewIcon size={18} />}
@@ -256,7 +258,7 @@ export function LoginPage(): React.JSX.Element {
                               type="checkbox"
                               checked={field.value}
                               onChange={field.onChange}
-                              className="rounded border-white/10 bg-[#020712] accent-[#ff4d79] size-3.5"
+                              className="rounded border-white/10 bg-[#020712] accent-[#00f7ff] size-3.5"
                             />
                             {t('auth.login.rememberMe')}
                           </label>
@@ -269,10 +271,11 @@ export function LoginPage(): React.JSX.Element {
                   </Link>
                 </div>
 
+                {/* AQUA KONSEPT BUTON (Daha Soft Gölgeler) */}
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full h-11 sm:h-12 rounded-xl bg-gradient-to-r from-[#ff4d79] to-[#ffb703] text-white text-[12px] sm:text-[13px] tracking-widest font-bold shadow-[0_10px_30px_-5px_rgba(255,77,121,0.5)] transition-all hover:opacity-95 hover:shadow-[0_15px_35px_-5px_rgba(255,77,121,0.7)] active:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+                  className="w-full h-11 sm:h-12 rounded-xl bg-linear-to-r from-[#00f7ff] to-[#0088ff] text-white text-[12px] sm:text-[13px] tracking-widest font-bold shadow-[0_8px_20px_-5px_rgba(0,247,255,0.3)] transition-all hover:opacity-95 hover:shadow-[0_10px_25px_-5px_rgba(0,247,255,0.4)] active:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
                 >
                   {isPending ? t('auth.login.processing') : t('auth.login.submitButton')}
                 </button>
@@ -286,8 +289,8 @@ export function LoginPage(): React.JSX.Element {
             <Trans
               i18nKey="auth.login.slogan"
               components={{
-                1: <span className="font-bold bg-gradient-to-r from-[#ff4d79] to-[#ffb703] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,77,121,0.3)]" />,
-                2: <span className="font-bold bg-gradient-to-r from-[#00f7ff] to-[#0088ff] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(0,247,255,0.4)]" />,
+                1: <span className="font-bold bg-linear-to-r from-[#00f7ff] to-[#0088ff] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(0,247,255,0.2)]" />,
+                2: <span className="font-bold bg-linear-to-r from-[#00f7ff] to-[#0088ff] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(0,247,255,0.2)]" />,
                 br: <br />
               }}
             />
@@ -309,7 +312,7 @@ export function LoginPage(): React.JSX.Element {
                 onClick={(e) => handleSocialClick(e, link.label)}
                 target={link.href.startsWith('http') ? "_blank" : "_self"}
                 rel={link.href.startsWith('http') ? "noreferrer" : ""}
-                className="flex items-center justify-center size-10 sm:size-12 rounded-full border border-white/5 bg-[#020712]/50 text-[#5c7c99] backdrop-blur-md transition-all duration-300 hover:text-[#00f7ff] hover:border-[#00f7ff]/40 hover:bg-[#00f7ff]/10 hover:-translate-y-1 hover:shadow-[0_5px_15px_rgba(0,247,255,0.25)]" 
+                className="flex items-center justify-center size-10 sm:size-12 rounded-full border border-white/5 bg-[#020712]/50 text-[#5c7c99] backdrop-blur-md transition-all duration-300 hover:text-[#00f7ff] hover:border-[#00f7ff]/30 hover:bg-[#00f7ff]/10 hover:-translate-y-1 hover:shadow-[0_5px_15px_rgba(0,247,255,0.15)]" 
                 aria-label={link.label}
               >
                 {link.icon}
