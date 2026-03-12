@@ -49,17 +49,23 @@ export function AquaHeaderLineCrudPage({
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0 flex-1">
-          <AquaCrudPage
-            config={lineConfig}
-            hidePageHeader
-            disablePageTitleSync
-            contextFilter={{
-              fieldKey: lineForeignKey,
-              value: selectedHeaderId,
-              lockValue: true,
-              hideFieldInForm: true,
-            }}
-          />
+          {selectedHeaderId == null ? (
+            <div className="px-5 py-6 text-sm text-slate-500 dark:text-slate-400">
+              {t('aqua.common.noData')}
+            </div>
+          ) : (
+            <AquaCrudPage
+              config={lineConfig}
+              hidePageHeader
+              disablePageTitleSync
+              contextFilter={{
+                fieldKey: lineForeignKey,
+                value: selectedHeaderId,
+                lockValue: true,
+                hideFieldInForm: true,
+              }}
+            />
+          )}
         </CardContent>
       </Card>
     </div>
