@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect } from 'react';
+import { type ReactElement, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -13,15 +13,18 @@ import { userFormSchema, userUpdateFormSchema } from '../types/user-types';
 import { useUserAuthorityOptionsQuery } from '../hooks/useUserAuthorityOptionsQuery';
 import { useUserPermissionGroupsForForm } from '../hooks/useUserPermissionGroupsForForm';
 import { UserFormPermissionGroupSelect } from './UserFormPermissionGroupSelect';
+import { usePermissionGroupOptionsQuery } from '../hooks/usePermissionGroupOptionsQuery';
 
 export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any): ReactElement {
   const { t } = useTranslation('common');
   const isEditMode = !!user;
   const roleOptionsQuery = useUserAuthorityOptionsQuery();
   const permissionGroups = useUserPermissionGroupsForForm(user?.id ?? null);
+  const permissionGroupOptionsQuery = usePermissionGroupOptionsQuery();
 
   const form = useForm({
     resolver: zodResolver(isEditMode ? userUpdateFormSchema : userFormSchema),
+    mode: 'onChange',
     defaultValues: { username: '', email: '', password: '', firstName: '', lastName: '', phoneNumber: '', roleId: 0, isActive: true, permissionGroupIds: [] },
   });
 
@@ -39,6 +42,74 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
       }
     }
   }, [open, user, permissionGroups.data]);
+
+  const roleOptions = roleOptionsQuery.data || [];
+  const permissionGroupOptions = permissionGroupOptionsQuery.data || [];
+
+  const adminRoleId = useMemo(
+    () => roleOptions.find((option) => option.label.trim().toLowerCase() === 'admin')?.value ?? null,
+    [roleOptions]
+  );
+  const userRoleId = useMemo(
+    () => roleOptions.find((option) => option.label.trim().toLowerCase() === 'user')?.value ?? null,
+    [roleOptions]
+  );
+  const systemAdminGroupIds = useMemo(
+    () => permissionGroupOptions.filter((option) => option.isSystemAdmin).map((option) => option.value),
+    [permissionGroupOptions]
+  );
+
+  const selectedRoleId = form.watch('roleId');
+  const selectedPermissionGroupIds = form.watch('permissionGroupIds') ?? [];
+  const isAdminRole = adminRoleId !== null && selectedRoleId === adminRoleId;
+  const isSubmitDisabled = isLoading || !form.formState.isValid;
+
+  useEffect(() => {
+    if (!adminRoleId || systemAdminGroupIds.length === 0) {
+      return;
+    }
+
+    const selectedGroupIds = form.getValues('permissionGroupIds') ?? [];
+    const hasSystemAdminGroup = systemAdminGroupIds.some((groupId) => selectedGroupIds.includes(groupId));
+
+    if (selectedRoleId === adminRoleId && !hasSystemAdminGroup) {
+      form.setValue(
+        'permissionGroupIds',
+        Array.from(new Set([...selectedGroupIds, ...systemAdminGroupIds])),
+        { shouldDirty: true, shouldValidate: true }
+      );
+      return;
+    }
+
+    if (userRoleId !== null && selectedRoleId === userRoleId && hasSystemAdminGroup) {
+      form.setValue(
+        'permissionGroupIds',
+        selectedGroupIds.filter((groupId) => !systemAdminGroupIds.includes(groupId)),
+        { shouldDirty: true, shouldValidate: true }
+      );
+    }
+  }, [adminRoleId, form, selectedRoleId, systemAdminGroupIds, userRoleId]);
+
+  const handlePermissionGroupsChange = (ids: number[]): void => {
+    if (!adminRoleId || systemAdminGroupIds.length === 0) {
+      form.setValue('permissionGroupIds', ids, { shouldDirty: true, shouldValidate: true });
+      return;
+    }
+
+    const hasSystemAdminGroup = systemAdminGroupIds.some((groupId) => ids.includes(groupId));
+
+    if (hasSystemAdminGroup) {
+      form.setValue('roleId', adminRoleId, { shouldDirty: true, shouldValidate: true });
+      form.setValue(
+        'permissionGroupIds',
+        Array.from(new Set([...ids, ...systemAdminGroupIds])),
+        { shouldDirty: true, shouldValidate: true }
+      );
+      return;
+    }
+
+    form.setValue('permissionGroupIds', ids, { shouldDirty: true, shouldValidate: true });
+  };
 
   const inputStyle = "bg-slate-50 dark:bg-blue-950/50 border-slate-200 dark:border-cyan-800/30 text-slate-900 dark:text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500 h-11 rounded-xl transition-all duration-200";
   const labelStyle = "text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2";
@@ -61,18 +132,18 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto min-h-0 custom-scrollbar">
+          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto min-h-0 custom-scrollbar">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <FormField name="username" render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={labelStyle}><User className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.username', { defaultValue: 'Kullanıcı Adı' })}</FormLabel>
+                  <FormLabel required className={labelStyle}><User className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.username', { defaultValue: 'Kullanıcı Adı' })}</FormLabel>
                   <FormControl><Input {...field} className={inputStyle} disabled={isEditMode} /></FormControl>
                   <FormMessage className="text-[10px] text-red-500" />
                 </FormItem>
               )} />
               <FormField name="email" render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={labelStyle}><Mail className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.email', { defaultValue: 'E-posta' })}</FormLabel>
+                  <FormLabel required className={labelStyle}><Mail className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.email', { defaultValue: 'E-posta' })}</FormLabel>
                   <FormControl><Input {...field} type="email" className={inputStyle} /></FormControl>
                   <FormMessage className="text-[10px] text-red-500" />
                 </FormItem>
@@ -82,7 +153,7 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
             {!isEditMode && (
               <FormField name="password" render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={labelStyle}><Lock className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.password', { defaultValue: 'Şifre' })}</FormLabel>
+                  <FormLabel required className={labelStyle}><Lock className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.password', { defaultValue: 'Şifre' })}</FormLabel>
                   <FormControl><Input {...field} type="password" className={inputStyle} /></FormControl>
                   <FormMessage className="text-[10px] text-red-500" />
                 </FormItem>
@@ -92,9 +163,9 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <FormField name="roleId" render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={labelStyle}><Shield className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.role', { defaultValue: 'Rol' })}</FormLabel>
+                  <FormLabel required className={labelStyle}><Shield className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.role', { defaultValue: 'Rol' })}</FormLabel>
                   <Combobox 
-                    options={(roleOptionsQuery.data || []).map(o => ({ value: String(o.value), label: o.label }))}
+                    options={roleOptions.map(o => ({ value: String(o.value), label: o.label }))}
                     value={String(field.value)}
                     onValueChange={(v) => field.onChange(Number(v))}
                     className={inputStyle}
@@ -114,11 +185,15 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
               </FormItem>
             </div>
 
-            <FormField name="permissionGroupIds" render={({ field }) => (
+            <FormField name="permissionGroupIds" render={() => (
               <FormItem className="space-y-3">
                 <FormLabel className={labelStyle}>{t('userManagement.form.permissionGroups', { defaultValue: 'İzin Grupları' })}</FormLabel>
                 <div className="rounded-xl border border-slate-200 dark:border-cyan-800/30 p-1 bg-slate-50 dark:bg-transparent">
-                  <UserFormPermissionGroupSelect value={field.value} onChange={field.onChange} />
+                  <UserFormPermissionGroupSelect
+                    value={selectedPermissionGroupIds}
+                    onChange={handlePermissionGroupsChange}
+                    isAdminRole={isAdminRole}
+                  />
                 </div>
               </FormItem>
             )} />
@@ -134,7 +209,7 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
               </Button>
               <Button 
                 type="submit" 
-                disabled={isLoading} 
+                disabled={isSubmitDisabled}
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-extrabold h-11 px-10 rounded-xl border-0 shadow-lg shadow-cyan-500/25 hover:opacity-95 transition-all active:scale-[0.98]"
               >
                 {isLoading ? <Loader2 className="size-4 animate-spin mr-2" /> : null} {t('common.save', { defaultValue: 'Kaydet' })}

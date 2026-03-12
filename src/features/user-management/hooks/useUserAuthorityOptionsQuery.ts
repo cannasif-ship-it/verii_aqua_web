@@ -20,10 +20,15 @@ export function useUserAuthorityOptionsQuery(): ReturnType<
         sortBy: 'title',
         sortDirection: 'asc',
       });
-      return (response.data ?? []).map((r) => ({
-        value: r.id,
-        label: r.title,
-      }));
+      return (response.data ?? [])
+        .filter((r) => {
+          const normalizedTitle = r.title.trim().toLowerCase();
+          return normalizedTitle === 'admin' || normalizedTitle === 'user';
+        })
+        .map((r) => ({
+          value: r.id,
+          label: r.title,
+        }));
     },
     staleTime: STALE_TIME_MS,
   });

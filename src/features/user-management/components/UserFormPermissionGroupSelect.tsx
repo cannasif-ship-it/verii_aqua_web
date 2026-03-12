@@ -7,12 +7,14 @@ interface UserFormPermissionGroupSelectProps {
   value: number[];
   onChange: (ids: number[]) => void;
   disabled?: boolean;
+  isAdminRole?: boolean;
 }
 
 export function UserFormPermissionGroupSelect({
   value,
   onChange,
   disabled = false,
+  isAdminRole = false,
 }: UserFormPermissionGroupSelectProps): ReactElement {
   const { t } = useTranslation('user-management');
   const { data: items = [], isLoading } = usePermissionGroupOptionsQuery();
@@ -63,13 +65,17 @@ export function UserFormPermissionGroupSelect({
             {t('userManagement.form.permissionGroupsNoData')}
           </p>
         ) : (
-          items.map((item) => (
+          items.map((item) => {
+            const isForcedSystemAdmin =
+              isAdminRole && item.isSystemAdmin && value.includes(item.value);
+
+            return (
             <div key={item.value} className="flex items-center gap-2">
               <Checkbox
                 id={`user-form-group-${item.value}`}
                 checked={value.includes(item.value)}
                 onCheckedChange={() => handleToggle(item.value)}
-                disabled={disabled}
+                disabled={disabled || isForcedSystemAdmin}
               />
               <label
                 htmlFor={`user-form-group-${item.value}`}
@@ -78,7 +84,8 @@ export function UserFormPermissionGroupSelect({
                 {item.label}
               </label>
             </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>
