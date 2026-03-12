@@ -39,10 +39,10 @@ export function OperationTypeTabs({
           <TabsTrigger className={tabTriggerStyle} value="weather">{t('aqua.quickDailyEntry.tabWeather')}</TabsTrigger>
           <TabsTrigger className={tabTriggerStyle} value="net">{t('aqua.quickDailyEntry.tabNetOperation')}</TabsTrigger>
           <TabsTrigger className={tabTriggerStyle} value="transfer">
-            {t('aqua.quickDailyEntry.tabTransfer', { defaultValue: 'Kafes Değişimi' })}
+            {t('aqua.quickDailyEntry.tabTransfer')}
           </TabsTrigger>
           <TabsTrigger className={tabTriggerStyle} value="stockChange">
-            {t('aqua.quickDailyEntry.tabStockChange', { defaultValue: 'Stok Değişimi' })}
+            {t('aqua.quickDailyEntry.tabStockChange')}
           </TabsTrigger>
         </TabsList>
       </div>

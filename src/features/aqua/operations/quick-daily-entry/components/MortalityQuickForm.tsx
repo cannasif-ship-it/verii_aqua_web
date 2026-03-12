@@ -59,7 +59,7 @@ export function MortalityQuickForm({
             <TrendingDown className="size-5 text-cyan-600 dark:text-cyan-400" />
           </div>
           {/* ÇEVİRİ HATASI BURADA DEFAULT VALUE İLE ÇÖZÜLDÜ */}
-          {t('aqua.quickDailyEntry.mortality.title', { defaultValue: 'Ölüm Girişi' })}
+          {t('aqua.quickDailyEntry.mortality.title')}
         </CardTitle>
       </CardHeader>
       
@@ -75,7 +75,7 @@ export function MortalityQuickForm({
                     <FormLabel required className={labelStyle}>
                       <ChevronRight size={14} className="text-cyan-500" />
                       {/* ÇEVİRİ HATASI BURADA DEFAULT VALUE İLE ÇÖZÜLDÜ */}
-                      {t('aqua.quickDailyEntry.mortality.count', { defaultValue: 'Ölüm Sayısı (Adet)' })}
+                      {t('aqua.quickDailyEntry.mortality.deadCount')}
                     </FormLabel>
                     <FormControl>
                       <Input 
@@ -100,7 +100,7 @@ export function MortalityQuickForm({
                 >
                   <Save size={18} />
                   {/* ÇEVİRİ HATASI BURADA DEFAULT VALUE İLE ÇÖZÜLDÜ */}
-                  {t('aqua.quickDailyEntry.mortality.save', { defaultValue: 'Kaydet' })}
+                  {t('aqua.quickDailyEntry.mortality.save')}
                 </Button>
             </div>
           </form>

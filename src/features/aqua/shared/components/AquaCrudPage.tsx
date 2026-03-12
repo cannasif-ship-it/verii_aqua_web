@@ -202,7 +202,7 @@ const DraggableTh = ({ id, children, className, onClick, ...props }: React.ThHTM
   return (
     <th ref={setNodeRef} style={style} className={`${className} ${isDragging ? 'shadow-2xl ring-1 ring-cyan-500/20 backdrop-blur-xl' : ''}`} {...props}>
       <div className="flex items-center gap-1.5">
-        <button type="button" {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing hover:bg-slate-200 dark:hover:bg-blue-900/50 p-1 rounded-md transition-colors touch-none text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300" title="Sürükle bırak">
+        <button type="button" {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing hover:bg-slate-200 dark:hover:bg-blue-900/50 p-1 rounded-md transition-colors touch-none text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300" title="Drag and drop">
           <GripVertical size={14} />
         </button>
         <div className="flex-1 flex items-center gap-2 cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors select-none" onClick={onClick}>{children}</div>
@@ -405,16 +405,16 @@ export function AquaCrudPage({
   // Toplu Silme Fonksiyonu
   const handleBulkDelete = async () => {
     if (selectedIds.length === 0) return;
-    if (!window.confirm(t('aqua.common.confirmBulkDelete', `Seçili ${selectedIds.length} kaydı silmek istediğinize emin misiniz?`))) return;
+    if (!window.confirm(t('aqua.common.confirmBulkDelete', { count: selectedIds.length }))) return;
     
     setIsBulkDeleting(true);
     try {
       await Promise.all(selectedIds.map(id => aquaCrudApi.remove(config.endpoint, id)));
-      toast.success(t('aqua.common.bulkDeleteSuccess', `${selectedIds.length} kayıt başarıyla silindi.`));
+      toast.success(t('aqua.common.bulkDeleteSuccess', { count: selectedIds.length }));
       setSelectedIds([]);
       void queryClient.invalidateQueries({ queryKey: ['aqua', config.key] });
     } catch (e) {
-      toast.error(t('aqua.common.bulkDeleteError', 'Toplu silme işlemi sırasında bazı hatalar oluştu.'));
+      toast.error(t('aqua.common.bulkDeleteError'));
     } finally {
       setIsBulkDeleting(false);
     }
@@ -561,7 +561,7 @@ export function AquaCrudPage({
       return <Badge className={`rounded-md text-[10px] font-bold uppercase tracking-tighter px-2.5 py-0.5 border ${colorClass}`}>{formattedValue}</Badge>;
     }
     
-    // Kod/No içeren bir alansa "Tıkla-Kopyala" bileşeni yap
+    // Render a click-to-copy cell for code/number style fields.
     if (lowerKey.includes('no') || lowerKey.includes('code') || lowerKey.includes('kod') || lowerKey.includes('mail')) {
       return <CopyableCell text={formattedValue} />;
     }
@@ -573,15 +573,15 @@ export function AquaCrudPage({
     try {
       const dataToExport = rows.map((row) => {
         const exportRow: Record<string, string | number> = {};
-        exportRow[t('aqua.common.id', 'ID')] = Number(row.id ?? row.Id);
+        exportRow[t('aqua.common.id')] = Number(row.id ?? row.Id);
         displayedColumns.forEach((col) => { exportRow[t(col.label)] = getFormattedCellValue(row, col.key); });
         return exportRow;
       });
       const XLSX = await import('xlsx');
       const ws = XLSX.utils.json_to_sheet(dataToExport); const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Export"); XLSX.writeFile(wb, `${config.key}-export.xlsx`);
-      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
-    } catch (error) { toast.error(t('aqua.common.exportError', 'Excel kütüphanesi eksik veya hata.')); }
+      XLSX.utils.book_append_sheet(wb, ws, 'Export'); XLSX.writeFile(wb, `${config.key}-export.xlsx`);
+      toast.success(t('aqua.common.exportSuccess'));
+    } catch (error) { toast.error(t('aqua.common.exportErrorExcel')); }
   };
 
   const handleExportPDF = async () => {
@@ -591,17 +591,17 @@ export function AquaCrudPage({
         import('jspdf-autotable'),
       ]);
       const doc = new JsPDF();
-      const tableColumn = [t('aqua.common.id', 'ID'), ...displayedColumns.map((col) => t(col.label))];
+      const tableColumn = [t('aqua.common.id'), ...displayedColumns.map((col) => t(col.label))];
       const tableRows = rows.map((row) => [
         String(Number(row.id ?? row.Id)),
         ...displayedColumns.map((col) => getFormattedCellValue(row, col.key))
       ]);
       autoTable(doc, { head: [tableColumn], body: tableRows });
       doc.save(`${config.key}-export.pdf`);
-      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
+      toast.success(t('aqua.common.exportSuccess'));
     } catch (error) {
       console.error(error);
-      toast.error(t('aqua.common.exportError', 'PDF kütüphanesi eksik veya hata oluştu.'));
+      toast.error(t('aqua.common.exportErrorPdf'));
     }
   };
 
@@ -611,7 +611,7 @@ export function AquaCrudPage({
       const pptx = new PptxGenJS();
       const slide = pptx.addSlide();
       slide.addText(localizedTitle, { x: 0.5, y: 0.5, w: '90%', fontSize: 24, bold: true });
-      const headers = [t('aqua.common.id', 'ID'), ...displayedColumns.map((col) => t(col.label))];
+      const headers = [t('aqua.common.id'), ...displayedColumns.map((col) => t(col.label))];
       const tableRows = rows.map((row) => [
         String(Number(row.id ?? row.Id)),
         ...displayedColumns.map((col) => getFormattedCellValue(row, col.key))
@@ -622,10 +622,10 @@ export function AquaCrudPage({
       ];
       slide.addTable(tableData, { x: 0.5, y: 1.5, w: '90%' });
       pptx.writeFile({ fileName: `${config.key}-export.pptx` });
-      toast.success(t('aqua.common.exportSuccess', 'Başarıyla dışa aktarıldı.'));
+      toast.success(t('aqua.common.exportSuccess'));
     } catch (error) {
       console.error(error);
-      toast.error(t('aqua.common.exportError', 'PowerPoint kütüphanesi eksik veya hata oluştu.'));
+      toast.error(t('aqua.common.exportErrorPpt'));
     }
   };
 
@@ -657,7 +657,7 @@ export function AquaCrudPage({
 
             <div className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl p-5 flex flex-col gap-5 transition-all duration-300">
               <PageToolbar
-                searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
+                searchPlaceholder={t('common.search')}
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 onRefresh={async () => { await listQuery.refetch(); }}
@@ -681,7 +681,7 @@ export function AquaCrudPage({
                         <PopoverTrigger asChild>
                           <Button variant={hasFiltersActive ? 'default' : 'outline'} className={`h-10 px-3 sm:px-4 rounded-xl border transition-all duration-300 ${hasFiltersActive ? 'bg-cyan-50 dark:bg-cyan-800/30 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-700 hover:bg-cyan-100 dark:hover:bg-cyan-800/50' : 'bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 hover:text-slate-900 dark:hover:text-white'}`}>
                             <Filter className="sm:mr-2 h-4 w-4" />
-                            <span className="hidden sm:inline">{t('common.filters', 'Filtreler')}</span>
+                            <span className="hidden sm:inline">{t('common.filters')}</span>
                             {hasFiltersActive && <span className="ml-2 flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />}
                           </Button>
                         </PopoverTrigger>
@@ -703,25 +703,25 @@ export function AquaCrudPage({
                         <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-xl overflow-hidden p-0">
                           <div className="p-2">
                             <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                              {t('aqua.common.actions', 'İşlemler')}
+                              {t('aqua.common.actions')}
                             </div>
                           </div>
                           <div className="h-px bg-slate-200 dark:bg-cyan-800/30 my-1"></div>
                           <div className="p-2 flex flex-col gap-1">
                             <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                              {t('aqua.common.export', 'Dışa Aktar')}
+                              {t('aqua.common.export')}
                             </div>
                             <DropdownMenuItem onSelect={handleExportExcel} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
                               <FileSpreadsheet size={16} className="text-emerald-500" />
-                              <span>{t('aqua.common.exportExcel', "Excel'e Aktar")}</span>
+                              <span>{t('aqua.common.exportExcel')}</span>
                             </DropdownMenuItem>
                             <DropdownMenuItem onSelect={handleExportPDF} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
                               <FileText size={16} className="text-red-400" />
-                              <span>{t('aqua.common.exportPDF', "PDF'e Aktar")}</span>
+                              <span>{t('aqua.common.exportPDF')}</span>
                             </DropdownMenuItem>
                             <DropdownMenuItem onSelect={handleExportPowerPoint} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
                               <Presentation size={16} className="text-orange-400" />
-                              <span>{t('aqua.common.exportPPT', "PowerPoint'e Aktar")}</span>
+                              <span>{t('aqua.common.exportPPT')}</span>
                             </DropdownMenuItem>
                           </div>
                         </DropdownMenuContent>
@@ -749,7 +749,7 @@ export function AquaCrudPage({
                     )}
                     
                     <th className={`${headStyle} cursor-pointer hover:text-cyan-600 dark:hover:text-cyan-400`} onClick={() => handleSort('Id')}>
-                      <div className="flex items-center gap-2">{t('aqua.common.id', 'ID')}{sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-cyan-500" /> : <ArrowDown size={14} className="text-cyan-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}</div>
+                      <div className="flex items-center gap-2">{t('aqua.common.id')}{sortConfig?.key === 'Id' ? (sortConfig.direction === 'asc' ? <ArrowUp size={14} className="text-cyan-500" /> : <ArrowDown size={14} className="text-cyan-500" />) : (<ArrowUpDown size={14} className="opacity-30 group-hover:opacity-100" />)}</div>
                     </th>
 
                     <SortableContext items={displayedColumns.map(c => c.key)} strategy={horizontalListSortingStrategy}>
@@ -802,16 +802,16 @@ export function AquaCrudPage({
                           <td className={`${cellStyle} text-right w-[1%] whitespace-nowrap`}>
                             <div className="flex items-center justify-end gap-1">
                               {/* PREMIUM ÖZELLİK: Sağ Çekmeceyi (View Detay) Açan Buton */}
-                              <Button variant="ghost" size="icon" title="Detay Görüntüle" onClick={(e) => { e.stopPropagation(); setViewingRow(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-900/30 transition-colors">
+                              <Button variant="ghost" size="icon" title={t('aqua.common.viewDetail')} onClick={(e) => { e.stopPropagation(); setViewingRow(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-900/30 transition-colors">
                                 <Eye size={16} />
                               </Button>
 
                               {!config.readOnly && (
                                 <>
-                                  <Button variant="ghost" size="icon" title={t('aqua.common.edit', 'Düzenle')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+                                  <Button variant="ghost" size="icon" title={t('aqua.common.edit')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
                                     <Edit size={16} />
                                   </Button>
-                                  <Button variant="ghost" size="icon" title={t('aqua.common.delete', 'Sil')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                                  <Button variant="ghost" size="icon" title={t('aqua.common.delete')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
                                     <Trash2 size={16} />
                                   </Button>
                                 </>
@@ -844,14 +844,14 @@ export function AquaCrudPage({
           <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-10 fade-in duration-300">
             <div className="flex items-center gap-2 sm:gap-4 bg-slate-900/95 dark:bg-blue-950/95 backdrop-blur-xl border border-slate-700 dark:border-cyan-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-full px-4 sm:px-6 py-2.5 sm:py-3">
               <Badge className="bg-cyan-500/20 text-cyan-400 border-0 pointer-events-none px-3 font-bold text-xs">
-                {selectedIds.length} Seçildi
+                {t('aqua.common.selectedCount', { count: selectedIds.length })}
               </Badge>
               <div className="h-5 w-px bg-slate-700 dark:bg-cyan-800/50 hidden sm:block" />
               <Button size="sm" variant="ghost" onClick={handleExportExcel} className="text-slate-300 hover:text-white hover:bg-slate-800 dark:hover:bg-blue-900/50 rounded-xl h-8 font-bold text-xs transition-colors">
-                <Download size={14} className="sm:mr-2" /> <span className="hidden sm:inline">Dışa Aktar</span>
+                <Download size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{t('aqua.common.export')}</span>
               </Button>
               <Button size="sm" variant="ghost" onClick={handleBulkDelete} disabled={isBulkDeleting} className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 rounded-xl h-8 font-bold text-xs transition-colors">
-                <Trash2 size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{isBulkDeleting ? 'Siliniyor...' : 'Seçilenleri Sil'}</span>
+                <Trash2 size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{isBulkDeleting ? t('aqua.common.deleting') : t('aqua.common.deleteSelected')}</span>
               </Button>
             </div>
           </div>
@@ -869,9 +869,9 @@ export function AquaCrudPage({
                    </div>
                    <div className="space-y-1 text-left">
                       <DialogTitle className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                        {editingRow ? t('aqua.common.editRecord', 'Kaydı Düzenle') : t('aqua.common.createRecord', 'Yeni Kayıt')}
+                        {editingRow ? t('aqua.common.editRecord') : t('aqua.common.createRecord')}
                       </DialogTitle>
-                      <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{localizedTitle} modülü için bilgileri doldurun.</DialogDescription>
+                      <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm">{t('aqua.crud.formDescription', { module: localizedTitle })}</DialogDescription>
                    </div>
                 </div>
                 <Button variant="ghost" size="icon" onClick={() => setFormOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full"><X size={20} /></Button>
@@ -910,13 +910,13 @@ export function AquaCrudPage({
               <div className="p-8 flex flex-col items-center justify-center text-center space-y-5">
                  <div className="h-16 w-16 rounded-full bg-red-100 dark:bg-red-600/10 flex items-center justify-center"><AlertTriangle size={32} className="text-red-600 dark:text-red-500" /></div>
                  <div className="space-y-3">
-                   <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{t('aqua.common.confirmDelete', 'Emin misiniz?')}</h2>
-                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">Bu kaydı kalıcı olarak silmek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?</p>
+                   <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{t('aqua.common.confirmDelete')}</h2>
+                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">{t('aqua.crud.deleteDescription')}</p>
                  </div>
               </div>
               <DialogFooter className="px-6 py-4 border-t border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex-col sm:flex-row gap-3">
-                <Button variant="outline" onClick={() => setRowToDelete(null)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 text-slate-700 dark:text-slate-200 font-medium">{t('aqua.common.cancel', 'İptal')}</Button>
-                <Button onClick={confirmDelete} disabled={isDeleting} className="w-full sm:w-auto h-11 rounded-xl bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/25 border-0 font-bold">{isDeleting ? t('aqua.common.deleting', 'Siliniyor...') : t('aqua.common.delete', 'Sil')}</Button>
+                <Button variant="outline" onClick={() => setRowToDelete(null)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 text-slate-700 dark:text-slate-200 font-medium">{t('aqua.common.cancel')}</Button>
+                <Button onClick={confirmDelete} disabled={isDeleting} className="w-full sm:w-auto h-11 rounded-xl bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/25 border-0 font-bold">{isDeleting ? t('aqua.common.deleting') : t('aqua.common.delete')}</Button>
               </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -937,7 +937,7 @@ export function AquaCrudPage({
               {viewingRow && (
                 <>
                   <div className="space-y-1">
-                    <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Kayıt ID</p>
+                  <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{t('aqua.common.recordId')}</p>
                     <p className="font-mono text-sm font-bold text-slate-900 dark:text-white"><CopyableCell text={String(viewingRow.id ?? viewingRow.Id)} /></p>
                   </div>
                   {displayedColumns.map(col => (
@@ -952,9 +952,9 @@ export function AquaCrudPage({
               )}
             </div>
             <div className="p-4 border-t border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10 shrink-0 flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setViewingRow(null)} className="rounded-xl border-slate-200 dark:border-cyan-800/30 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-blue-900/30">Kapat</Button>
+              <Button variant="outline" onClick={() => setViewingRow(null)} className="rounded-xl border-slate-200 dark:border-cyan-800/30 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-blue-900/30">{t('common.close')}</Button>
               {!config.readOnly && viewingRow && (
-                <Button onClick={() => { handleEdit(viewingRow); setViewingRow(null); }} className="rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold border-0 shadow-lg shadow-cyan-500/20">Düzenle</Button>
+                <Button onClick={() => { handleEdit(viewingRow); setViewingRow(null); }} className="rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold border-0 shadow-lg shadow-cyan-500/20">{t('aqua.common.edit')}</Button>
               )}
             </div>
           </DialogContent>

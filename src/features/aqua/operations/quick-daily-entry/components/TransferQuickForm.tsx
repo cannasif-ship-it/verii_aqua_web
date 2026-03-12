@@ -34,7 +34,7 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
     <Card className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl overflow-hidden transition-all duration-300">
       <CardHeader className="border-b border-slate-200 dark:border-cyan-800/30 px-6 py-5 bg-slate-50/50 dark:bg-blue-950/30">
         <CardTitle className="text-xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-          {t('aqua.quickDailyEntry.transfer.title', { defaultValue: 'Cage Transfer' })}
+          {t('aqua.quickDailyEntry.transfer.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
@@ -43,12 +43,10 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
               <div className="flex items-center gap-2">
                 <Info size={18} className="text-cyan-600 dark:text-cyan-400" />
                 <span className="text-sm font-bold text-cyan-800 dark:text-cyan-300">
-                  {t('aqua.quickDailyEntry.transfer.liveCount', { defaultValue: 'Kafesteki Balık:' })} {sourceBatch.liveCount}
+                  {t('aqua.quickDailyEntry.transfer.sourceInfo', { fishBatchId: sourceBatch.fishBatchId, liveCount: sourceBatch.liveCount })}
                 </span>
               </div>
-              <span className="text-xs font-medium text-cyan-600 dark:text-cyan-500/80">
-                {t('aqua.quickDailyEntry.transfer.batch', { defaultValue: 'Batch:' })} {sourceBatch.batchCode}
-              </span>
+              <span className="text-xs font-medium text-cyan-600 dark:text-cyan-500/80">{sourceBatch.batchCode}</span>
            </div>
         )}
         <Form {...form}>
@@ -58,9 +56,9 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
                 <FormItem className="space-y-2">
                   <FormLabel required className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    {t('aqua.quickDailyEntry.transfer.targetCage', { defaultValue: 'Target Cage' })}
+                    {t('aqua.quickDailyEntry.transfer.targetCage')}
                   </FormLabel>
-                  <FormControl><Combobox options={cageOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} placeholder={t('common.select', { defaultValue: 'Seçiniz...' })} /></FormControl>
+                  <FormControl><Combobox options={cageOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} placeholder={t('common.select')} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
                 </FormItem>
               )} />
@@ -68,7 +66,7 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
                 <FormItem className="space-y-2">
                   <FormLabel required className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    {t('aqua.quickDailyEntry.transfer.count', { defaultValue: 'Adet' })}
+                    {t('aqua.quickDailyEntry.transfer.fishCount')}
                   </FormLabel>
                   <FormControl><Input type="number" className={inputStyle} {...field} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
@@ -82,7 +80,7 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 transition-all hover:opacity-95 border-0 flex items-center gap-2"
               >
                 <Save size={18} />
-                {t('common.save', { defaultValue: 'Save' })}
+                {t('common.save')}
               </Button>
             </div>
           </form>

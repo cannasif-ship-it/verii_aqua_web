@@ -69,34 +69,24 @@ function ReportGuideCard({ t }: { t: (key: string, options?: Record<string, unkn
     <Card className="border-cyan-200 bg-cyan-50 dark:border-cyan-800/30 dark:bg-cyan-950/20 backdrop-blur-sm">
       <CardHeader className="pb-2">
         <CardTitle className="text-base font-semibold text-cyan-700 dark:text-cyan-400">
-          {t('aqua.projectDetailReport.readGuideTitle', { defaultValue: 'Raporu Nasıl Okurum?' })}
+          {t('aqua.projectDetailReport.readGuideTitle')}
         </CardTitle>
         <CardDescription className="text-cyan-600/80 dark:text-cyan-400/70">
-          {t('aqua.projectDetailReport.readGuideDescription', {
-            defaultValue: 'Kartlar proje toplamını, alt açılır satırlar ise kafes bazlı günlük hareketleri gösterir.',
-          })}
+          {t('aqua.projectDetailReport.readGuideDescription')}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-3 text-xs text-slate-700 dark:text-slate-300 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl border border-cyan-200/50 bg-white/60 dark:border-cyan-800/20 dark:bg-blue-950/40 p-3 shadow-sm">
-          {t('aqua.projectDetailReport.readGuideCurrentFish', {
-            defaultValue: 'Mevcut Balık: Başlangıçtan ölüm ve sevkiyatlar düşülmüş canlı adettir.',
-          })}
+          {t('aqua.projectDetailReport.readGuideCurrentFish')}
         </div>
         <div className="rounded-xl border border-cyan-200/50 bg-white/60 dark:border-cyan-800/20 dark:bg-blue-950/40 p-3 shadow-sm">
-          {t('aqua.projectDetailReport.readGuideShipment', {
-            defaultValue: 'Sevk Miktarı: solda adet, sağda gram biyokütle toplamıdır.',
-          })}
+          {t('aqua.projectDetailReport.readGuideShipment')}
         </div>
         <div className="rounded-xl border border-cyan-200/50 bg-white/60 dark:border-cyan-800/20 dark:bg-blue-950/40 p-3 shadow-sm">
-          {t('aqua.projectDetailReport.readGuideDelta', {
-            defaultValue: 'Delta kolonları gün içi net değişimi gösterir (+/-).',
-          })}
+          {t('aqua.projectDetailReport.readGuideDelta')}
         </div>
         <div className="rounded-xl border border-cyan-200/50 bg-white/60 dark:border-cyan-800/20 dark:bg-blue-950/40 p-3 shadow-sm">
-          {t('aqua.projectDetailReport.readGuideButtons', {
-            defaultValue: 'Transfer/Sevkiyat/Dönüşüm butonuna tıklayınca o günün detay satırları açılır.',
-          })}
+          {t('aqua.projectDetailReport.readGuideButtons')}
         </div>
       </CardContent>
     </Card>
@@ -221,25 +211,25 @@ function ProjectSummaryCards({
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-cyan-600 dark:text-cyan-400 truncate">{t('aqua.projectDetailReport.activeCages', { defaultValue: 'Aktif Kafes' })}</p>
+          <p className="text-xs font-medium text-cyan-600 dark:text-cyan-400 truncate">{t('aqua.projectDetailReport.activeCages')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(activeCageCount)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">{t('aqua.projectDetailReport.inactiveCages', { defaultValue: 'Pasif Kafes' })}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">{t('aqua.projectDetailReport.inactiveCages')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(inactiveCageCount)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 truncate">{t('aqua.projectDetailReport.initialFishTotal', { defaultValue: 'Başlangıç Balık' })}</p>
+          <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 truncate">{t('aqua.projectDetailReport.initialFishTotal')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalInitialFish)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentFishTotal', { defaultValue: 'Mevcut Balık' })}</p>
+          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentFishTotal')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalCurrentFish)}</p>
           <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
             <div className="h-full rounded-full bg-blue-500 transition-[width]" style={{ width: `${stockRatio}%` }} />
@@ -248,39 +238,39 @@ function ProjectSummaryCards({
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-red-600 dark:text-red-400 truncate">{t('aqua.projectDetailReport.totalDead', { defaultValue: 'Toplam Ölüm' })}</p>
+          <p className="text-xs font-medium text-red-600 dark:text-red-400 truncate">{t('aqua.projectDetailReport.totalDead')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalDead)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-amber-600 dark:text-amber-400 truncate">{t('aqua.projectDetailReport.totalFeedGram', { defaultValue: 'Toplam Besleme (g)' })}</p>
+          <p className="text-xs font-medium text-amber-600 dark:text-amber-400 truncate">{t('aqua.projectDetailReport.totalFeedGram')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalFeedGram)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentBiomassTotal', { defaultValue: 'Mevcut Biyokütle (g)' })}</p>
+          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentBiomassTotal')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalCurrentBiomass)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-indigo-600 dark:text-indigo-400 truncate">{t('aqua.projectDetailReport.currentAvgGramTotal', { defaultValue: 'Mevcut Ort. Gram' })}</p>
+          <p className="text-xs font-medium text-indigo-600 dark:text-indigo-400 truncate">{t('aqua.projectDetailReport.currentAvgGramTotal')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(avgCurrentGram)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-teal-600 dark:text-teal-400 truncate">{t('aqua.projectDetailReport.totalShipmentFish', { defaultValue: 'Toplam Sevk Balık' })}</p>
+          <p className="text-xs font-medium text-teal-600 dark:text-teal-400 truncate">{t('aqua.projectDetailReport.totalShipmentFish')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalShipmentFish)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-orange-600 dark:text-orange-400 truncate">{t('aqua.projectDetailReport.totalShipmentBiomass', { defaultValue: 'Toplam Sevk (g)' })}</p>
+          <p className="text-xs font-medium text-orange-600 dark:text-orange-400 truncate">{t('aqua.projectDetailReport.totalShipmentBiomass')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalShipmentBiomass)}</p>
-          <p className="mt-1 text-xs text-slate-500 truncate">{t('aqua.projectDetailReport.lastShipmentDate', { defaultValue: 'Son Sevk Tarihi' })}: {lastShipmentDate}</p>
+          <p className="mt-1 text-xs text-slate-500 truncate">{t('aqua.projectDetailReport.lastShipmentDate')}: {lastShipmentDate}</p>
         </CardContent>
       </Card>
     </div>
@@ -298,14 +288,14 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <CardTitle className="text-base font-semibold text-slate-900 dark:text-white truncate">
-              {t('aqua.projectDetailReport.currentSnapshotTitle', { defaultValue: 'Ana Detay (Şu Anki Anlık Durum)' })}
+              {t('aqua.projectDetailReport.currentSnapshotTitle')}
             </CardTitle>
             <CardDescription className="mt-1 text-slate-500 dark:text-slate-400 truncate">
               {projectCode} — {projectName}
             </CardDescription>
           </div>
           <Badge variant="outline" className="border-cyan-200 text-cyan-700 bg-cyan-50 dark:border-cyan-500/30 dark:text-cyan-400 dark:bg-cyan-500/10 shrink-0">
-            {t('aqua.projectDetailReport.snapshotDate', { defaultValue: 'Anlık tarih' })}: {snapshotDate}
+            {t('aqua.projectDetailReport.snapshotDate')}: {snapshotDate}
           </Badge>
         </div>
       </CardHeader>
@@ -313,25 +303,25 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 truncate">{t('aqua.projectDetailReport.liveRate', { defaultValue: 'Canlılık Oranı' })}</p>
+              <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 truncate">{t('aqua.projectDetailReport.liveRate')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(safeRate)}%</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.aliveFishNow', { defaultValue: 'Şu An Canlı Balık' })}</p>
+              <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.aliveFishNow')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(aliveFishCount)}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-red-600 dark:text-red-400 truncate">{t('aqua.projectDetailReport.totalDead', { defaultValue: 'Toplam Ölüm' })}</p>
+              <p className="text-xs font-medium text-red-600 dark:text-red-400 truncate">{t('aqua.projectDetailReport.totalDead')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(deadFishCount)}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-amber-600 dark:text-amber-400 truncate">{t('aqua.projectDetailReport.cagesFedToday', { defaultValue: 'Bugün Beslenen Kafes' })}</p>
+              <p className="text-xs font-medium text-amber-600 dark:text-amber-400 truncate">{t('aqua.projectDetailReport.cagesFedToday')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(activeWithFeedCount)} / {formatNumber(activeCageCount)}</p>
             </CardContent>
           </Card>
@@ -342,15 +332,15 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
         <div className="grid gap-3 sm:grid-cols-2">
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-teal-600 dark:text-teal-400 truncate">{t('aqua.projectDetailReport.totalShipmentFish', { defaultValue: 'Toplam Sevk Balık' })}</p>
+              <p className="text-xs font-medium text-teal-600 dark:text-teal-400 truncate">{t('aqua.projectDetailReport.totalShipmentFish')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalShipmentFish)}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-orange-600 dark:text-orange-400 truncate">{t('aqua.projectDetailReport.totalShipmentBiomass', { defaultValue: 'Toplam Sevk Biyokütle (Gram)' })}</p>
+              <p className="text-xs font-medium text-orange-600 dark:text-orange-400 truncate">{t('aqua.projectDetailReport.totalShipmentBiomass')}</p>
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalShipmentBiomass)}</p>
-              <p className="mt-1 text-xs text-slate-500 truncate">{t('aqua.projectDetailReport.lastShipmentDate', { defaultValue: 'Son Sevk Tarihi' })}: {lastShipmentDate}</p>
+              <p className="mt-1 text-xs text-slate-500 truncate">{t('aqua.projectDetailReport.lastShipmentDate')}: {lastShipmentDate}</p>
             </CardContent>
           </Card>
         </div>
@@ -358,10 +348,10 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
           <CardContent className="pt-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
-                {t('aqua.projectDetailReport.consistencyFormula', { defaultValue: 'Hesap kontrolü: Başlangıç - Ölüm - Sevk = Mevcut' })}
+                {t('aqua.projectDetailReport.consistencyFormula')}
               </p>
               <Badge className={consistency.isConsistent ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30' : 'bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 border-rose-200 dark:border-rose-500/30'}>
-                {consistency.isConsistent ? t('aqua.projectDetailReport.consistent', { defaultValue: 'Tutarlı' }) : t('aqua.projectDetailReport.inconsistent', { defaultValue: 'Tutarsız' })}
+                {consistency.isConsistent ? t('aqua.projectDetailReport.consistent') : t('aqua.projectDetailReport.inconsistent')}
               </Badge>
             </div>
             <p className="mt-2 text-sm font-semibold tabular-nums text-slate-900 dark:text-white truncate">
@@ -392,7 +382,7 @@ export function ProjectDetailReportPage(): ReactElement {
 
   const openDetailDialog = (cage: CageProjectReport, row: CageDailyRow, type: DetailType): void => {
     const titleMap: Record<DetailType, string> = {
-      feeding: t('aqua.projectDetailReport.feedingDetails', { defaultValue: 'Besleme Detayı' }),
+      feeding: t('aqua.projectDetailReport.feedingDetails'),
       netOperation: t('aqua.projectDetailReport.netOps'),
       transfer: t('aqua.projectDetailReport.transfers'),
       stockConvert: t('aqua.projectDetailReport.stockConverts'),
@@ -554,7 +544,7 @@ export function ProjectDetailReportPage(): ReactElement {
                       {reportQuery.data.project.projectCode} — {reportQuery.data.project.projectName}
                     </CardTitle>
                     <CardDescription className="mt-1 text-slate-500 dark:text-slate-400 truncate">
-                      {t('aqua.projectDetailReport.totalCages', { defaultValue: 'Toplam Aktif Kafes' })}: {reportQuery.data.cages.length}
+                      {t('aqua.projectDetailReport.totalCages')}: {reportQuery.data.cages.length}
                     </CardDescription>
                   </div>
               </div>
@@ -579,10 +569,10 @@ export function ProjectDetailReportPage(): ReactElement {
                 <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/40 dark:backdrop-blur-md shadow-sm">
                   <CardHeader className="pb-3 border-b border-slate-100 dark:border-cyan-800/30">
                     <CardTitle className="text-base font-semibold text-slate-900 dark:text-white truncate">
-                      {t('aqua.projectDetailReport.mainSummaryTitle', { defaultValue: 'Ana Detay (Anlık Durum)' })}
+                      {t('aqua.projectDetailReport.mainSummaryTitle')}
                     </CardTitle>
                     <CardDescription className="text-slate-500 dark:text-slate-400 truncate">
-                      {t('aqua.projectDetailReport.mainSummaryDescription', { defaultValue: 'Projedeki aktif kafeslerin toplam anlık durumu.' })}
+                      {t('aqua.projectDetailReport.mainSummaryDescription')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-4">
@@ -598,7 +588,7 @@ export function ProjectDetailReportPage(): ReactElement {
                   <LayoutGrid className="size-7" />
                 </div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {t('aqua.projectDetailReport.noActiveCages', { defaultValue: 'Aktif kafes bulunamadı.' })}
+                  {t('aqua.projectDetailReport.noActiveCages')}
                 </p>
               </div>
             ) : (
@@ -671,7 +661,7 @@ export function ProjectDetailReportPage(): ReactElement {
                               <TableRow className="border-slate-100 bg-slate-50 hover:bg-slate-50 dark:border-cyan-800/30 dark:bg-blue-900/20 dark:hover:bg-blue-900/20">
                                 <TableHead className="font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">{t('aqua.projectDetailReport.date')}</TableHead>
                                 <TableHead className="font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">{t('aqua.projectDetailReport.feedGram')}</TableHead>
-                                <TableHead className="font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">{t('aqua.projectDetailReport.feedStocks', { defaultValue: 'Stok' })}</TableHead>
+                                <TableHead className="font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">{t('aqua.projectDetailReport.feedStocks')}</TableHead>
                                 <TableHead className="font-semibold text-red-600 dark:text-red-400 whitespace-nowrap">{t('aqua.projectDetailReport.deadCount')}</TableHead>
                                 <TableHead className="font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">{t('aqua.projectDetailReport.countDelta')}</TableHead>
                                 <TableHead className="font-semibold text-cyan-600 dark:text-cyan-400 whitespace-nowrap">{t('aqua.projectDetailReport.biomassDelta')}</TableHead>
@@ -699,7 +689,7 @@ export function ProjectDetailReportPage(): ReactElement {
                                 <TableCell>
                                   {row.feedDetails.length > 0 ? (
                                     <Button type="button" variant="outline" size="sm" className="h-7 px-3 text-[11px] font-bold bg-cyan-50 border-cyan-200 text-cyan-700 hover:bg-cyan-100 dark:bg-cyan-900/30 dark:border-cyan-700/50 dark:text-cyan-400 dark:hover:bg-cyan-800/50" onClick={() => openDetailDialog(cage, row, 'feeding')}>
-                                      {t('aqua.projectDetailReport.stockCountShort', { defaultValue: '{{count}} stok', count: row.feedStockCount })}
+                                      {t('aqua.projectDetailReport.stockCountShort', { count: row.feedStockCount })}
                                     </Button>
                                   ) : (<span className="text-slate-400 dark:text-slate-500 text-xs">-</span>)}
                                 </TableCell>
@@ -764,20 +754,20 @@ export function ProjectDetailReportPage(): ReactElement {
                   <CardHeader className="pb-4 border-b border-slate-100 dark:border-cyan-800/30">
                     <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-white truncate">
                       <History className="size-4 text-slate-500 dark:text-slate-400 shrink-0" />
-                      {t('aqua.projectDetailReport.cageHistoryTitle', { defaultValue: 'Kafes Geçmişi (Buydu/Bu Oldu)' })}
+                      {t('aqua.projectDetailReport.cageHistoryTitle')}
                     </CardTitle>
                     <CardDescription className="text-slate-500 dark:text-slate-400 truncate">
-                      {t('aqua.projectDetailReport.cageHistoryDescription', { defaultValue: 'Projede daha önce kullanılmış ancak şu an aktif olmayan kafesler.' })}
+                      {t('aqua.projectDetailReport.cageHistoryDescription')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="overflow-x-auto p-0 custom-scrollbar">
                     <Table>
                       <TableHeader>
                         <TableRow className="border-slate-100 bg-slate-50 hover:bg-slate-50 dark:border-cyan-800/30 dark:bg-blue-900/20 dark:hover:bg-blue-900/20">
-                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.cage', { defaultValue: 'Kafes' })}</TableHead>
-                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.assignedDate', { defaultValue: 'Atanma Tarihi' })}</TableHead>
-                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.releasedDate', { defaultValue: 'Ayrılma Tarihi' })}</TableHead>
-                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.status', { defaultValue: 'Durum' })}</TableHead>
+                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.cage')}</TableHead>
+                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.assignedDate')}</TableHead>
+                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.releasedDate')}</TableHead>
+                          <TableHead className="font-semibold text-slate-500 dark:text-slate-400">{t('aqua.projectDetailReport.status')}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -787,7 +777,7 @@ export function ProjectDetailReportPage(): ReactElement {
                             <TableCell className="tabular-nums text-slate-600 dark:text-slate-400">{item.assignedDate ? item.assignedDate.slice(0, 10) : '-'}</TableCell>
                             <TableCell className="tabular-nums text-slate-600 dark:text-slate-400">{item.releasedDate ? item.releasedDate.slice(0, 10) : '-'}</TableCell>
                             <TableCell>
-                              <Badge className="bg-slate-100 text-slate-600 dark:bg-blue-900/40 dark:text-slate-400 border-0">{t('aqua.projectDetailReport.inactive', { defaultValue: 'Pasif' })}</Badge>
+                              <Badge className="bg-slate-100 text-slate-600 dark:bg-blue-900/40 dark:text-slate-400 border-0">{t('aqua.projectDetailReport.inactive')}</Badge>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -822,7 +812,7 @@ export function ProjectDetailReportPage(): ReactElement {
           ) : (
             <div className="bg-transparent flex flex-col min-h-0">
               <div className="border-b border-slate-100 dark:border-cyan-800/30 bg-slate-50 dark:bg-blue-950/50 px-6 py-3 text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                {t('aqua.projectDetailReport.detailRecords', { count: detailDialog.items.length, defaultValue: '{{count}} Kayıt Bulundu' })}
+                {t('aqua.projectDetailReport.detailRecords', { count: detailDialog.items.length })}
               </div>
               <div className="max-h-[50vh] overflow-y-auto px-4 py-4 custom-scrollbar">
                 {detailDialog.items.map((item, index) => (

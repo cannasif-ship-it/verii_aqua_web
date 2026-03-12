@@ -266,9 +266,9 @@ export function QuickSetupPage(): ReactElement {
       const refreshedAvailable = await aquaQuickApi.getAvailableCagesForProject(projectId);
       setAvailableCages(refreshedAvailable);
       setSelectedAvailableCageId(null);
-      toast.success(t('aqua.quickSetup.toast.cageAdded', { defaultValue: 'Kafes projeye eklendi.' }));
+      toast.success(t('aqua.quickSetup.toast.cageAdded'));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : t('aqua.quickSetup.toast.cageAddFailed', { defaultValue: 'Kafes eklenemedi.' }));
+      toast.error(e instanceof Error ? e.message : t('aqua.quickSetup.toast.cageAddFailed'));
     } finally {
       setIsAddingCage(false);
     }
@@ -279,10 +279,10 @@ export function QuickSetupPage(): ReactElement {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors">
-            {t('aqua.quickSetup.pageTitle', { defaultValue: 'Hızlı Kurulum' })}
+            {t('aqua.quickSetup.pageTitle')}
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm font-medium transition-colors mt-1">
-            {t('aqua.quickSetup.pageDescription', { defaultValue: 'Hızlı kurulum adımlarını tamamlayın.' })}
+            {t('aqua.quickSetup.pageDescription')}
           </p>
         </div>
       </div>

@@ -94,7 +94,7 @@ export function FishDistributionStepCard({
                 >
                   <SelectTrigger className="bg-background dark:bg-blue-950 border-border dark:border-cyan-800/50 text-foreground dark:text-white">
                     <SelectValue
-                      placeholder={t('aqua.quickSetup.selectAvailableCage', { defaultValue: 'Boş kafes seçin' })}
+                      placeholder={t('aqua.quickSetup.selectAvailableCage')}
                     />
                   </SelectTrigger>
                   <SelectContent className="bg-background dark:bg-blue-950 border-border dark:border-cyan-800/50">
@@ -113,7 +113,7 @@ export function FishDistributionStepCard({
                 onClick={onAddCage}
                 disabled={selectedAvailableCageId == null || isAddingCage}
               >
-                {t('aqua.quickSetup.addCage', { defaultValue: '+ Kafes Ekle' })}
+                {t('aqua.quickSetup.addCage')}
               </Button>
           </div>
           
@@ -151,9 +151,7 @@ export function FishDistributionStepCard({
                 {allocations.length === 0 ? (
                 <TableRow className="border-0 hover:bg-transparent">
                     <TableCell colSpan={2} className="text-muted-foreground dark:text-slate-500 text-center py-8">
-                    {t('aqua.quickSetup.noAvailableCages', {
-                        defaultValue: 'Bu proje için kullanılabilir kafes bulunamadı.',
-                    })}
+                    {t('aqua.quickSetup.noAvailableCages')}
                     </TableCell>
                 </TableRow>
                 ) : (

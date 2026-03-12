@@ -187,7 +187,7 @@ export function QuickDailyEntryPage(): ReactElement {
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
-      if (sourceBatch == null) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage', { defaultValue: 'Seçili kafes için aktif batch bulunamadı.' }));
+      if (sourceBatch == null) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
       const mortalityDate = localDateString();
       const existingHeader = await aquaQuickDailyApi.findMortalityHeaderByProjectAndDate(projectId, mortalityDate);
       const canReuseDraft = existingHeader != null && Number(existingHeader.status ?? 0) === 0;
@@ -226,11 +226,11 @@ export function QuickDailyEntryPage(): ReactElement {
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
-      if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage', { defaultValue: 'Seçili kafes için aktif batch bulunamadı.' }));
-      if (data.toProjectCageId === projectCageId) throw new Error(t('aqua.quickDailyEntry.toast.sameCageTransferNotAllowed', { defaultValue: 'Kaynak ve hedef kafes aynı olamaz.' }));
+      if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
+      if (data.toProjectCageId === projectCageId) throw new Error(t('aqua.quickDailyEntry.toast.sameCageTransferNotAllowed'));
       const transferFishCount = Number(sourceBatch.liveCount ?? 0);
-      if (transferFishCount <= 0) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage', { defaultValue: 'Seçili kafes için aktif batch bulunamadı.' }));
-      if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh', { defaultValue: 'Transfer adedi, kafesteki canlı adedini aşamaz.' }));
+      if (transferFishCount <= 0) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
+      if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh'));
 
       const transferDate = localDateString();
       const transfer = await createTransfer.mutateAsync({ projectId, transferNo: formatTransferNo(), transferDate, status: 0, note: data.description });
@@ -249,18 +249,18 @@ export function QuickDailyEntryPage(): ReactElement {
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
-      if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage', { defaultValue: 'Seçili kafes için aktif batch bulunamadı.' }));
-      if (data.toFishBatchId === sourceBatch.fishBatchId) throw new Error(t('aqua.quickDailyEntry.toast.sameBatchStockChangeNotAllowed', { defaultValue: 'Hedef batch kaynak batch ile aynı olamaz.' }));
-      if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.stockChangeCountTooHigh', { defaultValue: 'Stok değişim adedi, kafesteki canlı adedini aşamaz.' }));
+      if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
+      if (data.toFishBatchId === sourceBatch.fishBatchId) throw new Error(t('aqua.quickDailyEntry.toast.sameBatchStockChangeNotAllowed'));
+      if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.stockChangeCountTooHigh'));
 
       const convertDate = localDateString();
       const stockConvert = await createStockConvert.mutateAsync({ projectId, convertNo: formatStockConvertNo(), convertDate, status: 0, note: data.description });
       const averageGram = sourceBatch.averageGram > 0 ? sourceBatch.averageGram : 0;
       const newAverageGram = Number(data.newAverageGram);
-      if (newAverageGram <= 0) throw new Error(t('aqua.quickDailyEntry.toast.invalidNewAverageGram', { defaultValue: 'Yeni ortalama gram 0’dan büyük olmalı.' }));
+      if (newAverageGram <= 0) throw new Error(t('aqua.quickDailyEntry.toast.invalidNewAverageGram'));
       const biomassGram = data.fishCount * averageGram;
       await createStockConvertLine.mutateAsync({ stockConvertId: stockConvert.id, fromFishBatchId: sourceBatch.fishBatchId, toFishBatchId: data.toFishBatchId, fromProjectCageId: projectCageId, toProjectCageId: projectCageId, fishCount: data.fishCount, averageGram, newAverageGram, biomassGram });
-      toast.success(t('aqua.quickDailyEntry.toast.stockChangeSaved', { defaultValue: 'Stok değişimi kaydedildi.' }));
+      toast.success(t('aqua.quickDailyEntry.toast.stockChangeSaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
     }
@@ -278,10 +278,10 @@ export function QuickDailyEntryPage(): ReactElement {
           </div>
           <div>
             <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
-              {t('aqua.quickDailyEntry.pageTitle', { defaultValue: 'Hızlı Günlük Giriş' })}
+              {t('aqua.quickDailyEntry.pageTitle')}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">
-              {t('aqua.quickDailyEntry.pageDescription', { defaultValue: 'Günlük operasyon girişlerinizi tek ekrandan hızlıca yapın.' })}
+              {t('aqua.quickDailyEntry.pageDescription')}
             </p>
           </div>
         </div>
@@ -296,15 +296,15 @@ export function QuickDailyEntryPage(): ReactElement {
           <div className="space-y-3 w-full">
             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
               <ChevronRight size={14} className="text-cyan-500" />
-              {t('aqua.quickDailyEntry.project', { defaultValue: 'PROJE SEÇİMİ' })}
+              {t('aqua.quickDailyEntry.project')}
             </label>
             <Combobox
               options={projectOptions}
               value={projectId != null ? String(projectId) : ''}
               onValueChange={handleProjectChange}
-              placeholder={t('aqua.quickDailyEntry.selectProject', { defaultValue: 'Projeyi listeden seçin...' })}
-              searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
-              emptyText={t('common.noResults', { defaultValue: 'Sonuç bulunamadı.' })}
+              placeholder={t('aqua.quickDailyEntry.selectProject')}
+              searchPlaceholder={t('common.search')}
+              emptyText={t('common.noResults')}
               className="w-full bg-slate-50 dark:bg-blue-900/20 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-12 rounded-xl focus-visible:ring-cyan-500/20 font-medium transition-all"
             />
           </div>
@@ -312,15 +312,15 @@ export function QuickDailyEntryPage(): ReactElement {
           <div className="space-y-3 w-full">
             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
               <ChevronRight size={14} className="text-cyan-500" />
-              {t('aqua.quickDailyEntry.cage', { defaultValue: 'KAFES SEÇİMİ' })}
+              {t('aqua.quickDailyEntry.cage')}
             </label>
             <Combobox
               options={cageOptions}
               value={projectCageId != null ? String(projectCageId) : ''}
               onValueChange={handleCageChange}
-              placeholder={t('aqua.quickDailyEntry.selectCage', { defaultValue: 'Önce proje seçmelisiniz...' })}
-              searchPlaceholder={t('common.search', { defaultValue: 'Ara...' })}
-              emptyText={t('common.noResults', { defaultValue: 'Sonuç bulunamadı.' })}
+              placeholder={t('aqua.quickDailyEntry.selectCage')}
+              searchPlaceholder={t('common.search')}
+              emptyText={t('common.noResults')}
               disabled={!projectId}
               className="w-full bg-slate-50 dark:bg-blue-900/20 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-12 rounded-xl focus-visible:ring-cyan-500/20 font-medium disabled:opacity-50 transition-all"
             />
@@ -346,10 +346,10 @@ export function QuickDailyEntryPage(): ReactElement {
               <div className="p-2 bg-emerald-500/10 rounded-full">
                 <CheckCircle2 className="text-emerald-500 size-6" />
               </div>
-              {t('aqua.quickDailyEntry.transferSuccessDialog.title', { defaultValue: 'İşlem Başarılı' })}
+              {t('aqua.quickDailyEntry.transferSuccessDialog.title')}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-slate-500 dark:text-slate-400 font-medium mt-2">
-              {t('aqua.quickDailyEntry.transferSuccessDialog.description', { defaultValue: 'Kafes değişimi başarıyla kaydedildi. Verilerin güncellenmesi için sayfa yenilenecektir.' })}
+              {t('aqua.quickDailyEntry.transferSuccessDialog.description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-4">
@@ -360,7 +360,7 @@ export function QuickDailyEntryPage(): ReactElement {
                 window.location.reload();
               }}
             >
-              {t('common.ok', { defaultValue: 'Tamam' })}
+              {t('common.ok')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
