@@ -32,6 +32,8 @@
     "title": "Productos",
     "description": "Administre los productos sincronizados con el ERP",
     "syncedFromErp": "Sincronizado desde ERP",
+    "match": "Emparejar",
+    "syncEnqueued": "La tarea de sincronización de stock se ha puesto en cola.",
     "search": "Buscar",
     "id": "IDENTIFICACIÓN",
     "erpStockCode": "Código de stock ERP",
@@ -134,6 +136,7 @@
   },
   "api": {
     "listLoadFailed": "No se pudo cargar la lista de stock",
+    "syncEnqueueFailed": "No se pudo poner en cola la tarea de sincronización de stock",
     "dataUnavailable": "Los datos de stock no están disponibles",
     "detailLoadFailed": "No se pudo cargar el detalle del stock",
     "createFailed": "No se pudo crear el detalle del stock",

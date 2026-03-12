@@ -13,6 +13,19 @@ import type {
 } from '../types';
 
 export const stockApi = {
+  enqueueStockSync: async (): Promise<{ message: string; jobId?: string }> => {
+    const response = await api.post<ApiResponse<{ jobId?: string }>>('/api/hangfire/stock-sync/run-now');
+
+    if (!response.success) {
+      throw new Error(response.message || i18n.t('stock.api.syncEnqueueFailed', { ns: 'stock' }));
+    }
+
+    return {
+      message: response.message || i18n.t('stock.list.syncEnqueued', { ns: 'stock' }),
+      jobId: response.data?.jobId,
+    };
+  },
+
   getList: async (params: PagedParams & { filters?: PagedFilter[] | Record<string, unknown> }): Promise<PagedResponse<StockGetDto>> => {
     const queryParams = new URLSearchParams();
     if (params.pageNumber) queryParams.append('page', params.pageNumber.toString());

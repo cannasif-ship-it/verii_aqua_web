@@ -3,6 +3,8 @@
     "title": "Stok Yönetimi",
     "description": "Stokları görüntüleyin ve yönetin",
     "syncedFromErp": "Stoklar ERP sisteminden otomatik olarak senkronize edilir",
+    "match": "Eşle",
+    "syncEnqueued": "Stok eşleme işi kuyruğa alındı.",
     "search": "Stok adı veya ERP kodu ile ara...",
     "id": "ID",
     "erpStockCode": "ERP Stok Kodu",
@@ -106,6 +108,7 @@
   },
   "api": {
     "listLoadFailed": "Stok listesi yüklenemedi",
+    "syncEnqueueFailed": "Stok eşleme işi kuyruğa alınamadı",
     "dataUnavailable": "Stok verisi alınamadı",
     "detailLoadFailed": "Stok detayı yüklenemedi",
     "createFailed": "Stok detayı oluşturulamadı",

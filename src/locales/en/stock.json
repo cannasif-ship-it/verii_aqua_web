@@ -3,6 +3,8 @@
     "title": "Stock Management",
     "description": "View and manage stocks",
     "syncedFromErp": "Stocks are automatically synchronized from the ERP system",
+    "match": "Match",
+    "syncEnqueued": "Stock matching job has been enqueued.",
     "search": "Search by stock name or ERP code...",
     "id": "ID",
     "erpStockCode": "ERP Stock Code",
@@ -105,6 +107,7 @@
   },
   "api": {
     "listLoadFailed": "Stock list could not be loaded",
+    "syncEnqueueFailed": "Stock matching job could not be enqueued",
     "dataUnavailable": "Stock data is unavailable",
     "detailLoadFailed": "Stock detail could not be loaded",
     "createFailed": "Stock detail could not be created",

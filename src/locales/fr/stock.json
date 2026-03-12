@@ -3,6 +3,8 @@
     "title": "Gestion des stocks",
     "description": "Afficher et gérer les stocks",
     "syncedFromErp": "Les stocks sont automatiquement synchronisés depuis le système ERP",
+    "match": "Associer",
+    "syncEnqueued": "La tâche de synchronisation des stocks a été mise en file d'attente.",
     "search": "Rechercher par nom de stock ou code ERP...",
     "id": "IDENTIFIANT",
     "erpStockCode": "Code stock ERP",
@@ -105,6 +107,7 @@
   },
   "api": {
     "listLoadFailed": "La liste des stocks n’a pas pu être chargée",
+    "syncEnqueueFailed": "Impossible de mettre en file d'attente la tâche de synchronisation des stocks",
     "dataUnavailable": "Les données de stock ne sont pas disponibles",
     "detailLoadFailed": "Le détail du stock n’a pas pu être chargé",
     "createFailed": "Le détail du stock n’a pas pu être créé",

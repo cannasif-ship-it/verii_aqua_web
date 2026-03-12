@@ -32,6 +32,8 @@
     "title": "Prodotti",
     "description": "Gestisci i prodotti sincronizzati con l'ERP",
     "syncedFromErp": "Sincronizzato da ERP",
+    "match": "Abbina",
+    "syncEnqueued": "Il job di sincronizzazione stock è stato messo in coda.",
     "search": "Cerca",
     "id": "ID",
     "erpStockCode": "Codice stock ERP",
@@ -134,6 +136,7 @@
   },
   "api": {
     "listLoadFailed": "Impossibile caricare l’elenco stock",
+    "syncEnqueueFailed": "Impossibile mettere in coda il job di sincronizzazione stock",
     "dataUnavailable": "I dati di stock non sono disponibili",
     "detailLoadFailed": "Impossibile caricare il dettaglio stock",
     "createFailed": "Impossibile creare il dettaglio stock",
