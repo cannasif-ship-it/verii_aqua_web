@@ -41,7 +41,7 @@ export const hangfireMonitoringApi = {
   },
 
   async getFailed(from = 0, count = 20): Promise<HangfireFailedResponseDto> {
-    const response = await api.get<Record<string, unknown>>(`/api/hangfire/failed?from=${from}&count=${count}`);
+    const response = await api.get<Record<string, unknown>>(`/api/hangfire/failures-from-db?from=${from}&count=${count}`);
     return {
       items: normalizeJobs(response?.Items ?? response?.items),
       total: Number(response?.Total ?? response?.total ?? 0),
