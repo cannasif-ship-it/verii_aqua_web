@@ -107,7 +107,7 @@ export function MailSettingsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 animate-in fade-in duration-500">
+      <form onSubmit={form.handleSubmit(handleSubmit)} noValidate className="space-y-8 animate-in fade-in duration-500">
         <div className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 rounded-2xl shadow-sm dark:shadow-2xl p-6 md:p-8 transition-all duration-300">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             

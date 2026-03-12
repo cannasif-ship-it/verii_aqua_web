@@ -66,7 +66,7 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-5">
         <FormField
           control={form.control}
           name="relatedStockId"

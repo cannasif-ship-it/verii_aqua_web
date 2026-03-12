@@ -130,7 +130,7 @@ export function PermissionDefinitionForm({
 
         <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar">
           <Form {...form}>
-            <form id="permission-definition-form" onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+            <form id="permission-definition-form" onSubmit={form.handleSubmit(handleSubmit)} noValidate className="space-y-6">
               
               <FormField
                 control={form.control}

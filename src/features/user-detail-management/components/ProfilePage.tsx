@@ -223,7 +223,7 @@ export function ProfilePage(): ReactElement {
         </CardHeader>
         <CardContent className="pt-8">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(handleSubmit)} noValidate className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <FormField control={form.control} name="height" render={({ field }) => (
                   <FormItem>
@@ -323,7 +323,7 @@ export function ProfilePage(): ReactElement {
               </AccordionTrigger>
               <AccordionContent className="pt-6 pb-2 px-4">
                 <Form {...changePasswordForm}>
-                  <form onSubmit={changePasswordForm.handleSubmit(handleChangePasswordSubmit)} className="space-y-5">
+                  <form onSubmit={changePasswordForm.handleSubmit(handleChangePasswordSubmit)} noValidate className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <FormField control={changePasswordForm.control} name="currentPassword" render={({ field }) => (
                         <FormItem>
