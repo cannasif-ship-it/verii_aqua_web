@@ -42,7 +42,10 @@
     "showing": "عرض",
     "page": "الصفحة",
     "previous": "السابق",
-    "next": "التالي"
+    "next": "التالي",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "تفاصيل المنتج",
@@ -117,7 +120,8 @@
     "stockCode": "رمز المخزون",
     "stockName": "اسم المنتج",
     "noStockFound": "لا توجد منتجات",
-    "saving": "جارٍ الحفظ..."
+    "saving": "جارٍ الحفظ...",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir."
   },
   "messages": {
     "detailCreateSuccess": "تم إنشاء التفاصيل بنجاح",

@@ -132,7 +132,7 @@ export function StockListPage(): ReactElement {
 
   // Dummy Dışa Aktarım (Simülasyon için)
   const handleExport = (type: string) => {
-    toast.success(t('aqua.common.exportSuccess', `Başarıyla ${type} dışa aktarıldı.`));
+    toast.success(t('aqua.common.exportSuccessType', { type }));
   };
 
   return (
@@ -184,7 +184,7 @@ export function StockListPage(): ReactElement {
                     }`}
                   >
                     <Filter className="mr-2 h-4 w-4" />
-                    <span className="hidden sm:inline">{t('common.filters', 'Filtreler')}</span>
+                    <span className="hidden sm:inline">{t('common.filters')}</span>
                     {hasFiltersActive && <span className="ml-2 flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />}
                   </Button>
                 </PopoverTrigger>
@@ -219,13 +219,13 @@ export function StockListPage(): ReactElement {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-xl overflow-hidden p-0">
                   <div className="p-2">
-                    <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('aqua.common.actions', 'İşlemler')}</div>
+                    <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('aqua.common.actions')}</div>
                   </div>
                   <div className="h-px bg-slate-200 dark:bg-cyan-800/30 my-1"></div>
                   <div className="p-2 flex flex-col gap-1">
-                    <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('aqua.common.export', 'Dışa Aktar')}</div>
-                    <DropdownMenuItem onSelect={() => handleExport('Excel')} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 cursor-pointer"><FileSpreadsheet size={16} className="text-emerald-500" /><span>{t('aqua.common.exportExcel', "Excel'e Aktar")}</span></DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => handleExport('PDF')} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 cursor-pointer"><FileText size={16} className="text-red-400" /><span>{t('aqua.common.exportPDF', "PDF'e Aktar")}</span></DropdownMenuItem>
+                    <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('aqua.common.export')}</div>
+                    <DropdownMenuItem onSelect={() => handleExport('Excel')} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 cursor-pointer"><FileSpreadsheet size={16} className="text-emerald-500" /><span>{t('aqua.common.exportExcel')}</span></DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleExport('PDF')} className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-blue-900/50 cursor-pointer"><FileText size={16} className="text-red-400" /><span>{t('aqua.common.exportPDF')}</span></DropdownMenuItem>
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -236,7 +236,7 @@ export function StockListPage(): ReactElement {
         {/* FİLTRE ÇİPLERİ */}
         {hasFiltersActive && (
           <div className="flex flex-wrap items-center gap-2 pt-3 mt-1 border-t border-slate-100 dark:border-cyan-800/30 animate-in fade-in duration-300">
-            <span className="text-[11px] font-bold text-slate-400 dark:text-cyan-500/70 uppercase tracking-widest mr-1">Aktif Filtreler:</span>
+            <span className="text-[11px] font-bold text-slate-400 dark:text-cyan-500/70 uppercase tracking-widest mr-1">{t('common.advancedFilter.activeFilters')}</span>
             {appliedFilterRows.map((filter, idx) => {
               if (!filter.column || filter.value == null || String(filter.value).trim() === '') return null;
               // TS Hatasını çözdüğümüz type casting işlemi:
@@ -254,7 +254,7 @@ export function StockListPage(): ReactElement {
                 </Badge>
               );
             })}
-            <Button variant="ghost" size="sm" onClick={handleAdvancedClear} className="h-7 px-3 text-[11px] font-bold text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg ml-auto">Tümünü Temizle</Button>
+            <Button variant="ghost" size="sm" onClick={handleAdvancedClear} className="h-7 px-3 text-[11px] font-bold text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg ml-auto">{t('common.advancedFilter.clearAll')}</Button>
           </div>
         )}
       </div>

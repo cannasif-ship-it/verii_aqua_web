@@ -14,7 +14,10 @@
     "page": "Seite",
     "noData": "Keine Datensätze gefunden",
     "previous": "Previous",
-    "next": "Weiter"
+    "next": "Weiter",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "Produktdetails",
@@ -93,7 +96,8 @@
     "stockCode": "Bestandscode",
     "stockName": "Bestandsname",
     "noStockFound": "Lagerbestand nicht gefunden",
-    "saving": "Verarbeitung..."
+    "saving": "Verarbeitung...",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir."
   },
   "messages": {
     "detailCreateSuccess": "Bestandsdetails erfolgreich erstellt",

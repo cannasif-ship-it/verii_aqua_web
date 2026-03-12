@@ -13,7 +13,10 @@
     "showing": "Affichage {{from}}-{{to}} / {{total}}",
     "page": "Page {{current}} / {{total}}",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "Détail du stock",
@@ -88,7 +91,8 @@
     "mandatory": "Obligatoire",
     "optional": "Optionnel",
     "noStockFound": "Stock non trouvé",
-    "saving": "Traitement..."
+    "saving": "Traitement...",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir."
   },
   "messages": {
     "detailCreateSuccess": "Détails du stock créés avec succès",

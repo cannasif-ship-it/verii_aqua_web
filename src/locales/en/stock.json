@@ -13,7 +13,10 @@
     "showing": "Showing {{from}}-{{to}} / {{total}}",
     "page": "Page {{current}} / {{total}}",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "Stock Detail",
@@ -88,7 +91,8 @@
     "noRelationsDesc": "You can define new relationships using the form on the left.",
     "confirmDelete": "Yes, Delete",
     "stockCode": "Stock Code",
-    "stockName": "Stock Name"
+    "stockName": "Stock Name",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir."
   },
   "messages": {
     "detailCreateSuccess": "Stock detail created successfully",

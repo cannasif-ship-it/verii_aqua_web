@@ -13,7 +13,10 @@
     "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
     "page": "Sayfa {{current}} / {{total}}",
     "previous": "Önceki",
-    "next": "Sonraki"
+    "next": "Sonraki",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "Stok Detayı",
@@ -66,12 +69,14 @@
   "relations": {
     "add": "Bağlı Stok Ekle",
     "relatedStock": "Bağlı Stok",
+    "selectStock": "Listeden bir stok seçiniz...",
     "relatedStock.required": "Bağlı stok seçimi gereklidir",
     "quantity": "Miktar",
     "quantity.positive": "Miktar pozitif bir sayı olmalıdır",
     "description": "Açıklama",
     "descriptionPlaceholder": "Açıklama giriniz (opsiyonel)",
     "isMandatory": "Zorunlu",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir.",
     "mandatory": "Zorunlu",
     "optional": "Opsiyonel",
     "delete": "Sil",

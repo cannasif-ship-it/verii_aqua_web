@@ -91,8 +91,8 @@ export function StockTable({
         <div className="p-4 bg-white dark:bg-blue-900/20 rounded-full shadow-sm border border-slate-200 dark:border-cyan-800/30 mb-4">
             <PackageOpen size={48} className="text-slate-300 dark:text-cyan-900/50" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('stock.list.noData', { defaultValue: 'Veri Bulunamadı' })}</h3>
-        <p className="text-sm max-w-xs text-center mt-1 text-slate-500 dark:text-slate-400">Arama kriterlerinize uygun kayıt mevcut değil.</p>
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('stock.list.noData')}</h3>
+        <p className="text-sm max-w-xs text-center mt-1 text-slate-500 dark:text-slate-400">{t('stock.list.noDataDescription')}</p>
       </div>
     );
   }
@@ -143,7 +143,7 @@ export function StockTable({
               ))}
               
               <TableHead className="py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right w-[80px] whitespace-nowrap">
-                {t('stock.list.actions', { defaultValue: 'İşlem' })}
+                {t('stock.list.actions')}
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -174,17 +174,17 @@ export function StockTable({
 
       <div className="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 bg-slate-50 dark:bg-blue-950/50 border-t border-slate-200 dark:border-cyan-800/30 gap-4 shrink-0 rounded-b-2xl">
         <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-            {t('stock.list.total', { defaultValue: 'Toplam' })} <span className="font-bold text-slate-900 dark:text-white mx-1">{data.totalCount || 0}</span> {t('stock.list.recordsListed', { defaultValue: 'kayıt listeleniyor' })}
+            {t('stock.list.total')} <span className="font-bold text-slate-900 dark:text-white mx-1">{data.totalCount || 0}</span> {t('stock.list.recordsListed')}
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="h-8 px-3 rounded-lg text-xs bg-white border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-transparent dark:border-cyan-800/50 dark:text-slate-300 dark:hover:bg-blue-900/50 dark:hover:text-white disabled:opacity-50 transition-colors" onClick={() => onPageChange(pageNumber - 1)} disabled={pageNumber <= 1}>
-            <ArrowLeft className="w-3 h-3 mr-1" /> {t('stock.list.previous', { defaultValue: 'Önceki' })}
+            <ArrowLeft className="w-3 h-3 mr-1" /> {t('stock.list.previous')}
           </Button>
           <div className="text-xs font-semibold bg-white border border-slate-200 text-slate-800 dark:bg-blue-950 dark:border-cyan-800/50 px-3 py-1.5 rounded-md min-w-12 text-center dark:text-slate-200 shadow-sm">
             {pageNumber} / {totalPages}
           </div>
           <Button variant="outline" size="sm" className="h-8 px-3 rounded-lg text-xs bg-white border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-transparent dark:border-cyan-800/50 dark:text-slate-300 dark:hover:bg-blue-900/50 dark:hover:text-white disabled:opacity-50 transition-colors" onClick={() => onPageChange(pageNumber + 1)} disabled={pageNumber >= totalPages}>
-            {t('stock.list.next', { defaultValue: 'Sonraki' })} <ArrowRight className="w-3 h-3 ml-1" />
+            {t('stock.list.next')} <ArrowRight className="w-3 h-3 ml-1" />
           </Button>
         </div>
       </div>

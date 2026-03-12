@@ -42,7 +42,10 @@
     "showing": "Mostrando",
     "page": "Pagina",
     "previous": "Precedente",
-    "next": "Successivo"
+    "next": "Successivo",
+    "noDataDescription": "Arama kriterlerinize uygun kayıt mevcut değil.",
+    "total": "Toplam",
+    "recordsListed": "kayıt listeleniyor"
   },
   "detail": {
     "title": "Dettaglio prodotto",
@@ -117,7 +120,8 @@
     "stockCode": "Codice stock",
     "stockName": "Nome prodotto",
     "noStockFound": "Nessun prodotto trovato",
-    "saving": "Salvataggio..."
+    "saving": "Salvataggio...",
+    "isMandatoryDescription": "Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir."
   },
   "messages": {
     "detailCreateSuccess": "Dettaglio creato correttamente",

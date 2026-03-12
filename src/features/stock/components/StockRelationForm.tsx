@@ -74,14 +74,14 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
             <FormItem className="flex flex-col">
               <FormLabel className={labelStyle}>
                 <ChevronRight size={14} className="text-cyan-500" />
-                {t('stock.detail.relatedStockSelect', { defaultValue: 'Bağlı Stok Seçimi' })}
+                {t('stock.relations.relatedStock')}
               </FormLabel>
               <FormControl>
                 <Combobox
                   options={stockOptions}
                   value={String(field.value)}
                   onValueChange={(v) => field.onChange(Number(v))}
-                  placeholder={t('stock.detail.selectFromList', { defaultValue: 'Listeden bir stok seçiniz...' })}
+                  placeholder={t('stock.relations.selectStock')}
                   searchPlaceholder={t('common.search')}
                   emptyText={t('common.noResults')}
                   disabled={isLoadingStocks}
@@ -100,7 +100,7 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
             <FormItem>
               <FormLabel className={labelStyle}>
                 <ChevronRight size={14} className="text-cyan-500" />
-                {t('stock.detail.relationQuantity', { defaultValue: 'Miktar / Katsayı' })}
+                {t('stock.relations.quantity')}
               </FormLabel>
               <FormControl>
                 <Input 
@@ -123,14 +123,14 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
             <FormItem>
               <FormLabel className={labelStyle}>
                 <ChevronRight size={14} className="text-cyan-500" />
-                {t('stock.detail.relationNote', { defaultValue: 'Açıklama / Not' })}
+                {t('stock.relations.description')}
               </FormLabel>
               <FormControl>
                 <Input 
                   {...field} 
                   value={field.value ?? ''} // HATA FIX: Undefined value kontrolü
                   className={inputStyle} 
-                  placeholder={t('stock.detail.relationNotePlaceholder', { defaultValue: 'İlişki hakkında opsiyonel not...' })} 
+                  placeholder={t('stock.relations.descriptionPlaceholder')} 
                 />
               </FormControl>
               <FormMessage className="text-xs text-red-500" />
@@ -152,10 +152,10 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel className="text-sm font-bold text-slate-900 dark:text-white cursor-pointer">
-                  {t('stock.detail.isMandatory', { defaultValue: 'Zorunlu İlişki' })}
+                  {t('stock.relations.isMandatory')}
                 </FormLabel>
                 <FormDescription className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-tight mt-1">
-                  {t('stock.detail.isMandatoryDesc', { defaultValue: 'Bu seçenek işaretlendiğinde, ana ürün satıldığında bu alt ürünün de stoktan düşmesi zorunlu hale gelir.' })}
+                  {t('stock.relations.isMandatoryDescription')}
                 </FormDescription>
               </div>
             </FormItem>
@@ -172,7 +172,7 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
           ) : (
             <Layers className="h-5 w-5" />
           )}
-          {createRelation.isPending ? t('stock.detail.saving') : t('stock.detail.addRelationButton', { defaultValue: 'İlişkiyi Ekle' })}
+          {createRelation.isPending ? t('stock.relations.saving') : t('stock.relations.add')}
         </Button>
       </form>
     </Form>

@@ -105,7 +105,7 @@ function InfoItem({ label, value, icon: Icon, copyable, featured }: any) {
     const handleCopy = () => {
         if (value) {
             navigator.clipboard.writeText(value);
-            toast.success(t('stock.detail.copied', { defaultValue: 'Kopyalandı' }));
+            toast.success(t('stock.detail.copied'));
         }
     };
 
