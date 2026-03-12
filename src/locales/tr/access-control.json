@@ -87,6 +87,8 @@
       "description": "Bu grup için izinleri seçin",
       "currentCodes": "Mevcut izin kodları"
     },
+    "moduleTitle": "AQUA MODÜLÜ",
+    "systemAdminLocked": "System Admin grubu yetkileri kilitlidir ve değiştirilemez.",
     "delete": {
       "confirmTitle": "İzin Grubunu Sil",
       "confirmMessage": "\"{{name}}\" silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."

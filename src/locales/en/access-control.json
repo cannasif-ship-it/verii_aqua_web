@@ -91,7 +91,9 @@
       "confirmTitle": "Delete Permission Group",
       "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
     },
-    "search": "Search..."
+    "search": "Search...",
+    "moduleTitle": "AQUA MODÜLÜ",
+    "systemAdminLocked": "System Admin grubu yetkileri kilitlidir ve değiştirilemez."
   },
   "userGroupAssignments": {
     "title": "User Group Assignments",

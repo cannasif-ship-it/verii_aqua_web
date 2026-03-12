@@ -66,7 +66,7 @@ export function GroupPermissionsPanel({
           {isSystemAdminGroup && (
             <div className="mb-6 rounded-2xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/20 px-4 py-3 text-xs text-amber-700 dark:text-amber-400 font-bold flex items-center gap-3">
               <Info className="w-5 h-5 shrink-0" />
-              {t('permissionGroups.systemAdminLocked', 'System Admin grubu yetkileri kilitlidir ve değiştirilemez.')}
+              {t('permissionGroups.systemAdminLocked')}
             </div>
           )}
           

@@ -83,7 +83,7 @@ export function PermissionDefinitionMultiSelect({
               className="border-slate-300 dark:border-cyan-800 data-[state=checked]:bg-cyan-600 pointer-events-none"
             />
             <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider group-hover:text-cyan-600 transition-colors">
-              {t('permissionGroups.selectAll', { defaultValue: 'Tümünü Seç' })}
+              {t('permissionGroups.selectAll')}
             </span>
           </div>
           <Badge variant="outline" className="text-[10px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-400 border-cyan-200/50 dark:border-cyan-800/50">
@@ -101,7 +101,7 @@ export function PermissionDefinitionMultiSelect({
         ) : (
           <div className="pb-4">
             <p className="text-[10px] font-black text-cyan-600 dark:text-cyan-400 uppercase tracking-widest flex items-center gap-2 mb-4 ml-1">
-              <Globe className="w-3.5 h-3.5" /> {t('permissionGroups.moduleTitle', { defaultValue: 'AQUA MODÜLÜ' })}
+              <Globe className="w-3.5 h-3.5" /> {t('permissionGroups.moduleTitle')}
             </p>
             
             <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
