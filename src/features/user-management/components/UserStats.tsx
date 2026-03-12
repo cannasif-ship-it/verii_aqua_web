@@ -2,30 +2,34 @@ import { type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, UserCheck, UserX } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useUserStats } from '../hooks/useUserStats';
 
 export function UserStats(): ReactElement {
-  // Eğer çeviriler user.json içindeyse 'user' namespace'ini ekleyin
   const { t } = useTranslation(['user-management', 'common']);
+  const { data, isLoading } = useUserStats();
+
+  const totalUsers = data?.totalUsers ?? 0;
+  const activeUsers = data?.activeUsers ?? 0;
+  const inactiveUsers = Math.max(totalUsers - activeUsers, 0);
 
   const stats = [
     {
-      // HATA FIX: Anahtar yolları kontrol edildi
       title: t('stats.totalUsers', { ns: 'user-management' }),
-      value: '4',
+      value: totalUsers.toLocaleString('tr-TR'),
       icon: Users,
       color: 'text-cyan-600 dark:text-cyan-400',
       bg: 'bg-cyan-100 dark:bg-cyan-500/10',
     },
     {
       title: t('stats.activeUsers', { ns: 'user-management' }),
-      value: '4',
+      value: activeUsers.toLocaleString('tr-TR'),
       icon: UserCheck,
       color: 'text-emerald-600 dark:text-emerald-400',
       bg: 'bg-emerald-100 dark:bg-emerald-500/10',
     },
     {
       title: t('table.inactive', { ns: 'user-management' }),
-      value: '0',
+      value: inactiveUsers.toLocaleString('tr-TR'),
       icon: UserX,
       color: 'text-slate-600 dark:text-slate-400',
       bg: 'bg-slate-100 dark:bg-slate-500/10',
@@ -42,12 +46,11 @@ export function UserStats(): ReactElement {
                 <stat.icon className="size-6" />
               </div>
               <div>
-                {/* FIX: uppercase kaldırıldı veya kontrol altına alındı */}
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                    {stat.title}
                 </p>
                 <p className="text-3xl font-black text-slate-900 dark:text-white mt-1 tabular-nums">
-                   {stat.value}
+                   {isLoading ? '...' : stat.value}
                 </p>
               </div>
             </div>
