@@ -55,16 +55,28 @@ export function UserGroupAssignmentsPage(): ReactElement {
     setHasChanges(false);
   };
 
+  const resolveUserLabel = (user: { id: number; fullName?: string; username?: string; email?: string }): string => {
+    const fullName = user.fullName?.trim();
+    const username = user.username?.trim();
+    const email = user.email?.trim();
+
+    if (fullName) return fullName;
+    if (username) return username;
+    if (email) return email;
+
+    return `User ${user.id}`;
+  };
+
   const userOptions = users.map((u) => ({
     value: u.id.toString(),
-    label: u.fullName || u.username || u.email || `User ${u.id}`,
+    label: resolveUserLabel(u),
   }));
 
   const labelStyle = "text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2 mb-3";
 
   return (
     <div className="w-full space-y-8 pb-10">
-      <Breadcrumb items={[{ label: t('sidebar.accessControl') }, { label: t('sidebar.userGroupAssignments'), isActive: true }]} />
+      <Breadcrumb items={[{ label: t('sidebar.accessControl', { ns: 'common' }) }, { label: t('sidebar.userGroupAssignments', { ns: 'common' }), isActive: true }]} />
       
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-1">
         <div className="flex items-center gap-4">
