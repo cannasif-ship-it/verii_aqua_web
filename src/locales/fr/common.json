@@ -151,7 +151,10 @@
       "operator<": "Inférieur à",
       "operator<=": "Inférieur ou égal",
       "true": "Vrai",
-      "false": "Faux"
+      "false": "Faux",
+      "emptyState": "Henüz filtre eklenmedi. Yukarıdaki butondan yeni filtre ekleyebilirsiniz.",
+      "activeFilters": "Aktif Filtreler:",
+      "clearAll": "Tümünü Temizle"
     },
     "inactive": "Inactif",
     "comingSoon": "Bientôt disponible",
@@ -170,7 +173,8 @@
         "queryFailed": "La requête n’a pas pu être chargée",
         "postFailed": "L’enregistrement n’a pas pu être validé"
       }
-    }
+    },
+    "records": "kayıt"
   },
   "auth": {
     "login": {
@@ -4196,7 +4200,24 @@
       "saving": "Enregistrement...",
       "confirmDelete": "Supprimer cet enregistrement ?",
       "requiredField": "est obligatoire",
-      "linesForRecord": "Header #{{id}} için satırlar"
+      "linesForRecord": "Header #{{id}} için satırlar",
+      "export": "Dışa Aktar",
+      "exportExcel": "Excel'e Aktar",
+      "exportPDF": "PDF'e Aktar",
+      "exportPPT": "PowerPoint'e Aktar",
+      "exportSuccess": "Başarıyla dışa aktarıldı.",
+      "exportSuccessType": "Başarıyla {{type}} dışa aktarıldı.",
+      "exportErrorExcel": "Excel dışa aktarma sırasında bir hata oluştu.",
+      "exportErrorPdf": "PDF dışa aktarma sırasında bir hata oluştu.",
+      "exportErrorPpt": "PowerPoint dışa aktarma sırasında bir hata oluştu.",
+      "viewDetail": "Detay görüntüle",
+      "recordId": "Kayıt ID",
+      "deleteSelected": "Seçilenleri Sil",
+      "selectedCount": "{{count}} seçildi",
+      "confirmBulkDelete": "Seçili {{count}} kaydı silmek istediğinize emin misiniz?",
+      "bulkDeleteSuccess": "{{count}} kayıt başarıyla silindi.",
+      "bulkDeleteError": "Toplu silme işlemi sırasında bazı hatalar oluştu.",
+      "deleting": "Siliniyor..."
     },
     "toast": {
       "created": "Enregistrement créé",
@@ -4476,7 +4497,8 @@
       "openGoodsReceiptLines": "Mal Kabul Satırlarını Aç",
       "selectAvailableCage": "Boştaki kafes seçin",
       "addCage": "+ Kafes Ekle",
-      "noAvailableCages": "Bu proje için kullanılabilir kafes bulunamadı."
+      "noAvailableCages": "Bu proje için kullanılabilir kafes bulunamadı.",
+      "pageDescription": "Hızlı kurulum adımlarını tamamlayın."
     },
     "quickDailyEntry": {
       "pageTitle": "Saisie quotidienne rapide",
@@ -4562,7 +4584,20 @@
         "weatherSaved": "Météo enregistrée",
         "netOperationSaved": "Opération enregistrée",
         "saveFailed": "Échec enregistrement",
-        "invalidNewAverageGram": "Eklenecek gram 0'dan büyük olmalı."
+        "invalidNewAverageGram": "Eklenecek gram 0'dan büyük olmalı.",
+        "noActiveBatchForCage": "Seçili kafes için aktif batch bulunamadı.",
+        "sameCageTransferNotAllowed": "Kaynak ve hedef kafes aynı olamaz.",
+        "transferCountTooHigh": "Transfer adedi, kafesteki canlı adedini aşamaz.",
+        "sameBatchStockChangeNotAllowed": "Hedef batch kaynak batch ile aynı olamaz.",
+        "stockChangeCountTooHigh": "Stok değişim adedi, kafesteki canlı adedini aşamaz.",
+        "stockChangeSaved": "Stok değişimi kaydedildi."
+      },
+      "pageDescription": "Günlük operasyon girişlerinizi tek ekrandan hızlıca yapın.",
+      "tabTransfer": "Kafes Değişimi",
+      "tabStockChange": "Stok Değişimi",
+      "transferSuccessDialog": {
+        "title": "İşlem Başarılı",
+        "description": "Kafes değişimi başarıyla kaydedildi. Verilerin güncellenmesi için sayfa yenilenecektir."
       }
     },
     "goodsReceiptItemType": {
@@ -4633,7 +4668,18 @@
       "readGuideButtons": "Transfer/Sevkiyat/Dönüşüm butonuna tıklayınca o günün detay satırları açılır.",
       "consistencyFormula": "Hesap kontrolü: Başlangıç - Ölüm - Sevk = Mevcut",
       "consistent": "Tutarlı",
-      "inconsistent": "Tutarsız"
+      "inconsistent": "Tutarsız",
+      "activeCages": "Aktif Kafes",
+      "inactiveCages": "Pasif Kafes",
+      "initialFishTotal": "Başlangıç Balık",
+      "currentFishTotal": "Mevcut Balık",
+      "currentBiomassTotal": "Mevcut Biyokütle (g)",
+      "currentAvgGramTotal": "Mevcut Ort. Gram",
+      "totalShipmentFish": "Toplam Sevk Balık",
+      "totalShipmentBiomass": "Toplam Sevk Biyokütle (Gram)",
+      "lastShipmentDate": "Son Sevk Tarihi",
+      "mainSummaryTitle": "Ana Detay (Anlık Durum)",
+      "mainSummaryDescription": "Projedeki aktif kafeslerin toplam anlık durumu."
     },
     "crud": {
       "reorderTitle": "Modifier l’ordre par glisser-déposer",

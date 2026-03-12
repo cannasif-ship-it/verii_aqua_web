@@ -16,23 +16,23 @@ export function RouteErrorFallback(): ReactElement {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 p-6 text-center">
       <AlertTriangle className="h-12 w-12 text-destructive" />
-      <h1 className="text-xl font-semibold">{t('common.routeError.title', { defaultValue: 'Bir hata oluştu' })}</h1>
+      <h1 className="text-xl font-semibold">{t('common.routeError.title')}</h1>
       <p className="text-muted-foreground max-w-md">
         {isChunkError
-          ? t('common.routeError.chunkLoad', { defaultValue: 'Sayfa yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.' })
+          ? t('common.routeError.chunkLoad')
           : error instanceof Error
             ? error.message
-            : t('common.routeError.unexpected', { defaultValue: 'Beklenmeyen bir hata oluştu.' })}
+            : t('common.routeError.unexpected')}
       </p>
       <div className="flex gap-2">
         <Button
           variant="outline"
           onClick={() => window.location.reload()}
         >
-          {t('common.routeError.refresh', { defaultValue: 'Sayfayı yenile' })}
+          {t('common.routeError.refresh')}
         </Button>
         <Button onClick={() => navigate(-1)} variant="ghost">
-          {t('common.goBack', { defaultValue: 'Geri dön' })}
+          {t('common.goBack')}
         </Button>
       </div>
     </div>

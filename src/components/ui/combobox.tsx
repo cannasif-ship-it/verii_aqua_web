@@ -50,9 +50,9 @@ export function Combobox({
   const { t } = useTranslation('common')
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
-  const resolvedPlaceholder = placeholder ?? t('common.select', { defaultValue: 'Seçiniz' })
-  const resolvedSearchPlaceholder = searchPlaceholder ?? t('common.search', { defaultValue: 'Ara...' })
-  const resolvedEmptyText = emptyText ?? t('common.noResults', { defaultValue: 'Sonuç bulunamadı.' })
+  const resolvedPlaceholder = placeholder ?? t('common.select')
+  const resolvedSearchPlaceholder = searchPlaceholder ?? t('common.search')
+  const resolvedEmptyText = emptyText ?? t('common.noResults')
 
   const selectedOption = options.find((option) => option.value === value)
 

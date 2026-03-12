@@ -119,7 +119,7 @@ export function AdvancedFilter({
           <div className="p-1.5 bg-pink-500/10 rounded-lg">
             <Search className="w-4 h-4 text-pink-500" />
           </div>
-          {getLabel('title', t('common.advancedFilter.title', { ns: 'common', defaultValue: 'Gelişmiş Filtre' }))}
+          {getLabel('title', t('common.advancedFilter.title', { ns: 'common' }))}
         </h3>
         <div className="flex flex-wrap items-center gap-2">
           <Button 
@@ -130,7 +130,7 @@ export function AdvancedFilter({
             className="h-8 rounded-lg border-cyan-200 dark:border-cyan-800/50 bg-cyan-50/50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-800/40 transition-colors font-semibold"
           >
             <Plus className="h-3.5 w-3.5 mr-1" />
-            {getLabel('add', t('common.advancedFilter.add', { ns: 'common', defaultValue: 'Filtre Ekle' }))}
+            {getLabel('add', t('common.advancedFilter.add', { ns: 'common' }))}
           </Button>
           <Button 
             type="button" 
@@ -139,7 +139,7 @@ export function AdvancedFilter({
             onClick={onClear} 
             className="h-8 rounded-lg border-slate-200 dark:border-white/10 bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
           >
-            {getLabel('clear', t('common.advancedFilter.clear', { ns: 'common', defaultValue: 'Temizle' }))}
+            {getLabel('clear', t('common.advancedFilter.clear', { ns: 'common' }))}
           </Button>
           <Button 
             type="button" 
@@ -147,7 +147,7 @@ export function AdvancedFilter({
             onClick={onSearch} 
             className="h-8 rounded-lg bg-pink-600 hover:bg-pink-500 text-white border-0 shadow-md shadow-pink-500/20 font-bold transition-transform hover:scale-105"
           >
-            {getLabel('search', t('common.advancedFilter.search', { ns: 'common', defaultValue: 'Ara' }))}
+            {getLabel('search', t('common.advancedFilter.search', { ns: 'common' }))}
           </Button>
         </div>
       </div>
@@ -167,9 +167,9 @@ export function AdvancedFilter({
                   options={columns.map((c) => ({ value: c.value, label: getColumnLabel(c) }))}
                   value={row.column}
                   onValueChange={(v) => updateRow(row.id, { column: v })}
-                  placeholder={getLabel('column', t('common.advancedFilter.column', { ns: 'common', defaultValue: 'Sütun' }))}
-                  searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
-                  emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                  placeholder={getLabel('column', t('common.advancedFilter.column', { ns: 'common' }))}
+                  searchPlaceholder={t('common.search', { ns: 'common' })}
+                  emptyText={t('common.noResults', { ns: 'common' })}
                   className="flex-1 min-w-[120px] h-9 bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-white focus-visible:ring-pink-500/20 text-xs font-semibold rounded-lg"
                 />
 
@@ -178,9 +178,9 @@ export function AdvancedFilter({
                   options={getOperatorsForColumn(row.column, columns).map((op) => ({ value: op, label: getOperatorLabel(op) }))}
                   value={row.operator}
                   onValueChange={(v) => updateRow(row.id, { operator: v })}
-                  placeholder={getLabel('operator', t('common.advancedFilter.operator', { ns: 'common', defaultValue: 'Operatör' }))}
-                  searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
-                  emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                  placeholder={getLabel('operator', t('common.advancedFilter.operator', { ns: 'common' }))}
+                  searchPlaceholder={t('common.search', { ns: 'common' })}
+                  emptyText={t('common.noResults', { ns: 'common' })}
                   className="w-[100px] shrink-0 h-9 bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-cyan-600 dark:text-cyan-400 focus-visible:ring-pink-500/20 text-xs font-black text-center rounded-lg"
                 />
 
@@ -188,21 +188,21 @@ export function AdvancedFilter({
                 {colConfig?.type === 'boolean' ? (
                   <Combobox
                     options={[
-                      { value: '_none', label: getLabel('value', t('common.advancedFilter.value', { ns: 'common', defaultValue: 'Değer' })) },
-                      { value: 'true', label: t('advancedFilter.true', { ns: 'common', defaultValue: 'Evet' }) },
-                      { value: 'false', label: t('advancedFilter.false', { ns: 'common', defaultValue: 'Hayır' }) },
+                      { value: '_none', label: getLabel('value', t('common.advancedFilter.value', { ns: 'common' })) },
+                      { value: 'true', label: t('advancedFilter.true', { ns: 'common' }) },
+                      { value: 'false', label: t('advancedFilter.false', { ns: 'common' }) },
                     ]}
                     value={row.value.toLowerCase() === 'true' ? 'true' : row.value.toLowerCase() === 'false' ? 'false' : '_none'}
                     onValueChange={(v) => updateRow(row.id, { value: v === '_none' ? '' : v })}
-                    placeholder={getLabel('value', t('common.advancedFilter.value', { ns: 'common', defaultValue: 'Değer' }))}
-                    searchPlaceholder={t('common.search', { ns: 'common', defaultValue: 'Ara...' })}
-                    emptyText={t('common.noResults', { ns: 'common', defaultValue: 'Sonuç yok' })}
+                    placeholder={getLabel('value', t('common.advancedFilter.value', { ns: 'common' }))}
+                    searchPlaceholder={t('common.search', { ns: 'common' })}
+                    emptyText={t('common.noResults', { ns: 'common' })}
                     className="flex-1 min-w-[100px] h-9 bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-white focus-visible:ring-pink-500/20 text-xs font-semibold rounded-lg"
                   />
                 ) : (
                   <Input
                     type={isDate ? 'date' : 'text'}
-                    placeholder={getLabel('value', t('common.advancedFilter.value', { ns: 'common', defaultValue: 'Değer' }))}
+                    placeholder={getLabel('value', t('common.advancedFilter.value', { ns: 'common' }))}
                     value={row.value}
                     onChange={(e) => updateRow(row.id, { value: e.target.value })}
                     className="flex-1 min-w-[100px] h-9 bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/50 text-slate-900 dark:text-white focus-visible:border-pink-500 focus-visible:ring-pink-500/20 rounded-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs font-medium"
@@ -216,7 +216,7 @@ export function AdvancedFilter({
                   size="icon"
                   className="shrink-0 h-9 w-9 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg transition-colors"
                   onClick={() => removeRow(row.id)}
-                  title={getLabel('remove', t('common.advancedFilter.remove', { ns: 'common', defaultValue: 'Kaldır' }))}
+                  title={getLabel('remove', t('common.advancedFilter.remove', { ns: 'common' }))}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -227,7 +227,7 @@ export function AdvancedFilter({
       ) : (
         <div className="py-8 text-center border-2 border-dashed border-slate-200 dark:border-cyan-800/30 rounded-xl bg-slate-50/50 dark:bg-blue-900/10">
           <Filter className="w-8 h-8 text-slate-300 dark:text-cyan-800/50 mx-auto mb-2" />
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Henüz filtre eklenmedi.<br/>Yukarıdaki butondan yeni filtre ekleyebilirsiniz.</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{t('common.advancedFilter.emptyState')}</p>
         </div>
       )}
     </div>

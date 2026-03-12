@@ -330,7 +330,7 @@ export function CustomerSelectDialog({
           <div className="text-zinc-500">
             {searchQuery.trim()
               ? t('customerSelectDialog.noResults')
-              : t(emptyKey, { ns: 'customer-select-dialog', defaultValue: 'Müşteri bulunamadı' })}
+              : t(emptyKey, { ns: 'customer-select-dialog' })}
           </div>
         </div>
       );
