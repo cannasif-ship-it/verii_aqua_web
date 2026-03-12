@@ -327,7 +327,20 @@ export function AquaCrudPage({
     enabled: canQueryList,
   });
 
-  const lookupFields = useMemo(() => config.fields.filter((field) => field.type === 'select' && field.lookup), [config.fields]);
+  const lookupFields = useMemo(() => {
+    return config.fields.filter((field) => {
+      if (field.type !== 'select' || !field.lookup) return false;
+      if (
+        contextFilter &&
+        contextFilter.hideFieldInForm &&
+        contextFilter.lockValue &&
+        contextFilter.fieldKey === field.key
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [config.fields, contextFilter]);
 
   const lookupQueries = useQueries({
     queries: lookupFields.map((field) => ({
