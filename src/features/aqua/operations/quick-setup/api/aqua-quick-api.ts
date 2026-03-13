@@ -70,6 +70,23 @@ function isActiveProjectCage(releasedDate?: string | null): boolean {
   return parsed.getUTCFullYear() <= 1901;
 }
 
+function normalizeDateOnly(value?: string | null): string | null {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  return trimmed.length >= 10 ? trimmed.slice(0, 10) : trimmed;
+}
+
+function isEffectivelyActiveProjectCage(
+  releasedDate?: string | null,
+  assignedDate?: string | null
+): boolean {
+  if (isActiveProjectCage(releasedDate)) return true;
+  const releasedDay = normalizeDateOnly(releasedDate);
+  const assignedDay = normalizeDateOnly(assignedDate);
+  return releasedDay != null && assignedDay != null && releasedDay === assignedDay;
+}
+
 function getNumberField(obj: Record<string, unknown>, camel: string, pascal: string): number {
   const raw = obj[camel] ?? obj[pascal];
   return Number(raw ?? 0);
@@ -92,6 +109,7 @@ function normalizeProjectCage(item: Record<string, unknown>): ProjectCageDto {
     cageId: getNumberField(item, 'cageId', 'CageId'),
     cageCode: getStringField(item, 'cageCode', 'CageCode') ?? undefined,
     cageName: getStringField(item, 'cageName', 'CageName') ?? undefined,
+    assignedDate: getStringField(item, 'assignedDate', 'AssignedDate'),
     releasedDate: getStringField(item, 'releasedDate', 'ReleasedDate'),
   };
 }
@@ -206,7 +224,11 @@ export const aquaQuickApi = {
     const finalActive = (allAssignments as unknown as Record<string, unknown>[])
       .map(normalizeProjectCage)
       .filter((x) => Number.isFinite(x.id) && x.id > 0)
-      .filter((x) => Number(x.projectId) === projectId && isActiveProjectCage(x.releasedDate));
+      .filter(
+        (x) =>
+          Number(x.projectId) === projectId &&
+          isEffectivelyActiveProjectCage(x.releasedDate, x.assignedDate)
+      );
     return finalActive.map((x) => {
       const cage = cageById.get(Number(x.cageId));
       return {
@@ -226,7 +248,7 @@ export const aquaQuickApi = {
     const activeAssignments = (allAssignments as unknown as Record<string, unknown>[])
       .map(normalizeProjectCage)
       .filter((x) => Number.isFinite(x.id) && x.id > 0)
-      .filter((x) => isActiveProjectCage(x.releasedDate));
+      .filter((x) => isEffectivelyActiveProjectCage(x.releasedDate, x.assignedDate));
 
     const projectAssignedCageIds = new Set(
       activeAssignments

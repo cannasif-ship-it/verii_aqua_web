@@ -17,6 +17,7 @@ export interface ProjectCageDto {
   projectId: number;
   cageCode?: string;
   cageName?: string;
+  assignedDate?: string | null;
   releasedDate?: string | null;
 }
 
