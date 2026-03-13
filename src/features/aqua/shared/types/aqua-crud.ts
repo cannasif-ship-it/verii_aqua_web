@@ -21,6 +21,7 @@ export interface AquaFieldConfig {
   label: string;
   type: AquaFieldType;
   required?: boolean;
+  hideInForm?: boolean;
   placeholder?: string;
   numberStep?: string;
   numberMin?: number;

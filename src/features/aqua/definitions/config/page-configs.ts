@@ -83,7 +83,7 @@ export const projectCageAssignmentsConfig: AquaCrudConfig = {
       },
     },
     { key: 'assignedDate', label: 'aqua.fields.assignedDate', type: 'date', required: true },
-    { key: 'releasedDate', label: 'aqua.fields.releasedDate', type: 'date' },
+    { key: 'releasedDate', label: 'aqua.fields.releasedDate', type: 'date', hideInForm: true },
   ],
   columns: [
     { key: 'projectCode', label: 'aqua.fields.projectCode' },

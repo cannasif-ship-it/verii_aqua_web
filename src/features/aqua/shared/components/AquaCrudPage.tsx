@@ -450,6 +450,7 @@ export function AquaCrudPage({
   }, [config.fields, t]);
 
   const visibleFields = useMemo(() => config.fields.filter((field) => {
+    if (field.hideInForm) return false;
     if (contextFilter?.hideFieldInForm && contextFilter.fieldKey === field.key) return false;
     if (config.postingSlug && field.key.toLowerCase() === 'status') return false;
     return true;
