@@ -93,6 +93,7 @@ export const projectCageAssignmentsConfig: AquaCrudConfig = {
     { key: 'assignedDate', label: 'aqua.fields.assignedDate' },
     { key: 'releasedDate', label: 'aqua.fields.releasedDate' },
   ],
+  defaultValues: { releasedDate: null },
 };
 
 export const weatherSeveritiesConfig: AquaCrudConfig = {
