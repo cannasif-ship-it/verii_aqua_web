@@ -14,8 +14,8 @@
   "noSalesData": "Henüz satış verisi oluşmadı",
   "noActivities": "Henüz aktivite bulunmuyor",
   "selectFormat": "Format Seçiniz",
-  "reportPreparing": "raporu hazırlanıyor...",
-  "reportDownloaded": "raporu indirildi.",
+  "reportPreparing": "Rapor hazırlanıyor...",
+  "reportDownloaded": "Rapor indirildi.",
   "reportError": "Rapor alınamadı.",
   "stats": {
     "totalRevenue": "Toplam Ciro",
@@ -85,6 +85,26 @@
     "detailReportButton": "Detay Raporu",
     "selectProjectHint": "Lütfen detaylarını görmek için yukarıdan bir proje seçiniz.",
     "dailyFlow": "Günlük Veri Akışı",
+    "activeProjectFilters": {
+      "title": "Aktif Proje Filtreleri",
+      "description": "Seçtiğin projeler aşağıdaki kartları ve listeleri filtreler."
+    },
+    "projectSelector": {
+      "title": "Proje Seçimi",
+      "description": "Bir veya birden fazla proje seçerek dashboard görünümünü filtrele.",
+      "searchPlaceholder": "Proje kodu veya adı ara...",
+      "selectedCount": "Seçili: {{count}}",
+      "emptySelection": "Henüz proje seçilmedi",
+      "activeBadge": "Aktif",
+      "noResults": "Aramana uygun proje bulunamadı.",
+      "apply": "Uygula",
+      "openButton": "Proje Seç",
+      "closeButton": "Kapat",
+      "clearButton": "Temizle",
+      "applyButton": "Uygula",
+      "cancelButton": "Vazgeç",
+      "resetButton": "Sıfırla"
+    },
     "stats": {
       "activeCages": "Aktif Kafes",
       "liveFish": "Canlı Balık",
@@ -105,7 +125,7 @@
       "date": "Tarih",
       "feedGram": "Yem (g)",
       "stock": "Stok",
-      "dead": "Ölü",
+      "dead": "Balık Fire",
       "delta": "Delta",
       "biomassDelta": "Biyo Delta",
       "weather": "Hava",
@@ -116,11 +136,24 @@
       "stockCount": "{{count}} stok",
       "operationCount": "{{count}} işlem",
       "fed": "Beslendi",
-      "notFed": "Beslenmedi"
+      "notFed": "Beslenmedi",
+      "criticalDay": "Kritik Gün"
+    },
+    "dailyCards": {
+      "feed": "Yem",
+      "dead": "Balık Fire",
+      "delta": "Delta",
+      "biomass": "Biyokütle"
+    },
+    "dailySections": {
+      "feedStocks": "Yem Stokları",
+      "net": "Ağ",
+      "transfer": "Transfer",
+      "shipment": "Sevkiyat"
     },
     "projectDialog": {
       "fish": "Balık",
-      "dead": "Ölüm",
+      "dead": "Balık Fire",
       "feedGram": "Yem (g)",
       "cages": "Kafes",
       "cagePools": "Kafes Havuzları",
@@ -128,10 +161,11 @@
     },
     "cageCard": {
       "fishUnit": "balık",
-      "totalDead": "Ölüm",
+      "totalDead": "Balık Fire",
       "feed": "Yem",
       "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı"
+      "survivalRate": "Yaşam Oranı",
+      "quickDailyEntry": "Hızlı Giriş"
     },
     "controls": {
       "viewAndProject": "Görünüm ve Proje",
@@ -147,7 +181,7 @@
     "listTable": {
       "cage": "Kafes",
       "fish": "Balık",
-      "dead": "Ölüm",
+      "dead": "Balık Fire",
       "feed": "Yem",
       "biomass": "Biyokütle",
       "survivalRate": "Yaşam Oranı",

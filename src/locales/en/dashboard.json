@@ -12,11 +12,11 @@
   "refreshError": "Update failed",
   "user": "User",
   "noSalesData": "No sales data yet",
-  "noActivities": "No activities found yet",
+  "noActivities": "No activities yet",
   "selectFormat": "Select Format",
-  "reportPreparing": "report is being prepared...",
-  "reportDownloaded": "report downloaded.",
-  "reportError": "Could not retrieve report.",
+  "reportPreparing": "Preparing report...",
+  "reportDownloaded": "Report downloaded.",
+  "reportError": "Failed to download report.",
   "stats": {
     "totalRevenue": "Total Revenue",
     "activeOpportunities": "Active Opportunities",
@@ -28,7 +28,7 @@
   "latestActivities": "Latest Activities",
   "viewAll": "View All",
   "reportDownload": "Download Report",
-  "quickAction": "Quick Action",
+  "quickAction": "Quick Actions",
   "activityType": {
     "meeting": "Meeting",
     "call": "Call",
@@ -53,16 +53,16 @@
   },
   "quickStats": {
     "pendingTasks": "Pending Tasks",
-    "checkTasks": "Check the task list",
+    "checkTasks": "Check task list",
     "openQuotations": "Open Quotations",
     "reviewQuotations": "Review quotations",
     "criticalStock": "Critical Stock",
-    "stockStatus": "See stock status"
+    "stockStatus": "View stock status"
   },
   "sidebar": {
     "customers": "Customers",
     "customerManagement": "Customer Management",
-    "salesManagement": "Sales Funnel",
+    "salesManagement": "Sales Pipeline",
     "demandCreateWizard": "Create New Demand",
     "quotationCreateWizard": "Create New Quotation",
     "orderCreateWizard": "Create New Order",
@@ -70,21 +70,41 @@
     "activityManagement": "Activity Management"
   },
   "errors": {
-    "listLoadFailed": "List could not be loaded",
-    "pathListLoadFailed": "Path list could not be loaded",
+    "listLoadFailed": "Failed to load list",
+    "pathListLoadFailed": "Failed to load path list",
     "projectNotFound": "Project not found"
   },
   "aquaDashboard": {
     "title": "Aqua Dashboard",
-    "description": "General production and project status of your facility.",
+    "description": "Overview of your facility's production and project status.",
     "selectedProject": "Displayed Project",
     "selectProjectPlaceholder": "Select from all projects...",
     "facilitySummary": "Facility Summary",
     "projectDetail": "Project Detail",
-    "dataLoadFailed": "Data could not be loaded.",
+    "dataLoadFailed": "Failed to load data.",
     "detailReportButton": "Detail Report",
-    "selectProjectHint": "Please select a project above to see its details.",
+    "selectProjectHint": "Please select a project above to view its details.",
     "dailyFlow": "Daily Data Flow",
+    "activeProjectFilters": {
+      "title": "Active Project Filters",
+      "description": "Selected projects filter the cards and lists below."
+    },
+    "projectSelector": {
+      "title": "Project Selection",
+      "description": "Filter the dashboard by selecting one or more projects.",
+      "searchPlaceholder": "Search by project code or name...",
+      "selectedCount": "Selected: {{count}}",
+      "emptySelection": "No project selected yet",
+      "activeBadge": "Active",
+      "noResults": "No projects found matching your search.",
+      "apply": "Apply",
+      "openButton": "Select Project",
+      "closeButton": "Close",
+      "clearButton": "Clear",
+      "applyButton": "Apply",
+      "cancelButton": "Cancel",
+      "resetButton": "Reset"
+    },
     "stats": {
       "activeCages": "Active Cages",
       "liveFish": "Live Fish",
@@ -105,7 +125,7 @@
       "date": "Date",
       "feedGram": "Feed (g)",
       "stock": "Stock",
-      "dead": "Dead",
+      "dead": "Fish Loss",
       "delta": "Delta",
       "biomassDelta": "Biomass Delta",
       "weather": "Weather",
@@ -114,45 +134,59 @@
       "shipment": "Shipment",
       "status": "Status",
       "stockCount": "{{count}} stock",
-      "operationCount": "{{count}} operation",
-      "fed": "FED",
-      "notFed": "NOT FED"
+      "operationCount": "{{count}} operations",
+      "fed": "Fed",
+      "notFed": "Not Fed",
+      "criticalDay": "Critical Day"
+    },
+    "dailyCards": {
+      "feed": "Feed",
+      "dead": "Fish Loss",
+      "delta": "Delta",
+      "biomass": "Biomass"
+    },
+    "dailySections": {
+      "feedStocks": "Feed Stocks",
+      "net": "Net",
+      "transfer": "Transfer",
+      "shipment": "Shipment"
     },
     "projectDialog": {
       "fish": "Fish",
-      "dead": "Mortality",
+      "dead": "Fish Loss",
       "feedGram": "Feed (g)",
       "cages": "Cages",
       "cagePools": "Cage Pools",
-      "clickForDailyDetail": "Click for daily detail"
+      "clickForDailyDetail": "Click for daily details"
     },
     "cageCard": {
       "fishUnit": "fish",
-      "totalDead": "Mortality",
+      "totalDead": "Fish Loss",
       "feed": "Feed",
       "biomass": "Biomass",
-      "survivalRate": "Survival Rate"
+      "survivalRate": "Survival Rate",
+      "quickDailyEntry": "Quick Daily Entry"
     },
     "controls": {
-      "viewAndProject": "Görünüm ve Proje",
-      "projectCountAndView": "{{count}} Proje • {{view}}",
-      "cardView": "Kart",
-      "listView": "Liste",
-      "viewType": "Görünüm Şekli",
-      "projectSelection": "Proje Seçimi",
-      "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "viewAndProject": "View & Project",
+      "projectCountAndView": "{{count}} Projects • {{view}}",
+      "cardView": "Card",
+      "listView": "List",
+      "viewType": "View Type",
+      "projectSelection": "Project Selection",
+      "selectAll": "Select All",
+      "clear": "Clear"
     },
-    "selectedProjects": "Seçili Projeler",
+    "selectedProjects": "Selected Projects",
     "listTable": {
-      "cage": "Kafes",
-      "fish": "Balık",
-      "dead": "Ölüm",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı",
-      "action": "İşlem",
-      "dailyFlowButton": "Günlük Akış"
+      "cage": "Cage",
+      "fish": "Fish",
+      "dead": "Fish Loss",
+      "feed": "Feed",
+      "biomass": "Biomass",
+      "survivalRate": "Survival Rate",
+      "action": "Action",
+      "dailyFlowButton": "Daily Flow"
     }
   }
 }

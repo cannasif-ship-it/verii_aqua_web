@@ -17,7 +17,7 @@
     "meeting": "Riunione",
     "call": "Chiamata",
     "email": "Email",
-    "general": "General"
+    "general": "Generale"
   },
   "monthsShort": {
     "jan": "Gen",
@@ -44,8 +44,8 @@
     "reviewQuotations": "Scopri le offerte",
     "stockStatus": "Vedi lo stato delle scorte"
   },
-  "noDate": "No date",
-  "unnamedActivity": "Unnamed Activity",
+  "noDate": "Nessuna data",
+  "unnamedActivity": "Attività senza nome",
   "greeting": {
     "morning": "Buongiorno",
     "afternoon": "Buona giornata",
@@ -88,6 +88,26 @@
     "detailReportButton": "Report dettagliato",
     "selectProjectHint": "Seleziona un progetto sopra per vederne i dettagli.",
     "dailyFlow": "Flusso dati giornaliero",
+    "activeProjectFilters": {
+      "title": "Filtri progetto attivi",
+      "description": "I progetti selezionati filtrano le card e le liste qui sotto."
+    },
+    "projectSelector": {
+      "title": "Selezione progetto",
+      "description": "Filtra la dashboard selezionando uno o più progetti.",
+      "searchPlaceholder": "Cerca per codice o nome progetto...",
+      "selectedCount": "Selezionati: {{count}}",
+      "emptySelection": "Nessun progetto selezionato",
+      "activeBadge": "Attivo",
+      "noResults": "Nessun progetto trovato per la tua ricerca.",
+      "apply": "Applica",
+      "openButton": "Seleziona progetto",
+      "closeButton": "Chiudi",
+      "clearButton": "Pulisci",
+      "applyButton": "Applica",
+      "cancelButton": "Annulla",
+      "resetButton": "Reimposta"
+    },
     "stats": {
       "activeCages": "Gabbie attive",
       "liveFish": "Pesci vivi",
@@ -119,7 +139,20 @@
       "stockCount": "{{count}} stock",
       "operationCount": "{{count}} operazione",
       "fed": "NUTRITO",
-      "notFed": "NON NUTRITO"
+      "notFed": "NON NUTRITO",
+      "criticalDay": "Giorno critico"
+    },
+    "dailyCards": {
+      "feed": "Mangime",
+      "dead": "Mortalità",
+      "delta": "Delta",
+      "biomass": "Biomassa"
+    },
+    "dailySections": {
+      "feedStocks": "Scorte mangime",
+      "net": "Rete",
+      "transfer": "Trasferimento",
+      "shipment": "Spedizione"
     },
     "projectDialog": {
       "fish": "Pesci",
@@ -134,28 +167,29 @@
       "totalDead": "Mortalità",
       "feed": "Mangime",
       "biomass": "Biomassa",
-      "survivalRate": "Tasso di sopravvivenza"
+      "survivalRate": "Tasso di sopravvivenza",
+      "quickDailyEntry": "Inserimento rapido giornaliero"
     },
     "controls": {
-      "viewAndProject": "Görünüm ve Proje",
-      "projectCountAndView": "{{count}} Proje • {{view}}",
-      "cardView": "Kart",
-      "listView": "Liste",
-      "viewType": "Görünüm Şekli",
-      "projectSelection": "Proje Seçimi",
-      "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "viewAndProject": "Vista e progetto",
+      "projectCountAndView": "{{count}} progetti • {{view}}",
+      "cardView": "Scheda",
+      "listView": "Elenco",
+      "viewType": "Tipo di vista",
+      "projectSelection": "Selezione progetto",
+      "selectAll": "Seleziona tutto",
+      "clear": "Pulisci"
     },
-    "selectedProjects": "Seçili Projeler",
+    "selectedProjects": "Progetti selezionati",
     "listTable": {
-      "cage": "Kafes",
-      "fish": "Balık",
-      "dead": "Ölüm",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı",
-      "action": "İşlem",
-      "dailyFlowButton": "Günlük Akış"
+      "cage": "Gabbia",
+      "fish": "Pesce",
+      "dead": "Mortalità",
+      "feed": "Mangime",
+      "biomass": "Biomassa",
+      "survivalRate": "Tasso di sopravvivenza",
+      "action": "Azione",
+      "dailyFlowButton": "Flusso giornaliero"
     }
   }
 }

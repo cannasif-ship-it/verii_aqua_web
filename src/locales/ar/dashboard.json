@@ -29,7 +29,7 @@
     "meeting": "اجتماع",
     "call": "مكالمة",
     "email": "بريد إلكتروني",
-    "general": "General"
+    "general": "عام"
   },
   "monthsShort": {
     "jan": "يناير",
@@ -88,6 +88,26 @@
     "detailReportButton": "تقرير تفصيلي",
     "selectProjectHint": "يرجى اختيار مشروع من الأعلى لعرض تفاصيله.",
     "dailyFlow": "تدفق البيانات اليومي",
+    "activeProjectFilters": {
+      "title": "فلاتر المشاريع النشطة",
+      "description": "المشاريع التي اخترتها تقوم بتصفية البطاقات والقوائم أدناه."
+    },
+    "projectSelector": {
+      "title": "اختيار المشروع",
+      "description": "قم بتصفية لوحة التحكم باختيار مشروع واحد أو أكثر.",
+      "searchPlaceholder": "ابحث برمز المشروع أو اسمه...",
+      "selectedCount": "المحدد: {{count}}",
+      "emptySelection": "لم يتم اختيار أي مشروع بعد",
+      "activeBadge": "نشط",
+      "noResults": "لم يتم العثور على مشاريع مطابقة لبحثك.",
+      "apply": "تطبيق",
+      "openButton": "اختيار مشروع",
+      "closeButton": "إغلاق",
+      "clearButton": "مسح",
+      "applyButton": "تطبيق",
+      "cancelButton": "إلغاء",
+      "resetButton": "إعادة تعيين"
+    },
     "stats": {
       "activeCages": "الأقفاص النشطة",
       "liveFish": "الأسماك الحية",
@@ -119,7 +139,20 @@
       "stockCount": "{{count}} مخزون",
       "operationCount": "{{count}} عملية",
       "fed": "تَمّت التغذية",
-      "notFed": "لم تتم التغذية"
+      "notFed": "لم تتم التغذية",
+      "criticalDay": "يوم حرج"
+    },
+    "dailyCards": {
+      "feed": "العلف",
+      "dead": "النفوق",
+      "delta": "التغير",
+      "biomass": "الكتلة الحيوية"
+    },
+    "dailySections": {
+      "feedStocks": "مخزونات العلف",
+      "net": "الشبك",
+      "transfer": "التحويل",
+      "shipment": "الشحنة"
     },
     "projectDialog": {
       "fish": "الأسماك",
@@ -134,28 +167,29 @@
       "totalDead": "النفوق",
       "feed": "العلف",
       "biomass": "الكتلة الحيوية",
-      "survivalRate": "معدل البقاء"
+      "survivalRate": "معدل البقاء",
+      "quickDailyEntry": "إدخال يومي سريع"
     },
     "controls": {
-      "viewAndProject": "Görünüm ve Proje",
-      "projectCountAndView": "{{count}} Proje • {{view}}",
-      "cardView": "Kart",
-      "listView": "Liste",
-      "viewType": "Görünüm Şekli",
-      "projectSelection": "Proje Seçimi",
-      "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "viewAndProject": "العرض والمشروع",
+      "projectCountAndView": "{{count}} مشروع • {{view}}",
+      "cardView": "بطاقات",
+      "listView": "قائمة",
+      "viewType": "نوع العرض",
+      "projectSelection": "اختيار المشروع",
+      "selectAll": "تحديد الكل",
+      "clear": "مسح"
     },
-    "selectedProjects": "Seçili Projeler",
+    "selectedProjects": "المشاريع المحددة",
     "listTable": {
-      "cage": "Kafes",
-      "fish": "Balık",
-      "dead": "Ölüm",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı",
-      "action": "İşlem",
-      "dailyFlowButton": "Günlük Akış"
+      "cage": "القفص",
+      "fish": "الأسماك",
+      "dead": "نفوق الأسماك",
+      "feed": "العلف",
+      "biomass": "الكتلة الحيوية",
+      "survivalRate": "معدل البقاء",
+      "action": "إجراء",
+      "dailyFlowButton": "التدفق اليومي"
     }
   }
 }

@@ -17,7 +17,7 @@
     "meeting": "Treffen",
     "call": "Anruf",
     "email": "E-Mail",
-    "general": "General"
+    "general": "Allgemein"
   },
   "monthsShort": {
     "jan": "Jan",
@@ -44,8 +44,8 @@
     "reviewQuotations": "Schauen Sie sich die Angebote an",
     "stockStatus": "Siehe Lagerstatus"
   },
-  "noDate": "No date",
-  "unnamedActivity": "Unnamed Activity",
+  "noDate": "Kein Datum",
+  "unnamedActivity": "Unbenannte Aktivität",
   "greeting": {
     "morning": "Guten Morgen",
     "afternoon": "Einen schönen Tag noch",
@@ -88,6 +88,26 @@
     "detailReportButton": "Detailbericht",
     "selectProjectHint": "Bitte wählen Sie oben ein Projekt aus, um die Details anzuzeigen.",
     "dailyFlow": "Täglicher Datenfluss",
+    "activeProjectFilters": {
+      "title": "Aktive Projektfilter",
+      "description": "Ausgewählte Projekte filtern die Karten und Listen unten."
+    },
+    "projectSelector": {
+      "title": "Projektauswahl",
+      "description": "Filtern Sie das Dashboard, indem Sie ein oder mehrere Projekte auswählen.",
+      "searchPlaceholder": "Nach Projektcode oder Name suchen...",
+      "selectedCount": "Ausgewählt: {{count}}",
+      "emptySelection": "Noch kein Projekt ausgewählt",
+      "activeBadge": "Aktiv",
+      "noResults": "Keine passenden Projekte gefunden.",
+      "apply": "Übernehmen",
+      "openButton": "Projekt auswählen",
+      "closeButton": "Schließen",
+      "clearButton": "Leeren",
+      "applyButton": "Übernehmen",
+      "cancelButton": "Abbrechen",
+      "resetButton": "Zurücksetzen"
+    },
     "stats": {
       "activeCages": "Aktive Käfige",
       "liveFish": "Lebende Fische",
@@ -119,7 +139,20 @@
       "stockCount": "{{count}} Bestand",
       "operationCount": "{{count}} Vorgang",
       "fed": "GEFÜTTERT",
-      "notFed": "NICHT GEFÜTTERT"
+      "notFed": "NICHT GEFÜTTERT",
+      "criticalDay": "Kritischer Tag"
+    },
+    "dailyCards": {
+      "feed": "Futter",
+      "dead": "Fischverlust",
+      "delta": "Delta",
+      "biomass": "Biomasse"
+    },
+    "dailySections": {
+      "feedStocks": "Futterbestände",
+      "net": "Netz",
+      "transfer": "Transfer",
+      "shipment": "Versand"
     },
     "projectDialog": {
       "fish": "Fische",
@@ -134,28 +167,29 @@
       "totalDead": "Sterblichkeit",
       "feed": "Futter",
       "biomass": "Biomasse",
-      "survivalRate": "Überlebensrate"
+      "survivalRate": "Überlebensrate",
+      "quickDailyEntry": "Schneller Tages-Eintrag"
     },
     "controls": {
-      "viewAndProject": "Görünüm ve Proje",
-      "projectCountAndView": "{{count}} Proje • {{view}}",
-      "cardView": "Kart",
+      "viewAndProject": "Ansicht und Projekt",
+      "projectCountAndView": "{{count}} Projekte • {{view}}",
+      "cardView": "Karte",
       "listView": "Liste",
-      "viewType": "Görünüm Şekli",
-      "projectSelection": "Proje Seçimi",
-      "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "viewType": "Ansichtstyp",
+      "projectSelection": "Projektauswahl",
+      "selectAll": "Alle auswählen",
+      "clear": "Leeren"
     },
-    "selectedProjects": "Seçili Projeler",
+    "selectedProjects": "Ausgewählte Projekte",
     "listTable": {
-      "cage": "Kafes",
-      "fish": "Balık",
-      "dead": "Ölüm",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı",
-      "action": "İşlem",
-      "dailyFlowButton": "Günlük Akış"
+      "cage": "Käfig",
+      "fish": "Fisch",
+      "dead": "Fischverlust",
+      "feed": "Futter",
+      "biomass": "Biomasse",
+      "survivalRate": "Überlebensrate",
+      "action": "Aktion",
+      "dailyFlowButton": "Tagesfluss"
     }
   }
 }

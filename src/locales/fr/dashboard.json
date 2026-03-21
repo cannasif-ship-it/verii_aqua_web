@@ -17,7 +17,7 @@
     "meeting": "Réunion",
     "call": "Appel",
     "email": "E-mail",
-    "general": "General"
+    "general": "Général"
   },
   "monthsShort": {
     "jan": "Jan",
@@ -44,8 +44,8 @@
     "reviewQuotations": "Consultez les offres",
     "stockStatus": "Voir l'état des stocks"
   },
-  "noDate": "No date",
-  "unnamedActivity": "Unnamed Activity",
+  "noDate": "Aucune date",
+  "unnamedActivity": "Activité sans nom",
   "greeting": {
     "morning": "Bonjour",
     "afternoon": "Passe une bonne journée",
@@ -88,6 +88,26 @@
     "detailReportButton": "Rapport détaillé",
     "selectProjectHint": "Veuillez sélectionner un projet ci-dessus pour voir ses détails.",
     "dailyFlow": "Flux quotidien des données",
+    "activeProjectFilters": {
+      "title": "Filtres de projets actifs",
+      "description": "Les projets sélectionnés filtrent les cartes et listes ci-dessous."
+    },
+    "projectSelector": {
+      "title": "Sélection de projet",
+      "description": "Filtrez le tableau de bord en sélectionnant un ou plusieurs projets.",
+      "searchPlaceholder": "Rechercher par code ou nom de projet...",
+      "selectedCount": "Sélectionnés : {{count}}",
+      "emptySelection": "Aucun projet sélectionné",
+      "activeBadge": "Actif",
+      "noResults": "Aucun projet trouvé pour votre recherche.",
+      "apply": "Appliquer",
+      "openButton": "Sélectionner un projet",
+      "closeButton": "Fermer",
+      "clearButton": "Effacer",
+      "applyButton": "Appliquer",
+      "cancelButton": "Annuler",
+      "resetButton": "Réinitialiser"
+    },
     "stats": {
       "activeCages": "Cages actives",
       "liveFish": "Poissons vivants",
@@ -119,7 +139,20 @@
       "stockCount": "{{count}} stock",
       "operationCount": "{{count}} opération",
       "fed": "NOURRI",
-      "notFed": "NON NOURRI"
+      "notFed": "NON NOURRI",
+      "criticalDay": "Jour critique"
+    },
+    "dailyCards": {
+      "feed": "Aliment",
+      "dead": "Mortalité",
+      "delta": "Delta",
+      "biomass": "Biomasse"
+    },
+    "dailySections": {
+      "feedStocks": "Stocks d’aliments",
+      "net": "Filet",
+      "transfer": "Transfert",
+      "shipment": "Expédition"
     },
     "projectDialog": {
       "fish": "Poissons",
@@ -134,28 +167,29 @@
       "totalDead": "Mortalité",
       "feed": "Aliment",
       "biomass": "Biomasse",
-      "survivalRate": "Taux de survie"
+      "survivalRate": "Taux de survie",
+      "quickDailyEntry": "Saisie quotidienne rapide"
     },
     "controls": {
-      "viewAndProject": "Görünüm ve Proje",
-      "projectCountAndView": "{{count}} Proje • {{view}}",
-      "cardView": "Kart",
+      "viewAndProject": "Vue et projet",
+      "projectCountAndView": "{{count}} projets • {{view}}",
+      "cardView": "Carte",
       "listView": "Liste",
-      "viewType": "Görünüm Şekli",
-      "projectSelection": "Proje Seçimi",
-      "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "viewType": "Type de vue",
+      "projectSelection": "Sélection de projet",
+      "selectAll": "Tout sélectionner",
+      "clear": "Effacer"
     },
-    "selectedProjects": "Seçili Projeler",
+    "selectedProjects": "Projets sélectionnés",
     "listTable": {
-      "cage": "Kafes",
-      "fish": "Balık",
-      "dead": "Ölüm",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
-      "survivalRate": "Yaşam Oranı",
-      "action": "İşlem",
-      "dailyFlowButton": "Günlük Akış"
+      "cage": "Cage",
+      "fish": "Poisson",
+      "dead": "Mortalité",
+      "feed": "Aliment",
+      "biomass": "Biomasse",
+      "survivalRate": "Taux de survie",
+      "action": "Action",
+      "dailyFlowButton": "Flux quotidien"
     }
   }
 }
