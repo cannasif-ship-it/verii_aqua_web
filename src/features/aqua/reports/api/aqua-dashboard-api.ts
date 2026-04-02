@@ -93,8 +93,20 @@ async function getAllPagedItems<T>(endpoint: string): Promise<T[]> {
   return result;
 }
 
+function isProjectEndDateInThePast(endDate?: string | null): boolean {
+  if (!endDate) return false;
+  const end = new Date(endDate);
+  if (Number.isNaN(end.getTime())) return false;
+  const endDay = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return endDay < today;
+}
+
 function isActiveProject(project: ProjectDto): boolean {
-  return !project.endDate && project.status !== 2;
+  if (project.status === 2) return false;
+  if (isProjectEndDateInThePast(project.endDate)) return false;
+  return true;
 }
 
 function isActiveProjectCage(releasedDate?: string | null): boolean {
