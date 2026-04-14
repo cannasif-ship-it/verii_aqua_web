@@ -1,12 +1,16 @@
-import { type ReactElement, useState, useMemo } from 'react';
+import { type ReactElement, useState, useMemo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ChevronRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { Search, Globe, Loader2, ShieldCheck } from 'lucide-react';
 import { usePermissionDefinitionsQuery } from '../hooks/usePermissionDefinitionsQuery';
+import { useSyncPermissionDefinitionsMutation } from '../hooks/useSyncPermissionDefinitionsMutation';
+import { useMyPermissionsQuery } from '../hooks/useMyPermissionsQuery';
 import { cn } from '@/lib/utils';
 import type { PermissionDefinitionDto } from '../types/access-control.types';
+import { getPermissionDisplayMeta, PERMISSION_CODE_CATALOG } from '../utils/permission-config';
+import { hasPermission } from '../utils/hasPermission';
 
 interface PermissionDefinitionMultiSelectProps {
   value: number[];
@@ -14,12 +18,31 @@ interface PermissionDefinitionMultiSelectProps {
   disabled?: boolean;
 }
 
+type PermissionAction = 'view' | 'create' | 'update' | 'delete';
+
+interface PermissionMatrixRow {
+  baseCode: string;
+  title: string;
+  subtitle: string;
+  section: string;
+  actions: Partial<Record<PermissionAction, PermissionDefinitionDto>>;
+}
+
+const ACTION_ORDER: PermissionAction[] = ['view', 'create', 'update', 'delete'];
+
 export function PermissionDefinitionMultiSelect({
   value = [],
   onChange,
   disabled = false,
 }: PermissionDefinitionMultiSelectProps): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
+  const autoSyncTriggeredRef = useRef(false);
+  const actionLabels: Record<PermissionAction, string> = {
+    view: t('common.view', { ns: 'common', defaultValue: 'Görüntüleme' }),
+    create: t('common.create', { ns: 'common', defaultValue: 'Oluşturma' }),
+    update: t('common.update', { ns: 'common', defaultValue: 'Güncelleme' }),
+    delete: t('common.delete', { ns: 'common', defaultValue: 'Silme' }),
+  };
   
   const { data: permissionsResponse, isLoading } = usePermissionDefinitionsQuery({
     pageNumber: 1,
@@ -27,19 +50,113 @@ export function PermissionDefinitionMultiSelect({
     sortBy: 'Name',
     sortDirection: 'asc'
   });
+  const syncMutation = useSyncPermissionDefinitionsMutation();
+  const { data: myPermissions } = useMyPermissionsQuery();
+  const canSync =
+    hasPermission(myPermissions, 'access-control.permission-definitions.create') ||
+    hasPermission(myPermissions, 'access-control.permission-definitions.update');
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredPermissions = useMemo(() => {
+  const missingPermissionCodes = useMemo(() => {
     const items = permissionsResponse?.data || [];
-    if (!searchTerm.trim()) return items;
+    const existingCodes = new Set(items.map((permission) => permission.code.toLowerCase()));
+    return PERMISSION_CODE_CATALOG.filter((code) => !existingCodes.has(code.toLowerCase()));
+  }, [permissionsResponse]);
+
+  useEffect(() => {
+    if (!canSync || autoSyncTriggeredRef.current || missingPermissionCodes.length === 0) {
+      return;
+    }
+
+    autoSyncTriggeredRef.current = true;
+    void syncMutation.mutateAsync({
+      items: PERMISSION_CODE_CATALOG.map((code) => {
+        const meta = getPermissionDisplayMeta(code);
+        const name = meta ? t(meta.key, { ns: 'common', defaultValue: meta.fallback }) : code;
+        return { code, name, isActive: true };
+      }),
+      reactivateSoftDeleted: true,
+      updateExistingNames: true,
+      updateExistingDescriptions: true,
+      updateExistingIsActive: true,
+    });
+  }, [canSync, missingPermissionCodes, syncMutation, t]);
+
+  const matrixRows = useMemo<PermissionMatrixRow[]>(() => {
+    const items = permissionsResponse?.data || [];
+    const rows = new Map<string, PermissionMatrixRow>();
+
+    const getSectionTitle = (baseCode: string): string => {
+      if (baseCode.startsWith('aqua.definitions.')) return t('permissionGroups.sections.aquaDefinitions');
+      if (baseCode.startsWith('aqua.operations.')) return t('permissionGroups.sections.aquaOperations');
+      if (baseCode.startsWith('aqua.reports.')) return t('permissionGroups.sections.aquaReports');
+      if (baseCode.startsWith('access-control.')) return t('permissionGroups.sections.accessControl');
+      if (baseCode.startsWith('stock.')) return t('permissionGroups.sections.stock');
+      if (baseCode.startsWith('users.')) return t('permissionGroups.sections.users');
+      if (baseCode.startsWith('dashboard.')) return t('permissionGroups.sections.dashboard');
+      return t('permissionGroups.sections.other');
+    };
+
+    for (const permission of items) {
+      const parts = permission.code.split('.');
+      const action = parts[parts.length - 1] as PermissionAction;
+      const isActionCode = ACTION_ORDER.includes(action);
+      const baseCode = isActionCode ? parts.slice(0, -1).join('.') : permission.code;
+      const viewMeta = getPermissionDisplayMeta(`${baseCode}.view`) ?? getPermissionDisplayMeta(permission.code);
+      const title = viewMeta
+        ? t(viewMeta.key, { ns: 'common', defaultValue: viewMeta.fallback })
+        : permission.name;
+
+      const existing = rows.get(baseCode) ?? {
+        baseCode,
+        title,
+        subtitle: baseCode,
+        section: getSectionTitle(baseCode),
+        actions: {},
+      };
+
+      if (isActionCode) {
+        existing.actions[action] = permission;
+      } else {
+        existing.actions.view = permission;
+      }
+
+      rows.set(baseCode, existing);
+    }
+
+    return Array.from(rows.values()).sort((a, b) => a.title.localeCompare(b.title, 'tr'));
+  }, [permissionsResponse, t]);
+
+  const filteredRows = useMemo(() => {
+    if (!searchTerm.trim()) return matrixRows;
     const lower = searchTerm.toLowerCase();
-    return items.filter(
-      (p: PermissionDefinitionDto) =>
-        p.name.toLowerCase().includes(lower) ||
-        p.code.toLowerCase().includes(lower)
-    );
-  }, [permissionsResponse, searchTerm]);
+
+    return matrixRows.filter((row) => {
+      const actionText = ACTION_ORDER.map((action) => row.actions[action]?.code ?? '').join(' ');
+      return (
+        row.title.toLowerCase().includes(lower) ||
+        row.subtitle.toLowerCase().includes(lower) ||
+        row.section.toLowerCase().includes(lower) ||
+        actionText.toLowerCase().includes(lower)
+      );
+    });
+  }, [matrixRows, searchTerm]);
+
+  const groupedRows = useMemo(() => {
+    return filteredRows.reduce<Record<string, PermissionMatrixRow[]>>((acc, row) => {
+      if (!acc[row.section]) {
+        acc[row.section] = [];
+      }
+      acc[row.section].push(row);
+      return acc;
+    }, {});
+  }, [filteredRows]);
+
+  const filteredPermissions = useMemo(
+    () => filteredRows.flatMap((row) => ACTION_ORDER.map((action) => row.actions[action]).filter(Boolean) as PermissionDefinitionDto[]),
+    [filteredRows]
+  );
 
   const togglePermission = (id: number) => {
     if (disabled) return;
@@ -93,62 +210,99 @@ export function PermissionDefinitionMultiSelect({
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar bg-transparent">
-        {isLoading ? (
+        {isLoading || syncMutation.isPending ? (
           <div className="flex flex-col items-center justify-center py-20 text-cyan-500">
             <Loader2 className="h-8 w-8 animate-spin mb-2" />
             <span className="text-xs font-medium">{t('common.loading')}...</span>
           </div>
         ) : (
-          <div className="pb-4">
-            <p className="text-[10px] font-black text-cyan-600 dark:text-cyan-400 uppercase tracking-widest flex items-center gap-2 mb-4 ml-1">
-              <Globe className="w-3.5 h-3.5" /> {t('permissionGroups.moduleTitle')}
-            </p>
-            
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
-              {filteredPermissions.map((permission) => {
-                const isSelected = value.includes(permission.id);
-                return (
-                  <div
-                    key={permission.id}
-                    onClick={() => togglePermission(permission.id)}
-                    className={cn(
-                      "group flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all duration-200 cursor-pointer select-none active:scale-[0.99]",
-                      isSelected
-                        ? "bg-cyan-50 dark:bg-cyan-900/40 border-cyan-400/50 shadow-sm"
-                        : "bg-white/50 dark:bg-blue-900/10 border-slate-100 dark:border-cyan-800/10 hover:border-cyan-500/50"
-                    )}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className={cn(
-                        "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all",
-                        isSelected 
-                          ? "bg-cyan-600 border-cyan-600 text-white shadow-inner" 
-                          : "bg-white dark:bg-blue-950 border-slate-300 dark:border-cyan-800 group-hover:border-cyan-500"
-                      )}>
-                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 shadow-sm" />}
-                      </div>
-                      
-                      <div className="flex flex-col min-w-0">
-                        <span className={cn(
-                          "text-sm font-bold truncate transition-colors",
-                          isSelected ? "text-cyan-900 dark:text-white" : "text-slate-700 dark:text-slate-300"
-                        )}>
-                          {permission.name}
-                        </span>
-                        <code className="text-[9px] font-mono text-slate-400 dark:text-slate-500/70 truncate mt-0.5">
-                          {permission.code}
-                        </code>
-                      </div>
-                    </div>
-                    
-                    <ChevronRight className={cn(
-                      "w-4 h-4 transition-all opacity-0 group-hover:opacity-100 shrink-0",
-                      isSelected ? "text-cyan-500 translate-x-1 opacity-100" : "text-slate-300"
-                    )} />
-                  </div>
-                );
-              })}
+          <div className="space-y-6 pb-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-cyan-800/30 bg-slate-50 dark:bg-blue-900/10 px-4 py-3">
+              <p className="text-[10px] font-black text-cyan-600 dark:text-cyan-400 uppercase tracking-widest flex items-center gap-2">
+                <Globe className="w-3.5 h-3.5" /> {t('permissionGroups.moduleTitle')}
+              </p>
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                {t('permissionGroups.matrixDescription')}
+              </p>
             </div>
+
+            {Object.entries(groupedRows).length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-slate-200 dark:border-cyan-800/30 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+                {t('permissionGroups.noDefinitions')}
+              </div>
+            ) : (
+              Object.entries(groupedRows).map(([sectionTitle, rows]) => (
+                <section key={sectionTitle} className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                    <h4 className="text-sm font-extrabold text-slate-900 dark:text-white">{sectionTitle}</h4>
+                    <Badge variant="outline" className="rounded-full border-cyan-200/70 bg-cyan-50 text-[10px] text-cyan-700 dark:border-cyan-800/50 dark:bg-cyan-950/40 dark:text-cyan-400">
+                      {rows.length}
+                    </Badge>
+                  </div>
+
+                  <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-cyan-800/30 bg-white dark:bg-blue-950/30">
+                    <div className="min-w-[760px]">
+                      <div className="grid grid-cols-[minmax(240px,2fr)_repeat(4,minmax(110px,1fr))] border-b border-slate-200 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/20">
+                        <div className="px-4 py-3 text-[10px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
+                          {t('permissionGroups.matrix.resource')}
+                        </div>
+                        {ACTION_ORDER.map((action) => (
+                          <div key={action} className="px-3 py-3 text-center text-[10px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
+                            {actionLabels[action]}
+                          </div>
+                        ))}
+                      </div>
+
+                      {rows.map((row) => (
+                        <div
+                          key={row.baseCode}
+                          className="grid grid-cols-[minmax(240px,2fr)_repeat(4,minmax(110px,1fr))] border-b border-slate-100 last:border-b-0 dark:border-cyan-800/10"
+                        >
+                          <div className="px-4 py-4">
+                            <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{row.title}</div>
+                            <code className="mt-1 block text-[10px] text-slate-400 dark:text-slate-500">{row.subtitle}</code>
+                          </div>
+
+                          {ACTION_ORDER.map((action) => {
+                            const permission = row.actions[action];
+                            const isSelected = permission ? value.includes(permission.id) : false;
+
+                            return (
+                              <div key={action} className="flex items-center justify-center px-3 py-4">
+                                {permission ? (
+                                  <label
+                                    className={cn(
+                                      "flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition-all",
+                                      disabled
+                                        ? "cursor-not-allowed opacity-60"
+                                        : "hover:border-cyan-400 hover:bg-cyan-50 dark:hover:border-cyan-700 dark:hover:bg-cyan-900/20",
+                                      isSelected
+                                        ? "border-cyan-500 bg-cyan-50 text-cyan-700 dark:border-cyan-500 dark:bg-cyan-900/30 dark:text-cyan-300"
+                                        : "border-slate-200 bg-white text-slate-500 dark:border-cyan-800/30 dark:bg-blue-950/40 dark:text-slate-300"
+                                    )}
+                                  >
+                                    <Checkbox
+                                      checked={isSelected}
+                                      onCheckedChange={() => togglePermission(permission.id)}
+                                      disabled={disabled}
+                                      className="border-slate-300 dark:border-cyan-700 data-[state=checked]:bg-cyan-600"
+                                    />
+                                    <span>{actionLabels[action]}</span>
+                                  </label>
+                                ) : (
+                                  <span className="text-xs font-semibold text-slate-300 dark:text-slate-600">-</span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              ))
+            )}
           </div>
         )}
       </div>

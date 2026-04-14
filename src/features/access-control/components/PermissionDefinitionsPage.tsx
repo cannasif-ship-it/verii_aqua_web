@@ -1,4 +1,4 @@
-import { type ReactElement, useState, useMemo, useEffect } from 'react';
+import { type ReactElement, useState, useMemo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUIStore } from '@/stores/ui-store';
 import { Plus, Search, RefreshCw, X, ShieldAlert, Edit2, Trash2 } from 'lucide-react';
@@ -51,6 +51,7 @@ export function PermissionDefinitionsPage(): ReactElement {
   const pageSize = 20;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<PermissionDefinitionDto | null>(null);
+  const autoSyncTriggeredRef = useRef(false);
   const { data: permissions } = useMyPermissionsQuery();
   const canCreate = hasPermission(permissions, 'access-control.permission-definitions.create');
   const canUpdate = hasPermission(permissions, 'access-control.permission-definitions.update');
@@ -62,6 +63,12 @@ export function PermissionDefinitionsPage(): ReactElement {
     pageSize,
     sortBy: 'updatedDate',
     sortDirection: 'desc',
+  });
+  const { data: definitionCatalogData } = usePermissionDefinitionsQuery({
+    pageNumber: 1,
+    pageSize: 1000,
+    sortBy: 'code',
+    sortDirection: 'asc',
   });
 
   const createMutation = useCreatePermissionDefinitionMutation();
@@ -93,6 +100,30 @@ export function PermissionDefinitionsPage(): ReactElement {
     });
   }, [items, searchTerm, t]);
 
+  const missingPermissionCodes = useMemo(() => {
+    const existingCodes = new Set((definitionCatalogData?.data ?? []).map((item) => item.code.toLowerCase()));
+    return PERMISSION_CODE_CATALOG.filter((code) => !existingCodes.has(code.toLowerCase()));
+  }, [definitionCatalogData?.data]);
+
+  useEffect(() => {
+    if (!canSync || autoSyncTriggeredRef.current || missingPermissionCodes.length === 0) {
+      return;
+    }
+
+    autoSyncTriggeredRef.current = true;
+    void syncMutation.mutateAsync({
+      items: PERMISSION_CODE_CATALOG.map((code) => {
+        const meta = getPermissionDisplayMeta(code);
+        const name = meta ? getPermissionTitle(meta.key, meta.fallback) : code;
+        return { code, name, isActive: true };
+      }),
+      reactivateSoftDeleted: true,
+      updateExistingNames: true,
+      updateExistingDescriptions: true,
+      updateExistingIsActive: true,
+    });
+  }, [canSync, missingPermissionCodes, syncMutation, t]);
+
   const handleRefresh = async (): Promise<void> => {
     await queryClient.invalidateQueries({ queryKey: ['permissions', 'definitions'] });
   };
@@ -104,7 +135,13 @@ export function PermissionDefinitionsPage(): ReactElement {
       const name = meta ? getPermissionTitle(meta.key, meta.fallback) : code;
       return { code, name, isActive: true };
     });
-    await syncMutation.mutateAsync({ items: itemsToSync });
+    await syncMutation.mutateAsync({
+      items: itemsToSync,
+      reactivateSoftDeleted: true,
+      updateExistingNames: true,
+      updateExistingDescriptions: true,
+      updateExistingIsActive: true,
+    });
   };
 
   const handleAddClick = (): void => {
@@ -167,6 +204,11 @@ export function PermissionDefinitionsPage(): ReactElement {
             <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm font-medium">
               {t('permissionDefinitions.description')}
             </p>
+            {missingPermissionCodes.length > 0 && (
+              <p className="mt-2 text-xs font-semibold text-amber-700 dark:text-amber-400">
+                {t('permissionDefinitions.missingCodes', { count: missingPermissionCodes.length })}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex gap-3">

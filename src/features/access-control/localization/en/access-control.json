@@ -53,7 +53,8 @@
       "confirmTitle": "Delete Permission Definition",
       "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
     },
-    "syncFromRoutes": "Sync from routes"
+    "syncFromRoutes": "Sync from routes",
+    "missingCodes": "{{count}} missing permission codes found. CRUD definitions are being synced automatically."
   },
   "permissionGroups": {
     "title": "Permission Groups",
@@ -61,6 +62,20 @@
     "add": "Add Group",
     "selectAll": "Select all",
     "noDefinitions": "No permission definitions available",
+    "matrixDescription": "Each row represents a page or resource. Assign View, Create, Update, and Delete permissions separately for tighter access control.",
+    "sections": {
+      "aquaDefinitions": "Aqua Definitions",
+      "aquaOperations": "Aqua Operations",
+      "aquaReports": "Aqua Reports",
+      "accessControl": "Access Control",
+      "stock": "Stock Management",
+      "users": "Users and Profile",
+      "dashboard": "Dashboard",
+      "other": "Other"
+    },
+    "matrix": {
+      "resource": "Page / Resource"
+    },
     "form": {
       "editTitle": "Edit Permission Group",
       "addTitle": "Add Permission Group",

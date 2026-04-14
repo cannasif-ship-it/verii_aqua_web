@@ -53,7 +53,8 @@
       "confirmTitle": "İzin Tanımını Sil",
       "confirmMessage": "\"{{name}}\" silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
     },
-    "syncFromRoutes": "Rotalardan senkronize et"
+    "syncFromRoutes": "Rotalardan senkronize et",
+    "missingCodes": "{{count}} eksik izin kodu bulundu. CRUD kayıtları otomatik senkronize ediliyor."
   },
   "permissionGroups": {
     "title": "İzin Grupları",
@@ -61,6 +62,20 @@
     "add": "Grup Ekle",
     "selectAll": "Tümünü seç",
     "noDefinitions": "Kullanılabilir izin tanımı yok",
+    "matrixDescription": "Her satır bir ekranı ya da kaynağı temsil eder. Görüntüleme, Oluşturma, Güncelleme ve Silme yetkilerini ayrı ayrı seçerek daha kontrollü erişim tanımlayın.",
+    "sections": {
+      "aquaDefinitions": "Aqua Tanımları",
+      "aquaOperations": "Aqua İşlemleri",
+      "aquaReports": "Aqua Raporları",
+      "accessControl": "Erişim Kontrolü",
+      "stock": "Stok Yönetimi",
+      "users": "Kullanıcı ve Profil",
+      "dashboard": "Gösterge Paneli",
+      "other": "Diğer"
+    },
+    "matrix": {
+      "resource": "Ekran / Kaynak"
+    },
     "form": {
       "editTitle": "İzin Grubunu Düzenle",
       "addTitle": "İzin Grubu Ekle",
