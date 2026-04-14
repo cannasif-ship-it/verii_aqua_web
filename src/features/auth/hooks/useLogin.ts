@@ -8,7 +8,11 @@ import { getUserFromToken } from '@/utils/jwt';
 import type { LoginRequest, Branch } from '../types/auth';
 import { ACCESS_CONTROL_QUERY_KEYS } from '@/features/access-control/utils/query-keys';
 
-export const useLogin = (branches?: Branch[]) => {
+interface UseLoginOptions {
+  onErrorMessage?: (message: string) => void;
+}
+
+export const useLogin = (branches?: Branch[], options?: UseLoginOptions) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -16,7 +20,14 @@ export const useLogin = (branches?: Branch[]) => {
 
   const resolveErrorMessage = (rawMessage?: string) => {
     if (!rawMessage) return t('auth.login.loginError');
-    if (rawMessage === 'Error.User.InvalidCredentials') {
+    if (
+      rawMessage === 'Error.User.InvalidCredentials' ||
+      rawMessage === 'Error.User.LoginFailed' ||
+      rawMessage === 'AuthService.LoginFailed' ||
+      rawMessage === 'Invalid username or password' ||
+      rawMessage === 'Geçersiz kullanıcı adı veya şifre.' ||
+      rawMessage === 'Login failed.'
+    ) {
       return t('auth.login.wrongPassword');
     }
     const translated = t(rawMessage);
@@ -56,11 +67,13 @@ export const useLogin = (branches?: Branch[]) => {
         }
       } else {
         const errorMessage = resolveErrorMessage(response.message || response.exceptionMessage);
+        options?.onErrorMessage?.(errorMessage);
         toast.error(errorMessage);
       }
     },
     onError: (error: Error) => {
       const errorMessage = resolveErrorMessage(error.message);
+      options?.onErrorMessage?.(errorMessage);
       toast.error(errorMessage);
     },
   });

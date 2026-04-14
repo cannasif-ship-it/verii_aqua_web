@@ -116,7 +116,10 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    if (error.response?.status === 401) {
+    const requestUrl = String(error.config?.url ?? '');
+    const isLoginRequest = requestUrl.includes('/api/auth/login') || requestUrl.endsWith('/auth/login');
+
+    if (error.response?.status === 401 && !isLoginRequest) {
       localStorage.removeItem('access_token');
       sessionStorage.removeItem('access_token');
       useAuthStore.getState().logout();

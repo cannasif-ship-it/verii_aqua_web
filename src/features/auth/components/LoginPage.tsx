@@ -45,7 +45,10 @@ export function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: branches } = useBranches();
-  const { mutate: login, isPending } = useLogin(branches);
+  const [loginErrorMessage, setLoginErrorMessage] = useState<string | null>(null);
+  const { mutate: login, isPending } = useLogin(branches, {
+    onErrorMessage: (message) => setLoginErrorMessage(message),
+  });
   const branchOptions = useMemo(
     () => (branches ?? []).map((b) => ({ value: String(b.id), label: formatLabelWithKey(b.name, b.id) })),
     [branches]
@@ -82,6 +85,7 @@ export function LoginPage(): React.JSX.Element {
   }, [searchParams, setSearchParams, t, navigate, logout]);
 
   const onSubmit = (data: z.output<typeof loginRequestSchema>): void => {
+    setLoginErrorMessage(null);
     login({ ...data });
   };
 
@@ -195,6 +199,10 @@ export function LoginPage(): React.JSX.Element {
                             {...field}
                             type="email"
                             placeholder={t('auth.login.emailPlaceholder')}
+                            onChange={(event) => {
+                              if (loginErrorMessage) setLoginErrorMessage(null);
+                              field.onChange(event);
+                            }}
                             className="flex-1 min-w-0 h-10 sm:h-11 rounded-none border-0 bg-transparent py-2 pl-2 pr-3 text-[12px] sm:text-[13px] text-white placeholder:text-[#5c7c99] focus-visible:ring-0 focus-visible:ring-offset-0 truncate"
                           />
                         </div>
@@ -218,6 +226,10 @@ export function LoginPage(): React.JSX.Element {
                             {...field}
                             type={isPasswordVisible ? 'text' : 'password'}
                             placeholder={t('auth.login.passwordPlaceholder')}
+                            onChange={(event) => {
+                              if (loginErrorMessage) setLoginErrorMessage(null);
+                              field.onChange(event);
+                            }}
                             className="flex-1 min-w-0 h-10 sm:h-11 rounded-none border-0 bg-transparent py-2 pl-2 pr-10 text-[12px] sm:text-[13px] text-white placeholder:text-[#5c7c99] focus-visible:ring-0 focus-visible:ring-offset-0 truncate"
                             onKeyDown={(e) => setCapsLockActive(e.getModifierState('CapsLock'))}
                             onKeyUp={(e) => setCapsLockActive(e.getModifierState('CapsLock'))}
@@ -280,6 +292,13 @@ export function LoginPage(): React.JSX.Element {
                 >
                   {isPending ? t('auth.login.processing') : t('auth.login.submitButton')}
                 </button>
+
+                {loginErrorMessage && (
+                  <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-300">
+                    <Alert02Icon size={14} />
+                    <span>{loginErrorMessage}</span>
+                  </div>
+                )}
               </form>
             </Form>
           </div>
