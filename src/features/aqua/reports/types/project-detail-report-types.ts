@@ -85,6 +85,7 @@ export interface GoodsReceiptLineDto {
 
 export interface FishBatchDto {
   id: number;
+  batchCode?: string;
   currentAverageGram?: number;
 }
 
@@ -128,6 +129,7 @@ export interface TransferDto {
 export interface TransferLineDto {
   id: number;
   transferId: number;
+  fishBatchId?: number;
   fromProjectCageId: number;
   toProjectCageId: number;
   fishCount?: number;

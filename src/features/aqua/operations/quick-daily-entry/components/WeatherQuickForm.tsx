@@ -20,6 +20,7 @@ interface WeatherQuickFormProps {
   severities?: WeatherSeverityDto[];
   onSubmit: (data: WeatherQuickFormSchema) => Promise<void>;
   isSubmitting: boolean;
+  canSubmit: boolean;
 }
 
 export function WeatherQuickForm({
@@ -28,6 +29,7 @@ export function WeatherQuickForm({
   severities = [],
   onSubmit,
   isSubmitting,
+  canSubmit,
 }: WeatherQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<WeatherQuickFormSchema>({
@@ -128,7 +130,7 @@ export function WeatherQuickForm({
             <div className="pt-4 flex justify-end border-t border-slate-200 dark:border-cyan-800/30">
               <Button 
                 type="submit" 
-                disabled={!projectId || isSubmitting || !form.formState.isValid} 
+                disabled={!projectId || isSubmitting || !form.formState.isValid || !canSubmit} 
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 hover:opacity-95 transition-all duration-200 border-0 flex items-center gap-2"
               >
                 <Save size={18} />

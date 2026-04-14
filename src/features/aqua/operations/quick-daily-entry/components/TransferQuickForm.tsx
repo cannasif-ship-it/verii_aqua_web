@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,9 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { transferQuickFormSchema, type TransferQuickFormSchema } from '../schema/quick-daily-entry-schema';
-import { ChevronRight, Save, Info } from 'lucide-react';
+import { ChevronRight, Save, Info, Lock } from 'lucide-react';
 
-export function TransferQuickForm({ projectId, projectCageId, projectCages, sourceBatch, onSubmit, isSubmitting }: any): ReactElement {
+export function TransferQuickForm({ projectId, projectCageId, projectCages, sourceBatch, onSubmit, isSubmitting, requireFullTransfer, canSubmit }: any): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<TransferQuickFormSchema>({
     resolver: zodResolver(transferQuickFormSchema) as Resolver<TransferQuickFormSchema>,
@@ -20,14 +20,29 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
     defaultValues: { toProjectCageId: 0, fishCount: 0, description: '' },
   });
 
+  useEffect(() => {
+    if (!requireFullTransfer || !sourceBatch) return;
+    form.setValue('fishCount', Number(sourceBatch.liveCount ?? 0), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  }, [form, requireFullTransfer, sourceBatch]);
+
   const handleSubmit: SubmitHandler<TransferQuickFormSchema> = async (data) => {
     await onSubmit(data);
-    form.reset();
+    form.reset({
+      toProjectCageId: 0,
+      fishCount: requireFullTransfer ? Number(sourceBatch?.liveCount ?? 0) : 0,
+      description: '',
+    });
   };
 
-  const cageOptions = (projectCages || [])
-    .filter((c: any) => c.id !== projectCageId)
-    .map((c: any) => ({ value: String(c.id), label: formatLabelWithKey(c.cageCode, c.id) }));
+  const cageOptions = (projectCages || []).map((c: any) => {
+    if (typeof c.value === 'string' && typeof c.label === 'string') {
+      return c;
+    }
+    return { value: String(c.id), label: formatLabelWithKey(c.cageCode, c.id) };
+  });
 
   // AQUA KONSEPT STİLLERİ
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 flex items-center gap-1.5";
@@ -71,7 +86,13 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
                     <ChevronRight size={14} className="text-cyan-500" />
                     {t('aqua.quickDailyEntry.transfer.fishCount')}
                   </FormLabel>
-                  <FormControl><Input type="number" className={inputStyle} {...field} /></FormControl>
+                  <FormControl><Input type="number" className={inputStyle} {...field} readOnly={requireFullTransfer} /></FormControl>
+                  {requireFullTransfer && (
+                    <div className="flex items-center gap-2 text-xs text-amber-700 dark:text-amber-300">
+                      <Lock size={14} />
+                      <span>{t('aqua.quickDailyEntry.transfer.fullTransferInfo')}</span>
+                    </div>
+                  )}
                   <FormMessage className="text-xs text-red-500" />
                 </FormItem>
               )} />
@@ -79,7 +100,7 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
             <div className="pt-4 flex justify-end border-t border-slate-200 dark:border-cyan-800/30">
               <Button 
                 type="submit" 
-                disabled={!projectId || !projectCageId || isSubmitting || !form.formState.isValid} 
+                disabled={!projectId || !projectCageId || isSubmitting || !form.formState.isValid || !canSubmit} 
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 transition-all hover:opacity-95 border-0 flex items-center gap-2"
               >
                 <Save size={18} />

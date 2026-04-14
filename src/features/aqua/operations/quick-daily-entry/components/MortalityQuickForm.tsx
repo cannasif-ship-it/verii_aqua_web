@@ -22,6 +22,7 @@ interface MortalityQuickFormProps {
   projectCageId: number | null;
   onSubmit: (data: MortalityQuickFormSchema) => Promise<void>;
   isSubmitting: boolean;
+  canSubmit: boolean;
 }
 
 export function MortalityQuickForm({
@@ -29,6 +30,7 @@ export function MortalityQuickForm({
   projectCageId,
   onSubmit,
   isSubmitting,
+  canSubmit,
 }: MortalityQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<MortalityQuickFormSchema>({
@@ -95,7 +97,7 @@ export function MortalityQuickForm({
             <div className="pt-6 flex justify-end border-t border-slate-200 dark:border-cyan-800/20">
                 <Button 
                   type="submit" 
-                  disabled={disabled || isSubmitting || !form.formState.isValid} 
+                  disabled={disabled || isSubmitting || !form.formState.isValid || !canSubmit} 
                   className="bg-linear-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-[0.98] text-white font-bold border-0 h-11 px-10 w-full sm:w-auto rounded-xl shadow-lg shadow-cyan-500/20 transition-all duration-200 flex items-center gap-2"
                 >
                   <Save size={18} />

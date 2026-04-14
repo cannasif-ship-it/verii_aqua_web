@@ -27,6 +27,7 @@ interface FeedingQuickFormProps {
   isLoadingStocks: boolean;
   onSubmit: (data: FeedingQuickFormSchema) => Promise<void>;
   isSubmitting: boolean;
+  canSubmit: boolean;
 }
 
 export function FeedingQuickForm({
@@ -36,6 +37,7 @@ export function FeedingQuickForm({
   isLoadingStocks,
   onSubmit,
   isSubmitting,
+  canSubmit,
 }: FeedingQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<FeedingQuickFormSchema>({
@@ -166,7 +168,7 @@ export function FeedingQuickForm({
             <div className="pt-4 flex justify-end border-t border-slate-200 dark:border-cyan-800/30">
                 <Button 
                   type="submit" 
-                  disabled={disabled || isSubmitting || !form.formState.isValid} 
+                  disabled={disabled || isSubmitting || !form.formState.isValid || !canSubmit} 
                   className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold hover:opacity-95 border-0 h-11 px-10 w-full sm:w-auto rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-200 flex items-center gap-2"
                 >
                   <Save size={18} />

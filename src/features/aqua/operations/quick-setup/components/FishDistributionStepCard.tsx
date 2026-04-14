@@ -31,6 +31,7 @@ interface FishDistributionStepCardProps {
   onSelectAvailableCage: (cageId: number | null) => void;
   onAddCage: () => void;
   isAddingCage: boolean;
+  canCreate: boolean;
 }
 
 export function FishDistributionStepCard({
@@ -46,6 +47,7 @@ export function FishDistributionStepCard({
   onSelectAvailableCage,
   onAddCage,
   isAddingCage,
+  canCreate,
 }: FishDistributionStepCardProps): ReactElement {
   const { t } = useTranslation('common');
   const totalAllocated = allocations.reduce((acc, row) => acc + row.fishCount, 0);
@@ -111,14 +113,14 @@ export function FishDistributionStepCard({
                 variant="outline"
                 className="bg-transparent border-border dark:border-cyan-800/50 text-foreground hover:bg-muted dark:hover:bg-blue-900/50 transition-colors"
                 onClick={onAddCage}
-                disabled={selectedAvailableCageId == null || isAddingCage}
+                disabled={selectedAvailableCageId == null || isAddingCage || !canCreate}
               >
                 {t('aqua.quickSetup.addCage')}
               </Button>
           </div>
           
           <div className="flex items-center gap-3 flex-wrap">
-              <Button type="button" variant="outline" className="bg-transparent border-border dark:border-cyan-800/50 text-foreground hover:bg-muted dark:hover:bg-blue-900/50 transition-colors" onClick={handleEqualDistribute}>
+              <Button type="button" variant="outline" className="bg-transparent border-border dark:border-cyan-800/50 text-foreground hover:bg-muted dark:hover:bg-blue-900/50 transition-colors" onClick={handleEqualDistribute} disabled={!canCreate}>
                 {t('aqua.quickSetup.equalDistribute')}
               </Button>
               <Button
@@ -126,7 +128,7 @@ export function FishDistributionStepCard({
                 variant="outline"
                 className="bg-transparent border-border dark:border-cyan-800/50 text-foreground hover:bg-muted dark:hover:bg-blue-900/50 transition-colors"
                 onClick={handleAssignAllToSelected}
-                disabled={selectedCageId == null}
+                disabled={selectedCageId == null || !canCreate}
               >
                 {t('aqua.quickSetup.assignAllToSelectedCage')}
               </Button>
@@ -178,6 +180,7 @@ export function FishDistributionStepCard({
                         onChange={(e) =>
                             setFishCount(row.projectCageId, e.target.value ? Number(e.target.value) : 0)
                         }
+                        disabled={!canCreate}
                         />
                     </TableCell>
                     </TableRow>
@@ -198,7 +201,7 @@ export function FishDistributionStepCard({
             type="button"
             className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 w-full sm:w-auto font-bold transition-all"
             onClick={onSaveAndPost}
-            disabled={!isValid || isPosting}
+            disabled={!isValid || isPosting || !canCreate}
             >
             {t('aqua.quickSetup.saveAndPost')}
             </Button>

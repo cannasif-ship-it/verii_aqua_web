@@ -26,6 +26,7 @@ interface ProjectStepCardProps {
   onSelectProject: (projectId: number) => void;
   isCreating: boolean;
   selectedProjectId: number | null;
+  canCreate: boolean;
 }
 
 export function ProjectStepCard({
@@ -35,6 +36,7 @@ export function ProjectStepCard({
   onSelectProject,
   isCreating,
   selectedProjectId,
+  canCreate,
 }: ProjectStepCardProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<ProjectFormSchema>({
@@ -120,7 +122,7 @@ export function ProjectStepCard({
               )}
             />
             {/* Butondaki pembe-turuncu gradyanı koruduk */}
-            <Button type="submit" disabled={isCreating || !form.formState.isValid} className="w-full sm:w-auto px-8 bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold hover:opacity-95 border-0 h-11 rounded-xl shadow-lg shadow-pink-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Button type="submit" disabled={isCreating || !form.formState.isValid || !canCreate} className="w-full sm:w-auto px-8 bg-linear-to-r from-pink-600 to-orange-600 text-white font-bold hover:opacity-95 border-0 h-11 rounded-xl shadow-lg shadow-pink-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
               {t('aqua.quickSetup.createProject')}
             </Button>
           </form>

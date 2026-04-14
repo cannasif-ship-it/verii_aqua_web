@@ -89,6 +89,10 @@
       "title": "Active Project Filters",
       "description": "Selected projects filter the cards and lists below."
     },
+    "yesterdayAlert": {
+      "title": "Yesterday's entries are missing",
+      "description": "No daily entry was found for {{date}}. Please review feeding, weather, net, transfer, and other daily operations."
+    },
     "projectSelector": {
       "title": "Project Selection",
       "description": "Filter the dashboard by selecting one or more projects.",
@@ -130,11 +134,17 @@
       "biomassDelta": "Biomass Delta",
       "weather": "Weather",
       "net": "Net",
+      "netOperation": "Net Operation",
       "transfer": "Transfer",
       "shipment": "Shipment",
+      "shipmentOperation": "Shipment Operation",
       "status": "Status",
       "stockCount": "{{count}} stock",
       "operationCount": "{{count}} operations",
+      "netOperationCount": "{{count}} net operations",
+      "shipmentCount": "{{count}} shipment operations",
+      "stockConvertCount": "{{count}} stock convert operations",
+      "transferQty": "{{count}} fish",
       "fed": "Fed",
       "notFed": "Not Fed",
       "criticalDay": "Critical Day"
@@ -148,8 +158,11 @@
     "dailySections": {
       "feedStocks": "Feed Stocks",
       "net": "Net",
+      "netOperation": "Net Operation",
       "transfer": "Transfer",
-      "shipment": "Shipment"
+      "transferQty": "Transfer Qty",
+      "shipment": "Shipment",
+      "shipmentOperation": "Shipment Operation"
     },
     "projectDialog": {
       "fish": "Fish",

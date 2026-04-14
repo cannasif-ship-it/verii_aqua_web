@@ -185,6 +185,40 @@ function getDateParts(date: string): { day: string; month: string; year: string 
   return { day, month, year };
 }
 
+function formatLocalDateKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatAlertDate(date: Date, locale: string): string {
+  return new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+}
+
+function hasDailyEntry(row: CageDailyRow): boolean {
+  return (
+    row.feedGram > 0 ||
+    row.feedStockCount > 0 ||
+    row.feedDetails.length > 0 ||
+    row.deadCount > 0 ||
+    row.countDelta !== 0 ||
+    row.biomassDelta !== 0 ||
+    row.weather.trim().length > 0 ||
+    row.netOperationCount > 0 ||
+    row.transferCount > 0 ||
+    row.weighingCount > 0 ||
+    row.stockConvertCount > 0 ||
+    row.shipmentCount > 0 ||
+    row.shipmentFishCount > 0 ||
+    row.shipmentBiomassGram > 0
+  );
+}
+
 function getDetailTypeIcon(type: DetailType): ReactElement {
   if (type === 'feeding') return <Package className="size-4" />;
   if (type === 'netOperation') return <Network className="size-4" />;
@@ -388,7 +422,7 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
 }
 
 export function AquaDashboardPage(): ReactElement {
-  const { t } = useTranslation(['dashboard', 'common']);
+  const { t, i18n } = useTranslation(['dashboard', 'common']);
   const navigate = useNavigate();
 
   const [activeDashboardProjectIds, setActiveDashboardProjectIds] = useState<number[]>([]);
@@ -470,6 +504,13 @@ export function AquaDashboardPage(): ReactElement {
     staleTime: 60_000,
   });
 
+  const selectedProjectsDetailQuery = useQuery<ProjectDetailResponse[]>({
+    queryKey: [...PROJECT_DETAIL_QUERY_KEY, 'selected-projects', ...activeDashboardProjectIds.slice().sort((a, b) => a - b)],
+    queryFn: () => Promise.all(selectedProjectSummaries.map((project) => projectDetailReportApi.getProjectDetailReport(project.projectId))),
+    enabled: selectedProjectSummaries.length > 0,
+    staleTime: 60_000,
+  });
+
   const detailCages = detailQuery.data?.cages ?? [];
 
   const selectedCageFromDetail = useMemo(() => {
@@ -481,6 +522,31 @@ export function AquaDashboardPage(): ReactElement {
     if (!selectedCageFromDetail?.dailyRows) return [];
     return sortDailyRows(selectedCageFromDetail.dailyRows);
   }, [selectedCageFromDetail]);
+
+  const yesterdayMissingAlert = useMemo(() => {
+    if (selectedProjectSummaries.length === 0 || selectedProjectsDetailQuery.isLoading || selectedProjectsDetailQuery.isError) {
+      return null;
+    }
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayKey = formatLocalDateKey(yesterday);
+    const hasAnyYesterdayEntry = (selectedProjectsDetailQuery.data ?? []).some((project) =>
+      project.cages.some((cage) => cage.dailyRows?.some((row) => row.date === yesterdayKey && hasDailyEntry(row)))
+    );
+
+    if (hasAnyYesterdayEntry) {
+      return null;
+    }
+
+    return {
+      title: t('aquaDashboard.yesterdayAlert.title', { ns: 'dashboard' }),
+      description: t('aquaDashboard.yesterdayAlert.description', {
+        ns: 'dashboard',
+        date: formatAlertDate(yesterday, i18n.language || 'tr-TR'),
+      }),
+    };
+  }, [i18n.language, selectedProjectSummaries.length, selectedProjectsDetailQuery.data, selectedProjectsDetailQuery.isError, selectedProjectsDetailQuery.isLoading, t]);
 
   const maxDeadInCage = useMemo(() => {
     if (selectedCageDailyRows.length === 0) return 0;
@@ -710,6 +776,26 @@ export function AquaDashboardPage(): ReactElement {
       </div>
 
       <div className="space-y-4">
+        {yesterdayMissingAlert ? (
+          <Card className="border-amber-200 bg-linear-to-r from-amber-50 via-white to-rose-50 dark:border-amber-900/40 dark:from-amber-950/30 dark:via-blue-950/50 dark:to-rose-950/20 shadow-sm">
+            <CardContent className="px-5 py-4 sm:px-6 sm:py-5">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-2xl border border-amber-200 bg-amber-100 text-amber-700 dark:border-amber-700/40 dark:bg-amber-900/30 dark:text-amber-300">
+                  <AlertTriangle className="size-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-black text-amber-800 dark:text-amber-200">
+                    {yesterdayMissingAlert.title}
+                  </p>
+                  <p className="mt-1 text-sm text-amber-700 dark:text-amber-300">
+                    {yesterdayMissingAlert.description}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : null}
+
         <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 px-1 flex items-center gap-2">
           <Activity className="size-5 text-cyan-500 shrink-0" />
           {t('aquaDashboard.facilitySummary', { ns: 'dashboard' })}
@@ -1393,7 +1479,7 @@ export function AquaDashboardPage(): ReactElement {
                                   <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200 min-w-0">
                                     <Network className="size-4 text-cyan-500 shrink-0" />
                                     <span className="text-xs font-black uppercase tracking-widest truncate">
-                                      {t('aquaDashboard.dailySections.net', { ns: 'dashboard' })}
+                                      {t('aquaDashboard.dailySections.netOperation', { ns: 'dashboard' })}
                                     </span>
                                   </div>
                                   <Badge className="rounded-xl px-2 py-1 bg-cyan-500/10 text-cyan-600 dark:bg-cyan-500/15 dark:text-cyan-300 border border-cyan-500/15 text-[10px] font-black shrink-0">
@@ -1409,7 +1495,7 @@ export function AquaDashboardPage(): ReactElement {
                                       className="w-full h-10 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/15 border border-cyan-500/15 text-cyan-700 dark:text-cyan-300 text-xs font-black transition-colors px-3 overflow-hidden"
                                     >
                                       <span className="block truncate w-full">
-                                        {t('aquaDashboard.dailyTable.operationCount', {
+                                        {t('aquaDashboard.dailyTable.netOperationCount', {
                                           ns: 'dashboard',
                                           count: row.netOperationCount,
                                         })}
@@ -1428,7 +1514,7 @@ export function AquaDashboardPage(): ReactElement {
                                   <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200 min-w-0">
                                     <ArrowRightLeft className="size-4 text-pink-500 shrink-0" />
                                     <span className="text-xs font-black uppercase tracking-widest truncate">
-                                      {t('aquaDashboard.dailySections.transfer', { ns: 'dashboard' })}
+                                      {t('aquaDashboard.dailySections.transferQty', { ns: 'dashboard' })}
                                     </span>
                                   </div>
                                   <Badge className="rounded-xl px-2 py-1 bg-pink-500/10 text-pink-600 dark:bg-pink-500/15 dark:text-pink-300 border border-pink-500/15 text-[10px] font-black shrink-0">
@@ -1444,7 +1530,7 @@ export function AquaDashboardPage(): ReactElement {
                                       className="w-full h-10 rounded-2xl bg-pink-500/10 hover:bg-pink-500/15 border border-pink-500/15 text-pink-700 dark:text-pink-300 text-xs font-black transition-colors px-3 overflow-hidden"
                                     >
                                       <span className="block truncate w-full">
-                                        {t('aquaDashboard.dailyTable.operationCount', {
+                                        {t('aquaDashboard.dailyTable.transferQty', {
                                           ns: 'dashboard',
                                           count: row.transferCount || 0,
                                         })}
@@ -1463,7 +1549,7 @@ export function AquaDashboardPage(): ReactElement {
                                   <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200 min-w-0">
                                     <Truck className="size-4 text-amber-500 shrink-0" />
                                     <span className="text-xs font-black uppercase tracking-widest truncate">
-                                      {t('aquaDashboard.dailySections.shipment', { ns: 'dashboard' })}
+                                      {t('aquaDashboard.dailySections.shipmentOperation', { ns: 'dashboard' })}
                                     </span>
                                   </div>
                                   <Badge className="rounded-xl px-2 py-1 bg-amber-500/10 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300 border border-amber-500/15 text-[10px] font-black shrink-0">
@@ -1479,7 +1565,7 @@ export function AquaDashboardPage(): ReactElement {
                                       className="w-full h-10 rounded-2xl bg-amber-500/10 hover:bg-amber-500/15 border border-amber-500/15 text-amber-700 dark:text-amber-300 text-xs font-black transition-colors px-3 overflow-hidden"
                                     >
                                       <span className="block truncate w-full">
-                                        {t('aquaDashboard.dailyTable.operationCount', {
+                                        {t('aquaDashboard.dailyTable.shipmentCount', {
                                           ns: 'dashboard',
                                           count: row.shipmentCount || 0,
                                         })}
@@ -1503,7 +1589,7 @@ export function AquaDashboardPage(): ReactElement {
                                 >
                                   <Layers className="size-4 shrink-0" />
                                   <span className="truncate">
-                                    {t('aquaDashboard.dailyTable.operationCount', {
+                                    {t('aquaDashboard.dailyTable.stockConvertCount', {
                                       ns: 'dashboard',
                                       count: row.stockConvertCount || 0,
                                     })}

@@ -489,15 +489,25 @@
     "pageTitle": "Aqua Settings",
     "pageDescription": "Manage core Aqua module behavior from a single screen.",
     "form": {
-      "title": "Transfer Settings",
-      "description": "Choose how partial transfers should behave for occupied cages.",
+      "title": "Aqua Settings",
+      "description": "Manage transfer and project behavior from a single screen.",
       "save": "Save"
     },
     "fields": {
+      "requireFullTransfer": "Require Full Transfer",
+      "allowProjectMerge": "Allow Project Merge",
       "partialTransferOccupiedCageMode": "Partial Transfer Rule For Occupied Cage",
       "selectMode": "Select a rule"
     },
     "options": {
+      "boolean": {
+        "true": "Yes",
+        "false": "No"
+      },
+      "projectMerge": {
+        "false": "Do not allow merge",
+        "true": "Allow merge"
+      },
       "partialTransferOccupiedCageMode": {
         "0": "Forbidden",
         "1": "Same batch only",
@@ -505,10 +515,19 @@
       }
     },
     "optionDescriptions": {
+      "requireFullTransfer": {
+        "true": "Transfers must move all fish from the source cage without leaving a remainder.",
+        "false": "Partial quantity transfers are allowed."
+      },
+      "allowProjectMerge": {
+        "false": "Project merge is kept disabled.",
+        "true": "Project merge can be used."
+      },
       "partialTransferOccupiedCageMode": {
         "0": "If the target cage is occupied, partial transfer is blocked.",
         "1": "If the target cage is occupied, partial transfer is allowed only when it contains the same batch.",
-        "2": "Partial transfer is allowed even when the target cage is occupied."
+        "2": "Partial transfer is allowed even when the target cage is occupied.",
+        "disabledByFullTransfer": "This rule is currently inactive because full transfer is required."
       }
     },
     "toast": {
@@ -572,8 +591,8 @@
       "cancelled": "Cancelled"
     },
     "feedingSlot": {
-      "morning": "Morning",
-      "evening": "Evening"
+      "morning": "Round 1",
+      "evening": "Round 2"
     },
     "sourceType": {
       "manual": "Manual",
@@ -614,7 +633,7 @@
         "description": "Goods receipt header records."
       },
       "feedings": {
-        "title": "Feeding (Morning/Evening)",
+        "title": "Feeding (Round 1/Round 2)",
         "description": "Feeding header records."
       },
       "mortalities": {
@@ -855,8 +874,8 @@
       "feeding": {
         "title": "Feeding",
         "slot": "Slot",
-        "morning": "Morning",
-        "evening": "Evening",
+        "morning": "Round 1",
+        "evening": "Round 2",
         "feedStock": "Feed Stock",
         "selectStock": "Select stock",
         "qty": "Quantity",
@@ -916,9 +935,14 @@
         "occupied": "Occupied",
         "empty": "Empty",
         "fishCount": "Count",
-        "fishCountAutoInfo": "Count is automatically taken from live count in source cage.",
+        "fishCountAutoInfo": "Count can be entered manually.",
+        "fullTransferInfo": "Full transfer is required. All live fish in the source cage will be moved.",
         "description": "Description",
         "save": "Save"
+      },
+      "transferLine": {
+        "fullTransferInfo": "Full transfer is required. The count for this line is locked to {{count}}.",
+        "fullTransferRequired": "Full transfer is required. The count for this line must be {{count}}."
       },
       "toast": {
         "feedingSaved": "Feeding saved",
@@ -930,6 +954,9 @@
         "noActiveBatchForCage": "Seçili kafes için aktif batch bulunamadı.",
         "sameCageTransferNotAllowed": "Kaynak ve hedef kafes aynı olamaz.",
         "transferCountTooHigh": "Transfer adedi, kafesteki canlı adedini aşamaz.",
+        "fullTransferRequired": "Full transfer is required. All live fish in the source cage must be moved.",
+        "partialTransferToOccupiedCageNotAllowed": "Partial transfer to an occupied cage is not allowed.",
+        "partialTransferToOccupiedCageOnlySameBatchAllowed": "Partial transfer to an occupied cage is allowed only for the same batch.",
         "sameBatchStockChangeNotAllowed": "Hedef batch kaynak batch ile aynı olamaz.",
         "stockChangeCountTooHigh": "Stok değişim adedi, kafesteki canlı adedini aşamaz.",
         "stockChangeSaved": "Stok değişimi kaydedildi."
@@ -971,15 +998,15 @@
       "countDelta": "Count delta",
       "biomassDelta": "Biomass delta (g)",
       "weather": "Weather",
-      "netOps": "Net ops",
-      "transfers": "Transfers",
-      "shipments": "Shipments",
+      "netOps": "Net Operations",
+      "transfers": "Transfer Qty",
+      "shipments": "Shipment Operations",
       "shipmentQty": "Shipment Qty",
       "feedStocks": "Feed Stocks",
       "stockCountShort": "{{count}} stocks",
       "feedingDetails": "Feeding Details",
       "weighings": "Weighings",
-      "stockConverts": "Stock converts",
+      "stockConverts": "Stock Convert Operations",
       "noOperationDetail": "No detail found for this day.",
       "detailRecords": "{{count}} record",
       "feedStatus": "Feeding status",

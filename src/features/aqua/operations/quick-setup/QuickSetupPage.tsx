@@ -17,9 +17,16 @@ import {
   type ExistingGoodsReceiptContext,
   type CageOptionDto,
 } from './types/quick-setup-types';
+import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
+import { hasPermission } from '@/features/access-control/utils/hasPermission';
+import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 
 export function QuickSetupPage(): ReactElement {
   const { t } = useTranslation('common');
+  const { data: permissions } = useMyPermissionsQuery();
+  const canCreateQuickSetup =
+    !AQUA_SPECIAL_PERMISSION_CODES.quickSetup.create ||
+    hasPermission(permissions, AQUA_SPECIAL_PERMISSION_CODES.quickSetup.create);
   const [projectId, setProjectId] = useState<number | null>(null);
   const [goodsReceiptId, setGoodsReceiptId] = useState<number | null>(null);
   const [fishLineId, setFishLineId] = useState<number | null>(null);
@@ -157,6 +164,7 @@ export function QuickSetupPage(): ReactElement {
   }, [projectCages, allocations]);
 
   const handleCreateProject = async (data: ProjectFormSchema): Promise<void> => {
+    if (!canCreateQuickSetup) return;
     try {
       const created = await mutations.createProject.mutateAsync(data);
       setProjectId(created.id);
@@ -168,6 +176,7 @@ export function QuickSetupPage(): ReactElement {
   };
 
   const handleReceiptSubmit = async (data: { receipt: GoodsReceiptFormSchema; fishLine: FishLineFormSchema; feedLine: FeedLineFormSchema | null; }): Promise<void> => {
+    if (!canCreateQuickSetup) return;
     if (projectId == null) return;
     try {
       const existingDraft = existingReceipt?.status === 0 ? existingReceipt : null;
@@ -239,6 +248,7 @@ export function QuickSetupPage(): ReactElement {
   };
 
   const handleSaveAndPost = async (): Promise<void> => {
+    if (!canCreateQuickSetup) return;
     if (goodsReceiptId == null || fishLineId == null || fishBatchId == null) return;
     try {
       for (const row of allocationRows) {
@@ -258,6 +268,7 @@ export function QuickSetupPage(): ReactElement {
   };
 
   const handleAddCage = async (): Promise<void> => {
+    if (!canCreateQuickSetup) return;
     if (projectId == null || selectedAvailableCageId == null) return;
     try {
       setIsAddingCage(true);
@@ -302,6 +313,7 @@ export function QuickSetupPage(): ReactElement {
         onCreateProject={handleCreateProject}
         onSelectProject={setProjectId}
         isCreating={mutations.createProject.isPending}
+        canCreate={canCreateQuickSetup}
       />
       
       <GoodsReceiptStepCard
@@ -312,6 +324,7 @@ export function QuickSetupPage(): ReactElement {
         isCheckingExistingReceipt={isCheckingExistingReceipt}
         onSubmitReceipt={handleReceiptSubmit}
         isSubmitting={mutations.createGoodsReceipt.isPending || mutations.createGoodsReceiptLine.isPending || mutations.createFishBatch.isPending}
+        canCreate={canCreateQuickSetup}
       />
       
       {projectId != null && goodsReceiptId != null && fishLineId != null && fishBatchId != null && fishCount > 0 && (existingReceipt == null || existingReceipt.status === 0) && (
@@ -328,6 +341,7 @@ export function QuickSetupPage(): ReactElement {
           onSelectAvailableCage={setSelectedAvailableCageId}
           onAddCage={handleAddCage}
           isAddingCage={isAddingCage}
+          canCreate={canCreateQuickSetup}
         />
       )}
     </div>

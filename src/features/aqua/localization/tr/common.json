@@ -55,8 +55,8 @@
       "cancelled": "İptal"
     },
     "feedingSlot": {
-      "morning": "Sabah",
-      "evening": "Akşam"
+      "morning": "1. Tur",
+      "evening": "2. Tur"
     },
     "sourceType": {
       "manual": "Manuel",
@@ -97,7 +97,7 @@
         "description": "Mal kabul başlık kayıtları."
       },
       "feedings": {
-        "title": "Besleme (Sabah/Akşam)",
+        "title": "Besleme (1. Tur/2. Tur)",
         "description": "Besleme başlık kayıtları."
       },
       "mortalities": {
@@ -341,8 +341,8 @@
       "feeding": {
         "title": "Besleme",
         "slot": "Slot",
-        "morning": "Sabah",
-        "evening": "Akşam",
+        "morning": "1. Tur",
+        "evening": "2. Tur",
         "feedStock": "Yem Stoku",
         "selectStock": "Stok seçin",
         "qty": "Miktar",
@@ -402,9 +402,14 @@
         "occupied": "Dolu",
         "empty": "Boş",
         "fishCount": "Adet",
-        "fishCountAutoInfo": "Adet otomatik olarak kaynak kafesteki canlı sayısından alınır.",
+        "fishCountAutoInfo": "Adet manuel girilebilir.",
+        "fullTransferInfo": "Transfer tamamı zorunlu açık. Kaynaktaki tüm canlı adet taşınacaktır.",
         "description": "Açıklama",
         "save": "Kaydet"
+      },
+      "transferLine": {
+        "fullTransferInfo": "Transfer tamamı zorunlu açık. Bu satır için adet {{count}} olarak sabitlendi.",
+        "fullTransferRequired": "Transfer tamamı zorunlu açık. Bu satırda adet {{count}} olmalıdır."
       },
       "toast": {
         "feedingSaved": "Besleme kaydedildi",
@@ -414,6 +419,9 @@
         "noActiveBatchForCage": "Seçili kafes için aktif batch bulunamadı.",
         "sameCageTransferNotAllowed": "Kaynak ve hedef kafes aynı olamaz.",
         "transferCountTooHigh": "Transfer adedi, kafesteki canlı adedini aşamaz.",
+        "fullTransferRequired": "Transfer tamamı zorunlu açık. Kaynaktaki tüm canlı adet taşınmalıdır.",
+        "partialTransferToOccupiedCageNotAllowed": "Dolu kafese kısmi transfer yapılamaz.",
+        "partialTransferToOccupiedCageOnlySameBatchAllowed": "Dolu kafese kısmi transfer yalnızca aynı batch için yapılabilir.",
         "sameBatchStockChangeNotAllowed": "Hedef batch kaynak batch ile aynı olamaz.",
         "stockChangeCountTooHigh": "Stok değişim adedi, kafesteki canlı adedini aşamaz.",
         "invalidNewAverageGram": "Eklenecek gram 0'dan büyük olmalı.",
@@ -463,15 +471,15 @@
       "countDelta": "Adet delta",
       "biomassDelta": "Biyokütle delta (g)",
       "weather": "Hava",
-      "netOps": "Ağ işlemi",
-      "transfers": "Transfer",
-      "shipments": "Sevkiyat",
+      "netOps": "Ağ İşlem",
+      "transfers": "Transfer Adedi",
+      "shipments": "Sevkiyat İşlem",
       "shipmentQty": "Sevk Miktarı",
       "feedStocks": "Yem Stokları",
       "stockCountShort": "{{count}} stok",
       "feedingDetails": "Besleme Detayı",
       "weighings": "Tartım",
-      "stockConverts": "Dönüşüm",
+      "stockConverts": "Dönüşüm İşlem",
       "noOperationDetail": "Bu gün için detay bulunamadı.",
       "detailRecords": "{{count}} kayıt",
       "feedStatus": "Besleme durumu",
@@ -998,15 +1006,25 @@
     "pageTitle": "Aqua Ayarları",
     "pageDescription": "Aqua modülündeki temel davranışları tek ekrandan yönetin.",
     "form": {
-      "title": "Transfer Ayarları",
-      "description": "Kısmi transferin dolu kafese davranışını seçin.",
+      "title": "Aqua Ayarları",
+      "description": "Transfer ve proje davranışlarını tek ekrandan yönetin.",
       "save": "Kaydet"
     },
     "fields": {
+      "requireFullTransfer": "Transfer Tamamı Zorunlu",
+      "allowProjectMerge": "Proje Birleştirmeye İzin Ver",
       "partialTransferOccupiedCageMode": "Dolu Kafese Kısmi Transfer Kuralı",
       "selectMode": "Kural seçin"
     },
     "options": {
+      "boolean": {
+        "true": "Evet",
+        "false": "Hayır"
+      },
+      "projectMerge": {
+        "false": "Birleştirme olmasın",
+        "true": "Birleştirmeye izin ver"
+      },
       "partialTransferOccupiedCageMode": {
         "0": "Yasak",
         "1": "Sadece aynı batch",
@@ -1014,10 +1032,19 @@
       }
     },
     "optionDescriptions": {
+      "requireFullTransfer": {
+        "true": "Transfer islemlerinde kaynaktaki tum baliklarin tasinmasi zorunlu olur.",
+        "false": "Transfer islemlerinde belirli miktar tasimaya izin verilir."
+      },
+      "allowProjectMerge": {
+        "false": "Proje birlestirme islemi kapali tutulur.",
+        "true": "Proje birlestirme islemi yapilabilir."
+      },
       "partialTransferOccupiedCageMode": {
         "0": "Kısmi transferde hedef kafes doluysa islem engellenir.",
         "1": "Kısmi transferde hedef kafes doluysa sadece ayni batch mevcutsa izin verilir.",
-        "2": "Kısmi transferde hedef kafes dolu olsa bile isleme izin verilir."
+        "2": "Kısmi transferde hedef kafes dolu olsa bile isleme izin verilir.",
+        "disabledByFullTransfer": "Transfer tamami zorunlu acik oldugu icin bu kural su anda devre disidir."
       }
     },
     "toast": {

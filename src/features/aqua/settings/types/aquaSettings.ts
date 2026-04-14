@@ -1,14 +1,20 @@
 import { z } from 'zod';
 
 export interface AquaSettingsDto {
+  requireFullTransfer: boolean;
+  allowProjectMerge: boolean;
   partialTransferOccupiedCageMode: number;
 }
 
 export interface UpdateAquaSettingsDto {
+  requireFullTransfer: boolean;
+  allowProjectMerge: boolean;
   partialTransferOccupiedCageMode: number;
 }
 
 export const aquaSettingsFormSchema = z.object({
+  requireFullTransfer: z.boolean(),
+  allowProjectMerge: z.boolean(),
   partialTransferOccupiedCageMode: z.coerce.number().int().min(0).max(2),
 });
 

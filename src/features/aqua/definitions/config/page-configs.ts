@@ -38,14 +38,10 @@ export const cagesConfig: AquaCrudConfig = {
   fields: [
     { key: 'cageCode', label: 'aqua.fields.cageCode', type: 'text', required: true },
     { key: 'cageName', label: 'aqua.fields.cageName', type: 'text', required: true },
-    { key: 'capacityCount', label: 'aqua.fields.capacityCount', type: 'number' },
-    { key: 'capacityGram', label: 'aqua.fields.capacityGram', type: 'number' },
   ],
   columns: [
     { key: 'cageCode', label: 'aqua.fields.cageCode' },
     { key: 'cageName', label: 'aqua.fields.cageName' },
-    { key: 'capacityCount', label: 'aqua.fields.capacityCount' },
-    { key: 'capacityGram', label: 'aqua.fields.capacityGram' },
   ],
 };
 

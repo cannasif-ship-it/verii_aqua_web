@@ -19,6 +19,7 @@ import { MortalityQuickForm } from './components/MortalityQuickForm';
 import { WeatherQuickForm } from './components/WeatherQuickForm';
 import { NetOperationQuickForm } from './components/NetOperationQuickForm';
 import { TransferQuickForm } from './components/TransferQuickForm';
+import { useAquaSettingsQuery } from '@/features/aqua/settings/hooks/useAquaSettingsQuery';
 import { StockChangeQuickForm } from './components/StockChangeQuickForm';
 import { useProjectListQuery } from './hooks/useProjectListQuery';
 import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByProjectQuery';
@@ -60,9 +61,14 @@ import {
 } from './utils/quick-operations';
 import { ChevronRight, ClipboardEdit, CheckCircle2, CalendarDays } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
+import { hasPermission } from '@/features/access-control/utils/hasPermission';
+import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 
 export function QuickDailyEntryPage(): ReactElement {
   const { t } = useTranslation('common');
+  const { data: aquaSettings } = useAquaSettingsQuery();
+  const { data: permissions } = useMyPermissionsQuery();
   const [searchParams] = useSearchParams();
   const projectIdParam = searchParams.get('projectId');
   const projectCageIdParam = searchParams.get('projectCageId');
@@ -73,7 +79,11 @@ export function QuickDailyEntryPage(): ReactElement {
   const [selectedDate, setSelectedDate] = useState<string>(localDateString());
   const [sourceBatch, setSourceBatch] = useState<ActiveCageBatchSnapshot | null>(null);
   const [sourceBatchByCageId, setSourceBatchByCageId] = useState<Record<number, ActiveCageBatchSnapshot | null>>({});
+  const [transferTargetBatchByCageId, setTransferTargetBatchByCageId] = useState<Record<number, ActiveCageBatchSnapshot | null>>({});
   const [isTransferSuccessDialogOpen, setIsTransferSuccessDialogOpen] = useState(false);
+  const canCreateQuickDailyEntry =
+    !AQUA_SPECIAL_PERMISSION_CODES.quickDailyEntry.create ||
+    hasPermission(permissions, AQUA_SPECIAL_PERMISSION_CODES.quickDailyEntry.create);
 
   const { data: projects } = useProjectListQuery();
   const { data: projectCages, refetch: refetchProjectCages } = useProjectCageListByProjectQuery(projectId);
@@ -155,6 +165,30 @@ export function QuickDailyEntryPage(): ReactElement {
     return () => { active = false; };
   }, [projectCages]);
 
+  useEffect(() => {
+    let active = true;
+    const cages = Array.isArray(transferTargetProjectCages) ? transferTargetProjectCages : [];
+    if (cages.length === 0) {
+      setTransferTargetBatchByCageId({});
+      return;
+    }
+    void (async () => {
+      const entries = await Promise.all(
+        cages.map(async (cage) => {
+          try {
+            const snapshot = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(cage.id);
+            return [cage.id, snapshot] as const;
+          } catch {
+            return [cage.id, null] as const;
+          }
+        })
+      );
+      if (!active) return;
+      setTransferTargetBatchByCageId(Object.fromEntries(entries));
+    })();
+    return () => { active = false; };
+  }, [transferTargetProjectCages]);
+
   const sourceProjectCages = useMemo(() =>
     (Array.isArray(projectCages) ? projectCages : []).filter((cage) =>
       projectId == null ? true : Number(cage.projectId) === Number(projectId)
@@ -186,6 +220,34 @@ export function QuickDailyEntryPage(): ReactElement {
     [sourceProjectCages, sourceBatchByCageId]
   );
 
+  const transferTargetOptions = useMemo(() => {
+    const cages = Array.isArray(transferTargetProjectCages) ? transferTargetProjectCages : [];
+    const requireFullTransfer = aquaSettings?.requireFullTransfer ?? true;
+    const partialMode = aquaSettings?.partialTransferOccupiedCageMode ?? 0;
+
+    return cages
+      .filter((pc) => pc.id !== projectCageId)
+      .filter((pc) => {
+        if (requireFullTransfer) return true;
+        const snapshot = transferTargetBatchByCageId[pc.id];
+        const liveCount = Number(snapshot?.liveCount ?? 0);
+        if (liveCount <= 0) return true;
+        if (partialMode === 0) return false;
+        if (partialMode === 1) return Number(snapshot?.fishBatchId ?? 0) === Number(sourceBatch?.fishBatchId ?? 0);
+        return true;
+      })
+      .map((pc) => {
+        const snapshot = transferTargetBatchByCageId[pc.id];
+        const liveCount = Number(snapshot?.liveCount ?? 0);
+        const baseLabel = pc.cageCode ?? pc.cageName ?? String(pc.id);
+        const occupancyLabel = liveCount > 0 ? t('aqua.quickDailyEntry.transfer.occupied') : t('aqua.quickDailyEntry.transfer.empty');
+        return {
+          value: String(pc.id),
+          label: `${formatLabelWithKey(baseLabel, pc.id)} - ${occupancyLabel}`,
+        };
+      });
+  }, [aquaSettings?.partialTransferOccupiedCageMode, aquaSettings?.requireFullTransfer, projectCageId, sourceBatch?.fishBatchId, t, transferTargetBatchByCageId, transferTargetProjectCages]);
+
   useEffect(() => {
     if (projectCageId == null) return;
     const existsInSourceList = sourceProjectCages.some((c) => c.id === projectCageId);
@@ -203,6 +265,7 @@ export function QuickDailyEntryPage(): ReactElement {
   }, [initialProjectCageId, projectId, sourceProjectCages]);
 
   const handleFeedingSubmit = async (data: FeedingQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
       const feedingDate = selectedDate;
@@ -217,6 +280,7 @@ export function QuickDailyEntryPage(): ReactElement {
   };
 
   const handleMortalitySubmit = async (data: MortalityQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
@@ -233,6 +297,7 @@ export function QuickDailyEntryPage(): ReactElement {
   };
 
   const handleWeatherSubmit = async (data: WeatherQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null) return;
     try {
       await createDailyWeather.mutateAsync({ projectId, weatherDate: selectedDate, weatherSeverityId: data.weatherSeverityId, weatherTypeId: data.weatherTypeId, note: data.description });
@@ -243,6 +308,7 @@ export function QuickDailyEntryPage(): ReactElement {
   };
 
   const handleNetOperationSubmit = async (data: NetOperationQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
       const operationDate = selectedDate;
@@ -256,14 +322,29 @@ export function QuickDailyEntryPage(): ReactElement {
   };
 
   const handleTransferSubmit = async (data: TransferQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
       if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
       if (data.toProjectCageId === projectCageId) throw new Error(t('aqua.quickDailyEntry.toast.sameCageTransferNotAllowed'));
-      const transferFishCount = Number(data.fishCount ?? 0);
+      const transferFishCount = aquaSettings?.requireFullTransfer
+        ? Number(sourceBatch.liveCount ?? 0)
+        : Number(data.fishCount ?? 0);
       if (transferFishCount <= 0) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
-      if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh'));
+      if (transferFishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh'));
+      const isPartialTransfer = transferFishCount < Number(sourceBatch.liveCount ?? 0);
+      if (isPartialTransfer) {
+        const targetSnapshot = transferTargetBatchByCageId[data.toProjectCageId];
+        const targetLiveCount = Number(targetSnapshot?.liveCount ?? 0);
+        if (targetLiveCount > 0) {
+          const partialMode = aquaSettings?.partialTransferOccupiedCageMode ?? 0;
+          if (partialMode === 0) throw new Error(t('aqua.quickDailyEntry.toast.partialTransferToOccupiedCageNotAllowed'));
+          if (partialMode === 1 && Number(targetSnapshot?.fishBatchId ?? 0) !== Number(sourceBatch.fishBatchId)) {
+            throw new Error(t('aqua.quickDailyEntry.toast.partialTransferToOccupiedCageOnlySameBatchAllowed'));
+          }
+        }
+      }
 
       const transferDate = selectedDate;
       const transfer = await createTransfer.mutateAsync({ projectId, transferNo: formatTransferNo(), transferDate, status: 0, note: data.description });
@@ -279,6 +360,7 @@ export function QuickDailyEntryPage(): ReactElement {
   };
 
   const handleStockChangeSubmit = async (data: StockChangeQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
@@ -376,12 +458,12 @@ export function QuickDailyEntryPage(): ReactElement {
       
       {/* İşlem Sekmeleri (Tab'lar) */}
       <OperationTypeTabs
-        feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeeding.isPending || createFeedingLine.isPending} />}
-        mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortality.isPending || createMortalityLine.isPending} />}
-        weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} />}
-        netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperation.isPending || createNetOperationLine.isPending} />}
-        transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} projectCages={transferTargetProjectCages} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} isSubmitting={createTransfer.isPending || createTransferLine.isPending} />}
-        stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvert.isPending || createStockConvertLine.isPending} />}
+        feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeeding.isPending || createFeedingLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortality.isPending || createMortalityLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperation.isPending || createNetOperationLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} isSubmitting={createTransfer.isPending || createTransferLine.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} />}
+        stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvert.isPending || createStockConvertLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
       />
 
       {/* Transfer Başarılı Dialog */}

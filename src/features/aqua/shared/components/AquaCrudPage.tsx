@@ -41,6 +41,10 @@ import { PageToolbar, ColumnPreferencesPopover, AdvancedFilter } from '@/compone
 import { loadColumnPreferences, saveColumnPreferences } from '@/lib/column-preferences';
 import type { FilterRow, FilterColumnConfig } from '@/lib/advanced-filter-types';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
+import { useAquaSettingsQuery } from '@/features/aqua/settings/hooks/useAquaSettingsQuery';
+import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
+import { hasPermission } from '@/features/access-control/utils/hasPermission';
+import { AQUA_CONFIG_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 
 import {
   DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent
@@ -222,6 +226,8 @@ export function AquaCrudPage({
   const queryClient = useQueryClient();
   const localizedTitle = t(config.title);
   const localizedDescription = t(config.description);
+  const { data: aquaSettings } = useAquaSettingsQuery();
+  const { data: permissions } = useMyPermissionsQuery();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [pageSize, setPageSize] = useState<number>(20);
@@ -321,12 +327,43 @@ export function AquaCrudPage({
   }, [contextFilter, appliedFilterRows]);
 
   const canQueryList = contextFilter ? contextFilter.value != null : true;
+  const isTransferLineConfig = config.key === 'transferLines';
+  const requireFullTransfer = aquaSettings?.requireFullTransfer ?? true;
+  const partialTransferOccupiedCageMode = aquaSettings?.partialTransferOccupiedCageMode ?? 0;
+  const permissionSet = AQUA_CONFIG_PERMISSION_CODES[config.key] ?? {};
+  const canCreate = config.readOnly ? false : !permissionSet.create || hasPermission(permissions, permissionSet.create);
+  const canUpdate = config.readOnly ? false : !permissionSet.update || hasPermission(permissions, permissionSet.update);
+  const canDelete = config.readOnly ? false : !permissionSet.delete || hasPermission(permissions, permissionSet.delete);
 
   const listQuery = useQuery({
     queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, sortConfig, effectiveFilters],
     queryFn: () => aquaCrudApi.getList(config.endpoint, { pageNumber, pageSize, sortBy: sortConfig?.key ?? 'Id', sortDirection: sortConfig?.direction ?? 'desc', filters: effectiveFilters, filterLogic: 'and' }),
     staleTime: config.listStaleTimeMs,
     enabled: canQueryList,
+  });
+
+  const transferLineSourceBalanceQuery = useQuery({
+    queryKey: ['aqua-transfer-line-source-balance', formValues.fromProjectCageId, formValues.fishBatchId],
+    queryFn: async () => {
+      const fromProjectCageId = Number(formValues.fromProjectCageId ?? 0);
+      const fishBatchId = Number(formValues.fishBatchId ?? 0);
+      const response = await aquaCrudApi.getList('BatchCageBalance', {
+        pageNumber: 1,
+        pageSize: 50,
+        sortBy: 'Id',
+        sortDirection: 'desc',
+        filters: [
+          { column: 'ProjectCageId', operator: 'eq', value: String(fromProjectCageId) },
+          { column: 'FishBatchId', operator: 'eq', value: String(fishBatchId) },
+        ],
+        filterLogic: 'and',
+      });
+
+      const match = response.data.find((item) => Number(item.liveCount ?? 0) > 0) ?? response.data[0] ?? null;
+      return match ? Number(match.liveCount ?? 0) : 0;
+    },
+    enabled: isTransferLineConfig && requireFullTransfer && Number(formValues.fromProjectCageId ?? 0) > 0 && Number(formValues.fishBatchId ?? 0) > 0 && formOpen,
+    staleTime: 10000,
   });
 
   const lookupFields = useMemo(() => {
@@ -423,6 +460,7 @@ export function AquaCrudPage({
 
   // Toplu Silme Fonksiyonu
   const handleBulkDelete = async () => {
+    if (!canDelete) return;
     if (selectedIds.length === 0) return;
     if (!window.confirm(t('aqua.common.confirmBulkDelete', { count: selectedIds.length }))) return;
     
@@ -496,6 +534,17 @@ export function AquaCrudPage({
     });
   }, [config.fields, config.postingSlug, contextFilter, lookupOptionsByField]);
 
+  useEffect(() => {
+    if (!isTransferLineConfig || !requireFullTransfer) return;
+    const liveCount = Number(transferLineSourceBalanceQuery.data ?? 0);
+    if (liveCount <= 0) return;
+
+    setFormValues((previous) => {
+      if (String(previous.fishCount ?? '') === String(liveCount)) return previous;
+      return { ...previous, fishCount: String(liveCount) };
+    });
+  }, [formOpen, isTransferLineConfig, requireFullTransfer, transferLineSourceBalanceQuery.data]);
+
   const lookupLabelsByFieldAndValue = useMemo((): Record<string, Record<string, string>> => {
     const result: Record<string, Record<string, string>> = {};
     Object.entries(lookupOptionsByField).forEach(([fieldKey, options]) => { result[fieldKey] = options.reduce<Record<string, string>>((acc, option) => { acc[option.value] = option.label; return acc; }, {}); });
@@ -532,6 +581,7 @@ export function AquaCrudPage({
   }, [config.fields, contextFilter, formValues, visibleFields]);
 
   const handleCreate = (): void => {
+    if (!canCreate) return;
     if (contextFilter?.lockValue && contextFilter.value == null) { toast.error(t('aqua.common.requiredField')); return; }
     setEditingRow(null); const initial = getInitialValues(config);
     if (contextFilter?.lockValue && contextFilter.value != null) initial[contextFilter.fieldKey] = String(contextFilter.value);
@@ -539,18 +589,25 @@ export function AquaCrudPage({
   };
 
   const handleEdit = (row: Record<string, unknown>): void => {
+    if (!canUpdate) return;
     setEditingRow(row); const nextValues: Record<string, unknown> = {};
     for (const field of config.fields) nextValues[field.key] = normalizeInputValue(field, row[field.key] ?? '');
     setFormValues({ ...getInitialValues(config), ...nextValues }); setFormOpen(true);
   };
 
-  const handleDeleteClick = (row: Record<string, unknown>): void => { setRowToDelete(row); };
+  const handleDeleteClick = (row: Record<string, unknown>): void => {
+    if (!canDelete) return;
+    setRowToDelete(row);
+  };
   const confirmDelete = (): void => {
+    if (!canDelete) return;
     if (!rowToDelete) return; const id = Number(rowToDelete.id ?? rowToDelete.Id);
     if (!id) return; deleteMutation.mutate(id);
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
+    if (editingRow && !canUpdate) return;
+    if (!editingRow && !canCreate) return;
     const payload: Record<string, unknown> = {};
     for (const field of config.fields) payload[field.key] = normalizeFieldValue(field, formValues[field.key]);
     const statusFallback = resolveStatusFallbackValue(config);
@@ -559,6 +616,50 @@ export function AquaCrudPage({
       if (contextFilter.value == null) { toast.error(t('aqua.common.requiredField')); return; }
       payload[contextFilter.fieldKey] = contextFilter.value;
     }
+
+    if (isTransferLineConfig && requireFullTransfer) {
+      const requiredFishCount = Number(transferLineSourceBalanceQuery.data ?? 0);
+      const payloadFishCount = Number(payload.fishCount ?? 0);
+      if (requiredFishCount > 0 && payloadFishCount !== requiredFishCount) {
+        toast.error(t('aqua.quickDailyEntry.transferLine.fullTransferRequired', { count: requiredFishCount }));
+        return;
+      }
+    }
+
+    if (isTransferLineConfig && !requireFullTransfer) {
+      const sourceLiveCount = Number(transferLineSourceBalanceQuery.data ?? 0);
+      const payloadFishCount = Number(payload.fishCount ?? 0);
+      const isPartialTransfer = sourceLiveCount > 0 && payloadFishCount < sourceLiveCount;
+      if (isPartialTransfer) {
+        const targetProjectCageId = Number(payload.toProjectCageId ?? 0);
+        const targetBatchId = Number(payload.fishBatchId ?? 0);
+        if (targetProjectCageId > 0) {
+          const targetBalances = await aquaCrudApi.getList('BatchCageBalance', {
+            pageNumber: 1,
+            pageSize: 100,
+            sortBy: 'Id',
+            sortDirection: 'desc',
+            filters: [{ column: 'ProjectCageId', operator: 'eq', value: String(targetProjectCageId) }],
+            filterLogic: 'and',
+          });
+          const liveBalances = targetBalances.data.filter((item) => Number(item.liveCount ?? 0) > 0);
+          if (liveBalances.length > 0) {
+            if (partialTransferOccupiedCageMode === 0) {
+              toast.error(t('aqua.quickDailyEntry.toast.partialTransferToOccupiedCageNotAllowed'));
+              return;
+            }
+            if (partialTransferOccupiedCageMode === 1) {
+              const onlySameBatchExists = liveBalances.every((item) => Number(item.fishBatchId ?? 0) === targetBatchId);
+              if (!onlySameBatchExists) {
+                toast.error(t('aqua.quickDailyEntry.toast.partialTransferToOccupiedCageOnlySameBatchAllowed'));
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+
     const firstMissingRequiredField = visibleFields.find((field) => isRequiredFieldMissing(field, payload[field.key]));
     if (firstMissingRequiredField) { toast.error(`${t(firstMissingRequiredField.label)} * - ${t('aqua.common.requiredField')}`); return; }
     if (editingRow) {
@@ -709,7 +810,7 @@ export function AquaCrudPage({
               </div>
 
               <div className="flex items-center gap-3">
-                {!config.readOnly && (
+                {!config.readOnly && canCreate && (
                   <Button onClick={handleCreate} disabled={!canQueryList} className="px-6 bg-linear-to-r from-cyan-600 to-blue-600 rounded-xl text-white text-sm font-bold shadow-lg shadow-cyan-500/20 hover:scale-105 transition-transform border-0 hover:text-white h-11">
                     <Plus size={18} className="mr-2" />
                     {t('aqua.common.new')}
@@ -871,15 +972,19 @@ export function AquaCrudPage({
 
                               {!config.readOnly && (
                                 <>
-                                  <Button variant="ghost" size="icon" title={t('aqua.common.edit')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
-                                    <Edit size={16} />
-                                  </Button>
-                                  <Button variant="ghost" size="icon" title={t('aqua.common.delete')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
-                                    <Trash2 size={16} />
-                                  </Button>
+                                  {canUpdate && (
+                                    <Button variant="ghost" size="icon" title={t('aqua.common.edit')} onClick={(e) => { e.stopPropagation(); handleEdit(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+                                      <Edit size={16} />
+                                    </Button>
+                                  )}
+                                  {canDelete && (
+                                    <Button variant="ghost" size="icon" title={t('aqua.common.delete')} onClick={(e) => { e.stopPropagation(); handleDeleteClick(row); }} className="h-8 w-8 rounded-lg text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                                      <Trash2 size={16} />
+                                    </Button>
+                                  )}
                                 </>
                               )}
-                              {config.postingSlug && !config.autoPostOnSave && status === 0 && (
+                              {config.postingSlug && !config.autoPostOnSave && status === 0 && canUpdate && (
                                 <Button size="sm" onClick={(e) => { e.stopPropagation(); postMutation.mutate({ slug: config.postingSlug!, id }); }} disabled={postMutation.isPending}>{t('aqua.common.post')}</Button>
                               )}
                             </div>
@@ -913,9 +1018,11 @@ export function AquaCrudPage({
               <Button size="sm" variant="ghost" onClick={handleExportExcel} className="text-slate-300 hover:text-white hover:bg-slate-800 dark:hover:bg-blue-900/50 rounded-xl h-8 font-bold text-xs transition-colors">
                 <Download size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{t('aqua.common.export')}</span>
               </Button>
-              <Button size="sm" variant="ghost" onClick={handleBulkDelete} disabled={isBulkDeleting} className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 rounded-xl h-8 font-bold text-xs transition-colors">
-                <Trash2 size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{isBulkDeleting ? t('aqua.common.deleting') : t('aqua.common.deleteSelected')}</span>
-              </Button>
+              {canDelete && (
+                <Button size="sm" variant="ghost" onClick={handleBulkDelete} disabled={isBulkDeleting} className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 rounded-xl h-8 font-bold text-xs transition-colors">
+                  <Trash2 size={14} className="sm:mr-2" /> <span className="hidden sm:inline">{isBulkDeleting ? t('aqua.common.deleting') : t('aqua.common.deleteSelected')}</span>
+                </Button>
+              )}
             </div>
           </div>
         )}
@@ -963,7 +1070,12 @@ export function AquaCrudPage({
                         />
                       )}
                       {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
-                        <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} />
+                        <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} readOnly={isTransferLineConfig && requireFullTransfer && field.key === 'fishCount'} />
+                      )}
+                      {isTransferLineConfig && requireFullTransfer && field.key === 'fishCount' && Number(transferLineSourceBalanceQuery.data ?? 0) > 0 && (
+                        <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
+                          {t('aqua.quickDailyEntry.transferLine.fullTransferInfo', { count: Number(transferLineSourceBalanceQuery.data ?? 0) })}
+                        </p>
                       )}
                     </div>
                   ))}
@@ -971,7 +1083,7 @@ export function AquaCrudPage({
               </div>
               <DialogFooter className="px-6 py-5 border-t border-slate-200 dark:border-cyan-800/30 bg-slate-50/50 dark:bg-blue-950/50 flex-col sm:flex-row gap-3 sticky bottom-0 z-10 backdrop-blur-sm">
                 <Button type="button" variant="outline" onClick={() => setFormOpen(false)} className="w-full sm:w-auto h-11 rounded-xl bg-white dark:bg-transparent border-slate-200 dark:border-cyan-800/30 hover:bg-slate-100 dark:hover:bg-blue-900/50 text-slate-700 dark:text-slate-200">{t('aqua.common.cancel')}</Button>
-                <Button onClick={handleSubmit} disabled={isSubmitting || hasMissingRequiredField} className="w-full sm:w-auto h-11 rounded-xl bg-linear-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/25 hover:opacity-95 border-0 font-bold disabled:opacity-50 disabled:cursor-not-allowed">{isSubmitting ? t('aqua.common.saving') : t('aqua.common.save')}</Button>
+                <Button onClick={handleSubmit} disabled={isSubmitting || hasMissingRequiredField || (editingRow ? !canUpdate : !canCreate)} className="w-full sm:w-auto h-11 rounded-xl bg-linear-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/25 hover:opacity-95 border-0 font-bold disabled:opacity-50 disabled:cursor-not-allowed">{isSubmitting ? t('aqua.common.saving') : t('aqua.common.save')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -1025,7 +1137,7 @@ export function AquaCrudPage({
             </div>
             <div className="p-4 border-t border-slate-100 dark:border-cyan-800/20 bg-slate-50/50 dark:bg-blue-900/10 shrink-0 flex justify-end gap-3">
               <Button variant="outline" onClick={() => setViewingRow(null)} className="rounded-xl border-slate-200 dark:border-cyan-800/30 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-blue-900/30">{t('common.close')}</Button>
-              {!config.readOnly && viewingRow && (
+              {!config.readOnly && viewingRow && canUpdate && (
                 <Button onClick={() => { handleEdit(viewingRow); setViewingRow(null); }} className="rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold border-0 shadow-lg shadow-cyan-500/20">{t('aqua.common.edit')}</Button>
               )}
             </div>

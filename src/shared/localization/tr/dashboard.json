@@ -89,6 +89,10 @@
       "title": "Aktif Proje Filtreleri",
       "description": "Seçtiğin projeler aşağıdaki kartları ve listeleri filtreler."
     },
+    "yesterdayAlert": {
+      "title": "Dünün girişleri eksik",
+      "description": "{{date}} tarihine ait günlük giriş bulunamadı. Besleme, hava, ağ, transfer ve diğer günlük işlemleri kontrol edin."
+    },
     "projectSelector": {
       "title": "Proje Seçimi",
       "description": "Bir veya birden fazla proje seçerek dashboard görünümünü filtrele.",
@@ -130,11 +134,17 @@
       "biomassDelta": "Biyo Delta",
       "weather": "Hava",
       "net": "Ağ",
+      "netOperation": "Ağ İşlem",
       "transfer": "Transfer",
       "shipment": "Sevkiyat",
+      "shipmentOperation": "Sevkiyat İşlem",
       "status": "Durum",
       "stockCount": "{{count}} stok",
       "operationCount": "{{count}} işlem",
+      "netOperationCount": "{{count}} ağ işlem",
+      "shipmentCount": "{{count}} sevkiyat işlem",
+      "stockConvertCount": "{{count}} dönüşüm işlem",
+      "transferQty": "{{count}} adet",
       "fed": "Beslendi",
       "notFed": "Beslenmedi",
       "criticalDay": "Kritik Gün"
@@ -148,8 +158,11 @@
     "dailySections": {
       "feedStocks": "Yem Stokları",
       "net": "Ağ",
+      "netOperation": "Ağ İşlem",
       "transfer": "Transfer",
-      "shipment": "Sevkiyat"
+      "transferQty": "Transfer Adedi",
+      "shipment": "Sevkiyat",
+      "shipmentOperation": "Sevkiyat İşlem"
     },
     "projectDialog": {
       "fish": "Balık",

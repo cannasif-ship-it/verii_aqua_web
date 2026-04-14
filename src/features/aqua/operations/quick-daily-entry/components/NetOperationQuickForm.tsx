@@ -12,7 +12,7 @@ import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { netOperationQuickFormSchema, type NetOperationQuickFormSchema } from '../schema/quick-daily-entry-schema';
 import { ChevronRight, Save } from 'lucide-react'; // İkonlar eklendi
 
-export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, netOperationTypes, onSubmit, isSubmitting }: any): ReactElement {
+export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, netOperationTypes, onSubmit, isSubmitting, canSubmit }: any): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<NetOperationQuickFormSchema>({
     resolver: zodResolver(netOperationQuickFormSchema) as Resolver<NetOperationQuickFormSchema>,
@@ -77,7 +77,7 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
             <div className="pt-4 flex justify-end border-t border-slate-200 dark:border-cyan-800/30">
               <Button 
                 type="submit" 
-                disabled={!projectId || !projectCageId || isSubmitting || !form.formState.isValid} 
+                disabled={!projectId || !projectCageId || isSubmitting || !form.formState.isValid || !canSubmit} 
                 className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl shadow-lg shadow-cyan-500/25 transition-all hover:opacity-95 border-0 flex items-center gap-2"
               >
                 <Save size={18} />

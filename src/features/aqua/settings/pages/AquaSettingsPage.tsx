@@ -6,12 +6,19 @@ import { AquaSettingsForm } from '../components/AquaSettingsForm';
 import { useAquaSettingsQuery } from '../hooks/useAquaSettingsQuery';
 import { useUpdateAquaSettingsMutation } from '../hooks/useUpdateAquaSettingsMutation';
 import type { AquaSettingsFormSchema } from '../types/aquaSettings';
+import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
+import { hasPermission } from '@/features/access-control/utils/hasPermission';
+import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 
 export function AquaSettingsPage(): ReactElement {
   const { t } = useTranslation('common');
   const { setPageTitle } = useUIStore();
   const { data, isLoading } = useAquaSettingsQuery();
   const updateMutation = useUpdateAquaSettingsMutation();
+  const { data: permissions } = useMyPermissionsQuery();
+  const canUpdateSettings =
+    !AQUA_SPECIAL_PERMISSION_CODES.settings.update ||
+    hasPermission(permissions, AQUA_SPECIAL_PERMISSION_CODES.settings.update);
 
   useEffect(() => {
     setPageTitle(t('aquaSettings.pageTitle'));
@@ -19,7 +26,10 @@ export function AquaSettingsPage(): ReactElement {
   }, [setPageTitle, t]);
 
   const handleSubmit = async (values: AquaSettingsFormSchema): Promise<void> => {
+    if (!canUpdateSettings) return;
     await updateMutation.mutateAsync({
+      requireFullTransfer: values.requireFullTransfer,
+      allowProjectMerge: values.allowProjectMerge,
       partialTransferOccupiedCageMode: values.partialTransferOccupiedCageMode,
     });
   };
@@ -51,6 +61,7 @@ export function AquaSettingsPage(): ReactElement {
           isLoading={isLoading}
           isSubmitting={updateMutation.isPending}
           onSubmit={handleSubmit}
+          canSubmit={canUpdateSettings}
         />
       </div>
     </div>

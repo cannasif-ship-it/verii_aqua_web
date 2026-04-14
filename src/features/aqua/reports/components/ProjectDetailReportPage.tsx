@@ -622,9 +622,6 @@ export function ProjectDetailReportPage(): ReactElement {
                           <Badge className="bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-blue-900/50 dark:text-slate-300 dark:hover:bg-blue-900/70 border-0">
                             {t('aqua.projectDetailReport.dead')}: {formatNumber(cage.totalDeadCount)}
                           </Badge>
-                          <Badge className={`border-0 ${cage.missingFeedingDays.length > 0 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-slate-100 text-slate-600 dark:bg-blue-900/30 dark:text-slate-400'}`}>
-                            {t('aqua.projectDetailReport.missingFeedDays')}: {cage.missingFeedingDays.length}
-                          </Badge>
                         </div>
                       </div>
                     </AccordionTrigger>

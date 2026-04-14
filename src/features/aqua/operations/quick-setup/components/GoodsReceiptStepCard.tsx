@@ -39,6 +39,7 @@ interface GoodsReceiptStepCardProps {
     feedLine: FeedLineFormSchema | null;
   }) => Promise<void>;
   isSubmitting: boolean;
+  canCreate: boolean;
 }
 
 export function GoodsReceiptStepCard({
@@ -49,6 +50,7 @@ export function GoodsReceiptStepCard({
   isCheckingExistingReceipt,
   onSubmitReceipt,
   isSubmitting,
+  canCreate,
 }: GoodsReceiptStepCardProps): ReactElement {
   const { t } = useTranslation('common');
   const receiptForm = useForm<GoodsReceiptFormSchema>({
@@ -325,7 +327,7 @@ export function GoodsReceiptStepCard({
 
               <div className="pt-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                   {/* Butondaki pembe-turuncu gradyanı koruduk */}
-                  <Button type="submit" disabled={isSubmitting || !receiptForm.formState.isValid || !fishForm.formState.isValid} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 font-bold w-full sm:w-auto transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                  <Button type="submit" disabled={isSubmitting || !receiptForm.formState.isValid || !fishForm.formState.isValid || !canCreate} className="bg-linear-to-r from-pink-600 to-orange-600 text-white hover:opacity-90 border-0 h-11 px-8 rounded-xl shadow-lg shadow-pink-500/20 font-bold w-full sm:w-auto transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                     {existingReceipt ? t('common.save') : t('aqua.quickSetup.createGoodsReceipt')}
                   </Button>
                   {existingReceipt && canContinueDistribution && (

@@ -11,6 +11,7 @@ import type {
   FeedingDistributionDto,
   FeedingDto,
   FeedingLineDto,
+  FishBatchDto,
   NetOperationDto,
   NetOperationLineDto,
   StockConvertDto,
@@ -203,7 +204,8 @@ function computeReport(
   stockConverts: StockConvertDto[],
   stockConvertLines: StockConvertLineDto[],
   batchMovements: BatchMovementDto[],
-  stocks: StockListItem[]
+  stocks: StockListItem[],
+  fishBatches: FishBatchDto[]
 ): ProjectDetailReport {
   const activeProjectCages = projectCages.filter((x) => isActiveProjectCage(x.releasedDate));
   const inactiveProjectCages = projectCages.filter((x) => !isActiveProjectCage(x.releasedDate));
@@ -305,6 +307,9 @@ function computeReport(
   }
   const cageLabelById = new Map<number, string>(
     projectCages.map((x) => [x.id, x.cageCode ?? x.cageName ?? String(x.id)])
+  );
+  const fishBatchLabelById = new Map<number, string>(
+    fishBatches.map((x) => [x.id, x.batchCode?.trim() ? x.batchCode : String(x.id)])
   );
 
   const initialByCage = new Map<number, number>();
@@ -458,9 +463,15 @@ function computeReport(
     const transferHeader = transferById.get(row.transferId);
     const fromLabel = cageLabelById.get(row.fromProjectCageId) ?? String(row.fromProjectCageId);
     const toLabel = cageLabelById.get(row.toProjectCageId) ?? String(row.toProjectCageId);
+    const fishBatchText =
+      row.fishBatchId != null
+        ? fishBatchLabelById.get(row.fishBatchId) ?? String(row.fishBatchId)
+        : null;
+    const fishCount = Number(row.fishCount ?? 0);
     const detailParts = [
       transferHeader?.transferNo ?? `#${row.transferId}`,
       `${fromLabel} -> ${toLabel}`,
+      fishBatchText ? `batch:${fishBatchText}` : null,
       row.fishCount != null ? `count:${row.fishCount}` : null,
       row.averageGram != null ? `avg:${row.averageGram}g` : null,
       row.biomassGram != null ? `biomass:${row.biomassGram}g` : null,
@@ -470,13 +481,13 @@ function computeReport(
 
     if (cageIds.has(row.fromProjectCageId)) {
       const byDate = transferByCageDate.get(row.fromProjectCageId) ?? new Map<string, number>();
-      byDate.set(date, (byDate.get(date) ?? 0) + 1);
+      byDate.set(date, (byDate.get(date) ?? 0) + fishCount);
       transferByCageDate.set(row.fromProjectCageId, byDate);
       appendDetail(transferDetailsByCageDate, row.fromProjectCageId, date, detail);
     }
     if (cageIds.has(row.toProjectCageId)) {
       const byDate = transferByCageDate.get(row.toProjectCageId) ?? new Map<string, number>();
-      byDate.set(date, (byDate.get(date) ?? 0) + 1);
+      byDate.set(date, (byDate.get(date) ?? 0) + fishCount);
       transferByCageDate.set(row.toProjectCageId, byDate);
       if (row.toProjectCageId !== row.fromProjectCageId) {
         appendDetail(transferDetailsByCageDate, row.toProjectCageId, date, detail);
@@ -759,7 +770,7 @@ export const projectDetailReportApi = {
       throw new Error(i18n.t('errors.projectNotFound', { ns: 'dashboard' }));
     }
 
-    const [projectCages, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines, batchCageBalances, dailyWeathers, netOperations, netOperationLines, transfers, transferLines, shipments, shipmentLines, weighings, weighingLines, stockConverts, stockConvertLines, batchMovements, stocks] =
+    const [projectCages, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines, batchCageBalances, dailyWeathers, netOperations, netOperationLines, transfers, transferLines, shipments, shipmentLines, weighings, weighingLines, stockConverts, stockConvertLines, batchMovements, stocks, fishBatches] =
       await Promise.all([
         getAllPagedItems<ProjectCageDto>('ProjectCage', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<FeedingDto>('Feeding', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
@@ -781,6 +792,7 @@ export const projectDetailReportApi = {
         getAllPagedItems<StockConvertLineDto>('StockConvertLine'),
         getAllPagedItems<BatchMovementDto>('BatchMovement'),
         getAllPagedItemsByPath<StockListItem>('/api/Stock'),
+        getAllPagedItems<FishBatchDto>('FishBatch', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
       ]);
 
     return computeReport(
@@ -804,7 +816,8 @@ export const projectDetailReportApi = {
       stockConverts,
       stockConvertLines,
       batchMovements,
-      stocks
+      stocks,
+      fishBatches
     );
   },
 };
