@@ -56,7 +56,8 @@ import {
   formatStockConvertNo,
   localDateString,
 } from './utils/quick-operations';
-import { ChevronRight, ClipboardEdit, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, ClipboardEdit, CheckCircle2, CalendarDays } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 export function QuickDailyEntryPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -67,6 +68,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const initialProjectCageId = projectCageIdParam ? Number(projectCageIdParam) : null;
   const [projectId, setProjectId] = useState<number | null>(null);
   const [projectCageId, setProjectCageId] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string>(localDateString());
   const [sourceBatch, setSourceBatch] = useState<ActiveCageBatchSnapshot | null>(null);
   const [sourceBatchByCageId, setSourceBatchByCageId] = useState<Record<number, ActiveCageBatchSnapshot | null>>({});
   const [isTransferSuccessDialogOpen, setIsTransferSuccessDialogOpen] = useState(false);
@@ -200,7 +202,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const handleFeedingSubmit = async (data: FeedingQuickFormSchema): Promise<void> => {
     if (projectId == null || projectCageId == null) return;
     try {
-      const feedingDate = localDateString();
+      const feedingDate = selectedDate;
       const existingHeader = await aquaQuickDailyApi.findFeedingHeaderByProjectAndDate(projectId, feedingDate);
       const feeding = existingHeader ?? (await createFeeding.mutateAsync({ projectId, feedingNo: formatFeedingNo(), feedingDate, feedingSlot: data.feedingSlot, sourceType: 0, status: 1 }));
       const effectiveGramPerUnit = data.gramPerUnit > 0 ? data.gramPerUnit : 1;
@@ -216,7 +218,7 @@ export function QuickDailyEntryPage(): ReactElement {
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
       if (sourceBatch == null) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
-      const mortalityDate = localDateString();
+      const mortalityDate = selectedDate;
       const existingHeader = await aquaQuickDailyApi.findMortalityHeaderByProjectAndDate(projectId, mortalityDate);
       const canReuseDraft = existingHeader != null && Number(existingHeader.status ?? 0) === 0;
       const mortality = canReuseDraft ? existingHeader : (await createMortality.mutateAsync({ projectId, mortalityDate, status: 0 }));
@@ -230,7 +232,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const handleWeatherSubmit = async (data: WeatherQuickFormSchema): Promise<void> => {
     if (projectId == null) return;
     try {
-      await createDailyWeather.mutateAsync({ projectId, weatherDate: localDateString(), weatherSeverityId: data.weatherSeverityId, weatherTypeId: data.weatherTypeId, note: data.description });
+      await createDailyWeather.mutateAsync({ projectId, weatherDate: selectedDate, weatherSeverityId: data.weatherSeverityId, weatherTypeId: data.weatherTypeId, note: data.description });
       toast.success(t('aqua.quickDailyEntry.toast.weatherSaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
@@ -240,7 +242,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const handleNetOperationSubmit = async (data: NetOperationQuickFormSchema): Promise<void> => {
     if (projectId == null || projectCageId == null) return;
     try {
-      const operationDate = localDateString();
+      const operationDate = selectedDate;
       const existingHeader = await aquaQuickDailyApi.findNetOperationHeaderByProjectAndDate(projectId, operationDate);
       const netOperation = existingHeader != null && Number(existingHeader.status ?? 0) === 0 ? existingHeader : (await createNetOperation.mutateAsync({ projectId, operationTypeId: data.netOperationTypeId, operationNo: formatNetOperationNo(), operationDate, status: 0, note: data.description }));
       await createNetOperationLine.mutateAsync({ netOperationId: netOperation.id, projectCageId, fishBatchId: data.fishBatchId > 0 ? data.fishBatchId : undefined, note: data.description });
@@ -260,7 +262,7 @@ export function QuickDailyEntryPage(): ReactElement {
       if (transferFishCount <= 0) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
       if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh'));
 
-      const transferDate = localDateString();
+      const transferDate = selectedDate;
       const transfer = await createTransfer.mutateAsync({ projectId, transferNo: formatTransferNo(), transferDate, status: 0, note: data.description });
       const averageGram = sourceBatch.averageGram > 0 ? sourceBatch.averageGram : 0;
       const biomassGram = transferFishCount * averageGram;
@@ -281,7 +283,7 @@ export function QuickDailyEntryPage(): ReactElement {
       if (data.toFishBatchId === sourceBatch.fishBatchId) throw new Error(t('aqua.quickDailyEntry.toast.sameBatchStockChangeNotAllowed'));
       if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.stockChangeCountTooHigh'));
 
-      const convertDate = localDateString();
+      const convertDate = selectedDate;
       const stockConvert = await createStockConvert.mutateAsync({ projectId, convertNo: formatStockConvertNo(), convertDate, status: 0, note: data.description });
       const averageGram = sourceBatch.averageGram > 0 ? sourceBatch.averageGram : 0;
       const newAverageGram = Number(data.newAverageGram);
@@ -320,7 +322,7 @@ export function QuickDailyEntryPage(): ReactElement {
         {/* Şık Arka Plan Parıltısı */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none" />
         
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 relative z-10">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3 relative z-10">
           <div className="space-y-3 w-full">
             <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
               <ChevronRight size={14} className="text-cyan-500" />
@@ -351,6 +353,19 @@ export function QuickDailyEntryPage(): ReactElement {
               emptyText={t('common.noResults')}
               disabled={!projectId}
               className="w-full bg-slate-50 dark:bg-blue-900/20 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-12 rounded-xl focus-visible:ring-cyan-500/20 font-medium disabled:opacity-50 transition-all"
+            />
+          </div>
+
+          <div className="space-y-3 w-full">
+            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+              <CalendarDays size={14} className="text-cyan-500" />
+              {t('aqua.quickDailyEntry.date')}
+            </label>
+            <Input
+              type="date"
+              value={selectedDate}
+              onChange={(event) => setSelectedDate(event.target.value)}
+              className="w-full bg-slate-50 dark:bg-blue-900/20 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30 h-12 rounded-xl focus-visible:ring-cyan-500/20 font-medium transition-all dark:[&::-webkit-calendar-picker-indicator]:invert"
             />
           </div>
         </div>

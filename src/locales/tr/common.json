@@ -712,6 +712,7 @@
     "quickDailyEntry": {
       "pageTitle": "Hızlı Günlük Giriş",
       "pageDescription": "Günlük operasyon girişlerinizi tek ekrandan hızlıca yapın.",
+      "date": "Tarih",
       "project": "Proje",
       "selectProject": "Proje seçin",
       "cage": "Kafes",

@@ -4535,6 +4535,7 @@
     },
     "quickDailyEntry": {
       "pageTitle": "Quick Daily Entry",
+      "date": "Date",
       "project": "Project",
       "selectProject": "Select project",
       "cage": "Cage",
