@@ -20,6 +20,7 @@ interface GroupPermissionsPanelProps {
   groupId: number | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  canUpdate: boolean;
 }
 
 const EMPTY_IDS: number[] = [];
@@ -28,6 +29,7 @@ export function GroupPermissionsPanel({
   groupId,
   open,
   onOpenChange,
+  canUpdate,
 }: GroupPermissionsPanelProps): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
   const { data: group } = usePermissionGroupQuery(groupId);
@@ -42,7 +44,7 @@ export function GroupPermissionsPanel({
   }, [open, serverIds]);
 
   const handleSave = async (): Promise<void> => {
-    if (groupId == null) return;
+    if (groupId == null || !canUpdate) return;
     await setPermissions.mutateAsync({ id: groupId, dto: { permissionDefinitionIds: selectedIds } });
     onOpenChange(false);
   };
@@ -92,7 +94,7 @@ export function GroupPermissionsPanel({
               <FieldHelpTooltip text={t('help.permissionGroup.permissions')} />
             </p>
             <div className="rounded-2xl border border-slate-200 dark:border-cyan-800/30 overflow-hidden bg-slate-50 dark:bg-blue-950/40 shadow-sm">
-              <PermissionDefinitionMultiSelect value={selectedIds} onChange={setSelectedIds} disabled={setPermissions.isPending || isSystemAdminGroup} />
+              <PermissionDefinitionMultiSelect value={selectedIds} onChange={setSelectedIds} disabled={setPermissions.isPending || isSystemAdminGroup || !canUpdate} />
             </div>
           </div>
         </div>
@@ -102,10 +104,10 @@ export function GroupPermissionsPanel({
             {t('common.cancel')}
           </Button>
           <div className="inline-flex items-center gap-2 ml-2">
-            <FieldHelpTooltip text={t('help.permissionGroup.save')} side="top" />
+              <FieldHelpTooltip text={t('help.permissionGroup.save')} side="top" />
             <Button 
               onClick={handleSave} 
-              disabled={setPermissions.isPending || isSystemAdminGroup}
+              disabled={setPermissions.isPending || isSystemAdminGroup || !canUpdate}
               className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-extrabold h-11 px-10 rounded-xl border-0 shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center gap-2"
             >
               {setPermissions.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}

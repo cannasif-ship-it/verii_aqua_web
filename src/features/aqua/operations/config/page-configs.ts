@@ -542,7 +542,7 @@ export const feedingLinesConfig: AquaCrudConfig = {
       },
     },
     { key: 'qtyUnit', label: 'aqua.fields.qtyUnit', type: 'number', required: true },
-    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number', required: true },
+    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number', required: true, hideInForm: true },
     { key: 'totalGram', label: 'aqua.fields.totalGram', type: 'number', required: true },
   ],
   columns: [
@@ -551,6 +551,7 @@ export const feedingLinesConfig: AquaCrudConfig = {
     { key: 'qtyUnit', label: 'aqua.fields.qtyUnit' },
     { key: 'totalGram', label: 'aqua.fields.totalGram' },
   ],
+  defaultValues: { gramPerUnit: 1 },
 };
 
 export const feedingDistributionsConfig: AquaCrudConfig = {

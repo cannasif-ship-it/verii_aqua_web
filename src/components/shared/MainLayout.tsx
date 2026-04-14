@@ -51,6 +51,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
           { title: sidebarT('aquaFeedings'), href: '/aqua/operations/feedings' },
           { title: sidebarT('aquaMortalities'), href: '/aqua/operations/mortalities' },
           { title: sidebarT('aquaTransfers'), href: '/aqua/operations/transfers' },
+          { title: sidebarT('aquaProjectMerges'), href: '/aqua/operations/project-merges' },
           { title: sidebarT('aquaShipments'), href: '/aqua/operations/shipments' },
           { title: sidebarT('aquaStockConverts'), href: '/aqua/operations/stock-converts' },
           { title: sidebarT('aquaDailyWeathers'), href: '/aqua/operations/daily-weathers' },
@@ -62,6 +63,8 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
         icon: <BarChart3 size={iconSize} className="text-indigo-500" />,
         children: [
           { title: sidebarT('aquaProjectDetailReport'), href: '/aqua/reports/project-detail' },
+          { title: sidebarT('aquaRawKpiReport'), href: '/aqua/reports/raw-kpi' },
+          { title: sidebarT('aquaBusinessKpiReport'), href: '/aqua/reports/business-kpi' },
           { title: sidebarT('aquaBatchMovements'), href: '/aqua/reports/batch-movements' },
           { title: sidebarT('aquaCageBalances'), href: '/aqua/reports/cage-balances' },
         ],

@@ -11,6 +11,8 @@ import { useSetUserPermissionGroupsMutation } from '../hooks/useSetUserPermissio
 import { PermissionGroupMultiSelect } from './PermissionGroupMultiSelect';
 import { FieldHelpTooltip } from './FieldHelpTooltip';
 import { UserCheck, ShieldPlus, Save, Loader2, Info } from 'lucide-react';
+import { useMyPermissionsQuery } from '../hooks/useMyPermissionsQuery';
+import { hasPermission } from '../utils/hasPermission';
 
 export function UserGroupAssignmentsPage(): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
@@ -18,6 +20,8 @@ export function UserGroupAssignmentsPage(): ReactElement {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
+  const { data: permissions } = useMyPermissionsQuery();
+  const canUpdate = hasPermission(permissions, 'access-control.user-group-assignments.update');
 
   const { data: usersResponse, isLoading: usersLoading } = useUserListForAssignments({
     pageNumber: 1,
@@ -51,7 +55,7 @@ export function UserGroupAssignmentsPage(): ReactElement {
   };
 
   const handleSave = async (): Promise<void> => {
-    if (selectedUserId == null) return;
+    if (selectedUserId == null || !canUpdate) return;
     await setUserGroups.mutateAsync({ permissionGroupIds: selectedGroupIds });
     setHasChanges(false);
   };
@@ -135,13 +139,13 @@ export function UserGroupAssignmentsPage(): ReactElement {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="rounded-2xl border border-slate-200 dark:border-cyan-800/30 overflow-hidden bg-slate-50/30 dark:bg-transparent shadow-sm">
-                    <PermissionGroupMultiSelect
-                      value={selectedGroupIds}
-                      onChange={handleGroupIdsChange}
-                      disabled={setUserGroups.isPending}
-                    />
-                  </div>
+                      <div className="rounded-2xl border border-slate-200 dark:border-cyan-800/30 overflow-hidden bg-slate-50/30 dark:bg-transparent shadow-sm">
+                        <PermissionGroupMultiSelect
+                          value={selectedGroupIds}
+                          onChange={handleGroupIdsChange}
+                          disabled={setUserGroups.isPending || !canUpdate}
+                        />
+                      </div>
 
                   {/* Sistem Admin Notu */}
                   <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 rounded-xl">
@@ -152,7 +156,7 @@ export function UserGroupAssignmentsPage(): ReactElement {
                   </div>
 
                   {/* Kaydet Butonu - Sadece Değişiklik Varsa */}
-                  {hasChanges && (
+                  {hasChanges && canUpdate && (
                     <div className="flex justify-end items-center gap-3 pt-4 animate-in zoom-in-95 duration-300">
                       <span className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest italic">
                         {t('userGroupAssignments.unsavedChanges')}

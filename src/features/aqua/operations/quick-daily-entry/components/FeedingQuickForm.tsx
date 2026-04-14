@@ -47,13 +47,13 @@ export function FeedingQuickForm({
       feedingSlot: 0,
       stockId: 0,
       qtyUnit: 0,
-      gramPerUnit: 0,
+      gramPerUnit: 1,
     },
   });
 
   const handleSubmit: SubmitHandler<FeedingQuickFormSchema> = async (data) => {
     await onSubmit(data);
-    form.reset({ feedingSlot: 0, stockId: 0, qtyUnit: 0, gramPerUnit: 0 });
+    form.reset({ feedingSlot: 0, stockId: 0, qtyUnit: 0, gramPerUnit: 1 });
   };
 
   const disabled = projectId == null || projectCageId == null;
@@ -142,22 +142,6 @@ export function FeedingQuickForm({
                       </FormLabel>
                       <FormControl>
                         <Input type="number" min={0} className={inputStyle} {...field} />
-                      </FormControl>
-                      <FormMessage className="text-xs text-red-500" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gramPerUnit"
-                  render={({ field }) => (
-                    <FormItem className="space-y-2">
-                      <FormLabel required className={labelStyle}>
-                        <ChevronRight size={14} className="text-cyan-500" />
-                        {t('aqua.quickDailyEntry.feeding.gramPerUnit')}
-                      </FormLabel>
-                      <FormControl>
-                        <Input type="number" min={0} step="0.01" className={inputStyle} {...field} />
                       </FormControl>
                       <FormMessage className="text-xs text-red-500" />
                     </FormItem>

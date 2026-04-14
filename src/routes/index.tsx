@@ -56,8 +56,11 @@ const BatchMovementsPage = lazyImport(() => import('@/features/aqua'), 'BatchMov
 const CageBalancesPage = lazyImport(() => import('@/features/aqua'), 'CageBalancesPage');
 const ProjectDetailReportPage = lazyImport(() => import('@/features/aqua'), 'ProjectDetailReportPage');
 const AquaDashboardPage = lazyImport(() => import('@/features/aqua'), 'AquaDashboardPage');
+const RawKpiReportPage = lazyImport(() => import('@/features/aqua'), 'RawKpiReportPage');
+const BusinessKpiReportPage = lazyImport(() => import('@/features/aqua'), 'BusinessKpiReportPage');
 const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup'), 'QuickSetupPage');
 const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry'), 'QuickDailyEntryPage');
+const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges'), 'ProjectMergesPage');
 const WelcomePage = lazyImport(() => import('@/features/welcome'), 'WelcomePage');
 
 export const router = createBrowserRouter([
@@ -92,6 +95,7 @@ export const router = createBrowserRouter([
       { path: 'aqua/definitions/settings', element: <AquaSettingsPage /> },
       { path: 'aqua/operations/quick-setup', element: <QuickSetupPage /> },
       { path: 'aqua/operations/quick-daily-entry', element: <QuickDailyEntryPage /> },
+      { path: 'aqua/operations/project-merges', element: <ProjectMergesPage /> },
       { path: 'aqua/operations/goods-receipts', element: <GoodsReceiptsPage /> },
       { path: 'aqua/operations/feedings', element: <FeedingsPage /> },
       { path: 'aqua/operations/mortalities', element: <MortalitiesPage /> },
@@ -114,6 +118,8 @@ export const router = createBrowserRouter([
       { path: 'aqua/reports/batch-movements', element: <BatchMovementsPage /> },
       { path: 'aqua/reports/cage-balances', element: <CageBalancesPage /> },
       { path: 'aqua/reports/project-detail', element: <ProjectDetailReportPage /> },
+      { path: 'aqua/reports/raw-kpi', element: <RawKpiReportPage /> },
+      { path: 'aqua/reports/business-kpi', element: <BusinessKpiReportPage /> },
       { path: 'aqua/dashboard', element: <AquaDashboardPage /> },
     ],
   },

@@ -33,6 +33,8 @@ import type { PermissionDefinitionDto } from '../types/access-control.types';
 import type { CreatePermissionDefinitionSchema } from '../schemas/permission-definition-schema';
 import { getPermissionDisplayMeta, PERMISSION_CODE_CATALOG } from '../utils/permission-config';
 import { cn } from '@/lib/utils';
+import { useMyPermissionsQuery } from '../hooks/useMyPermissionsQuery';
+import { hasPermission } from '../utils/hasPermission';
 
 const EMPTY_PERMISSION_DEFINITIONS: PermissionDefinitionDto[] = [];
 
@@ -49,6 +51,11 @@ export function PermissionDefinitionsPage(): ReactElement {
   const pageSize = 20;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<PermissionDefinitionDto | null>(null);
+  const { data: permissions } = useMyPermissionsQuery();
+  const canCreate = hasPermission(permissions, 'access-control.permission-definitions.create');
+  const canUpdate = hasPermission(permissions, 'access-control.permission-definitions.update');
+  const canDelete = hasPermission(permissions, 'access-control.permission-definitions.delete');
+  const canSync = canCreate || canUpdate;
 
   const { data, isLoading } = usePermissionDefinitionsQuery({
     pageNumber,
@@ -91,6 +98,7 @@ export function PermissionDefinitionsPage(): ReactElement {
   };
 
   const handleSyncFromRoutes = async (): Promise<void> => {
+    if (!canSync) return;
     const itemsToSync = PERMISSION_CODE_CATALOG.map((code) => {
       const meta = getPermissionDisplayMeta(code);
       const name = meta ? getPermissionTitle(meta.key, meta.fallback) : code;
@@ -100,16 +108,20 @@ export function PermissionDefinitionsPage(): ReactElement {
   };
 
   const handleAddClick = (): void => {
+    if (!canCreate) return;
     setEditingItem(null);
     setFormOpen(true);
   };
 
   const handleEditClick = (item: PermissionDefinitionDto): void => {
+    if (!canUpdate) return;
     setEditingItem(item);
     setFormOpen(true);
   };
 
   const handleFormSubmit = async (formData: CreatePermissionDefinitionSchema): Promise<void> => {
+    if (editingItem && !canUpdate) return;
+    if (!editingItem && !canCreate) return;
     const dto = {
       ...formData,
       isActive: editingItem?.isActive ?? true,
@@ -125,12 +137,13 @@ export function PermissionDefinitionsPage(): ReactElement {
   };
 
   const handleDeleteClick = (item: PermissionDefinitionDto): void => {
+    if (!canDelete) return;
     setItemToDelete(item);
     setDeleteDialogOpen(true);
   };
 
   const handleDeleteConfirm = async (): Promise<void> => {
-    if (itemToDelete) {
+    if (itemToDelete && canDelete) {
       await deleteMutation.mutateAsync(itemToDelete.id);
       setDeleteDialogOpen(false);
       setItemToDelete(null);
@@ -160,7 +173,7 @@ export function PermissionDefinitionsPage(): ReactElement {
           <Button 
             variant="outline" 
             onClick={handleSyncFromRoutes}
-            disabled={isLoading || syncMutation.isPending}
+            disabled={isLoading || syncMutation.isPending || !canSync}
             className="h-11 border-slate-200 dark:border-cyan-800/30 bg-white dark:bg-cyan-900/20 text-cyan-600 dark:text-cyan-400 hover:bg-slate-50 dark:hover:bg-cyan-800/40 rounded-xl transition-all font-bold"
           >
             <RefreshCw size={16} className={cn("mr-2", syncMutation.isPending && "animate-spin")} />
@@ -168,6 +181,7 @@ export function PermissionDefinitionsPage(): ReactElement {
           </Button>
           <Button 
             onClick={handleAddClick}
+            disabled={!canCreate}
             className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-6 rounded-xl shadow-lg shadow-cyan-500/20 hover:from-cyan-500 hover:to-blue-500 active:scale-[0.98] transition-all border-0"
           >
             <Plus size={18} className="mr-2" />
@@ -254,10 +268,10 @@ export function PermissionDefinitionsPage(): ReactElement {
                     </TableCell>
                     <TableCell className="text-right px-6">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => handleEditClick(item)} className="size-8 text-slate-400 hover:text-cyan-600 hover:bg-cyan-50 dark:hover:text-cyan-400 dark:hover:bg-cyan-900/20 rounded-lg transition-colors">
+                        <Button variant="ghost" size="icon" onClick={() => handleEditClick(item)} disabled={!canUpdate} className="size-8 text-slate-400 hover:text-cyan-600 hover:bg-cyan-50 dark:hover:text-cyan-400 dark:hover:bg-cyan-900/20 rounded-lg transition-colors">
                           <Edit2 size={16} />
                         </Button>
-                        <Button variant="ghost" size="icon" className="size-8 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-500 dark:hover:bg-rose-500/10 rounded-lg transition-colors" onClick={() => handleDeleteClick(item)}>
+                        <Button variant="ghost" size="icon" className="size-8 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-500 dark:hover:bg-rose-500/10 rounded-lg transition-colors" onClick={() => handleDeleteClick(item)} disabled={!canDelete}>
                           <Trash2 size={16} />
                         </Button>
                       </div>
@@ -297,6 +311,7 @@ export function PermissionDefinitionsPage(): ReactElement {
         item={editingItem}
         usedCodes={items.map((x) => x.code)}
         isLoading={createMutation.isPending || updateMutation.isPending}
+        canSubmit={editingItem ? canUpdate : canCreate}
       />
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -318,7 +333,7 @@ export function PermissionDefinitionsPage(): ReactElement {
             <Button variant="outline" onClick={() => setDeleteDialogOpen(false)} disabled={deleteMutation.isPending} className="border-slate-200 dark:border-cyan-800/30 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-blue-900/30 font-bold rounded-xl h-11 px-6">
               {t('common.cancel')}
             </Button>
-            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending} className="bg-rose-600 hover:bg-rose-500 text-white rounded-xl h-11 px-8 font-bold border-0 shadow-lg shadow-rose-500/20 active:scale-[0.98] transition-all">
+            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending || !canDelete} className="bg-rose-600 hover:bg-rose-500 text-white rounded-xl h-11 px-8 font-bold border-0 shadow-lg shadow-rose-500/20 active:scale-[0.98] transition-all">
               {deleteMutation.isPending ? t('common.processing') : t('common.delete')}
             </Button>
           </DialogFooter>

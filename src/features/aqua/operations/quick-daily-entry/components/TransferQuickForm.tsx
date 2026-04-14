@@ -12,13 +12,32 @@ import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { transferQuickFormSchema, type TransferQuickFormSchema } from '../schema/quick-daily-entry-schema';
 import { ChevronRight, Save, Info, Lock } from 'lucide-react';
 
-export function TransferQuickForm({ projectId, projectCageId, projectCages, sourceBatch, onSubmit, isSubmitting, requireFullTransfer, canSubmit }: any): ReactElement {
+export function TransferQuickForm({
+  projectId,
+  projectCageId,
+  targetProjectId,
+  projects,
+  projectCages,
+  sourceBatch,
+  onSubmit,
+  onTargetProjectChange,
+  isSubmitting,
+  requireFullTransfer,
+  canSubmit,
+}: any): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<TransferQuickFormSchema>({
     resolver: zodResolver(transferQuickFormSchema) as Resolver<TransferQuickFormSchema>,
     mode: 'onChange',
-    defaultValues: { toProjectCageId: 0, fishCount: 0, description: '' },
+    defaultValues: { targetProjectId: 0, toProjectCageId: 0, fishCount: 0, description: '' },
   });
+
+  useEffect(() => {
+    form.setValue('targetProjectId', Number(targetProjectId ?? projectId ?? 0), {
+      shouldDirty: false,
+      shouldValidate: true,
+    });
+  }, [form, projectId, targetProjectId]);
 
   useEffect(() => {
     if (!requireFullTransfer || !sourceBatch) return;
@@ -31,11 +50,19 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
   const handleSubmit: SubmitHandler<TransferQuickFormSchema> = async (data) => {
     await onSubmit(data);
     form.reset({
+      targetProjectId: Number(targetProjectId ?? projectId ?? 0),
       toProjectCageId: 0,
       fishCount: requireFullTransfer ? Number(sourceBatch?.liveCount ?? 0) : 0,
       description: '',
     });
   };
+
+  const projectOptions = (projects || []).map((p: any) => {
+    if (typeof p.value === 'string' && typeof p.label === 'string') {
+      return p;
+    }
+    return { value: String(p.id), label: formatLabelWithKey(`${p.projectCode ?? p.projectName ?? p.id}`, p.id) };
+  });
 
   const cageOptions = (projectCages || []).map((c: any) => {
     if (typeof c.value === 'string' && typeof c.label === 'string') {
@@ -69,7 +96,30 @@ export function TransferQuickForm({ projectId, projectCageId, projectCages, sour
         )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} noValidate className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <FormField control={form.control} name="targetProjectId" render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel required className={labelStyle}>
+                    <ChevronRight size={14} className="text-cyan-500" />
+                    {t('aqua.quickDailyEntry.transfer.targetProject')}
+                  </FormLabel>
+                  <FormControl>
+                    <Combobox
+                      options={projectOptions}
+                      value={String(field.value)}
+                      onValueChange={(v) => {
+                        const nextValue = Number(v);
+                        field.onChange(nextValue);
+                        form.setValue('toProjectCageId', 0, { shouldDirty: true, shouldValidate: true });
+                        onTargetProjectChange?.(nextValue);
+                      }}
+                      className={inputStyle}
+                      placeholder={t('common.select')}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs text-red-500" />
+                </FormItem>
+              )} />
               <FormField control={form.control} name="toProjectCageId" render={({ field }) => (
                 <FormItem className="space-y-2">
                   <FormLabel required className={labelStyle}>

@@ -41,6 +41,7 @@ interface PermissionDefinitionFormProps {
   item?: PermissionDefinitionDto | null;
   isLoading?: boolean;
   usedCodes?: string[];
+  canSubmit?: boolean;
 }
 
 export function PermissionDefinitionForm({
@@ -50,6 +51,7 @@ export function PermissionDefinitionForm({
   item,
   isLoading = false,
   usedCodes = [],
+  canSubmit = true,
 }: PermissionDefinitionFormProps): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
   const getPermissionTitle = (key: string, fallback: string): string =>
@@ -242,7 +244,7 @@ export function PermissionDefinitionForm({
           <Button 
             type="submit" 
             form="permission-definition-form" 
-            disabled={isLoading || !isFormValid}
+            disabled={isLoading || !isFormValid || !canSubmit}
             className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-10 rounded-xl border-0 shadow-lg shadow-cyan-500/20 hover:from-cyan-500 hover:to-blue-500 active:scale-[0.98] transition-all"
           >
             {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}

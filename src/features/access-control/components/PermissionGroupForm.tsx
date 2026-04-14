@@ -36,6 +36,7 @@ interface PermissionGroupFormProps {
   onSubmit: (data: CreatePermissionGroupSchema) => void | Promise<void>;
   item?: PermissionGroupDto | null;
   isLoading?: boolean;
+  canSubmit?: boolean;
 }
 
 export function PermissionGroupForm({
@@ -44,6 +45,7 @@ export function PermissionGroupForm({
   onSubmit,
   item,
   isLoading = false,
+  canSubmit = true,
 }: PermissionGroupFormProps): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
 
@@ -191,7 +193,7 @@ export function PermissionGroupForm({
           <Button 
             type="submit" 
             form="permission-group-form" 
-            disabled={isLoading || !form.formState.isValid}
+            disabled={isLoading || !form.formState.isValid || !canSubmit}
             className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-extrabold h-11 px-10 rounded-xl border-0 shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all"
           >
             {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}

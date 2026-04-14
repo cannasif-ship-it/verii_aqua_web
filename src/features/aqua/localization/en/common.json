@@ -535,6 +535,40 @@
       "saveFailed": "Aqua settings could not be saved."
     }
   },
+  "projectMerge": {
+    "pageTitle": "Project Merge",
+    "pageDescription": "Merge multiple projects into the selected master project while preserving the merge record.",
+    "form": {
+      "title": "Merge Operation",
+      "description": "Select the target project, mark the source projects, and save the merge.",
+      "disabledDescription": "Project merge is currently disabled in Aqua Settings.",
+      "save": "Merge"
+    },
+    "fields": {
+      "targetProject": "Target Project",
+      "mergeDate": "Merge Date",
+      "sourceStateAfterMerge": "Source Project State",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter an optional description",
+      "sourceProjects": "Source Projects"
+    },
+    "options": {
+      "sourceStateAfterMerge": {
+        "0": "Passive",
+        "1": "Archived"
+      }
+    },
+    "history": {
+      "sourceProjects": "Merged Projects",
+      "cageCount": "Moved Cages",
+      "mergeCount": "Source Projects",
+      "empty": "There is no project merge record yet."
+    },
+    "toast": {
+      "saved": "Project merge completed.",
+      "saveFailed": "Project merge could not be completed."
+    }
+  },
   "aqua": {
     "common": {
       "id": "ID",
@@ -861,7 +895,7 @@
       "pageDescription": "Hızlı kurulum adımlarını tamamlayın."
     },
     "quickDailyEntry": {
-      "pageTitle": "Quick Daily Entry",
+      "pageTitle": "Daily Entry",
       "date": "Date",
       "project": "Project",
       "selectProject": "Select project",
@@ -879,7 +913,6 @@
         "feedStock": "Feed Stock",
         "selectStock": "Select stock",
         "qty": "Quantity",
-        "gramPerUnit": "Gram Per Unit",
         "save": "Save"
       },
       "mortality": {
@@ -931,6 +964,7 @@
         "title": "Cage Transfer",
         "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
         "noSourceBatch": "No active batch found in selected cage.",
+        "targetProject": "Target Project",
         "targetCage": "Target Cage",
         "occupied": "Occupied",
         "empty": "Empty",
@@ -1045,6 +1079,126 @@
       "lastShipmentDate": "Son Sevk Tarihi",
       "mainSummaryTitle": "Ana Detay (Anlık Durum)",
       "mainSummaryDescription": "Projedeki aktif kafeslerin toplam anlık durumu."
+    },
+    "rawKpiReport": {
+      "pageTitle": "Raw KPI Report",
+      "description": "Shows operational and biological raw KPI fields by project and cage.",
+      "selectProject": "Select project",
+      "noProject": "No project found",
+      "loading": "Loading raw KPI data...",
+      "loadFailed": "Raw KPI data could not be loaded.",
+      "snapshotTitle": "Project Snapshot",
+      "tableTitle": "Cage Level Raw KPI",
+      "tableDescription": "Biological performance and operational outputs are listed per active cage.",
+      "dictionaryTitle": "KPI Dictionary",
+      "dictionaryDescription": "You can see what each field means, which source data it uses, and how it is calculated here.",
+      "metrics": {
+        "stockedFish": "Stocked Fish",
+        "liveFish": "Live Fish",
+        "currentBiomassKg": "Current Biomass",
+        "totalFeedKg": "Total Feed",
+        "survivalPct": "Survival %",
+        "mortalityPct": "Mortality %",
+        "fcr": "FCR",
+        "adgGramPerDay": "ADG (g/day)",
+        "sgrPctPerDay": "SGR (%/day)",
+        "densityPct": "Density %",
+        "forecastBiomassKg30d": "30 Day Forecast Biomass"
+      },
+      "columns": {
+        "cage": "Cage",
+        "daysInSea": "Days In Sea",
+        "liveFish": "Live Fish",
+        "currentAverageGram": "Avg. Gram",
+        "currentBiomassKg": "Biomass (kg)",
+        "totalFeedKg": "Feed (kg)",
+        "survivalPct": "Survival %",
+        "fcr": "FCR",
+        "adgGramPerDay": "ADG",
+        "densityPct": "Density %"
+      },
+      "descriptions": {
+        "survivalPct": "Shows how much of the initially stocked fish is still alive. It is derived from initial stocking records and the current live population after mortality and movement effects are reflected.",
+        "mortalityPct": "Shows cumulative mortality against initial stocking. Total mortality count is divided by the initial fish count.",
+        "fcr": "Feed Conversion Ratio. Total feed entered in the system is divided by net biomass gain. Lower values generally indicate better feeding efficiency.",
+        "adgGramPerDay": "Average Daily Gain. The difference between current and initial average weight is divided by days in sea, giving daily growth per fish in grams.",
+        "sgrPctPerDay": "Specific Growth Rate. Uses logarithmic weight change per day and is more suitable for comparing groups with different weight levels.",
+        "densityPct": "A temporary capacity utilization metric for cage density. Since there is no full volume or m3 model yet, current biomass is compared against configured cage biomass capacity.",
+        "forecastBiomassKg30d": "A simple 30 day biomass projection using current live population and estimated daily biomass gain."
+      },
+      "formulas": {
+        "survivalPct": "Survival % = current live fish / initial fish * 100",
+        "mortalityPct": "Mortality % = total mortality / initial fish * 100",
+        "fcr": "FCR = total feed (kg) / biomass gain (kg)",
+        "adgGramPerDay": "ADG = (current average gram - initial average gram) / days in sea",
+        "sgrPctPerDay": "SGR = 100 * (ln(current gram) - ln(initial gram)) / day",
+        "densityPct": "Density % = current biomass / cage biomass capacity * 100",
+        "forecastBiomassKg30d": "Forecast biomass = current biomass + daily biomass gain * {{forecastDays}} days"
+      }
+    },
+    "businessKpiReport": {
+      "pageTitle": "Business KPI Report",
+      "description": "Shows harvest readiness, forecast confidence, and assumption-based revenue/margin fields by project and cage.",
+      "selectProject": "Select project",
+      "noProject": "No project found",
+      "loading": "Loading business KPI data...",
+      "loadFailed": "Business KPI data could not be loaded.",
+      "snapshotTitle": "Business Snapshot",
+      "tableTitle": "Cage Level Business KPI",
+      "tableDescription": "Decision-support metrics and assumption-based economics are listed per active cage.",
+      "dictionaryTitle": "Business KPI Dictionary",
+      "dictionaryDescription": "These fields are derived from current operational data plus business rules. If no price exists in the system, cost and revenue fields are intentionally shown as 0.",
+      "assumptionTitle": "Assumptions",
+      "assumptionDescription": "Real cost and sales prices are not available from the backend yet. Because of that, the system shows 0 instead of inventing financial values when price data is missing.",
+      "assumptions": {
+        "targetHarvestGram": "Target harvest gram",
+        "forecastDays": "Forecast days",
+        "feedCostPerKg": "Feed cost",
+        "salePricePerKg": "Sale price"
+      },
+      "metrics": {
+        "estimatedFeedCost": "Estimated Feed Cost",
+        "feedCostPerCurrentKg": "Feed Cost Per Live Kg",
+        "projectedHarvestBiomassKg": "Projected Harvest Biomass",
+        "projectedRevenue": "Projected Revenue",
+        "projectedGrossMargin": "Projected Gross Margin",
+        "projectedMarginPct": "Projected Margin %",
+        "daysToTarget": "Days To Target Weight",
+        "estimatedHarvestDate": "Estimated Harvest Date",
+        "forecastConfidencePct": "Forecast Confidence %",
+        "harvestReadinessPct": "Harvest Readiness %"
+      },
+      "columns": {
+        "cage": "Cage",
+        "targetWeightProgressPct": "Target Weight %",
+        "daysToTarget": "Days Left",
+        "harvestReadinessPct": "Readiness %",
+        "forecastConfidencePct": "Confidence %",
+        "estimatedFeedCost": "Feed Cost",
+        "projectedRevenue": "Revenue",
+        "projectedGrossMargin": "Gross Margin",
+        "estimatedHarvestDate": "Estimated Date"
+      },
+      "descriptions": {
+        "estimatedFeedCost": "Calculated as total feed multiplied by feed cost per kg. If the system has no feed price, this field is shown as 0 instead of using an artificial estimate.",
+        "feedCostPerCurrentKg": "Estimated feed cost distributed across current live biomass. If price is missing, total feed cost stays 0, so this metric also becomes 0 or empty when division is not possible.",
+        "projectedHarvestBiomassKg": "Business layer reuses the raw growth and biomass trend. It shows expected harvest biomass at the end of the forecast window if current growth continues.",
+        "projectedRevenue": "Projected harvest biomass multiplied by sales price per kg. If no sales price exists, projected revenue is shown as 0.",
+        "projectedGrossMargin": "Projected revenue minus estimated feed cost. If price inputs are missing, the result remains 0 because the system does not fabricate profitability.",
+        "daysToTarget": "Current average gram is compared with target harvest gram and divided by ADG. If ADG is missing or zero, the field cannot be computed reliably.",
+        "harvestReadinessPct": "This is a decision-support score, not a direct financial metric. Weight progress, survival, and FCR quality are blended into a 0-100 readiness value.",
+        "forecastConfidencePct": "Shows how trustworthy the forecast is. The score increases when weighings are recent, feeding activity is consistent, and the data set is more mature."
+      },
+      "formulas": {
+        "estimatedFeedCost": "Estimated feed cost = total feed (kg) * feed cost. If price is missing, feed cost is treated as 0.",
+        "feedCostPerCurrentKg": "Feed cost per live kg = estimated feed cost / current biomass (kg)",
+        "projectedHarvestBiomassKg": "Projected harvest biomass = current biomass + daily biomass gain * {{forecastDays}} days",
+        "projectedRevenue": "Projected revenue = projected harvest biomass * sale price. If price is missing, result is 0.",
+        "projectedGrossMargin": "Projected gross margin = projected revenue - estimated feed cost. If pricing is missing, margin stays 0.",
+        "daysToTarget": "Days left = (target gram {{targetHarvestGram}} - current gram) / ADG",
+        "harvestReadinessPct": "Readiness % = weight progress score * 0.55 + survival * 0.25 + FCR score * 0.20",
+        "forecastConfidencePct": "Forecast confidence = weighing recency + feeding continuity + data maturity score"
+      }
     },
     "crud": {
       "reorderTitle": "Change order by drag and drop",

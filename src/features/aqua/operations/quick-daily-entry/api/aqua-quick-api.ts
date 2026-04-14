@@ -187,7 +187,7 @@ export const aquaQuickDailyApi = {
       }));
   },
 
-  getTransferTargetProjectCages: async (projectId: number): Promise<ProjectCageDto[]> => {
+  getTransferTargetProjectCages: async (targetProjectId: number): Promise<ProjectCageDto[]> => {
     const [allCages, allAssignments] = await Promise.all([
       getAllAquaItems<CageListResponseItem>('Cage'),
       getAllAquaItems<ProjectCageListResponseItem>('ProjectCage'),
@@ -202,7 +202,7 @@ export const aquaQuickDailyApi = {
 
     return normalizedAssignments
       .filter((x) => isActiveProjectCage(x.releasedDate))
-      .filter((x) => Number(x.projectId) === projectId)
+      .filter((x) => Number(x.projectId) === targetProjectId)
       .map((x) => {
         const cage = cageById.get(Number(x.cageId));
         return {

@@ -7,6 +7,7 @@ export { NetOperationTypesPage } from './definitions/components/NetOperationType
 export { AquaSettingsPage } from './settings';
 export { QuickSetupPage } from './operations/quick-setup';
 export { QuickDailyEntryPage } from './operations/quick-daily-entry';
+export { ProjectMergesPage } from './operations/project-merges';
 export { GoodsReceiptsPage } from './operations/components/GoodsReceiptsPage';
 export { FeedingsPage } from './operations/components/FeedingsPage';
 export { MortalitiesPage } from './operations/components/MortalitiesPage';
@@ -28,3 +29,5 @@ export { BatchMovementsPage } from './reports/components/BatchMovementsPage';
 export { CageBalancesPage } from './reports/components/CageBalancesPage';
 export { ProjectDetailReportPage } from './reports/components/ProjectDetailReportPage';
 export { AquaDashboardPage } from './reports/components/AquaDashboardPage';
+export { RawKpiReportPage } from './reports/components/RawKpiReportPage';
+export { BusinessKpiReportPage } from './reports/components/BusinessKpiReportPage';

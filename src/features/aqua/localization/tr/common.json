@@ -97,8 +97,8 @@
         "description": "Mal kabul başlık kayıtları."
       },
       "feedings": {
-        "title": "Besleme (1. Tur/2. Tur)",
-        "description": "Besleme başlık kayıtları."
+        "title": "Yemleme (1. Tur / 2. Tur)",
+        "description": "Yemleme başlık kayıtları."
       },
       "mortalities": {
         "title": "Balık Fire",
@@ -137,12 +137,12 @@
         "description": "Mal kabul satırlarının kafes bazlı balık dağıtımı."
       },
       "feedingLines": {
-        "title": "Besleme Satırları",
-        "description": "Besleme satır kayıtları."
+        "title": "Yemleme Satırları",
+        "description": "Yemleme satır kayıtları."
       },
       "feedingDistributions": {
-        "title": "Besleme Dağılımı",
-        "description": "Besleme satırlarının parti/kafes dağıtımı."
+        "title": "Yemleme Dağılımı",
+        "description": "Yemleme satırlarının parti/kafes dağıtımı."
       },
       "transferLines": {
         "title": "Transfer Satırları",
@@ -209,12 +209,12 @@
       "fishCount": "Balık Adet",
       "fishAverageGram": "Balık Ortalama Gram",
       "fishTotalGram": "Balık Toplam Gram",
-      "feedingNo": "Besleme No",
-      "feedingId": "Besleme ID",
-      "feedingLineId": "Besleme Satır ID",
+      "feedingNo": "Yemleme No",
+      "feedingId": "Yemleme ID",
+      "feedingLineId": "Yemleme Satır ID",
       "feedGram": "Yem Gram",
-      "feedingDate": "Besleme Tarihi",
-      "feedingSlot": "Besleme Slotu",
+      "feedingDate": "Yemleme Tarihi",
+      "feedingSlot": "Yemleme Turu",
       "sourceType": "Kaynak Tipi",
       "mortalityDate": "Balık Fire Tarihi",
       "mortalityId": "Balık Fire ID",
@@ -325,28 +325,27 @@
       }
     },
     "quickDailyEntry": {
-      "pageTitle": "Hızlı Günlük Giriş",
+      "pageTitle": "Günlük Giriş",
       "pageDescription": "Günlük operasyon girişlerinizi tek ekrandan hızlıca yapın.",
       "date": "Tarih",
       "project": "Proje",
       "selectProject": "Proje seçin",
       "cage": "Kafes",
       "selectCage": "Kafes seçin",
-      "tabFeeding": "Besleme",
+      "tabFeeding": "Yemleme",
       "tabMortality": "Balık Fire",
       "tabWeather": "Hava Durumu",
       "tabNetOperation": "Ağ İşlemi",
       "tabTransfer": "Kafes Değişimi",
       "tabStockChange": "Stok Değişimi",
       "feeding": {
-        "title": "Besleme",
+        "title": "Yemleme",
         "slot": "Slot",
         "morning": "1. Tur",
         "evening": "2. Tur",
         "feedStock": "Yem Stoku",
         "selectStock": "Stok seçin",
         "qty": "Miktar",
-        "gramPerUnit": "Birim Başına Gram",
         "save": "Kaydet"
       },
       "mortality": {
@@ -398,6 +397,7 @@
         "title": "Kafes Değişimi",
         "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
         "noSourceBatch": "Seçili kafeste aktif batch bulunamadı.",
+        "targetProject": "Hedef Proje",
         "targetCage": "Hedef Kafes",
         "occupied": "Dolu",
         "empty": "Boş",
@@ -412,7 +412,7 @@
         "fullTransferRequired": "Transfer tamamı zorunlu açık. Bu satırda adet {{count}} olmalıdır."
       },
       "toast": {
-        "feedingSaved": "Besleme kaydedildi",
+        "feedingSaved": "Yemleme kaydedildi",
         "mortalitySaved": "Balık Fire kaydı oluşturuldu",
         "weatherSaved": "Hava durumu kaydedildi",
         "netOperationSaved": "Ağ işlemi kaydedildi",
@@ -453,16 +453,16 @@
       "currentBiomassTotal": "Mevcut Biyokütle (g)",
       "currentAvgGramTotal": "Mevcut Ort. Gram",
       "totalDead": "Toplam Balık Fire",
-      "totalFeedGram": "Toplam Besleme (g)",
+      "totalFeedGram": "Toplam Yemleme (g)",
       "totalCountDelta": "Toplam Adet Delta",
       "totalBiomassDelta": "Toplam Biyokütle Delta (g)",
       "totalShipmentFish": "Toplam Sevk Balık",
       "totalShipmentBiomass": "Toplam Sevk Biyokütle (Gram)",
       "lastShipmentDate": "Son Sevk Tarihi",
       "dead": "Balık Fire",
-      "missingFeedDays": "Besleme yapılmayan gün",
-      "missingFeedingDates": "Besleme Yapılmayan Günler",
-      "noMissingFeedDay": "Seçili tarih aralığında besleme eksik günü bulunmadı.",
+      "missingFeedDays": "Yemleme yapılmayan gün",
+      "missingFeedingDates": "Yemleme Yapılmayan Günler",
+      "noMissingFeedDay": "Seçili tarih aralığında yemleme eksik günü bulunmadı.",
       "dailyDetails": "Günlük Detay",
       "dailyDetailsHint": "En güncel hareket satırları tarihe göre listelenir.",
       "date": "Tarih",
@@ -477,12 +477,12 @@
       "shipmentQty": "Sevk Miktarı",
       "feedStocks": "Yem Stokları",
       "stockCountShort": "{{count}} stok",
-      "feedingDetails": "Besleme Detayı",
+      "feedingDetails": "Yemleme Detayı",
       "weighings": "Tartım",
       "stockConverts": "Dönüşüm İşlem",
       "noOperationDetail": "Bu gün için detay bulunamadı.",
       "detailRecords": "{{count}} kayıt",
-      "feedStatus": "Besleme durumu",
+      "feedStatus": "Yemleme durumu",
       "fed": "Beslendi",
       "notFed": "Beslenmedi",
       "noActiveCages": "Aktif kafes bulunamadı.",
@@ -509,6 +509,126 @@
       "consistencyFormula": "Hesap kontrolü: Başlangıç - Balık Fire - Sevk = Mevcut",
       "consistent": "Tutarlı",
       "inconsistent": "Tutarsız"
+    },
+    "rawKpiReport": {
+      "pageTitle": "Raw KPI Raporu",
+      "description": "Operasyonel ve biyolojik ham KPI alanlarını proje ve kafes bazında gösterir.",
+      "selectProject": "Proje seçin",
+      "noProject": "Proje bulunamadı",
+      "loading": "Raw KPI verileri yükleniyor...",
+      "loadFailed": "Raw KPI verileri yüklenemedi.",
+      "snapshotTitle": "Proje Özeti",
+      "tableTitle": "Kafes Bazlı Raw KPI",
+      "tableDescription": "Biyolojik performans ve operasyon çıktıları aktif kafes bazında listelenir.",
+      "dictionaryTitle": "KPI Sözlüğü",
+      "dictionaryDescription": "Her alanın ne anlattığını ve nasıl hesaplandığını bu bölümden görebilirsiniz.",
+      "metrics": {
+        "stockedFish": "Başlangıç Balık",
+        "liveFish": "Canlı Balık",
+        "currentBiomassKg": "Mevcut Biyokütle",
+        "totalFeedKg": "Toplam Yem",
+        "survivalPct": "Survival %",
+        "mortalityPct": "Mortality %",
+        "fcr": "FCR",
+        "adgGramPerDay": "ADG (g/gün)",
+        "sgrPctPerDay": "SGR (%/gün)",
+        "densityPct": "Density %",
+        "forecastBiomassKg30d": "30 Gün Sonra Tahmini Biyokütle"
+      },
+      "columns": {
+        "cage": "Kafes",
+        "daysInSea": "Denizde Gün",
+        "liveFish": "Canlı Balık",
+        "currentAverageGram": "Ort. Gram",
+        "currentBiomassKg": "Biyokütle (kg)",
+        "totalFeedKg": "Yem (kg)",
+        "survivalPct": "Survival %",
+        "fcr": "FCR",
+        "adgGramPerDay": "ADG",
+        "densityPct": "Density %"
+      },
+      "descriptions": {
+        "survivalPct": "Bu alan, başlangıçta kafese yerleştirilen balığın ne kadarının halen canlı olduğunu gösterir. Hesaplama yapılırken başlangıç balık adedi ile mevcut canlı balık adedi kullanılır; transfer ve sevkiyat sonrası kalan popülasyon üzerinden okunur.",
+        "mortalityPct": "Bu alan, başlangıç stoğuna göre biriken toplam ölüm oranını gösterir. Mortality kayıtlarındaki toplam fire adedi başlangıç balık sayısına bölünerek bulunur.",
+        "fcr": "Feed Conversion Ratio alanıdır. Sistemde kaydedilen toplam yem miktarı, oluşan net biyokütle artışına bölünür. Değer küçüldükçe aynı büyüme için daha az yem kullanıldığı anlaşılır.",
+        "adgGramPerDay": "Average Daily Gain alanıdır. Balığın başlangıç ortalama gramı ile mevcut ortalama gramı arasındaki fark, denizde geçen gün sayısına bölünür. Balık başına günlük ortalama büyümeyi verir.",
+        "sgrPctPerDay": "Specific Growth Rate alanıdır. Başlangıç ve mevcut gram değerlerinin doğal logaritması alınır, fark günlük baza indirilir. Özellikle farklı ağırlık seviyelerindeki grupları kıyaslamak için daha anlamlıdır.",
+        "densityPct": "Kafes yoğunluğu için geçici kullanım oranıdır. Şu an gerçek hacim veya m3 modeli olmadığı için mevcut biyokütle, kafesin tanımlı kapasite biyokütlesine bölünür. Yani bu alan şimdilik kapasite doluluk yüzdesi gibi okunmalıdır.",
+        "forecastBiomassKg30d": "Son büyüme hızına göre 30 gün sonra oluşması beklenen kaba biyokütleyi gösterir. Mevcut biyokütle alınır, günlük tahmini biyokütle artışı eklenir ve 30 günlük pencereye taşınır."
+      },
+      "formulas": {
+        "survivalPct": "Survival % = mevcut canlı balık / başlangıç balık * 100",
+        "mortalityPct": "Mortality % = toplam fire / başlangıç balık * 100",
+        "fcr": "FCR = toplam yem (kg) / biyokütle artışı (kg)",
+        "adgGramPerDay": "ADG = (mevcut ortalama gram - başlangıç ortalama gram) / denizde geçen gün",
+        "sgrPctPerDay": "SGR = 100 * (ln(mevcut gram) - ln(başlangıç gram)) / gün",
+        "densityPct": "Density % = mevcut biyokütle / kafes kapasite biyokütlesi * 100",
+        "forecastBiomassKg30d": "Tahmini biyokütle = mevcut biyokütle + günlük biyokütle artışı * {{forecastDays}} gün"
+      }
+    },
+    "businessKpiReport": {
+      "pageTitle": "Business KPI Raporu",
+      "description": "Hasat hazırlığı, tahmin güveni ve varsayımsal gelir/marj alanlarını proje ve kafes bazında gösterir.",
+      "selectProject": "Proje seçin",
+      "noProject": "Proje bulunamadı",
+      "loading": "Business KPI verileri yükleniyor...",
+      "loadFailed": "Business KPI verileri yüklenemedi.",
+      "snapshotTitle": "Business Özet",
+      "tableTitle": "Kafes Bazlı Business KPI",
+      "tableDescription": "Karar destek metrikleri ve varsayıma dayalı ekonomik göstergeler aktif kafes bazında listelenir.",
+      "dictionaryTitle": "Business KPI Sözlüğü",
+      "dictionaryDescription": "Bu alanlar mevcut operasyon verisinden ve business yorum kurallarından türetilir. Backend’de gerçek fiyat tanımı yoksa maliyet ve gelir alanları bilinçli olarak 0 gösterilir.",
+      "assumptionTitle": "Varsayımlar",
+      "assumptionDescription": "Maliyet ve gelir alanları için gerçek fiyat verisi henüz backend’den gelmiyor. Bu nedenle fiyat olmayan alanlarda sistem tahmini rakam uydurmak yerine 0 gösterir.",
+      "assumptions": {
+        "targetHarvestGram": "Hedef hasat gramı",
+        "forecastDays": "Forecast günü",
+        "feedCostPerKg": "Yem maliyeti",
+        "salePricePerKg": "Satış fiyatı"
+      },
+      "metrics": {
+        "estimatedFeedCost": "Tahmini Yem Maliyeti",
+        "feedCostPerCurrentKg": "Canlı Kg Başına Yem Maliyeti",
+        "projectedHarvestBiomassKg": "Tahmini Hasat Biyokütlesi",
+        "projectedRevenue": "Tahmini Ciro",
+        "projectedGrossMargin": "Tahmini Brüt Marj",
+        "projectedMarginPct": "Tahmini Marj %",
+        "daysToTarget": "Hedef Grama Kalan Gün",
+        "estimatedHarvestDate": "Tahmini Hasat Tarihi",
+        "forecastConfidencePct": "Forecast Confidence %",
+        "harvestReadinessPct": "Harvest Readiness %"
+      },
+      "columns": {
+        "cage": "Kafes",
+        "targetWeightProgressPct": "Hedef Gram %",
+        "daysToTarget": "Kalan Gün",
+        "harvestReadinessPct": "Hazırlık %",
+        "forecastConfidencePct": "Güven %",
+        "estimatedFeedCost": "Yem Maliyeti",
+        "projectedRevenue": "Ciro",
+        "projectedGrossMargin": "Brüt Marj",
+        "estimatedHarvestDate": "Tahmini Tarih"
+      },
+      "descriptions": {
+        "estimatedFeedCost": "Toplam yem miktarı ile kg başı yem maliyeti çarpılarak bulunur. Ancak sistemde gerçek yem maliyet fiyatı yoksa bu alan 0 gösterilir; tahmini bir rakam yazılmaz.",
+        "feedCostPerCurrentKg": "Bulunan toplam yem maliyeti mevcut canlı biyokütleye bölünür. Fiyat bilgisi yoksa toplam maliyet 0 olacağından bu alan da 0 veya bölünemiyorsa boş görünür.",
+        "projectedHarvestBiomassKg": "Raw KPI içindeki büyüme ve biyokütle trendi business katmanına taşınır. Mevcut büyüme temposu korunursa forecast periyodu sonundaki beklenen hasat biyokütlesi gösterilir.",
+        "projectedRevenue": "Tahmini hasat biyokütlesi ile kg başı satış fiyatı çarpılır. Satış fiyatı tanımlı değilse sistem ciroyu 0 gösterir.",
+        "projectedGrossMargin": "Tahmini cirodan tahmini yem maliyeti düşülür. Her iki fiyat alanı eksikse sonuç 0 görünür; çünkü sistem veri yokken hayali karlılık üretmez.",
+        "daysToTarget": "Mevcut ortalama gram ile hedef hasat gramı arasındaki fark alınır ve ADG değerine bölünür. ADG yoksa veya büyüme hızı sıfırsa alan hesaplanamaz.",
+        "harvestReadinessPct": "Bu alan tek bir finansal veri değil, karar destek skorudur. Ağırlık ilerlemesi, survival performansı ve FCR kalitesi birleşerek 0-100 arası bir hazırlık puanı üretir.",
+        "forecastConfidencePct": "Tahmine ne kadar güvenilebileceğini gösterir. Yakın tarihli tartım varsa, son günlerde düzenli yemleme yapılmışsa ve veri seti yeterince olgunsa skor yükselir."
+      },
+      "formulas": {
+        "estimatedFeedCost": "Tahmini yem maliyeti = toplam yem (kg) * yem maliyeti. Fiyat yoksa yem maliyeti 0 kabul edilir.",
+        "feedCostPerCurrentKg": "Canlı kg başına maliyet = tahmini yem maliyeti / mevcut biyokütle (kg)",
+        "projectedHarvestBiomassKg": "Tahmini hasat biyokütlesi = mevcut biyokütle + günlük biyokütle artışı * {{forecastDays}} gün",
+        "projectedRevenue": "Tahmini ciro = tahmini hasat biyokütlesi * satış fiyatı. Fiyat yoksa sonuç 0 olur.",
+        "projectedGrossMargin": "Tahmini brüt marj = tahmini ciro - tahmini yem maliyeti. Fiyat verisi yoksa marj 0 olur.",
+        "daysToTarget": "Kalan gün = (hedef gram {{targetHarvestGram}} - mevcut gram) / ADG",
+        "harvestReadinessPct": "Hazırlık % = ağırlık ilerleme skoru * 0.55 + survival * 0.25 + FCR skoru * 0.20",
+        "forecastConfidencePct": "Forecast confidence = tartım yakınlığı + yemleme sürekliliği + veri olgunluğu skoru"
+      }
     },
     "crud": {
       "reorderTitle": "Sürükle bırak ile sıralamayı değiştir",
@@ -1000,6 +1120,40 @@
       "rightClickDrag": "🖱️ Sağ Tık + Sürükle",
       "scroll": "🖱️ Scroll",
       "clickShelf": "🖱️ Raf Tıkla"
+    }
+  },
+  "projectMerge": {
+    "pageTitle": "Proje Birleştirme",
+    "pageDescription": "Birden fazla projeyi seçilen ana projede birleştirin ve kayıt izini koruyun.",
+    "form": {
+      "title": "Birleştirme İşlemi",
+      "description": "Hedef projeyi seçin, kaynak projeleri işaretleyin ve birleştirmeyi kaydedin.",
+      "disabledDescription": "Proje birleştirme Aqua Ayarları ekranında kapalı olduğu için şu an pasif durumda.",
+      "save": "Birleştir"
+    },
+    "fields": {
+      "targetProject": "Hedef Proje",
+      "mergeDate": "Birleştirme Tarihi",
+      "sourceStateAfterMerge": "Kaynak Proje Durumu",
+      "description": "Açıklama",
+      "descriptionPlaceholder": "İsteğe bağlı açıklama girin",
+      "sourceProjects": "Kaynak Projeler"
+    },
+    "options": {
+      "sourceStateAfterMerge": {
+        "0": "Pasif",
+        "1": "Arşiv"
+      }
+    },
+    "history": {
+      "sourceProjects": "Birleşen Projeler",
+      "cageCount": "Taşınan Kafes",
+      "mergeCount": "Kaynak Proje",
+      "empty": "Henüz proje birleştirme kaydı bulunmuyor."
+    },
+    "toast": {
+      "saved": "Proje birleştirme tamamlandı.",
+      "saveFailed": "Proje birleştirme tamamlanamadı."
     }
   },
   "aquaSettings": {

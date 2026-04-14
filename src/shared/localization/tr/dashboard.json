@@ -91,7 +91,7 @@
     },
     "yesterdayAlert": {
       "title": "Dünün girişleri eksik",
-      "description": "{{date}} tarihine ait günlük giriş bulunamadı. Besleme, hava, ağ, transfer ve diğer günlük işlemleri kontrol edin."
+      "description": "{{date}} tarihine ait günlük giriş bulunamadı. Yemleme, hava, ağ, transfer ve diğer günlük işlemleri kontrol edin."
     },
     "projectSelector": {
       "title": "Proje Seçimi",
@@ -116,7 +116,7 @@
       "totalFeed": "Toplam Yem"
     },
     "detailTypes": {
-      "feeding": "Besleme Detayı",
+      "feeding": "Yemleme Detayı",
       "netOperation": "Ağ İşlemi",
       "transfer": "Transfer",
       "stockConvert": "Stok Dönüşüm",
@@ -178,7 +178,7 @@
       "feed": "Yem",
       "biomass": "Biyokütle",
       "survivalRate": "Yaşam Oranı",
-      "quickDailyEntry": "Hızlı Giriş"
+      "quickDailyEntry": "Günlük Giriş"
     },
     "controls": {
       "viewAndProject": "Görünüm ve Proje",

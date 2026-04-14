@@ -10,6 +10,15 @@ interface AquaPermissionResource {
   display: PermissionDisplayMeta;
 }
 
+interface AccessControlPermissionResource {
+  codeBase: string;
+  routePermission: string;
+  routePaths: string[];
+  routePatterns: RegExp[];
+  actions: AquaCrudAction[];
+  display: PermissionDisplayMeta;
+}
+
 const ACTION_FALLBACKS: Record<Exclude<AquaCrudAction, 'view'>, string> = {
   create: 'Oluşturma',
   update: 'Güncelleme',
@@ -105,7 +114,15 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/quick-daily-entry'],
     routePatterns: [/^\/aqua\/operations\/quick-daily-entry(\/|$)/],
     actions: ['view', 'create'],
-    display: { key: 'sidebar.aquaQuickDailyEntry', fallback: 'Hızlı Günlük Giriş' },
+    display: { key: 'sidebar.aquaQuickDailyEntry', fallback: 'Günlük Giriş' },
+  },
+  {
+    codeBase: 'aqua.operations.project-merges',
+    routePermission: 'aqua.operations.project-merges.view',
+    routePaths: ['/aqua/operations/project-merges'],
+    routePatterns: [/^\/aqua\/operations\/project-merges(\/|$)/],
+    actions: ['view', 'create'],
+    display: { key: 'sidebar.aquaProjectMerges', fallback: 'Proje Birleştirme' },
   },
   {
     codeBase: 'aqua.operations.goods-receipts',
@@ -121,7 +138,7 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/feedings'],
     routePatterns: [/^\/aqua\/operations\/feedings(\/|$)/],
     actions: ['view', 'create', 'update', 'delete'],
-    display: { key: 'sidebar.aquaFeedings', fallback: 'Besleme (1. Tur/2. Tur)' },
+    display: { key: 'sidebar.aquaFeedings', fallback: 'Yemleme (1. Tur / 2. Tur)' },
   },
   {
     codeBase: 'aqua.operations.mortalities',
@@ -198,7 +215,7 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/feeding-lines'],
     routePatterns: [/^\/aqua\/operations\/feeding-lines(\/|$)/],
     actions: ['view', 'create', 'update', 'delete'],
-    display: { key: 'permissions.aqua.operations.feeding-lines', fallback: 'Besleme Satırları' },
+    display: { key: 'permissions.aqua.operations.feeding-lines', fallback: 'Yemleme Satırları' },
   },
   {
     codeBase: 'aqua.operations.feeding-distributions',
@@ -206,7 +223,7 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/feeding-distributions'],
     routePatterns: [/^\/aqua\/operations\/feeding-distributions(\/|$)/],
     actions: ['view', 'create', 'update', 'delete'],
-    display: { key: 'permissions.aqua.operations.feeding-distributions', fallback: 'Besleme Dağılımları' },
+    display: { key: 'permissions.aqua.operations.feeding-distributions', fallback: 'Yemleme Dağılımları' },
   },
   {
     codeBase: 'aqua.operations.transfer-lines',
@@ -279,16 +296,47 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
   },
 ];
 
-const AQUA_RESOURCE_PERMISSION_DISPLAY = AQUA_PERMISSION_RESOURCES.reduce<Record<string, PermissionDisplayMeta>>(
-  (acc, resource) => {
+const ACCESS_CONTROL_PERMISSION_RESOURCES: AccessControlPermissionResource[] = [
+  {
+    codeBase: 'access-control.permission-definitions',
+    routePermission: 'access-control.permission-definitions.view',
+    routePaths: ['/access-control/permission-definitions'],
+    routePatterns: [/^\/access-control\/permission-definitions(\/|$)/],
+    actions: ['view', 'create', 'update', 'delete'],
+    display: { key: 'sidebar.permissionDefinitions', fallback: 'Yetki Tanımları' },
+  },
+  {
+    codeBase: 'access-control.permission-groups',
+    routePermission: 'access-control.permission-groups.view',
+    routePaths: ['/access-control/permission-groups'],
+    routePatterns: [/^\/access-control\/permission-groups(\/|$)/],
+    actions: ['view', 'create', 'update', 'delete'],
+    display: { key: 'sidebar.permissionGroups', fallback: 'Yetki Grupları' },
+  },
+  {
+    codeBase: 'access-control.user-group-assignments',
+    routePermission: 'access-control.user-group-assignments.view',
+    routePaths: ['/access-control/user-group-assignments'],
+    routePatterns: [/^\/access-control\/user-group-assignments(\/|$)/],
+    actions: ['view', 'update'],
+    display: { key: 'sidebar.userGroupAssignments', fallback: 'Kullanıcı Grup Atamaları' },
+  },
+];
+
+function buildPermissionDisplayMap<T extends { codeBase: string; actions: AquaCrudAction[]; display: PermissionDisplayMeta }>(
+  resources: T[]
+): Record<string, PermissionDisplayMeta> {
+  return resources.reduce<Record<string, PermissionDisplayMeta>>((acc, resource) => {
     const actionDisplayMap = createActionDisplayMap(resource.display, resource.actions);
     resource.actions.forEach((action) => {
       acc[`${resource.codeBase}.${action}`] = actionDisplayMap[action];
     });
     return acc;
-  },
-  {}
-);
+  }, {});
+}
+
+const AQUA_RESOURCE_PERMISSION_DISPLAY = buildPermissionDisplayMap(AQUA_PERMISSION_RESOURCES);
+const ACCESS_CONTROL_RESOURCE_PERMISSION_DISPLAY = buildPermissionDisplayMap(ACCESS_CONTROL_PERMISSION_RESOURCES);
 
 export const AQUA_CONFIG_PERMISSION_CODES: Record<string, Partial<Record<AquaCrudAction, string>>> = {
   projects: {
@@ -462,6 +510,10 @@ export const AQUA_SPECIAL_PERMISSION_CODES = {
     view: 'aqua.operations.quick-daily-entry.view',
     create: 'aqua.operations.quick-daily-entry.create',
   },
+  projectMerges: {
+    view: 'aqua.operations.project-merges.view',
+    create: 'aqua.operations.project-merges.create',
+  },
 } as const;
 
 export const ROUTE_PERMISSION_MAP: Record<string, string> = {
@@ -476,9 +528,9 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
   '/user-management': 'admin-only',
   '/users/mail-settings': 'admin-only',
   '/hangfire-monitoring': 'admin-only',
-  '/access-control/permission-definitions': 'admin-only',
-  '/access-control/permission-groups': 'admin-only',
-  '/access-control/user-group-assignments': 'admin-only',
+  '/access-control/permission-definitions': 'access-control.permission-definitions.view',
+  '/access-control/permission-groups': 'access-control.permission-groups.view',
+  '/access-control/user-group-assignments': 'access-control.user-group-assignments.view',
 
   '/aqua/definitions/projects': 'aqua.definitions.projects.view',
   '/aqua/definitions/cages': 'aqua.definitions.cages.view',
@@ -490,6 +542,7 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
 
   '/aqua/operations/quick-setup': 'aqua.operations.quick-setup.view',
   '/aqua/operations/quick-daily-entry': 'aqua.operations.quick-daily-entry.view',
+  '/aqua/operations/project-merges': 'aqua.operations.project-merges.view',
   '/aqua/operations/goods-receipts': 'aqua.operations.goods-receipts.view',
   '/aqua/operations/feedings': 'aqua.operations.feedings.view',
   '/aqua/operations/mortalities': 'aqua.operations.mortalities.view',
@@ -528,6 +581,12 @@ export const PATH_TO_PERMISSION_PATTERNS: Array<{ pattern: RegExp; permission: s
       permission: resource.routePermission ?? `${resource.codeBase}.view`,
     }))
   ),
+  ...ACCESS_CONTROL_PERMISSION_RESOURCES.flatMap((resource) =>
+    resource.routePatterns.map((pattern) => ({
+      pattern,
+      permission: resource.routePermission,
+    }))
+  ),
   {
     pattern: /^\/aqua\/dashboard(\/|$)/,
     permission: 'dashboard.view',
@@ -550,7 +609,6 @@ export const RBAC_FALLBACK_PERMISSION = 'access-control.permission-definitions.v
 export const ACCESS_CONTROL_ADMIN_FALLBACK_TO_SYSTEM_ADMIN = true as const;
 
 export const ACCESS_CONTROL_ADMIN_ONLY_PATTERNS: RegExp[] = [
-  /^\/access-control(\/|$)/,
   /^\/user-management(\/|$)/,
   /^\/users\/mail-settings(\/|$)/,
   /^\/hangfire-monitoring(\/|$)/,
@@ -561,6 +619,7 @@ export const PERMISSION_CODE_DISPLAY: Record<string, PermissionDisplayMeta> = {
   'stock.stocks.view': { key: 'sidebar.stockManagement', fallback: 'Stok Yönetimi' },
   'users.profile.view': { key: 'sidebar.settings', fallback: 'Ayarlar' },
   ...AQUA_RESOURCE_PERMISSION_DISPLAY,
+  ...ACCESS_CONTROL_RESOURCE_PERMISSION_DISPLAY,
 };
 
 export function getPermissionDisplayMeta(code: string): PermissionDisplayMeta | null {
@@ -583,6 +642,9 @@ const SIDEBAR_PERMISSION_CODES = [
   'dashboard.view',
   'stock.stocks.view',
   'users.profile.view',
+  ...ACCESS_CONTROL_PERMISSION_RESOURCES.flatMap((resource) =>
+    resource.actions.map((action) => `${resource.codeBase}.${action}`)
+  ),
   ...AQUA_PERMISSION_RESOURCES.flatMap((resource) =>
     resource.actions.map((action) => `${resource.codeBase}.${action}`)
   ),

@@ -32,6 +32,8 @@ import { GroupPermissionsPanel } from './GroupPermissionsPanel';
 import type { PermissionGroupDto } from '../types/access-control.types';
 import type { CreatePermissionGroupSchema } from '../schemas/permission-group-schema';
 import { cn } from '@/lib/utils';
+import { useMyPermissionsQuery } from '../hooks/useMyPermissionsQuery';
+import { hasPermission } from '../utils/hasPermission';
 
 const EMPTY_ITEMS: PermissionGroupDto[] = [];
 
@@ -48,6 +50,10 @@ export function PermissionGroupsPage(): ReactElement {
   const pageSize = 20;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<PermissionGroupDto | null>(null);
+  const { data: permissions } = useMyPermissionsQuery();
+  const canCreate = hasPermission(permissions, 'access-control.permission-groups.create');
+  const canUpdate = hasPermission(permissions, 'access-control.permission-groups.update');
+  const canDelete = hasPermission(permissions, 'access-control.permission-groups.delete');
 
   const { data, isLoading } = usePermissionGroupsQuery({
     pageNumber,
@@ -84,23 +90,26 @@ export function PermissionGroupsPage(): ReactElement {
   };
 
   const handleAddClick = (): void => {
+    if (!canCreate) return;
     setEditingItem(null);
     setFormOpen(true);
   };
 
   const handleEditClick = (item: PermissionGroupDto): void => {
-    if (item.isSystemAdmin) return;
+    if (item.isSystemAdmin || !canUpdate) return;
     setEditingItem(item);
     setFormOpen(true);
   };
 
   const handlePermissionsClick = (item: PermissionGroupDto): void => {
-    if (item.isSystemAdmin) return;
+    if (item.isSystemAdmin || !canUpdate) return;
     setPermissionsPanelGroupId(item.id);
     setPermissionsPanelOpen(true);
   };
 
   const handleFormSubmit = async (formData: CreatePermissionGroupSchema): Promise<void> => {
+    if (editingItem && !canUpdate) return;
+    if (!editingItem && !canCreate) return;
     if (editingItem?.isSystemAdmin) return;
     if (editingItem) {
       const updateDto = {
@@ -119,13 +128,13 @@ export function PermissionGroupsPage(): ReactElement {
   };
 
   const handleDeleteClick = (item: PermissionGroupDto): void => {
-    if (item.isSystemAdmin) return;
+    if (item.isSystemAdmin || !canDelete) return;
     setItemToDelete(item);
     setDeleteDialogOpen(true);
   };
 
   const handleDeleteConfirm = async (): Promise<void> => {
-    if (itemToDelete) {
+    if (itemToDelete && canDelete) {
       await deleteMutation.mutateAsync(itemToDelete.id);
       setDeleteDialogOpen(false);
       setItemToDelete(null);
@@ -153,6 +162,7 @@ export function PermissionGroupsPage(): ReactElement {
         </div>
         <Button 
           onClick={handleAddClick}
+          disabled={!canCreate}
           className="bg-linear-to-r from-cyan-600 to-blue-600 text-white font-bold h-11 px-6 rounded-xl shadow-lg shadow-cyan-500/20 hover:opacity-95 active:scale-[0.98] transition-all border-0 shrink-0"
         >
           <Plus size={18} className="mr-2" />
@@ -234,7 +244,7 @@ export function PermissionGroupsPage(): ReactElement {
                           size="icon"
                           onClick={() => handlePermissionsClick(item)}
                           className="size-9 text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-lg transition-colors"
-                          disabled={item.isSystemAdmin}
+                          disabled={item.isSystemAdmin || !canUpdate}
                         >
                           <Settings size={18} />
                         </Button>
@@ -243,7 +253,7 @@ export function PermissionGroupsPage(): ReactElement {
                           size="icon"
                           onClick={() => handleEditClick(item)}
                           className="size-9 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 rounded-lg transition-colors"
-                          disabled={item.isSystemAdmin}
+                          disabled={item.isSystemAdmin || !canUpdate}
                         >
                           <Edit2 size={18} />
                         </Button>
@@ -252,7 +262,7 @@ export function PermissionGroupsPage(): ReactElement {
                           size="icon"
                           className="size-9 text-slate-400 hover:text-rose-600 dark:hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg transition-colors"
                           onClick={() => handleDeleteClick(item)}
-                          disabled={item.isSystemAdmin}
+                          disabled={item.isSystemAdmin || !canDelete}
                         >
                           <Trash2 size={18} />
                         </Button>
@@ -293,9 +303,10 @@ export function PermissionGroupsPage(): ReactElement {
         onSubmit={handleFormSubmit}
         item={editingItem}
         isLoading={createMutation.isPending || updateMutation.isPending}
+        canSubmit={editingItem ? canUpdate : canCreate}
       />
 
-      <GroupPermissionsPanel groupId={permissionsPanelGroupId} open={permissionsPanelOpen} onOpenChange={setPermissionsPanelOpen} />
+      <GroupPermissionsPanel groupId={permissionsPanelGroupId} open={permissionsPanelOpen} onOpenChange={setPermissionsPanelOpen} canUpdate={canUpdate} />
 
       {/* Delete Dialog: Aqua Stilleri */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -317,7 +328,7 @@ export function PermissionGroupsPage(): ReactElement {
             <Button variant="ghost" onClick={() => setDeleteDialogOpen(false)} disabled={deleteMutation.isPending} className="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 font-bold transition-colors">
               {t('common.cancel')}
             </Button>
-            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending} className="bg-rose-600 hover:bg-rose-700 rounded-xl px-8 font-bold border-0 shadow-lg shadow-rose-500/20 text-white transition-all">
+            <Button variant="destructive" onClick={handleDeleteConfirm} disabled={deleteMutation.isPending || !canDelete} className="bg-rose-600 hover:bg-rose-700 rounded-xl px-8 font-bold border-0 shadow-lg shadow-rose-500/20 text-white transition-all">
               {deleteMutation.isPending ? t('common.processing') : t('common.delete')}
             </Button>
           </DialogFooter>

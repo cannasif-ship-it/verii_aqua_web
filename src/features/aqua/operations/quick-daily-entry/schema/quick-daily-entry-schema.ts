@@ -24,6 +24,7 @@ export const netOperationQuickFormSchema = z.object({
 });
 
 export const transferQuickFormSchema = z.object({
+  targetProjectId: z.coerce.number().int().positive('common.required'),
   toProjectCageId: z.coerce.number().int().positive('common.required'),
   fishCount: z.coerce.number().int().positive('common.required'),
   description: z.string().optional(),
