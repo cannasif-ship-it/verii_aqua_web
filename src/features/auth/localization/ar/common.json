@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول للنظام",
+      "subtitle": "سجّل الدخول للمتابعة",
+      "branch": "الفرع",
+      "selectBranch": "اختر الفرع",
+      "branchNotFound": "الفرع غير موجود",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "loginButton": "تسجيل الدخول",
+      "loggingIn": "جاري تسجيل الدخول...",
+      "wrongPassword": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "loginError": "حدث خطأ أثناء تسجيل الدخول",
+      "sessionExpired": "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+      "copyright": "© 2025 VERII. جميع الحقوق محفوظة.",
+      "branchPlaceholder": "اختر الفرع",
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "processing": "جاري المعالجة...",
+      "submitButton": "تسجيل الدخول",
+      "slogan": "قم بتمكين عملك مع <1>VERII AQUA</1>",
+      "capsLockOn": "مفتاح Caps Lock مفعّل",
+      "animationOff": "إيقاف الحركة",
+      "animationOn": "تشغيل الحركة"
+    },
+    "logout": "تسجيل الخروج",
+    "changePassword": {
+      "error": "لا يمكن تغيير كلمة المرور",
+      "success": "نجاح"
+    },
+    "resetPassword": {
+      "successRedirect": "لقد تم إعادة تعيين كلمة المرور الخاصة بك بنجاح. سيتم توجيهك إلى صفحة تسجيل الدخول...",
+      "failed": "فشلت إعادة تعيين كلمة المرور",
+      "error": "حدث خطأ أثناء عملية إعادة تعيين كلمة المرور"
+    }
+  }
+}

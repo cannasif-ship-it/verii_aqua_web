@@ -1,0 +1,8 @@
+{
+  "welcome": {
+    "title": "Bienvenido",
+    "greeting": "Hola, {{name}}",
+    "subtitle": "Puedes continuar desde el menú de la izquierda.",
+    "userFallback": "Usuario"
+  }
+}

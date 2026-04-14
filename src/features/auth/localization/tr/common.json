@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "login": {
+      "title": "Sistem Girişi",
+      "subtitle": "VERII WMS",
+      "branch": "Şube",
+      "selectBranch": "Şube seçiniz",
+      "branchNotFound": "Şube bulunamadı",
+      "branchPlaceholder": "Şube Seçiniz",
+      "email": "E-posta",
+      "emailPlaceholder": "E-posta adresinizi giriniz",
+      "password": "Şifre",
+      "passwordPlaceholder": "••••••••",
+      "loginButton": "Giriş Yap",
+      "submitButton": "Giriş Yap",
+      "loggingIn": "Giriş yapılıyor...",
+      "processing": "Giriş yapılıyor...",
+      "rememberMe": "Beni Hatırla",
+      "forgotPassword": "Şifremi Unuttum?",
+      "wrongPassword": "E-posta veya şifre yanlış",
+      "loginError": "Giriş yapılırken bir hata oluştu",
+      "sessionExpired": "Oturum süreniz doldu. Lütfen tekrar giriş yapın.",
+      "copyright": "© 2025 VERII. Tüm hakları saklıdır.",
+      "slogan": "<1>V3RII</1> ile Bilgi, <2>AQUA</2> ile Yönetim;<br/>Su Ürünlerinde Dijital Deneyim.",
+      "capsLockOn": "Büyük harf kilidi açık",
+      "animationOff": "Animasyonu Kapat",
+      "animationOn": "Animasyonu Aç"
+    },
+    "logout": "Çıkış",
+    "changePassword": {
+      "error": "Şifre değiştirilemedi",
+      "success": "Başarılı"
+    },
+    "resetPassword": {
+      "successRedirect": "Şifreniz başarıyla sıfırlandı. Giriş sayfasına yönlendiriliyorsunuz...",
+      "failed": "Şifre sıfırlama işlemi başarısız oldu",
+      "error": "Şifre sıfırlama işlemi sırasında bir hata oluştu"
+    }
+  }
+}

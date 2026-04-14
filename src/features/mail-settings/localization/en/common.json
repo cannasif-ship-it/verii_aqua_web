@@ -1,0 +1,24 @@
+{
+  "mailSettings": {
+    "Fields": {
+      "Host": "Presenter",
+      "Port": "Connection Port",
+      "EnableSsl": "Use SSL",
+      "Username": "User name",
+      "Password": "Password",
+      "PasswordPlaceholder": "Enter new password to change",
+      "FromEmail": "From Email",
+      "FromName": "Sender Name",
+      "Timeout": "Timeout (sec)"
+    },
+    "TestMail": {
+      "Sending": "Test is being sent...",
+      "Send": "Send Test Email",
+      "Success": "Test email sent"
+    },
+    "PageTitle": "Mail Settings",
+    "PageDescription": "Configure SMTP server settings",
+    "Save": "Save",
+    "SavedSuccessfully": "Settings saved successfully"
+  }
+}

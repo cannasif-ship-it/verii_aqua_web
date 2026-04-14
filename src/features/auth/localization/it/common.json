@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "login": {
+      "title": "Accesso al Sistema",
+      "subtitle": "Accedi per continuare",
+      "branch": "Filiale",
+      "selectBranch": "Seleziona filiale",
+      "branchNotFound": "Filiale non trovata",
+      "email": "Email",
+      "emailPlaceholder": "Inserisci il tuo indirizzo email",
+      "password": "Password",
+      "passwordPlaceholder": "Inserisci la tua password",
+      "loginButton": "Accedi",
+      "loggingIn": "Accesso in corso...",
+      "wrongPassword": "Email o password non corretti",
+      "loginError": "Si è verificato un errore durante l'accesso",
+      "sessionExpired": "La sessione è scaduta. Effettua nuovamente l'accesso.",
+      "copyright": "© 2025 VERII. Tutti i diritti riservati.",
+      "branchPlaceholder": "Seleziona Filiale",
+      "rememberMe": "Ricordami",
+      "forgotPassword": "Password dimenticata?",
+      "processing": "Elaborazione...",
+      "submitButton": "Accedi",
+      "slogan": "Potenzia la tua attività con <1>VERII AQUA</1>",
+      "capsLockOn": "Bloc Maiusc attivo",
+      "animationOff": "Disattiva animazione",
+      "animationOn": "Attiva animazione"
+    },
+    "logout": "Disconnetti",
+    "changePassword": {
+      "error": "Impossibile modificare la password",
+      "success": "Successo"
+    },
+    "resetPassword": {
+      "successRedirect": "La password è stata reimpostata correttamente. Stai per essere reindirizzato alla pagina di accesso...",
+      "failed": "Reimpostazione password non riuscita",
+      "error": "Si è verificato un errore durante il processo di reimpostazione della password"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "userManagement": {
+    "menu": "Kullanıcı Yönetimi",
+    "description": "Kullanıcıları yönetin ve düzenleyin",
+    "addButton": "Yeni Kullanıcı Ekle",
+    "stats": {
+      "totalUsers": "Toplam Kullanıcı",
+      "activeUsers": "Aktif Kullanıcı",
+      "newThisMonth": "Bu Ay Yeni",
+      "confirmedUsers": "Onaylı Kullanıcı",
+      "loading": "Yükleniyor..."
+    },
+    "table": {
+      "id": "ID",
+      "username": "Kullanıcı Adı",
+      "email": "E-posta",
+      "fullName": "Ad Soyad",
+      "role": "Rol",
+      "status": "Durum",
+      "createdDate": "Oluşturulma Tarihi",
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "confirmed": "Onaylı",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "loading": "Yükleniyor...",
+      "noData": "Veri yok",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    },
+    "form": {
+      "addUser": "Yeni Kullanıcı Ekle",
+      "editUser": "Kullanıcı Düzenle",
+      "addDescription": "Yeni kullanıcı bilgilerini girin",
+      "editDescription": "Kullanıcı bilgilerini düzenleyin",
+      "username": "Kullanıcı Adı",
+      "usernamePlaceholder": "Kullanıcı adını girin",
+      "email": "E-posta",
+      "emailPlaceholder": "E-posta adresini girin",
+      "password": "Şifre",
+      "passwordPlaceholder": "Şifre girin (min 8 karakter)",
+      "firstName": "Ad",
+      "firstNamePlaceholder": "Adı girin",
+      "lastName": "Soyad",
+      "lastNamePlaceholder": "Soyadı girin",
+      "phoneNumber": "Telefon",
+      "phoneNumberPlaceholder": "Telefon numarasını girin",
+      "role": "Rol",
+      "rolePlaceholder": "Rol seçin",
+      "roleRequired": "Rol seçimi zorunludur",
+      "permissionGroups": "İzin Grupları",
+      "permissionGroupsPlaceholder": "İzin gruplarını seçin",
+      "permissionGroupsHelp": "Kullanıcının atanacağı izin grupları",
+      "permissionGroupsNoData": "İzin grubu bulunamadı",
+      "generatedPasswordInfo": "Şifre boş bırakılırsa geçici şifre oluşturulur",
+      "selectAll": "Tümünü seç",
+      "isActive": "Aktif",
+      "isActiveDescription": "Kullanıcının aktif durumu",
+      "username.required": "Kullanıcı adı zorunludur",
+      "username.maxLength": "Kullanıcı adı en fazla 50 karakter olabilir",
+      "email.required": "E-posta zorunludur",
+      "email.invalid": "Geçerli bir e-posta adresi girin",
+      "password.minLength": "Şifre en az 8 karakter olmalıdır",
+      "password.maxLength": "Şifre en fazla 100 karakter olabilir",
+      "firstName.maxLength": "Ad en fazla 50 karakter olabilir",
+      "lastName.maxLength": "Soyad en fazla 50 karakter olabilir",
+      "phoneNumber.maxLength": "Telefon numarası en fazla 20 karakter olabilir"
+    },
+    "delete": {
+      "confirmTitle": "Kullanıcıyı Sil",
+      "confirmMessage": "{{username}} kullanıcısını silmek istediğinizden emin misiniz?"
+    },
+    "messages": {
+      "createSuccess": "Kullanıcı başarıyla oluşturuldu",
+      "createError": "Kullanıcı oluşturulamadı",
+      "updateSuccess": "Kullanıcı başarıyla güncellendi",
+      "updateError": "Kullanıcı güncellenemedi",
+      "deleteSuccess": "Kullanıcı başarıyla silindi",
+      "deleteError": "Kullanıcı silinemedi"
+    }
+  }
+}

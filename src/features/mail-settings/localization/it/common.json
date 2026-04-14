@@ -1,0 +1,24 @@
+{
+  "mailSettings": {
+    "PageTitle": "Mail Settings",
+    "PageDescription": "Configura le impostazioni del server SMTP",
+    "Fields": {
+      "Host": "Presentatore",
+      "Port": "Porta",
+      "EnableSsl": "Usa SSL",
+      "Username": "Nome Utente",
+      "Password": "Password",
+      "PasswordPlaceholder": "Inserisci una nuova password per modificare",
+      "FromEmail": "Email mittente",
+      "FromName": "Nome mittente",
+      "Timeout": "Timeout (s)"
+    },
+    "TestMail": {
+      "Sending": "È in corso l'invio del test...",
+      "Send": "Invia e-mail di prova",
+      "Success": "E-mail di prova inviata"
+    },
+    "Save": "Salva",
+    "SavedSuccessfully": "Impostazioni salvate con successo"
+  }
+}

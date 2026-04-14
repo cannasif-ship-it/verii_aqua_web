@@ -20,6 +20,7 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
   '/aqua/definitions/weather-severities': 'aqua.definitions.weather-severities.view',
   '/aqua/definitions/weather-types': 'aqua.definitions.weather-types.view',
   '/aqua/definitions/net-operation-types': 'aqua.definitions.net-operation-types.view',
+  '/aqua/definitions/settings': 'admin-only',
 
   '/aqua/operations/quick-setup': 'aqua.operations.quick-setup.view',
   '/aqua/operations/quick-daily-entry': 'aqua.operations.quick-daily-entry.view',
@@ -73,6 +74,10 @@ export const PATH_TO_PERMISSION_PATTERNS: Array<{ pattern: RegExp; permission: s
   {
     pattern: /^\/aqua\/definitions\/net-operation-types(\/|$)/,
     permission: 'aqua.definitions.net-operation-types.view',
+  },
+  {
+    pattern: /^\/aqua\/definitions\/settings(\/|$)/,
+    permission: 'admin-only',
   },
 
   { pattern: /^\/aqua\/operations\/quick-setup(\/|$)/, permission: 'aqua.operations.quick-setup.view' },
@@ -151,6 +156,7 @@ export const ACCESS_CONTROL_ADMIN_ONLY_PATTERNS: RegExp[] = [
   /^\/user-management(\/|$)/,
   /^\/users\/mail-settings(\/|$)/,
   /^\/hangfire-monitoring(\/|$)/,
+  /^\/aqua\/definitions\/settings(\/|$)/,
 ];
 
 export const PERMISSION_CODE_DISPLAY: Record<string, { key: string; fallback: string }> = {

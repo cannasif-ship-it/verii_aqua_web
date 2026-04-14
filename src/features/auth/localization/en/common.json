@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "login": {
+      "title": "System Login",
+      "subtitle": "Sign in to continue",
+      "branch": "Branch",
+      "selectBranch": "Select branch",
+      "branchNotFound": "Branch not found",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "loginButton": "Sign In",
+      "loggingIn": "Signing in...",
+      "wrongPassword": "Email or password is incorrect",
+      "loginError": "An error occurred while signing in",
+      "sessionExpired": "Your session has expired. Please sign in again.",
+      "copyright": "© 2025 VERII. All rights reserved.",
+      "branchPlaceholder": "Select Branch",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "processing": "Processing...",
+      "submitButton": "Sign In",
+      "slogan": "Empowering your business with <1>VERII AQUA</1>",
+      "capsLockOn": "Caps lock is on",
+      "animationOff": "Turn off animation",
+      "animationOn": "Turn on animation"
+    },
+    "logout": "Logout",
+    "changePassword": {
+      "error": "Password could not be changed",
+      "success": "Successful"
+    },
+    "resetPassword": {
+      "successRedirect": "Your password has been successfully reset. You are directed to the login page...",
+      "failed": "Password reset failed",
+      "error": "An error occurred during the password reset process"
+    }
+  }
+}

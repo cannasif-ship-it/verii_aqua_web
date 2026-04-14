@@ -76,6 +76,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
           { title: sidebarT('aquaWeatherSeverities'), href: '/aqua/definitions/weather-severities' },
           { title: sidebarT('aquaWeatherTypes'), href: '/aqua/definitions/weather-types' },
           { title: sidebarT('aquaNetOperationTypes'), href: '/aqua/definitions/net-operation-types' },
+          { title: sidebarT('aquaSettings'), href: '/aqua/definitions/settings' },
         ],
       },
       {

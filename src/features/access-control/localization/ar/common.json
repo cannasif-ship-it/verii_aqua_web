@@ -1,0 +1,239 @@
+{
+  "approvalRoleGroup": {
+    "menu": "إدارة مجموعات أدوار الموافقة",
+    "description": "إدارة وتعديل مجموعات أدوار الموافقة",
+    "addButton": "إضافة مجموعة أدوار موافقة جديدة",
+    "table": {
+      "id": "المعرف",
+      "name": "اسم المجموعة",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "page": "صفحة {{current}} من {{total}}",
+      "actions": "إجراءات"
+    },
+    "form": {
+      "addTitle": "إضافة مجموعة أدوار موافقة جديدة",
+      "editTitle": "تعديل مجموعة أدوار الموافقة",
+      "addDescription": "أدخل معلومات مجموعة أدوار الموافقة الجديدة",
+      "editDescription": "تعديل معلومات مجموعة أدوار الموافقة",
+      "name": "اسم المجموعة",
+      "namePlaceholder": "أدخل اسم المجموعة",
+      "name.required": "اسم المجموعة مطلوب",
+      "name.maxLength": "يجب أن يكون اسم المجموعة 100 حرف كحد أقصى"
+    },
+    "delete": {
+      "confirmTitle": "حذف مجموعة أدوار الموافقة",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف مجموعة أدوار الموافقة {{name}}؟",
+      "title": "حذف مجموعة الدور"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء مجموعة أدوار الموافقة بنجاح",
+      "createError": "فشل إنشاء مجموعة أدوار الموافقة",
+      "updateSuccess": "تم تحديث مجموعة أدوار الموافقة بنجاح",
+      "updateError": "فشل تحديث مجموعة أدوار الموافقة",
+      "deleteSuccess": "تم حذف مجموعة أدوار الموافقة بنجاح",
+      "deleteError": "فشل حذف مجموعة أدوار الموافقة"
+    },
+    "cancel": "إلغاء",
+    "saving": "جاري الحفظ...",
+    "save": "حفظ",
+    "searchPlaceholder": "بحث...",
+    "refresh": "تحديث",
+    "noData": "لم يتم العثور على سجل"
+  },
+  "approvalUserRole": {
+    "menu": "إدارة أدوار المستخدم للموافقة",
+    "description": "إدارة وتعديل أدوار المستخدم للموافقة",
+    "addButton": "إضافة دور مستخدم للموافقة جديد",
+    "table": {
+      "id": "المعرف",
+      "userFullName": "المستخدم",
+      "approvalRoleName": "دور الموافقة",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "page": "صفحة {{current}} من {{total}}",
+      "actions": "إجراءات"
+    },
+    "form": {
+      "addTitle": "إضافة دور مستخدم للموافقة جديد",
+      "editTitle": "تعديل دور المستخدم للموافقة",
+      "addDescription": "أدخل معلومات دور المستخدم للموافقة الجديد",
+      "editDescription": "تعديل معلومات دور المستخدم للموافقة",
+      "userId": "المستخدم",
+      "selectUser": "اختر المستخدم",
+      "noUserSelected": "لم يتم اختيار مستخدم",
+      "userId.required": "اختيار المستخدم مطلوب",
+      "approvalRoleId": "دور الموافقة",
+      "selectApprovalRole": "اختر دور الموافقة",
+      "noApprovalRoleSelected": "لم يتم اختيار دور موافقة",
+      "approvalRoleId.required": "اختيار دور الموافقة مطلوب",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "save": "حفظ"
+    },
+    "delete": {
+      "confirmTitle": "حذف دور المستخدم للموافقة",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف دور المستخدم للموافقة هذا؟",
+      "title": "حذف الدور"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء دور المستخدم للموافقة بنجاح",
+      "createError": "فشل إنشاء دور المستخدم للموافقة",
+      "updateSuccess": "تم تحديث دور المستخدم للموافقة بنجاح",
+      "updateError": "فشل تحديث دور المستخدم للموافقة",
+      "deleteSuccess": "تم حذف دور المستخدم للموافقة بنجاح",
+      "deleteError": "فشل حذف دور المستخدم للموافقة"
+    },
+    "searchPlaceholder": "بحث...",
+    "refresh": "تحديث",
+    "noData": "لم يتم العثور على سجل"
+  },
+  "approvalRole": {
+    "menu": "إدارة أدوار الموافقة",
+    "description": "إدارة وتعديل أدوار الموافقة",
+    "addButton": "إضافة دور موافقة جديد",
+    "table": {
+      "id": "المعرف",
+      "approvalRoleGroupName": "مجموعة الدور",
+      "name": "اسم الدور",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "page": "صفحة {{current}} من {{total}}",
+      "maxAmount": "الحد الأقصى للمبلغ",
+      "actions": "إجراءات",
+      "totalRecords": "الإجمالي <فئة الامتداد=",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "form": {
+      "addTitle": "إضافة دور موافقة جديد",
+      "editTitle": "تعديل دور الموافقة",
+      "addDescription": "أدخل معلومات دور الموافقة الجديد",
+      "editDescription": "تعديل معلومات دور الموافقة",
+      "approvalRoleGroupId": "مجموعة أدوار الموافقة",
+      "selectApprovalRoleGroup": "اختر مجموعة أدوار الموافقة",
+      "noApprovalRoleGroupSelected": "لم يتم اختيار مجموعة أدوار موافقة",
+      "approvalRoleGroupId.required": "اختيار مجموعة أدوار الموافقة مطلوب",
+      "name": "اسم الدور",
+      "namePlaceholder": "أدخل اسم الدور",
+      "name.required": "اسم الدور مطلوب",
+      "name.maxLength": "يجب أن يكون اسم الدور 100 حرف كحد أقصى",
+      "maxAmount": "الحد الأقصى للمبلغ",
+      "maxAmountPlaceholder": "أدخل الحد الأقصى للمبلغ",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "save": "حفظ"
+    },
+    "delete": {
+      "confirmTitle": "حذف دور الموافقة",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف دور الموافقة {{name}}؟",
+      "cancelButton": "إلغاء",
+      "deleting": "جاري الحذف...",
+      "confirmButton": "تأكيد الحذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء دور الموافقة بنجاح",
+      "createError": "فشل إنشاء دور الموافقة",
+      "updateSuccess": "تم تحديث دور الموافقة بنجاح",
+      "updateError": "فشل تحديث دور الموافقة",
+      "deleteSuccess": "تم حذف دور الموافقة بنجاح",
+      "deleteError": "فشل حذف دور الموافقة"
+    },
+    "searchPlaceholder": "بحث...",
+    "refresh": "تحديث",
+    "loading": "جاري التحميل...",
+    "noData": "لم يتم العثور على بيانات"
+  },
+  "approvalFlow": {
+    "menu": "إدارة سير عمل الموافقة",
+    "description": "إدارة وتعديل سير عمل الموافقة",
+    "addButton": "إضافة سير عمل موافقة جديد",
+    "documentType": {
+      "offer": "عرض",
+      "request": "طلب",
+      "order": "أمر",
+      "demand": "طلب",
+      "quotation": "عرض"
+    },
+    "table": {
+      "id": "المعرف",
+      "documentType": "نوع المستند",
+      "description": "الوصف",
+      "isActive": "نشط",
+      "createdDate": "تاريخ الإنشاء",
+      "createdBy": "تم الإنشاء بواسطة",
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "page": "صفحة {{current}} من {{total}}",
+      "actions": "إجراءات"
+    },
+    "form": {
+      "addTitle": "إضافة سير عمل موافقة جديد",
+      "editTitle": "تعديل سير عمل الموافقة",
+      "addDescription": "أدخل معلومات سير عمل الموافقة الجديد",
+      "editDescription": "تعديل معلومات سير عمل الموافقة",
+      "documentType": "نوع المستند",
+      "selectDocumentType": "اختر نوع المستند",
+      "noDocumentTypeSelected": "لم يتم اختيار نوع مستند",
+      "documentType.required": "اختيار نوع المستند مطلوب",
+      "description": "الوصف",
+      "descriptionPlaceholder": "أدخل الوصف (اختياري)",
+      "description.maxLength": "يجب أن يكون الوصف 200 حرف كحد أقصى",
+      "isActive": "نشط",
+      "isActiveDescription": "حالة نشاط سير عمل الموافقة",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "save": "حفظ"
+    },
+    "delete": {
+      "confirmTitle": "حذف سير عمل الموافقة",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف سير عمل الموافقة هذا؟",
+      "title": "حذف تدفق الموافقة",
+      "confirm": "هل أنت متأكد أنك تريد حذف عملية التأكيد هذه؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء سير عمل الموافقة بنجاح",
+      "createError": "فشل إنشاء سير عمل الموافقة",
+      "updateSuccess": "تم تحديث سير عمل الموافقة بنجاح",
+      "updateError": "فشل تحديث سير عمل الموافقة",
+      "deleteSuccess": "تم حذف سير عمل الموافقة بنجاح",
+      "deleteError": "فشل حذف سير عمل الموافقة"
+    },
+    "active": "Active",
+    "inactive": "غير نشط",
+    "loading": "جاري التحميل...",
+    "noData": "لم يتم العثور على سجل"
+  },
+  "roles": {
+    "admin": "تنفيذي"
+  },
+  "approvalFlowStep": {
+    "messages": {
+      "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذه الخطوة؟",
+      "createSuccess": "تمت إضافة خطوة التدفق بنجاح",
+      "createError": "فشلت إضافة خطوة التدفق",
+      "deleteSuccess": "تم حذف خطوة التدفق بنجاح",
+      "deleteError": "فشل في حذف خطوة التدفق",
+      "updateSuccess": "تم تحديث خطوة التدفق بنجاح",
+      "updateError": "فشل تحديث خطوة التدفق"
+    },
+    "title": "خطوات التدفق",
+    "addButton": "إضافة خطوة",
+    "empty": "لم تتم إضافة خطوات بعد",
+    "unknownRoleGroup": "لا يوجد مجموعة أدوار",
+    "stepDescription": "أمر الموافقة: {order}",
+    "form": {
+      "editTitle": "تعديل الخطوة",
+      "addTitle": "إضافة خطوة جديدة",
+      "editDescription": "تعديل معلومات الخطوة",
+      "addDescription": "إضافة خطوة جديدة للتدفق",
+      "approvalRoleGroup": "مجموعة الأدوار",
+      "selectRoleGroup": "اختر مجموعة الأدوار",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "save": "حفظ"
+    }
+  }
+}

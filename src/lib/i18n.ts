@@ -3,20 +3,30 @@ import { initReactI18next } from 'react-i18next';
 
 const i18n = i18next.createInstance();
 
-type ResourceModule = { default: Record<string, string> };
+type TranslationTree = Record<string, unknown>;
+type ResourceModule = { default: TranslationTree };
 
-const modules = import.meta.glob('../locales/**/*.json');
+const featureModules = import.meta.glob('../features/**/localization/*/*.json');
+const sharedModules = import.meta.glob('../shared/localization/*/*.json');
+const modules = {
+  ...sharedModules,
+  ...featureModules,
+};
 
-type LoaderMap = Record<string, Record<string, () => Promise<ResourceModule>>>;
+type ResourceLoader = () => Promise<ResourceModule>;
+type LoaderMap = Record<string, Record<string, ResourceLoader[]>>;
 const loaders: LoaderMap = {};
 
 for (const [path, loader] of Object.entries(modules)) {
-  const match = path.match(/\.\.\/locales\/([a-z-]+)\/(.+)\.json$/);
+  const match =
+    path.match(/\.\.\/shared\/localization\/([a-z-]+)\/(.+)\.json$/) ??
+    path.match(/\.\.\/features\/.+\/localization\/([a-z-]+)\/(.+)\.json$/);
   if (!match) continue;
   const lang = match[1];
   const ns = match[2];
   if (!loaders[lang]) loaders[lang] = {};
-  loaders[lang][ns] = loader as () => Promise<ResourceModule>;
+  if (!loaders[lang][ns]) loaders[lang][ns] = [];
+  loaders[lang][ns].push(loader as ResourceLoader);
 }
 
 const DEFAULT_LANG = 'tr';
@@ -42,11 +52,35 @@ export async function loadLanguage(lang: string): Promise<void> {
   const langLoaders = loaders[target] || {};
   const entries = Object.entries(langLoaders);
   await Promise.all(
-    entries.map(async ([ns, loader]) => {
-      const mod = await loader();
-      i18n.addResourceBundle(target, ns, mod.default, true, true);
+    entries.map(async ([ns, nsLoaders]) => {
+      let merged: TranslationTree = {};
+      for (const loader of nsLoaders) {
+        const mod = await loader();
+        merged = deepMerge(merged, mod.default);
+      }
+      i18n.addResourceBundle(target, ns, merged, true, true);
     })
   );
+}
+
+function deepMerge(target: TranslationTree, source: TranslationTree): TranslationTree {
+  const output = { ...target };
+
+  for (const [key, value] of Object.entries(source)) {
+    const current = output[key];
+    if (isPlainObject(current) && isPlainObject(value)) {
+      output[key] = deepMerge(current, value);
+      continue;
+    }
+
+    output[key] = value;
+  }
+
+  return output;
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 const initPromise = (async () => {

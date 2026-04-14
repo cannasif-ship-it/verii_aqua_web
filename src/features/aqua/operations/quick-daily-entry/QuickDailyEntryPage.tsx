@@ -258,7 +258,7 @@ export function QuickDailyEntryPage(): ReactElement {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
       if (!sourceBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
       if (data.toProjectCageId === projectCageId) throw new Error(t('aqua.quickDailyEntry.toast.sameCageTransferNotAllowed'));
-      const transferFishCount = Number(sourceBatch.liveCount ?? 0);
+      const transferFishCount = Number(data.fishCount ?? 0);
       if (transferFishCount <= 0) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
       if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.transferCountTooHigh'));
 

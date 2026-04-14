@@ -1,0 +1,82 @@
+{
+  "userManagement": {
+    "menu": "Gestion des utilisateurs",
+    "description": "Gérer et modifier les utilisateurs",
+    "addButton": "Ajouter un nouvel utilisateur",
+    "stats": {
+      "totalUsers": "Total des utilisateurs",
+      "activeUsers": "Utilisateurs actifs",
+      "newThisMonth": "Nouveau ce mois-ci",
+      "confirmedUsers": "Utilisateurs confirmés",
+      "loading": "Chargement..."
+    },
+    "table": {
+      "id": "IDENTIFIANT",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "fullName": "Nom complet",
+      "role": "Rôle",
+      "status": "Statut",
+      "createdDate": "Date de création",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "confirmed": "Confirmé",
+      "showing": "Affichage de {{from}}-{{to}} sur {{total}}",
+      "page": "Page {{current}} sur {{total}}",
+      "loading": "Chargement...",
+      "noData": "Aucune donnée trouvée",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "form": {
+      "addUser": "Ajouter un nouvel utilisateur",
+      "editUser": "Modifier l'utilisateur",
+      "addDescription": "Entrer les informations du nouvel utilisateur",
+      "editDescription": "Modifier les informations de l'utilisateur",
+      "username": "Nom d'utilisateur",
+      "usernamePlaceholder": "Entrer le nom d'utilisateur",
+      "email": "E-mail",
+      "emailPlaceholder": "Entrer l'adresse e-mail",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrer le mot de passe (min 8 caractères)",
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "Entrer le prénom",
+      "lastName": "Nom de famille",
+      "lastNamePlaceholder": "Entrer le nom de famille",
+      "phoneNumber": "Numéro de téléphone",
+      "phoneNumberPlaceholder": "Entrer le numéro de téléphone",
+      "role": "Rôle",
+      "rolePlaceholder": "Sélectionner le rôle",
+      "roleRequired": "Sélection du rôle requise",
+      "permissionGroups": "Groupes de permissions",
+      "permissionGroupsPlaceholder": "Sélectionner les groupes de permissions",
+      "permissionGroupsHelp": "Groupes de permissions à attribuer",
+      "permissionGroupsNoData": "Aucun groupe de permissions trouvé",
+      "generatedPasswordInfo": "Laisser vide pour mot de passe temporaire",
+      "selectAll": "Tout sélectionner",
+      "isActive": "Actif",
+      "isActiveDescription": "Statut actif de l'utilisateur",
+      "username.required": "Le nom d'utilisateur est requis",
+      "username.maxLength": "Le nom d'utilisateur doit contenir au maximum 50 caractères",
+      "email.required": "L'e-mail est requis",
+      "email.invalid": "Entrer une adresse e-mail valide",
+      "password.minLength": "Le mot de passe doit contenir au moins 8 caractères",
+      "password.maxLength": "Le mot de passe doit contenir au maximum 100 caractères",
+      "firstName.maxLength": "Le prénom doit contenir au maximum 50 caractères",
+      "lastName.maxLength": "Le nom de famille doit contenir au maximum 50 caractères",
+      "phoneNumber.maxLength": "Le numéro de téléphone doit contenir au maximum 20 caractères"
+    },
+    "delete": {
+      "confirmTitle": "Supprimer l'utilisateur",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer l'utilisateur {{username}} ?"
+    },
+    "messages": {
+      "createSuccess": "Utilisateur créé avec succès",
+      "createError": "Échec de la création de l'utilisateur",
+      "updateSuccess": "Utilisateur mis à jour avec succès",
+      "updateError": "Échec de la mise à jour de l'utilisateur",
+      "deleteSuccess": "Utilisateur supprimé avec succès",
+      "deleteError": "Échec de la suppression de l'utilisateur"
+    }
+  }
+}

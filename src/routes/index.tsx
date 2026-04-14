@@ -34,6 +34,7 @@ const ProjectCageAssignmentsPage = lazyImport(() => import('@/features/aqua'), '
 const WeatherSeveritiesPage = lazyImport(() => import('@/features/aqua'), 'WeatherSeveritiesPage');
 const WeatherTypesPage = lazyImport(() => import('@/features/aqua'), 'WeatherTypesPage');
 const NetOperationTypesPage = lazyImport(() => import('@/features/aqua'), 'NetOperationTypesPage');
+const AquaSettingsPage = lazyImport(() => import('@/features/aqua'), 'AquaSettingsPage');
 const GoodsReceiptsPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptsPage');
 const FeedingsPage = lazyImport(() => import('@/features/aqua'), 'FeedingsPage');
 const MortalitiesPage = lazyImport(() => import('@/features/aqua'), 'MortalitiesPage');
@@ -88,6 +89,7 @@ export const router = createBrowserRouter([
       { path: 'aqua/definitions/weather-severities', element: <WeatherSeveritiesPage /> },
       { path: 'aqua/definitions/weather-types', element: <WeatherTypesPage /> },
       { path: 'aqua/definitions/net-operation-types', element: <NetOperationTypesPage /> },
+      { path: 'aqua/definitions/settings', element: <AquaSettingsPage /> },
       { path: 'aqua/operations/quick-setup', element: <QuickSetupPage /> },
       { path: 'aqua/operations/quick-daily-entry', element: <QuickDailyEntryPage /> },
       { path: 'aqua/operations/goods-receipts', element: <GoodsReceiptsPage /> },

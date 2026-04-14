@@ -1,0 +1,82 @@
+{
+  "userManagement": {
+    "menu": "Benutzerverwaltung",
+    "description": "Benutzer verwalten und bearbeiten",
+    "addButton": "Add New User",
+    "stats": {
+      "totalUsers": "Gesamtbenutzer",
+      "activeUsers": "Aktive Benutzer",
+      "newThisMonth": "Neu diesen Monat",
+      "confirmedUsers": "Bestätigte Benutzer",
+      "loading": "Laden..."
+    },
+    "table": {
+      "id": "AUSWEIS",
+      "username": "Benutzername",
+      "email": "E-Mail",
+      "fullName": "Vollständiger Name",
+      "role": "Rolle",
+      "status": "Status",
+      "createdDate": "Erstellungsdatum",
+      "active": "Aktiv",
+      "inactive": "Inaktiv",
+      "confirmed": "Bestätigt",
+      "showing": "{{from}}-{{to}} von {{total}} angezeigt",
+      "page": "Seite {{current}} von {{total}}",
+      "loading": "Laden...",
+      "noData": "Keine Daten",
+      "previous": "Ehemalig",
+      "next": "Nächste"
+    },
+    "form": {
+      "addUser": "Add New User",
+      "editUser": "Benutzer bearbeiten",
+      "addDescription": "Neue Benutzerinformationen eingeben",
+      "editDescription": "Benutzerinformationen bearbeiten",
+      "username": "Benutzername",
+      "usernamePlaceholder": "Benutzername eingeben",
+      "email": "E-Mail",
+      "emailPlaceholder": "E-Mail-Adresse eingeben",
+      "password": "Passwort",
+      "passwordPlaceholder": "Passwort eingeben (min 8 Zeichen)",
+      "firstName": "Vorname",
+      "firstNamePlaceholder": "Vorname eingeben",
+      "lastName": "Nachname",
+      "lastNamePlaceholder": "Nachname eingeben",
+      "phoneNumber": "Telefonnummer",
+      "phoneNumberPlaceholder": "Telefonnummer eingeben",
+      "role": "Rolle",
+      "rolePlaceholder": "Rolle auswählen",
+      "roleRequired": "Rollenauswahl erforderlich",
+      "permissionGroups": "Berechtigungsgruppen",
+      "permissionGroupsPlaceholder": "Berechtigungsgruppen auswählen",
+      "permissionGroupsHelp": "Berechtigungsgruppen für den Benutzer",
+      "permissionGroupsNoData": "Keine Berechtigungsgruppen gefunden",
+      "generatedPasswordInfo": "Leer lassen für temporäres Passwort",
+      "selectAll": "Alle auswählen",
+      "isActive": "Aktiv",
+      "isActiveDescription": "Aktiver Status des Benutzers",
+      "username.required": "Benutzername ist erforderlich",
+      "username.maxLength": "Benutzername darf maximal 50 Zeichen lang sein",
+      "email.required": "E-Mail ist erforderlich",
+      "email.invalid": "Enter a valid email address",
+      "password.minLength": "Passwort muss mindestens 8 Zeichen lang sein",
+      "password.maxLength": "Passwort darf maximal 100 Zeichen lang sein",
+      "firstName.maxLength": "Vorname darf maximal 50 Zeichen lang sein",
+      "lastName.maxLength": "Nachname darf maximal 50 Zeichen lang sein",
+      "phoneNumber.maxLength": "Telefonnummer darf maximal 20 Zeichen lang sein"
+    },
+    "delete": {
+      "confirmTitle": "Delete User",
+      "confirmMessage": "Are you sure you want to delete the user {{username}}?"
+    },
+    "messages": {
+      "createSuccess": "Benutzer erfolgreich erstellt",
+      "createError": "Benutzer konnte nicht erstellt werden",
+      "updateSuccess": "Benutzer erfolgreich aktualisiert",
+      "updateError": "Benutzer konnte nicht aktualisiert werden",
+      "deleteSuccess": "User deleted successfully",
+      "deleteError": "Failed to delete user"
+    }
+  }
+}

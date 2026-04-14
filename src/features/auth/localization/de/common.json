@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "login": {
+      "title": "Systemanmeldung",
+      "subtitle": "Bitte melden Sie sich an, um fortzufahren",
+      "branch": "Filiale",
+      "selectBranch": "Filiale auswählen",
+      "branchNotFound": "Filiale nicht gefunden",
+      "email": "E-Mail",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+      "password": "Passwort",
+      "passwordPlaceholder": "Passwort eingeben",
+      "loginButton": "Anmelden",
+      "loggingIn": "Wird angemeldet...",
+      "wrongPassword": "E-Mail oder Passwort ist falsch",
+      "loginError": "Beim Anmelden ist ein Fehler aufgetreten",
+      "sessionExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+      "copyright": "© 2025 VERII. Alle Rechte vorbehalten.",
+      "branchPlaceholder": "Filiale auswählen",
+      "rememberMe": "Angemeldet bleiben",
+      "forgotPassword": "Passwort vergessen?",
+      "processing": "Wird angemeldet...",
+      "submitButton": "Anmelden",
+      "slogan": "Stärken Sie Ihr Geschäft mit <1>VERII AQUA</1>",
+      "capsLockOn": "Caps Lock ist aktiviert",
+      "animationOff": "Animation ausschalten",
+      "animationOn": "Animation einschalten"
+    },
+    "logout": "Abmelden",
+    "changePassword": {
+      "error": "Passwort konnte nicht geändert werden",
+      "success": "Erfolgreich"
+    },
+    "resetPassword": {
+      "successRedirect": "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie werden zur Anmeldeseite weitergeleitet...",
+      "failed": "Das Zurücksetzen des Passworts ist fehlgeschlagen",
+      "error": "Beim Zurücksetzen des Passworts ist ein Fehler aufgetreten"
+    }
+  }
+}

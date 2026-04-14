@@ -1,0 +1,239 @@
+{
+  "approvalRoleGroup": {
+    "menu": "Gestione Gruppi Ruoli Approvazione",
+    "description": "Gestisci e modifica gruppi ruoli approvazione",
+    "addButton": "Aggiungi Nuovo Gruppo Ruoli Approvazione",
+    "table": {
+      "id": "ID",
+      "name": "Nome Gruppo",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "showing": "Visualizzati {{from}}-{{to}} di {{total}}",
+      "page": "Pagina {{current}} di {{total}}",
+      "actions": "Azioni"
+    },
+    "form": {
+      "addTitle": "Aggiungi Nuovo Gruppo Ruoli Approvazione",
+      "editTitle": "Modifica Gruppo Ruoli Approvazione",
+      "addDescription": "Inserisci informazioni nuovo gruppo ruoli approvazione",
+      "editDescription": "Modifica informazioni gruppo ruoli approvazione",
+      "name": "Nome Gruppo",
+      "namePlaceholder": "Inserisci nome gruppo",
+      "name.required": "Il nome del gruppo è obbligatorio",
+      "name.maxLength": "Il nome del gruppo deve avere al massimo 100 caratteri"
+    },
+    "delete": {
+      "confirmTitle": "Elimina Gruppo Ruoli Approvazione",
+      "confirmMessage": "Sei sicuro di voler eliminare il gruppo ruoli approvazione {{name}}?",
+      "title": "Elimina gruppo di ruoli"
+    },
+    "messages": {
+      "createSuccess": "Gruppo ruoli approvazione creato con successo",
+      "createError": "Errore creazione gruppo ruoli approvazione",
+      "updateSuccess": "Gruppo ruoli approvazione aggiornato con successo",
+      "updateError": "Errore aggiornamento gruppo ruoli approvazione",
+      "deleteSuccess": "Gruppo ruoli approvazione eliminato con successo",
+      "deleteError": "Errore eliminazione gruppo ruoli approvazione"
+    },
+    "cancel": "Annulla",
+    "saving": "Salvataggio...",
+    "save": "Salva",
+    "searchPlaceholder": "Cerca...",
+    "refresh": "Aggiorna",
+    "noData": "Nessun record trovato"
+  },
+  "approvalUserRole": {
+    "menu": "Gestione Ruoli Utente Approvazione",
+    "description": "Gestisci e modifica ruoli utente approvazione",
+    "addButton": "Aggiungi Nuovo Ruolo Utente Approvazione",
+    "table": {
+      "id": "ID",
+      "userFullName": "Utente",
+      "approvalRoleName": "Ruolo Approvazione",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "showing": "Visualizzati {{from}}-{{to}} di {{total}}",
+      "page": "Pagina {{current}} di {{total}}",
+      "actions": "Azioni"
+    },
+    "form": {
+      "addTitle": "Aggiungi Nuovo Ruolo Utente Approvazione",
+      "editTitle": "Modifica Ruolo Utente Approvazione",
+      "addDescription": "Inserisci informazioni nuovo ruolo utente approvazione",
+      "editDescription": "Modifica informazioni ruolo utente approvazione",
+      "userId": "Utente",
+      "selectUser": "Seleziona Utente",
+      "noUserSelected": "Nessun utente selezionato",
+      "userId.required": "La selezione dell'utente è obbligatoria",
+      "approvalRoleId": "Ruolo Approvazione",
+      "selectApprovalRole": "Seleziona Ruolo Approvazione",
+      "noApprovalRoleSelected": "Nessun ruolo approvazione selezionato",
+      "approvalRoleId.required": "La selezione del ruolo approvazione è obbligatoria",
+      "cancel": "Annulla",
+      "saving": "Salvataggio...",
+      "save": "Salva"
+    },
+    "delete": {
+      "confirmTitle": "Elimina Ruolo Utente Approvazione",
+      "confirmMessage": "Sei sicuro di voler eliminare questo ruolo utente approvazione?",
+      "title": "Elimina Ruolo"
+    },
+    "messages": {
+      "createSuccess": "Ruolo utente approvazione creato con successo",
+      "createError": "Errore creazione ruolo utente approvazione",
+      "updateSuccess": "Ruolo utente approvazione aggiornato con successo",
+      "updateError": "Errore aggiornamento ruolo utente approvazione",
+      "deleteSuccess": "Ruolo utente approvazione eliminato con successo",
+      "deleteError": "Errore eliminazione ruolo utente approvazione"
+    },
+    "searchPlaceholder": "Cerca...",
+    "refresh": "Aggiorna",
+    "noData": "Nessun record trovato"
+  },
+  "approvalRole": {
+    "menu": "Gestione Ruoli Approvazione",
+    "description": "Gestisci e modifica ruoli approvazione",
+    "addButton": "Aggiungi Nuovo Ruolo Approvazione",
+    "table": {
+      "id": "ID",
+      "approvalRoleGroupName": "Gruppo Ruoli",
+      "name": "Nome Ruolo",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "showing": "Visualizzati {{from}}-{{to}} di {{total}}",
+      "page": "Pagina {{current}} di {{total}}",
+      "maxAmount": "Importo Massimo",
+      "actions": "Azioni",
+      "totalRecords": "Totale <span class=",
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "form": {
+      "addTitle": "Aggiungi Nuovo Ruolo Approvazione",
+      "editTitle": "Modifica Ruolo Approvazione",
+      "addDescription": "Inserisci informazioni nuovo ruolo approvazione",
+      "editDescription": "Modifica informazioni ruolo approvazione",
+      "approvalRoleGroupId": "Gruppo Ruoli Approvazione",
+      "selectApprovalRoleGroup": "Seleziona Gruppo Ruoli Approvazione",
+      "noApprovalRoleGroupSelected": "Nessun gruppo ruoli approvazione selezionato",
+      "approvalRoleGroupId.required": "La selezione del gruppo ruoli approvazione è obbligatoria",
+      "name": "Nome Ruolo",
+      "namePlaceholder": "Inserisci nome ruolo",
+      "name.required": "Il nome del ruolo è obbligatorio",
+      "name.maxLength": "Il nome del ruolo deve avere al massimo 100 caratteri",
+      "maxAmount": "Importo Massimo",
+      "maxAmountPlaceholder": "Inserisci importo massimo",
+      "cancel": "Annulla",
+      "saving": "Salvataggio...",
+      "save": "Salva"
+    },
+    "delete": {
+      "confirmTitle": "Elimina Ruolo Approvazione",
+      "confirmMessage": "Sei sicuro di voler eliminare il ruolo approvazione {{name}}?",
+      "cancelButton": "Annulla",
+      "deleting": "Eliminazione...",
+      "confirmButton": "Conferma eliminazione"
+    },
+    "messages": {
+      "createSuccess": "Ruolo approvazione creato con successo",
+      "createError": "Errore creazione ruolo approvazione",
+      "updateSuccess": "Ruolo approvazione aggiornato con successo",
+      "updateError": "Errore aggiornamento ruolo approvazione",
+      "deleteSuccess": "Ruolo approvazione eliminato con successo",
+      "deleteError": "Errore eliminazione ruolo approvazione"
+    },
+    "searchPlaceholder": "Cerca...",
+    "refresh": "Aggiorna",
+    "loading": "Caricamento...",
+    "noData": "Nessun dato trovato"
+  },
+  "approvalFlow": {
+    "menu": "Gestione Flusso Approvazione",
+    "description": "Gestisci e modifica flussi approvazione",
+    "addButton": "Aggiungi Nuovo Flusso Approvazione",
+    "documentType": {
+      "offer": "Offerta",
+      "request": "Richiesta",
+      "order": "Ordine",
+      "demand": "Richiesta",
+      "quotation": "Offerta"
+    },
+    "table": {
+      "id": "ID",
+      "documentType": "Tipo Documento",
+      "description": "Descrizione",
+      "isActive": "Attivo",
+      "createdDate": "Data Creazione",
+      "createdBy": "Creato Da",
+      "showing": "Visualizzati {{from}}-{{to}} di {{total}}",
+      "page": "Pagina {{current}} di {{total}}",
+      "actions": "Azioni"
+    },
+    "form": {
+      "addTitle": "Aggiungi Nuovo Flusso Approvazione",
+      "editTitle": "Modifica Flusso Approvazione",
+      "addDescription": "Inserisci informazioni nuovo flusso approvazione",
+      "editDescription": "Modifica informazioni flusso approvazione",
+      "documentType": "Tipo Documento",
+      "selectDocumentType": "Seleziona tipo documento",
+      "noDocumentTypeSelected": "Nessun tipo documento selezionato",
+      "documentType.required": "La selezione del tipo documento è obbligatoria",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Inserisci descrizione (opzionale)",
+      "description.maxLength": "La descrizione deve avere al massimo 200 caratteri",
+      "isActive": "Attivo",
+      "isActiveDescription": "Stato attivo flusso approvazione",
+      "cancel": "Annulla",
+      "saving": "Salvataggio...",
+      "save": "Salva"
+    },
+    "delete": {
+      "confirmTitle": "Elimina Flusso Approvazione",
+      "confirmMessage": "Sei sicuro di voler eliminare questo flusso approvazione?",
+      "title": "Elimina flusso di approvazione",
+      "confirm": "Sei sicuro di voler eliminare questo flusso di conferma? Questa azione non può essere annullata."
+    },
+    "messages": {
+      "createSuccess": "Flusso approvazione creato con successo",
+      "createError": "Errore creazione flusso approvazione",
+      "updateSuccess": "Flusso approvazione aggiornato con successo",
+      "updateError": "Errore aggiornamento flusso approvazione",
+      "deleteSuccess": "Flusso approvazione eliminato con successo",
+      "deleteError": "Errore eliminazione flusso approvazione"
+    },
+    "active": "Active",
+    "inactive": "Inattivo",
+    "loading": "Caricamento...",
+    "noData": "Nessun record trovato"
+  },
+  "roles": {
+    "admin": "Esecutivo"
+  },
+  "approvalFlowStep": {
+    "messages": {
+      "deleteConfirm": "Sei sicuro di voler eliminare questo passaggio?",
+      "createSuccess": "Passaggio del flusso aggiunto correttamente",
+      "createError": "Impossibile aggiungere la fase del flusso",
+      "deleteSuccess": "Passaggio del flusso eliminato correttamente",
+      "deleteError": "Impossibile eliminare il passaggio del flusso",
+      "updateSuccess": "Passaggio del flusso aggiornato correttamente",
+      "updateError": "Impossibile aggiornare il passaggio del flusso"
+    },
+    "title": "Passaggi del flusso",
+    "addButton": "Aggiungi passaggio",
+    "empty": "Nessun passaggio aggiunto",
+    "unknownRoleGroup": "Nessun gruppo ruoli",
+    "stepDescription": "Ordine di approvazione: {ordine}",
+    "form": {
+      "editTitle": "Modifica passaggio",
+      "addTitle": "Aggiungi nuovo passaggio",
+      "editDescription": "Modifica le informazioni del passaggio",
+      "addDescription": "Aggiungi un nuovo passaggio al flusso",
+      "approvalRoleGroup": "Gruppo ruoli",
+      "selectRoleGroup": "Seleziona gruppo ruoli",
+      "cancel": "Annulla",
+      "saving": "Salvataggio...",
+      "save": "Salva"
+    }
+  }
+}

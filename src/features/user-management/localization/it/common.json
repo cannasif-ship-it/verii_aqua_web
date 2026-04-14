@@ -1,0 +1,82 @@
+{
+  "userManagement": {
+    "menu": "Gestione Utenti",
+    "description": "Gestisci e modifica utenti",
+    "addButton": "Aggiungi Nuovo Utente",
+    "stats": {
+      "totalUsers": "Totale Utenti",
+      "activeUsers": "Utenti Attivi",
+      "newThisMonth": "Nuovi Questo Mese",
+      "confirmedUsers": "Utenti Confermati",
+      "loading": "Caricamento..."
+    },
+    "table": {
+      "id": "ID",
+      "username": "Nome Utente",
+      "email": "Email",
+      "fullName": "Nome Completo",
+      "role": "Ruolo",
+      "status": "Stato",
+      "createdDate": "Data Creazione",
+      "active": "Attivo",
+      "inactive": "Inattivo",
+      "confirmed": "Confermato",
+      "showing": "Visualizzati {{from}}-{{to}} di {{total}}",
+      "page": "Pagina {{current}} di {{total}}",
+      "loading": "Caricamento...",
+      "noData": "Nessun dato trovato",
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "form": {
+      "addUser": "Aggiungi Nuovo Utente",
+      "editUser": "Modifica Utente",
+      "addDescription": "Inserisci informazioni nuovo utente",
+      "editDescription": "Modifica informazioni utente",
+      "username": "Nome Utente",
+      "usernamePlaceholder": "Inserisci nome utente",
+      "email": "Email",
+      "emailPlaceholder": "Inserisci indirizzo email",
+      "password": "Password",
+      "passwordPlaceholder": "Inserisci password (min 8 caratteri)",
+      "firstName": "Nome",
+      "firstNamePlaceholder": "Inserisci nome",
+      "lastName": "Cognome",
+      "lastNamePlaceholder": "Inserisci cognome",
+      "phoneNumber": "Numero Telefono",
+      "phoneNumberPlaceholder": "Inserisci numero telefono",
+      "role": "Ruolo",
+      "rolePlaceholder": "Seleziona ruolo",
+      "roleRequired": "Selezione ruolo richiesta",
+      "permissionGroups": "Gruppi di permessi",
+      "permissionGroupsPlaceholder": "Seleziona gruppi di permessi",
+      "permissionGroupsHelp": "Gruppi di permessi da assegnare",
+      "permissionGroupsNoData": "Nessun gruppo di permessi trovato",
+      "generatedPasswordInfo": "Lasciare vuoto per password temporanea",
+      "selectAll": "Seleziona tutto",
+      "isActive": "Attivo",
+      "isActiveDescription": "Stato attivo utente",
+      "username.required": "Il nome utente è obbligatorio",
+      "username.maxLength": "Il nome utente deve avere al massimo 50 caratteri",
+      "email.required": "L'email è obbligatoria",
+      "email.invalid": "Inserisci un indirizzo email valido",
+      "password.minLength": "La password deve avere almeno 8 caratteri",
+      "password.maxLength": "La password deve avere al massimo 100 caratteri",
+      "firstName.maxLength": "Il nome deve avere al massimo 50 caratteri",
+      "lastName.maxLength": "Il cognome deve avere al massimo 50 caratteri",
+      "phoneNumber.maxLength": "Il numero di telefono deve avere al massimo 20 caratteri"
+    },
+    "delete": {
+      "confirmTitle": "Elimina Utente",
+      "confirmMessage": "Sei sicuro di voler eliminare l'utente {{username}}?"
+    },
+    "messages": {
+      "createSuccess": "Utente creato con successo",
+      "createError": "Errore creazione utente",
+      "updateSuccess": "Utente aggiornato con successo",
+      "updateError": "Errore aggiornamento utente",
+      "deleteSuccess": "Utente eliminato con successo",
+      "deleteError": "Errore eliminazione utente"
+    }
+  }
+}

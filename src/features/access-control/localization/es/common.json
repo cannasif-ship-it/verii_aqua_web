@@ -1,0 +1,239 @@
+{
+  "approvalRoleGroup": {
+    "menu": "Grupos de rol de aprobación",
+    "description": "Gestione grupos de rol de aprobación",
+    "addButton": "Agregar grupo",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "name": "Nombre",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "showing": "Mostrando",
+      "page": "Página",
+      "actions": "Acciones"
+    },
+    "form": {
+      "addTitle": "Agregar grupo de rol de aprobación",
+      "editTitle": "Editar grupo de rol de aprobación",
+      "addDescription": "Cree un grupo de rol de aprobación",
+      "editDescription": "Actualice el grupo de rol de aprobación",
+      "name": "Nombre del grupo",
+      "namePlaceholder": "Ingrese el nombre del grupo",
+      "name.required": "El nombre del grupo es obligatorio",
+      "name.maxLength": "El nombre del grupo puede tener como máximo 100 caracteres"
+    },
+    "delete": {
+      "confirmTitle": "Eliminar grupo",
+      "confirmMessage": "¿Seguro que desea eliminar este grupo?",
+      "title": "Eliminar grupo de roles"
+    },
+    "messages": {
+      "createSuccess": "Grupo creado",
+      "createError": "No se pudo crear el grupo",
+      "updateSuccess": "Grupo actualizado",
+      "updateError": "No se pudo actualizar el grupo",
+      "deleteSuccess": "Grupo eliminado",
+      "deleteError": "No se pudo eliminar el grupo"
+    },
+    "cancel": "Cancelar",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "searchPlaceholder": "Buscar...",
+    "refresh": "Actualizar",
+    "noData": "No se encontró ningún registro"
+  },
+  "approvalUserRole": {
+    "menu": "Roles de usuario de aprobación",
+    "description": "Gestione las asignaciones de usuarios a roles de aprobación",
+    "addButton": "Agregar",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "userFullName": "Nombre completo",
+      "approvalRoleName": "Rol de aprobación",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "showing": "Mostrando",
+      "page": "Página",
+      "actions": "Acciones"
+    },
+    "form": {
+      "addTitle": "Agregar rol de usuario",
+      "editTitle": "Editar rol de usuario",
+      "addDescription": "Asigne un rol de aprobación a un usuario",
+      "editDescription": "Actualice la asignación de rol",
+      "userId": "Usuario",
+      "selectUser": "Seleccione usuario",
+      "noUserSelected": "No se seleccionó usuario",
+      "userId.required": "El usuario es obligatorio",
+      "approvalRoleId": "Rol de aprobación",
+      "selectApprovalRole": "Seleccione rol de aprobación",
+      "noApprovalRoleSelected": "No se seleccionó rol de aprobación",
+      "approvalRoleId.required": "El rol de aprobación es obligatorio",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "save": "Guardar"
+    },
+    "delete": {
+      "confirmTitle": "Eliminar asignación",
+      "confirmMessage": "¿Seguro que desea eliminar esta asignación?",
+      "title": "Eliminar rol"
+    },
+    "messages": {
+      "createSuccess": "Asignación creada",
+      "createError": "No se pudo crear la asignación",
+      "updateSuccess": "Asignación actualizada",
+      "updateError": "No se pudo actualizar la asignación",
+      "deleteSuccess": "Asignación eliminada",
+      "deleteError": "No se pudo eliminar la asignación"
+    },
+    "searchPlaceholder": "Buscar...",
+    "refresh": "Actualizar",
+    "noData": "No se encontró ningún registro"
+  },
+  "approvalRole": {
+    "menu": "Roles de aprobación",
+    "description": "Gestione roles de aprobación",
+    "addButton": "Agregar rol",
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "approvalRoleGroupName": "Grupo de rol",
+      "name": "Nombre",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "showing": "Mostrando",
+      "page": "Página",
+      "maxAmount": "Importe máximo",
+      "actions": "Acciones",
+      "totalRecords": "Total <clase abarcada=",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "form": {
+      "addTitle": "Agregar rol de aprobación",
+      "editTitle": "Editar rol de aprobación",
+      "addDescription": "Cree un rol de aprobación",
+      "editDescription": "Actualice el rol de aprobación",
+      "approvalRoleGroupId": "Grupo de rol",
+      "selectApprovalRoleGroup": "Seleccione grupo de rol",
+      "noApprovalRoleGroupSelected": "No se seleccionó grupo de rol",
+      "approvalRoleGroupId.required": "El grupo de rol es obligatorio",
+      "name": "Nombre",
+      "namePlaceholder": "Ingrese nombre",
+      "name.required": "El nombre es obligatorio",
+      "name.maxLength": "El nombre es demasiado largo",
+      "maxAmount": "Importe máximo",
+      "maxAmountPlaceholder": "Ingrese el importe máximo",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "save": "Guardar"
+    },
+    "delete": {
+      "confirmTitle": "Eliminar rol",
+      "confirmMessage": "¿Seguro que desea eliminar este rol?",
+      "cancelButton": "Cancelar",
+      "deleting": "Eliminando...",
+      "confirmButton": "Confirmar eliminación"
+    },
+    "messages": {
+      "createSuccess": "Rol creado correctamente",
+      "createError": "No se pudo crear el rol",
+      "updateSuccess": "Rol actualizado correctamente",
+      "updateError": "No se pudo actualizar el rol",
+      "deleteSuccess": "Rol eliminado correctamente",
+      "deleteError": "No se pudo eliminar el rol"
+    },
+    "searchPlaceholder": "Buscar...",
+    "refresh": "Actualizar",
+    "loading": "Cargando...",
+    "noData": "Sin datos"
+  },
+  "approvalFlow": {
+    "menu": "Gestión de flujo de aprobación",
+    "description": "Gestione y edite los flujos de aprobación",
+    "addButton": "Agregar nuevo flujo de aprobación",
+    "documentType": {
+      "offer": "Oferta",
+      "request": "Solicitud",
+      "order": "Pedido",
+      "demand": "Solicitud",
+      "quotation": "Oferta"
+    },
+    "table": {
+      "id": "IDENTIFICACIÓN",
+      "documentType": "Tipo de documento",
+      "description": "Descripción",
+      "isActive": "Activo",
+      "createdDate": "Fecha de creación",
+      "createdBy": "Creado por",
+      "showing": "Mostrando {{from}}-{{to}} / {{total}}",
+      "page": "Página {{current}} / {{total}}",
+      "actions": "Acciones"
+    },
+    "form": {
+      "addTitle": "Agregar nuevo flujo de aprobación",
+      "editTitle": "Editar flujo de aprobación",
+      "addDescription": "Ingrese la información del nuevo flujo de aprobación",
+      "editDescription": "Edite la información del flujo de aprobación",
+      "documentType": "Tipo de documento",
+      "selectDocumentType": "Seleccione tipo de documento",
+      "noDocumentTypeSelected": "No se seleccionó tipo de documento",
+      "documentType.required": "La selección de tipo de documento es obligatoria",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Ingrese una descripción (opcional)",
+      "description.maxLength": "La descripción puede tener como máximo 200 caracteres",
+      "isActive": "Activo",
+      "isActiveDescription": "Estado activo del flujo de aprobación",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "save": "Guardar"
+    },
+    "delete": {
+      "confirmTitle": "Eliminar flujo de aprobación",
+      "confirmMessage": "¿Seguro que desea eliminar este flujo de aprobación?",
+      "title": "Eliminar Flujo",
+      "confirm": "¿Está seguro de que desea eliminar este flujo de confirmación? Esta acción no se puede deshacer."
+    },
+    "messages": {
+      "createSuccess": "Flujo de aprobación creado correctamente",
+      "createError": "No se pudo crear el flujo de aprobación",
+      "updateSuccess": "Flujo de aprobación actualizado correctamente",
+      "updateError": "No se pudo actualizar el flujo de aprobación",
+      "deleteSuccess": "Flujo de aprobación eliminado correctamente",
+      "deleteError": "No se pudo eliminar el flujo de aprobación"
+    },
+    "active": "Active",
+    "inactive": "Inactivo",
+    "loading": "Cargando...",
+    "noData": "No se encontró ningún registro"
+  },
+  "roles": {
+    "admin": "Ejecutivo"
+  },
+  "approvalFlowStep": {
+    "messages": {
+      "deleteConfirm": "¿Está seguro de que desea eliminar este paso?",
+      "createSuccess": "Paso de flujo agregado exitosamente",
+      "createError": "No se pudo agregar el paso de flujo",
+      "deleteSuccess": "Paso de flujo eliminado correctamente",
+      "deleteError": "No se pudo eliminar el paso de flujo",
+      "updateSuccess": "Paso de flujo actualizado exitosamente",
+      "updateError": "No se pudo actualizar el paso del flujo"
+    },
+    "title": "Pasos del Flujo",
+    "addButton": "Añadir Paso",
+    "empty": "No hay pasos añadidos",
+    "unknownRoleGroup": "Sin Grupo de Roles",
+    "stepDescription": "Orden de aprobación: {orden}",
+    "form": {
+      "editTitle": "Editar Paso",
+      "addTitle": "Añadir Nuevo Paso",
+      "editDescription": "Editar información del paso",
+      "addDescription": "Añadir nuevo paso al flujo",
+      "approvalRoleGroup": "Grupo de Roles",
+      "selectRoleGroup": "Seleccionar grupo de roles",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "save": "Guardar"
+    }
+  }
+}

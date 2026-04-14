@@ -1,0 +1,82 @@
+{
+  "userManagement": {
+    "menu": "إدارة المستخدمين",
+    "description": "إدارة وتعديل المستخدمين",
+    "addButton": "إضافة مستخدم جديد",
+    "stats": {
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمين النشطين",
+      "newThisMonth": "جديد هذا الشهر",
+      "confirmedUsers": "المستخدمين المؤكدين",
+      "loading": "جاري التحميل..."
+    },
+    "table": {
+      "id": "المعرف",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "fullName": "الاسم الكامل",
+      "role": "الدور",
+      "status": "الحالة",
+      "createdDate": "تاريخ الإنشاء",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "confirmed": "مؤكد",
+      "showing": "عرض {{from}}-{{to}} من {{total}}",
+      "page": "صفحة {{current}} من {{total}}",
+      "loading": "جاري التحميل...",
+      "noData": "لم يتم العثور على بيانات",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "form": {
+      "addUser": "إضافة مستخدم جديد",
+      "editUser": "تعديل المستخدم",
+      "addDescription": "أدخل معلومات المستخدم الجديد",
+      "editDescription": "تعديل معلومات المستخدم",
+      "username": "اسم المستخدم",
+      "usernamePlaceholder": "أدخل اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور (8 أحرف كحد أدنى)",
+      "firstName": "الاسم الأول",
+      "firstNamePlaceholder": "أدخل الاسم الأول",
+      "lastName": "اسم العائلة",
+      "lastNamePlaceholder": "أدخل اسم العائلة",
+      "phoneNumber": "رقم الهاتف",
+      "phoneNumberPlaceholder": "أدخل رقم الهاتف",
+      "role": "الدور",
+      "rolePlaceholder": "Select role",
+      "roleRequired": "Role selection is required",
+      "permissionGroups": "Permission Groups",
+      "permissionGroupsPlaceholder": "Select permission groups",
+      "permissionGroupsHelp": "Permission groups to assign to the user",
+      "permissionGroupsNoData": "No permission groups found",
+      "generatedPasswordInfo": "Leave blank to generate temporary password",
+      "selectAll": "Select all",
+      "isActive": "نشط",
+      "isActiveDescription": "حالة نشاط المستخدم",
+      "username.required": "اسم المستخدم مطلوب",
+      "username.maxLength": "يجب أن يكون اسم المستخدم 50 حرف كحد أقصى",
+      "email.required": "البريد الإلكتروني مطلوب",
+      "email.invalid": "أدخل عنوان بريد إلكتروني صالح",
+      "password.minLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "password.maxLength": "يجب أن تكون كلمة المرور 100 حرف كحد أقصى",
+      "firstName.maxLength": "يجب أن يكون الاسم الأول 50 حرف كحد أقصى",
+      "lastName.maxLength": "يجب أن يكون اسم العائلة 50 حرف كحد أقصى",
+      "phoneNumber.maxLength": "يجب أن يكون رقم الهاتف 20 حرف كحد أقصى"
+    },
+    "delete": {
+      "confirmTitle": "حذف المستخدم",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف المستخدم {{username}}؟"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء المستخدم بنجاح",
+      "createError": "فشل إنشاء المستخدم",
+      "updateSuccess": "تم تحديث المستخدم بنجاح",
+      "updateError": "فشل تحديث المستخدم",
+      "deleteSuccess": "تم حذف المستخدم بنجاح",
+      "deleteError": "فشل حذف المستخدم"
+    }
+  }
+}

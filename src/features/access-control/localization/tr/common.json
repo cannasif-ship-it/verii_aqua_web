@@ -1,0 +1,239 @@
+{
+  "approvalRoleGroup": {
+    "menu": "Onay Rol Grubu Yönetimi",
+    "description": "Onay rol gruplarını yönetin ve düzenleyin",
+    "addButton": "Yeni Onay Rol Grubu Ekle",
+    "table": {
+      "id": "ID",
+      "name": "Grup Adı",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "actions": "İşlemler"
+    },
+    "form": {
+      "addTitle": "Yeni Onay Rol Grubu Ekle",
+      "editTitle": "Onay Rol Grubu Düzenle",
+      "addDescription": "Yeni onay rol grubu bilgilerini girin",
+      "editDescription": "Onay rol grubu bilgilerini düzenleyin",
+      "name": "Grup Adı",
+      "namePlaceholder": "Grup adını girin",
+      "name.required": "Grup adı zorunludur",
+      "name.maxLength": "Grup adı en fazla 100 karakter olabilir"
+    },
+    "delete": {
+      "confirmTitle": "Onay Rol Grubunu Sil",
+      "confirmMessage": "{{name}} onay rol grubunu silmek istediğinizden emin misiniz?",
+      "title": "Rol Grubunu Sil"
+    },
+    "messages": {
+      "createSuccess": "Onay rol grubu başarıyla oluşturuldu",
+      "createError": "Onay rol grubu oluşturulamadı",
+      "updateSuccess": "Onay rol grubu başarıyla güncellendi",
+      "updateError": "Onay rol grubu güncellenemedi",
+      "deleteSuccess": "Onay rol grubu başarıyla silindi",
+      "deleteError": "Onay rol grubu silinemedi"
+    },
+    "cancel": "İptal",
+    "saving": "Kaydediliyor...",
+    "save": "Kaydet",
+    "searchPlaceholder": "Ara...",
+    "refresh": "Yenile",
+    "noData": "Kayıt Bulunamadı"
+  },
+  "approvalUserRole": {
+    "menu": "Onay Kullanıcı Rolü Yönetimi",
+    "description": "Onay kullanıcı rollerini yönetin ve düzenleyin",
+    "addButton": "Yeni Onay Kullanıcı Rolü Ekle",
+    "table": {
+      "id": "ID",
+      "userFullName": "Kullanıcı",
+      "approvalRoleName": "Onay Rolü",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "actions": "İşlemler"
+    },
+    "form": {
+      "addTitle": "Yeni Onay Kullanıcı Rolü Ekle",
+      "editTitle": "Onay Kullanıcı Rolü Düzenle",
+      "addDescription": "Yeni onay kullanıcı rolü bilgilerini girin",
+      "editDescription": "Onay kullanıcı rolü bilgilerini düzenleyin",
+      "userId": "Kullanıcı",
+      "selectUser": "Kullanıcı Seçin",
+      "noUserSelected": "Kullanıcı seçilmedi",
+      "userId.required": "Kullanıcı seçimi zorunludur",
+      "approvalRoleId": "Onay Rolü",
+      "selectApprovalRole": "Onay Rolü Seçin",
+      "noApprovalRoleSelected": "Onay rolü seçilmedi",
+      "approvalRoleId.required": "Onay rolü seçimi zorunludur",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "save": "Kaydet"
+    },
+    "delete": {
+      "confirmTitle": "Onay Kullanıcı Rolünü Sil",
+      "confirmMessage": "Bu onay kullanıcı rolünü silmek istediğinizden emin misiniz?",
+      "title": "Rolü Sil"
+    },
+    "messages": {
+      "createSuccess": "Onay kullanıcı rolü başarıyla oluşturuldu",
+      "createError": "Onay kullanıcı rolü oluşturulamadı",
+      "updateSuccess": "Onay kullanıcı rolü başarıyla güncellendi",
+      "updateError": "Onay kullanıcı rolü güncellenemedi",
+      "deleteSuccess": "Onay kullanıcı rolü başarıyla silindi",
+      "deleteError": "Onay kullanıcı rolü silinemedi"
+    },
+    "searchPlaceholder": "Ara...",
+    "refresh": "Yenile",
+    "noData": "Kayıt Bulunamadı"
+  },
+  "approvalRole": {
+    "menu": "Onay Rolü Yönetimi",
+    "description": "Onay rollerini yönetin ve düzenleyin",
+    "addButton": "Yeni Onay Rolü Ekle",
+    "table": {
+      "id": "ID",
+      "approvalRoleGroupName": "Rol Grubu",
+      "name": "Rol Adı",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "maxAmount": "Maksimum Tutar",
+      "actions": "İşlemler",
+      "totalRecords": "Toplam <span class=",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    },
+    "form": {
+      "addTitle": "Yeni Onay Rolü Ekle",
+      "editTitle": "Onay Rolü Düzenle",
+      "addDescription": "Yeni onay rolü bilgilerini girin",
+      "editDescription": "Onay rolü bilgilerini düzenleyin",
+      "approvalRoleGroupId": "Onay Rol Grubu",
+      "selectApprovalRoleGroup": "Onay Rol Grubu Seçin",
+      "noApprovalRoleGroupSelected": "Onay rol grubu seçilmedi",
+      "approvalRoleGroupId.required": "Onay rol grubu seçimi zorunludur",
+      "name": "Rol Adı",
+      "namePlaceholder": "Rol adını girin",
+      "name.required": "Rol adı zorunludur",
+      "name.maxLength": "Rol adı en fazla 100 karakter olabilir",
+      "maxAmount": "Maksimum Tutar",
+      "maxAmountPlaceholder": "Maksimum tutarı girin",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "save": "Kaydet"
+    },
+    "delete": {
+      "confirmTitle": "Onay Rolünü Sil",
+      "confirmMessage": "{{name}} onay rolünü silmek istediğinizden emin misiniz?",
+      "cancelButton": "İptal",
+      "deleting": "Siliniyor...",
+      "confirmButton": "Evet, Sil"
+    },
+    "messages": {
+      "createSuccess": "Onay rolü başarıyla oluşturuldu",
+      "createError": "Onay rolü oluşturulamadı",
+      "updateSuccess": "Onay rolü başarıyla güncellendi",
+      "updateError": "Onay rolü güncellenemedi",
+      "deleteSuccess": "Onay rolü başarıyla silindi",
+      "deleteError": "Onay rolü silinemedi"
+    },
+    "searchPlaceholder": "Ara...",
+    "refresh": "Yenile",
+    "loading": "Yükleniyor...",
+    "noData": "Veri yok"
+  },
+  "approvalFlow": {
+    "menu": "Onay Akışı Yönetimi",
+    "description": "Onay akışlarını yönetin ve düzenleyin",
+    "addButton": "Yeni Onay Akışı Ekle",
+    "documentType": {
+      "offer": "Teklif",
+      "request": "Talep",
+      "order": "Sipariş",
+      "demand": "Talep",
+      "quotation": "Teklif"
+    },
+    "table": {
+      "id": "ID",
+      "documentType": "Belge Tipi",
+      "description": "Açıklama",
+      "isActive": "Aktif",
+      "createdDate": "Oluşturulma Tarihi",
+      "createdBy": "Oluşturan Kullanıcı",
+      "showing": "{{from}}-{{to}} / {{total}} gösteriliyor",
+      "page": "Sayfa {{current}} / {{total}}",
+      "actions": "İşlemler"
+    },
+    "form": {
+      "addTitle": "Yeni Onay Akışı Ekle",
+      "editTitle": "Onay Akışı Düzenle",
+      "addDescription": "Yeni onay akışı bilgilerini girin",
+      "editDescription": "Onay akışı bilgilerini düzenleyin",
+      "documentType": "Belge Tipi",
+      "selectDocumentType": "Belge tipi seçin",
+      "noDocumentTypeSelected": "Belge tipi seçilmedi",
+      "documentType.required": "Belge tipi seçimi zorunludur",
+      "description": "Açıklama",
+      "descriptionPlaceholder": "Açıklama girin (opsiyonel)",
+      "description.maxLength": "Açıklama en fazla 200 karakter olabilir",
+      "isActive": "Aktif",
+      "isActiveDescription": "Onay akışının aktif durumu",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "save": "Kaydet"
+    },
+    "delete": {
+      "confirmTitle": "Onay Akışını Sil",
+      "confirmMessage": "Bu onay akışını silmek istediğinizden emin misiniz?",
+      "title": "Onay Akışını Sil",
+      "confirm": "Bu onay akışını silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
+    },
+    "messages": {
+      "createSuccess": "Onay akışı başarıyla oluşturuldu",
+      "createError": "Onay akışı oluşturulamadı",
+      "updateSuccess": "Onay akışı başarıyla güncellendi",
+      "updateError": "Onay akışı güncellenemedi",
+      "deleteSuccess": "Onay akışı başarıyla silindi",
+      "deleteError": "Onay akışı silinemedi"
+    },
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "loading": "Yükleniyor...",
+    "noData": "Kayıt Bulunamadı"
+  },
+  "roles": {
+    "admin": "Yönetici"
+  },
+  "approvalFlowStep": {
+    "messages": {
+      "deleteConfirm": "Bu adımı silmek istediğinizden emin misiniz?",
+      "createSuccess": "Akış adımı başarıyla eklendi",
+      "createError": "Akış adımı eklenemedi",
+      "deleteSuccess": "Akış adımı başarıyla silindi",
+      "deleteError": "Akış adımı silinemedi",
+      "updateSuccess": "Akış adımı başarıyla güncellendi",
+      "updateError": "Akış adımı güncellenemedi"
+    },
+    "title": "Akış Adımları",
+    "addButton": "Adım Ekle",
+    "empty": "Henüz adım eklenmemiş",
+    "unknownRoleGroup": "Rol Grubu Yok",
+    "stepDescription": "Onay Sırası: {order}",
+    "form": {
+      "editTitle": "Adım Düzenle",
+      "addTitle": "Yeni Adım Ekle",
+      "editDescription": "Akış adımı bilgilerini düzenleyin",
+      "addDescription": "Yeni akış adımı ekleyin",
+      "approvalRoleGroup": "Rol Grubu",
+      "selectRoleGroup": "Rol grubu seçin",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "save": "Kaydet"
+    }
+  }
+}

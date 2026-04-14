@@ -1,0 +1,239 @@
+{
+  "approvalRoleGroup": {
+    "menu": "Gestion des groupes de rôles d’approbation",
+    "description": "Gérez et modifiez les groupes de rôles d’approbation",
+    "addButton": "Ajouter un nouveau groupe de rôles d’approbation",
+    "table": {
+      "id": "IDENTIFIANT",
+      "name": "Nom du groupe",
+      "createdDate": "Date de création",
+      "createdBy": "Créé par",
+      "showing": "{{from}}-{{to}} / {{total}} affichés",
+      "page": "Page {{current}} / {{total}}",
+      "actions": "Actions"
+    },
+    "form": {
+      "addTitle": "Ajouter un nouveau groupe de rôles d’approbation",
+      "editTitle": "Modifier le groupe de rôles d’approbation",
+      "addDescription": "Saisissez les informations du nouveau groupe",
+      "editDescription": "Modifiez les informations du groupe",
+      "name": "Nom du groupe",
+      "namePlaceholder": "Saisissez le nom du groupe",
+      "name.required": "Le nom du groupe est obligatoire",
+      "name.maxLength": "Le nom du groupe ne peut pas dépasser 100 caractères"
+    },
+    "delete": {
+      "confirmTitle": "Supprimer le groupe de rôles d’approbation",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer le groupe {{name}} ?",
+      "title": "Supprimer un groupe de rôles"
+    },
+    "messages": {
+      "createSuccess": "Groupe de rôles d’approbation créé avec succès",
+      "createError": "Impossible de créer le groupe de rôles d’approbation",
+      "updateSuccess": "Groupe de rôles d’approbation mis à jour avec succès",
+      "updateError": "Impossible de mettre à jour le groupe de rôles d’approbation",
+      "deleteSuccess": "Groupe de rôles d’approbation supprimé avec succès",
+      "deleteError": "Impossible de supprimer le groupe de rôles d’approbation"
+    },
+    "cancel": "Annuler",
+    "saving": "Enregistrement...",
+    "save": "Enregistrer",
+    "searchPlaceholder": "Rechercher...",
+    "refresh": "Actualiser",
+    "noData": "Aucun enregistrement trouvé"
+  },
+  "approvalUserRole": {
+    "menu": "Gestion des rôles d’approbation utilisateur",
+    "description": "Gérez et modifiez les rôles d’approbation des utilisateurs",
+    "addButton": "Ajouter un nouveau rôle d’approbation utilisateur",
+    "table": {
+      "id": "IDENTIFIANT",
+      "userFullName": "Utilisateur",
+      "approvalRoleName": "Rôle d’approbation",
+      "createdDate": "Date de création",
+      "createdBy": "Créé par",
+      "showing": "{{from}}-{{to}} / {{total}} affichés",
+      "page": "Page {{current}} / {{total}}",
+      "actions": "Actions"
+    },
+    "form": {
+      "addTitle": "Ajouter un nouveau rôle d’approbation utilisateur",
+      "editTitle": "Modifier le rôle d’approbation utilisateur",
+      "addDescription": "Saisissez les informations du nouveau rôle",
+      "editDescription": "Modifiez les informations du rôle",
+      "userId": "Utilisateur",
+      "selectUser": "Sélectionnez un utilisateur",
+      "noUserSelected": "Aucun utilisateur sélectionné",
+      "userId.required": "La sélection d’un utilisateur est obligatoire",
+      "approvalRoleId": "Rôle d’approbation",
+      "selectApprovalRole": "Sélectionnez un rôle d’approbation",
+      "noApprovalRoleSelected": "Aucun rôle d’approbation sélectionné",
+      "approvalRoleId.required": "La sélection d’un rôle d’approbation est obligatoire",
+      "cancel": "Annuler",
+      "saving": "Enregistrement...",
+      "save": "Enregistrer"
+    },
+    "delete": {
+      "confirmTitle": "Supprimer le rôle d’approbation utilisateur",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer ce rôle d’approbation utilisateur ?",
+      "title": "Supprimer le Rôle"
+    },
+    "messages": {
+      "createSuccess": "Rôle d’approbation utilisateur créé avec succès",
+      "createError": "Impossible de créer le rôle d’approbation utilisateur",
+      "updateSuccess": "Rôle d’approbation utilisateur mis à jour avec succès",
+      "updateError": "Impossible de mettre à jour le rôle d’approbation utilisateur",
+      "deleteSuccess": "Rôle d’approbation utilisateur supprimé avec succès",
+      "deleteError": "Impossible de supprimer le rôle d’approbation utilisateur"
+    },
+    "searchPlaceholder": "Rechercher...",
+    "refresh": "Actualiser",
+    "noData": "Aucun enregistrement trouvé"
+  },
+  "approvalRole": {
+    "menu": "Gestion des rôles d’approbation",
+    "description": "Gérez et modifiez les rôles d’approbation",
+    "addButton": "Ajouter un nouveau rôle d’approbation",
+    "table": {
+      "id": "IDENTIFIANT",
+      "approvalRoleGroupName": "Groupe de rôles",
+      "name": "Nom du rôle",
+      "createdDate": "Date de création",
+      "createdBy": "Créé par",
+      "showing": "{{from}}-{{to}} / {{total}} affichés",
+      "page": "Page {{current}} / {{total}}",
+      "maxAmount": "Montant Maximum",
+      "actions": "Actions",
+      "totalRecords": "Total <classe de durée=",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "form": {
+      "addTitle": "Ajouter un nouveau rôle d’approbation",
+      "editTitle": "Modifier le rôle d’approbation",
+      "addDescription": "Saisissez les informations du nouveau rôle",
+      "editDescription": "Modifiez les informations du rôle",
+      "approvalRoleGroupId": "Groupe de rôles d’approbation",
+      "selectApprovalRoleGroup": "Sélectionnez un groupe de rôles d’approbation",
+      "noApprovalRoleGroupSelected": "Aucun groupe de rôles sélectionné",
+      "approvalRoleGroupId.required": "La sélection d’un groupe de rôles est obligatoire",
+      "name": "Nom du rôle",
+      "namePlaceholder": "Saisissez le nom du rôle",
+      "name.required": "Le nom du rôle est obligatoire",
+      "name.maxLength": "Le nom du rôle ne peut pas dépasser 100 caractères",
+      "maxAmount": "Montant Maximum",
+      "maxAmountPlaceholder": "Entrez le montant maximum",
+      "cancel": "Annuler",
+      "saving": "Enregistrement...",
+      "save": "Enregistrer"
+    },
+    "delete": {
+      "confirmTitle": "Supprimer le rôle d’approbation",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer le rôle {{name}} ?",
+      "cancelButton": "Annuler",
+      "deleting": "Suppression...",
+      "confirmButton": "Oui, supprimer"
+    },
+    "messages": {
+      "createSuccess": "Rôle d’approbation créé avec succès",
+      "createError": "Impossible de créer le rôle d’approbation",
+      "updateSuccess": "Rôle d’approbation mis à jour avec succès",
+      "updateError": "Impossible de mettre à jour le rôle d’approbation",
+      "deleteSuccess": "Rôle d’approbation supprimé avec succès",
+      "deleteError": "Impossible de supprimer le rôle d’approbation"
+    },
+    "searchPlaceholder": "Rechercher...",
+    "refresh": "Actualiser",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée trouvée"
+  },
+  "approvalFlow": {
+    "menu": "Gestion des flux d’approbation",
+    "description": "Gérez et modifiez les flux d’approbation",
+    "addButton": "Ajouter un nouveau flux d’approbation",
+    "documentType": {
+      "offer": "Offre",
+      "request": "Demande",
+      "order": "Commande",
+      "demand": "Demande",
+      "quotation": "Offre"
+    },
+    "table": {
+      "id": "IDENTIFIANT",
+      "documentType": "Type de document",
+      "description": "Description",
+      "isActive": "Actif",
+      "createdDate": "Date de création",
+      "createdBy": "Créé par",
+      "showing": "{{from}}-{{to}} / {{total}} affichés",
+      "page": "Page {{current}} / {{total}}",
+      "actions": "Actions"
+    },
+    "form": {
+      "addTitle": "Ajouter un nouveau flux d’approbation",
+      "editTitle": "Modifier le flux d’approbation",
+      "addDescription": "Saisissez les informations du nouveau flux",
+      "editDescription": "Modifiez les informations du flux",
+      "documentType": "Type de document",
+      "selectDocumentType": "Sélectionnez un type de document",
+      "noDocumentTypeSelected": "Aucun type de document sélectionné",
+      "documentType.required": "La sélection d’un type de document est obligatoire",
+      "description": "Description",
+      "descriptionPlaceholder": "Saisissez une description (optionnel)",
+      "description.maxLength": "La description ne peut pas dépasser 200 caractères",
+      "isActive": "Actif",
+      "isActiveDescription": "Statut d’activation du flux d’approbation",
+      "cancel": "Annuler",
+      "saving": "Enregistrement...",
+      "save": "Enregistrer"
+    },
+    "delete": {
+      "confirmTitle": "Supprimer le flux d’approbation",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer ce flux d’approbation ?",
+      "title": "Supprimer le flux d'approbation",
+      "confirm": "Êtes-vous sûr de vouloir supprimer ce flux de confirmation ? Cette action ne peut pas être annulée."
+    },
+    "messages": {
+      "createSuccess": "Flux d’approbation créé avec succès",
+      "createError": "Impossible de créer le flux d’approbation",
+      "updateSuccess": "Flux d’approbation mis à jour avec succès",
+      "updateError": "Impossible de mettre à jour le flux d’approbation",
+      "deleteSuccess": "Flux d’approbation supprimé avec succès",
+      "deleteError": "Impossible de supprimer le flux d’approbation"
+    },
+    "active": "Active",
+    "inactive": "Inactif",
+    "loading": "Chargement...",
+    "noData": "Aucun enregistrement trouvé"
+  },
+  "roles": {
+    "admin": "Exécutif"
+  },
+  "approvalFlowStep": {
+    "messages": {
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette étape ?",
+      "createSuccess": "Étape de flux ajoutée avec succès",
+      "createError": "Échec de l'ajout d'une étape de flux",
+      "deleteSuccess": "Étape de flux supprimée avec succès",
+      "deleteError": "Échec de la suppression de l'étape de flux",
+      "updateSuccess": "Étape de flux mise à jour avec succès",
+      "updateError": "Échec de la mise à jour de l'étape de flux"
+    },
+    "title": "Étapes du Flux",
+    "addButton": "Ajouter Étape",
+    "empty": "Aucune étape ajoutée",
+    "unknownRoleGroup": "Aucun Groupe de Rôle",
+    "stepDescription": "Ordonnance d'approbation : {commande}",
+    "form": {
+      "editTitle": "Modifier Étape",
+      "addTitle": "Ajouter Nouvelle Étape",
+      "editDescription": "Modifier les informations de l'étape",
+      "addDescription": "Ajouter une nouvelle étape au flux",
+      "approvalRoleGroup": "Groupe de Rôle",
+      "selectRoleGroup": "Sélectionner un groupe de rôle",
+      "cancel": "Annuler",
+      "saving": "Enregistrement...",
+      "save": "Enregistrer"
+    }
+  }
+}
