@@ -103,11 +103,25 @@ export const weatherSeveritiesConfig: AquaCrudConfig = {
   endpoint: 'WeatherSeverity',
   listStaleTimeMs: 120000,
   fields: [
+    {
+      key: 'weatherTypeId',
+      label: 'aqua.fields.weatherTypeId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'WeatherType',
+        labelKeys: ['code', 'name'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 120000,
+      },
+    },
     { key: 'code', label: 'aqua.fields.code', type: 'text', required: true },
     { key: 'name', label: 'aqua.fields.name', type: 'text', required: true },
     { key: 'score', label: 'aqua.fields.score', type: 'number', required: true },
   ],
   columns: [
+    { key: 'weatherTypeName', label: 'aqua.fields.weatherTypeId' },
     { key: 'code', label: 'aqua.fields.code' },
     { key: 'name', label: 'aqua.fields.name' },
     { key: 'score', label: 'aqua.fields.score' },

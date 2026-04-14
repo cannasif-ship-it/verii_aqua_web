@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
+import { formatCodeAndKeyLabel } from '@/shared/utils/dropdown-label';
 import {
   goodsReceiptFormSchema,
   fishLineFormSchema,
@@ -122,11 +123,11 @@ export function GoodsReceiptStepCard({
   const feedStocks = fishStocks;
   const fishStockOptions = fishStocks.map((s) => ({
     value: String(s.id),
-    label: s.code ?? s.name ?? String(s.id),
+    label: formatCodeAndKeyLabel(s.code, s.id, s.name),
   }));
   const feedStockOptions = feedStocks.map((s) => ({
     value: String(s.id),
-    label: s.code ?? s.name ?? String(s.id),
+    label: formatCodeAndKeyLabel(s.code, s.id, s.name),
   }));
   const fishStockLabel =
     existingReceipt?.fishStockId != null

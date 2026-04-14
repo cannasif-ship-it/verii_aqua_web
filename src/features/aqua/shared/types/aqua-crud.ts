@@ -14,6 +14,8 @@ export interface AquaFieldLookupConfig {
   labelSeparator?: string;
   valueKey: string;
   staleTimeMs: number;
+  dependsOnFieldKey?: string;
+  filterColumn?: string;
 }
 
 export interface AquaFieldConfig {

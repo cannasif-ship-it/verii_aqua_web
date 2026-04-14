@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { Input } from '@/components/ui/input';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { AuthBackground } from './AuthBackground';
@@ -46,7 +47,7 @@ export function LoginPage(): React.JSX.Element {
   const { data: branches } = useBranches();
   const { mutate: login, isPending } = useLogin(branches);
   const branchOptions = useMemo(
-    () => (branches ?? []).map((b) => ({ value: String(b.id), label: b.name })),
+    () => (branches ?? []).map((b) => ({ value: String(b.id), label: formatLabelWithKey(b.name, b.id) })),
     [branches]
   );
   const { logout } = useAuthStore();

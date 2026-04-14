@@ -40,6 +40,7 @@ import { aquaCrudApi } from '../api/aqua-crud-api';
 import { PageToolbar, ColumnPreferencesPopover, AdvancedFilter } from '@/components/shared';
 import { loadColumnPreferences, saveColumnPreferences } from '@/lib/column-preferences';
 import type { FilterRow, FilterColumnConfig } from '@/lib/advanced-filter-types';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 
 import {
   DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent
@@ -172,7 +173,8 @@ function resolveLookupLabel(item: Record<string, unknown>, field: AquaFieldConfi
   if (labelKeys.length === 0) return null;
   const parts = labelKeys.map((key) => item[key]).filter((part): part is string | number => part != null && String(part).trim().length > 0).map((part) => String(part));
   if (parts.length === 0) return null;
-  return parts.join(field.lookup.labelSeparator ?? ' - ');
+  const baseLabel = parts.join(field.lookup.labelSeparator ?? ' - ');
+  return formatLabelWithKey(baseLabel, item[field.lookup.valueKey]);
 }
 
 // PREMIUM ÖZELLİK: Tıkla ve Kopyala Bileşeni
@@ -344,11 +346,28 @@ export function AquaCrudPage({
 
   const lookupQueries = useQueries({
     queries: lookupFields.map((field) => ({
-      queryKey: ['aqua-lookup', config.key, field.key],
+      queryKey: [
+        'aqua-lookup',
+        config.key,
+        field.key,
+        field.lookup?.dependsOnFieldKey ? String(formValues[field.lookup.dependsOnFieldKey] ?? '') : '',
+      ],
       queryFn: async () => {
+        const dependencyFieldKey = field.lookup?.dependsOnFieldKey;
+        const dependencyValue = dependencyFieldKey ? formValues[dependencyFieldKey] : null;
+        const normalizedDependencyValue = dependencyValue == null || String(dependencyValue).trim() === '' ? null : String(dependencyValue);
+
+        if (dependencyFieldKey && !normalizedDependencyValue) {
+          return { data: [], totalCount: 0, pageNumber: 1, pageSize: 0 };
+        }
+
+        const filters = dependencyFieldKey && field.lookup?.filterColumn
+          ? [{ column: field.lookup.filterColumn, operator: 'eq', value: normalizedDependencyValue! }]
+          : undefined;
+
         let pageNumber = 1, totalCount = 0; const allRows: Record<string, unknown>[] = [];
         do {
-          const response = await aquaCrudApi.getList(field.lookup!.endpoint, { pageNumber, pageSize: LOOKUP_PAGE_SIZE, sortBy: 'Id', sortDirection: 'asc' });
+          const response = await aquaCrudApi.getList(field.lookup!.endpoint, { pageNumber, pageSize: LOOKUP_PAGE_SIZE, sortBy: 'Id', sortDirection: 'asc', filters, filterLogic: 'and' });
           totalCount = response.totalCount ?? 0; allRows.push(...(response.data ?? [])); pageNumber += 1;
         } while (allRows.length < totalCount);
         return { data: allRows, totalCount, pageNumber: 1, pageSize: allRows.length };
@@ -433,6 +452,49 @@ export function AquaCrudPage({
     });
     return result;
   }, [lookupFields, lookupQueries]);
+
+  useEffect(() => {
+    const dependentFields = config.fields.filter((field) => {
+      if (field.hideInForm) return false;
+      if (contextFilter?.hideFieldInForm && contextFilter.fieldKey === field.key) return false;
+      if (config.postingSlug && field.key.toLowerCase() === 'status') return false;
+      return field.type === 'select' && !!field.lookup?.dependsOnFieldKey;
+    });
+
+    if (dependentFields.length === 0) return;
+
+    setFormValues((previous) => {
+      let hasChanged = false;
+      const next = { ...previous };
+
+      dependentFields.forEach((field) => {
+        const dependencyFieldKey = field.lookup?.dependsOnFieldKey;
+        if (!dependencyFieldKey) return;
+
+        const dependencyValue = previous[dependencyFieldKey];
+        const currentValue = previous[field.key];
+        const options = lookupOptionsByField[field.key] ?? [];
+
+        if (dependencyValue == null || String(dependencyValue).trim() === '') {
+          if (currentValue != null && String(currentValue).trim() !== '') {
+            next[field.key] = '';
+            hasChanged = true;
+          }
+          return;
+        }
+
+        if (currentValue == null || String(currentValue).trim() === '') return;
+
+        const stillExists = options.some((option) => option.value === String(currentValue));
+        if (!stillExists) {
+          next[field.key] = '';
+          hasChanged = true;
+        }
+      });
+
+      return hasChanged ? next : previous;
+    });
+  }, [config.fields, config.postingSlug, contextFilter, lookupOptionsByField]);
 
   const lookupLabelsByFieldAndValue = useMemo((): Record<string, Record<string, string>> => {
     const result: Record<string, Record<string, string>> = {};
@@ -889,7 +951,16 @@ export function AquaCrudPage({
                         <Textarea id={field.key} placeholder={field.placeholder} value={String(formValues[field.key] ?? '')} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={`${INPUT_STYLE} min-h-[100px] py-3 resize-none`} />
                       )}
                       {field.type === 'select' && (
-                        <Combobox options={field.lookup ? (lookupOptionsByField[field.key] ?? []).map((o) => ({ value: String(o.value), label: o.label })) : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((o) => ({ value: String(o.value), label: t(o.label) }))} value={String(formValues[field.key] ?? '')} onValueChange={(value) => setFormValues((prev) => ({ ...prev, [field.key]: value }))} placeholder={t('aqua.common.select')} searchPlaceholder={t('common.search')} emptyText={t('common.noResults')} className="bg-slate-50 dark:bg-blue-950/50 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30" />
+                        <Combobox
+                          options={field.lookup ? (lookupOptionsByField[field.key] ?? []).map((o) => ({ value: String(o.value), label: o.label })) : (field.options ?? (field.key.toLowerCase() === 'status' ? DOC_STATUS_OPTIONS : [])).map((o) => ({ value: String(o.value), label: t(o.label) }))}
+                          value={String(formValues[field.key] ?? '')}
+                          onValueChange={(value) => setFormValues((prev) => ({ ...prev, [field.key]: value }))}
+                          placeholder={t('aqua.common.select')}
+                          searchPlaceholder={t('common.search')}
+                          emptyText={t('common.noResults')}
+                          disabled={!!field.lookup?.dependsOnFieldKey && (formValues[field.lookup.dependsOnFieldKey] == null || String(formValues[field.lookup.dependsOnFieldKey]).trim() === '')}
+                          className="bg-slate-50 dark:bg-blue-950/50 text-slate-900 dark:text-white border-slate-200 dark:border-cyan-800/30"
+                        />
                       )}
                       {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
                         <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} />

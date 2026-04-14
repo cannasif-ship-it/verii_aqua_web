@@ -315,7 +315,7 @@ export const dailyWeathersConfig: AquaCrudConfig = {
       required: true,
       lookup: {
         endpoint: 'WeatherType',
-        labelKey: 'name',
+        labelKeys: ['code', 'name'],
         valueKey: 'id',
         staleTimeMs: 120000,
       },
@@ -327,9 +327,11 @@ export const dailyWeathersConfig: AquaCrudConfig = {
       required: true,
       lookup: {
         endpoint: 'WeatherSeverity',
-        labelKey: 'name',
+        labelKeys: ['code', 'name'],
         valueKey: 'id',
         staleTimeMs: 120000,
+        dependsOnFieldKey: 'weatherTypeId',
+        filterColumn: 'WeatherTypeId',
       },
     },
     { key: 'temperatureC', label: 'aqua.fields.temperatureC', type: 'number' },

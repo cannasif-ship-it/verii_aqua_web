@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { netOperationQuickFormSchema, type NetOperationQuickFormSchema } from '../schema/quick-daily-entry-schema';
 import { ChevronRight, Save } from 'lucide-react'; // İkonlar eklendi
 
@@ -24,8 +25,8 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
     form.reset();
   };
 
-  const typeOptions = (netOperationTypes || []).map((t: any) => ({ value: String(t.id), label: t.name }));
-  const batchOptions = (fishBatches || []).map((b: any) => ({ value: String(b.id), label: b.batchCode }));
+  const typeOptions = (netOperationTypes || []).map((t: any) => ({ value: String(t.id), label: formatLabelWithKey(t.name, t.id) }));
+  const batchOptions = (fishBatches || []).map((b: any) => ({ value: String(b.id), label: formatLabelWithKey(b.batchCode, b.id) }));
 
   // AQUA KONSEPT STİLLERİ
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 flex items-center gap-1.5";

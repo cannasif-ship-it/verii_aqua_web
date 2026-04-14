@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
+import { formatCodeAndKeyLabel } from '@/shared/utils/dropdown-label';
 import { feedingQuickFormSchema, type FeedingQuickFormSchema } from '../schema/quick-daily-entry-schema';
 import type { StockDto } from '../types/quick-daily-entry-types';
 import { ChevronRight, Save } from 'lucide-react'; // Aqua konseptine uygun ikonlar eklendi
@@ -61,7 +62,7 @@ export function FeedingQuickForm({
   ];
   const stockOptions = (Array.isArray(stocks) ? stocks : []).map((s) => ({
     value: String(s.id),
-    label: s.code ?? s.name ?? String(s.id),
+    label: formatCodeAndKeyLabel(s.code, s.id, s.name),
   }));
 
   // AQUA KONSEPT STİLLERİ

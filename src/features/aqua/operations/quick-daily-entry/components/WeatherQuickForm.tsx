@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,10 +8,27 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { weatherQuickFormSchema, type WeatherQuickFormSchema } from '../schema/quick-daily-entry-schema';
+import { getFilteredWeatherSeverities } from '../utils/weather-selection';
 import { ChevronRight, Save } from 'lucide-react'; // İkonlar eklendi
+import type { WeatherSeverityDto, WeatherTypeDto } from '../types/quick-daily-entry-types';
 
-export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting }: any): ReactElement {
+interface WeatherQuickFormProps {
+  projectId: number | null;
+  weatherTypes?: WeatherTypeDto[];
+  severities?: WeatherSeverityDto[];
+  onSubmit: (data: WeatherQuickFormSchema) => Promise<void>;
+  isSubmitting: boolean;
+}
+
+export function WeatherQuickForm({
+  projectId,
+  weatherTypes = [],
+  severities = [],
+  onSubmit,
+  isSubmitting,
+}: WeatherQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<WeatherQuickFormSchema>({
     resolver: zodResolver(weatherQuickFormSchema) as Resolver<WeatherQuickFormSchema>,
@@ -24,12 +41,43 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
     form.reset();
   };
 
-  const severityOptions = (severities || []).map((s: any) => ({ value: String(s.id), label: s.name }));
-  const typeOptions = [
-    { value: '1', label: t('aqua.quickDailyEntry.weather.options.sunny') },
-    { value: '2', label: t('aqua.quickDailyEntry.weather.options.cloudy') },
-    { value: '3', label: t('aqua.quickDailyEntry.weather.options.rainy') },
-  ];
+  const selectedWeatherTypeId = form.watch('weatherTypeId');
+  const selectedWeatherSeverityId = form.watch('weatherSeverityId');
+
+  const typeOptions = useMemo(
+    () =>
+      weatherTypes.map((item) => ({
+        value: String(item.id),
+        label: formatLabelWithKey(item.name ?? item.code ?? item.id, item.id),
+      })),
+    [weatherTypes]
+  );
+
+  const filteredSeverities = useMemo(
+    () => getFilteredWeatherSeverities(selectedWeatherTypeId, weatherTypes, severities),
+    [selectedWeatherTypeId, weatherTypes, severities]
+  );
+
+  const severityOptions = useMemo(
+    () =>
+      filteredSeverities.map((item) => ({
+        value: String(item.id),
+        label: formatLabelWithKey(item.name ?? item.code ?? item.id, item.id),
+      })),
+    [filteredSeverities]
+  );
+
+  useEffect(() => {
+    if (selectedWeatherTypeId <= 0 || selectedWeatherSeverityId <= 0) return;
+
+    const isSelectedSeverityValid = filteredSeverities.some(
+      (item) => Number(item.id) === Number(selectedWeatherSeverityId)
+    );
+
+    if (!isSelectedSeverityValid) {
+      form.setValue('weatherSeverityId', 0, { shouldDirty: true, shouldValidate: true });
+    }
+  }, [filteredSeverities, form, selectedWeatherSeverityId, selectedWeatherTypeId]);
 
   // AQUA KONSEPT STİLLERİ
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 flex items-center gap-1.5";
@@ -50,9 +98,9 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                 <FormItem className="space-y-2">
                   <FormLabel required className={labelStyle}>
                     <ChevronRight size={14} className="text-cyan-500" />
-                    {t('aqua.quickDailyEntry.weather.title')}
+                    {t('aqua.quickDailyEntry.weather.type')}
                   </FormLabel>
-                  <FormControl><Combobox options={typeOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} /></FormControl>
+                  <FormControl><Combobox options={typeOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} placeholder={t('aqua.quickDailyEntry.weather.selectType')} className={inputStyle} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
                 </FormItem>
               )} />
@@ -62,7 +110,7 @@ export function WeatherQuickForm({ projectId, severities, onSubmit, isSubmitting
                     <ChevronRight size={14} className="text-cyan-500" />
                     {t('aqua.quickDailyEntry.weather.severity')}
                   </FormLabel>
-                  <FormControl><Combobox options={severityOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} className={inputStyle} /></FormControl>
+                  <FormControl><Combobox options={severityOptions} value={String(field.value)} onValueChange={(v) => field.onChange(Number(v))} placeholder={t('aqua.quickDailyEntry.weather.selectSeverity')} disabled={selectedWeatherTypeId <= 0} className={inputStyle} /></FormControl>
                   <FormMessage className="text-xs text-red-500" />
                 </FormItem>
               )} />

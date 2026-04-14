@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { projectFormSchema, type ProjectFormSchema } from '../schema/quick-setup-schema';
 import type { ProjectDto } from '../types/quick-setup-types';
 
@@ -55,7 +56,7 @@ export function ProjectStepCard({
     () =>
       (Array.isArray(projects) ? projects : []).map((p) => ({
         value: String(p.id),
-        label: `${p.projectCode ?? ''} - ${p.projectName ?? ''}`,
+        label: formatLabelWithKey(`${p.projectCode ?? ''} - ${p.projectName ?? ''}`.trim().replace(/^-\s*|\s*-\s*$/g, ''), p.id),
       })),
     [projects]
   );

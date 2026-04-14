@@ -29,6 +29,10 @@ export interface WeatherSeverityDto {
   id: number;
   code?: string;
   name?: string;
+  score?: number;
+  weatherTypeId?: number | null;
+  weatherTypeCode?: string | null;
+  weatherTypeName?: string | null;
 }
 
 export interface WeatherTypeDto {

@@ -4,6 +4,7 @@ import { useUIStore } from '@/stores/ui-store';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { useUserListForAssignments } from '../hooks/useUserListForAssignments';
 import { useUserPermissionGroupsQuery } from '../hooks/useUserPermissionGroupsQuery';
 import { useSetUserPermissionGroupsMutation } from '../hooks/useSetUserPermissionGroupsMutation';
@@ -69,7 +70,7 @@ export function UserGroupAssignmentsPage(): ReactElement {
 
   const userOptions = users.map((u) => ({
     value: u.id.toString(),
-    label: resolveUserLabel(u),
+    label: formatLabelWithKey(resolveUserLabel(u), u.id),
   }));
 
   const labelStyle = "text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2 mb-3";

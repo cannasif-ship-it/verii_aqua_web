@@ -21,6 +21,7 @@ import { useStockList } from '../hooks/useStockList';
 import { useStockRelationCreate } from '../hooks/useStockRelationCreate';
 import { stockRelationSchema, type StockRelationFormSchema } from '../types/schemas';
 import type { StockGetDto } from '../types';
+import { formatCodeAndKeyLabel } from '@/shared/utils/dropdown-label';
 
 interface StockRelationFormProps {
   stockId: number;
@@ -58,7 +59,7 @@ export function StockRelationForm({ stockId }: StockRelationFormProps): ReactEle
   // HATA FIX: Parameter 's' tip tanımlaması yapıldı
   const stockOptions = (stocksData?.data || []).map((s: StockGetDto) => ({
     value: String(s.id),
-    label: `${s.erpStockCode} - ${s.stockName}`,
+    label: formatCodeAndKeyLabel(s.erpStockCode, s.id, s.stockName),
   }));
 
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 mb-2 flex items-center gap-1.5";

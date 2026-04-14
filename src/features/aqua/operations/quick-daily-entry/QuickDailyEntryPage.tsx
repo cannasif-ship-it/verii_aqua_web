@@ -12,6 +12,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { OperationTypeTabs } from './components/OperationTypeTabs';
 import { FeedingQuickForm } from './components/FeedingQuickForm';
 import { MortalityQuickForm } from './components/MortalityQuickForm';
@@ -25,6 +26,7 @@ import { useTransferTargetProjectCagesQuery } from './hooks/useTransferTargetPro
 import { useStockListQuery } from './hooks/useStockListQuery';
 import { useFishBatchListByProjectQuery } from './hooks/useFishBatchListByProjectQuery';
 import { useWeatherSeverityListQuery } from './hooks/useWeatherSeverityListQuery';
+import { useWeatherTypeListQuery } from './hooks/useWeatherTypeListBySeverityQuery';
 import { useNetOperationTypeListQuery } from './hooks/useNetOperationTypeListQuery';
 import { aquaQuickDailyApi } from './api/aqua-quick-api';
 import {
@@ -79,6 +81,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const { data: stocks, isLoading: isLoadingStocks } = useStockListQuery();
   const { data: fishBatches } = useFishBatchListByProjectQuery(projectId);
   const { data: weatherSeverities } = useWeatherSeverityListQuery();
+  const { data: weatherTypes } = useWeatherTypeListQuery();
   const { data: netOperationTypes } = useNetOperationTypeListQuery();
 
   const createFeeding = useCreateFeedingMutation();
@@ -163,7 +166,7 @@ export function QuickDailyEntryPage(): ReactElement {
     () =>
       (Array.isArray(projects) ? projects : []).map((p) => ({
         value: String(p.id),
-        label: `${p.projectCode ?? ''} - ${p.projectName ?? ''}`,
+        label: formatLabelWithKey(`${p.projectCode ?? ''} - ${p.projectName ?? ''}`.trim().replace(/^-\s*|\s*-\s*$/g, ''), p.id),
       })),
     [projects]
   );
@@ -177,7 +180,7 @@ export function QuickDailyEntryPage(): ReactElement {
       const baseLabel = pc.cageCode ?? pc.cageName ?? String(pc.id);
       return {
         value: String(pc.id),
-        label: `${baseLabel} (${liveCount}/${averageGram})`,
+        label: `${formatLabelWithKey(baseLabel, pc.id)} - ${liveCount}/${averageGram}`,
       };
       }),
     [sourceProjectCages, sourceBatchByCageId]
@@ -375,7 +378,7 @@ export function QuickDailyEntryPage(): ReactElement {
       <OperationTypeTabs
         feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeeding.isPending || createFeedingLine.isPending} />}
         mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortality.isPending || createMortalityLine.isPending} />}
-        weatherTab={<WeatherQuickForm projectId={projectId} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} />}
+        weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} />}
         netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperation.isPending || createNetOperationLine.isPending} />}
         transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} projectCages={transferTargetProjectCages} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} isSubmitting={createTransfer.isPending || createTransferLine.isPending} />}
         stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvert.isPending || createStockConvertLine.isPending} />}

@@ -18,6 +18,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Combobox } from '@/components/ui/combobox';
+import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   Accordion,
@@ -419,7 +420,14 @@ export function ProjectDetailReportPage(): ReactElement {
     return [...list].sort((a, b) => String(a.projectCode ?? '').localeCompare(String(b.projectCode ?? '')));
   }, [projectsQuery.data]);
 
-  const projectOptions = useMemo(() => sortedProjects.map((project) => ({ value: String(project.id), label: `${project.projectCode ?? ''} - ${project.projectName ?? ''}` })), [sortedProjects]);
+  const projectOptions = useMemo(
+    () =>
+      sortedProjects.map((project) => ({
+        value: String(project.id),
+        label: formatLabelWithKey(`${project.projectCode ?? ''} - ${project.projectName ?? ''}`.trim().replace(/^-\s*|\s*-\s*$/g, ''), project.id),
+      })),
+    [sortedProjects]
+  );
 
   const projectSummary = useMemo(() => {
     if (!reportQuery.data) return null;
