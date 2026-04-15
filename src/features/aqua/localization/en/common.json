@@ -686,8 +686,20 @@
         "description": "Fish Fire title records."
       },
       "transfers": {
-        "title": "Transfer",
-        "description": "Transfer title records."
+        "title": "Cage Transfer",
+        "description": "Cage transfer header records."
+      },
+      "warehouseTransfers": {
+        "title": "Warehouse Transfer",
+        "description": "Warehouse transfer header records."
+      },
+      "cageWarehouseTransfers": {
+        "title": "Cage to Warehouse Transfer",
+        "description": "Cage to warehouse transfer header records."
+      },
+      "warehouseCageTransfers": {
+        "title": "Warehouse to Cage Transfer",
+        "description": "Warehouse to cage transfer header records."
       },
       "shipments": {
         "title": "Shipment",
@@ -730,8 +742,20 @@
         "description": "Lot/cage distribution of feeding lines."
       },
       "transferLines": {
-        "title": "Transfer Lines",
-        "description": "Transfer line records."
+        "title": "Cage Transfer Lines",
+        "description": "Cage transfer line records."
+      },
+      "warehouseTransferLines": {
+        "title": "Warehouse Transfer Lines",
+        "description": "Warehouse transfer line records."
+      },
+      "cageWarehouseTransferLines": {
+        "title": "Cage to Warehouse Transfer Lines",
+        "description": "Cage to warehouse transfer line records."
+      },
+      "warehouseCageTransferLines": {
+        "title": "Warehouse to Cage Transfer Lines",
+        "description": "Warehouse to cage transfer line records."
       },
       "shipmentLines": {
         "title": "Shipping Lines",
@@ -786,7 +810,7 @@
       "receiptNo": "Document No",
       "receiptDate": "Document Date",
       "supplierId": "Supplier ID",
-      "warehouseId": "Warehouse ID",
+      "warehouseId": "Warehouse",
       "goodsReceiptId": "Goods Acceptance ID",
       "goodsReceiptLineId": "Goods Acceptance Line ID",
       "itemType": "Product Type",
@@ -818,7 +842,14 @@
       "deadCount": "Fish Fire Quantity",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
+      "warehouseTransferId": "Warehouse Transfer ID",
+      "cageWarehouseTransferId": "Cage to Warehouse Transfer ID",
+      "warehouseCageTransferId": "Warehouse to Cage Transfer ID",
       "transferDate": "Transfer Date",
+      "fromWarehouseId": "Source Warehouse",
+      "fromWarehouseCode": "Source Warehouse Code",
+      "toWarehouseId": "Target Warehouse",
+      "toWarehouseCode": "Target Warehouse Code",
       "shipmentNo": "Shipment No",
       "shipmentId": "Shipment ID",
       "shipmentDate": "Shipment Date",
@@ -1149,10 +1180,16 @@
       "consistent": "consistent",
       "inconsistent": "inconsistent",
       "activeCages": "Active Cage",
+      "activeWarehouses": "Active Warehouse",
       "inactiveCages": "Passive Cage",
       "initialFishTotal": "Beginner Fish",
       "currentFishTotal": "Current Fish",
+      "cageFishStock": "Cage Stock",
+      "warehouseFishStock": "Warehouse Stock",
+      "totalSystemFishStock": "Total System Stock",
       "currentBiomassTotal": "Available Biomass (g)",
+      "cageBiomassTotal": "Cage Biomass (g)",
+      "warehouseBiomassTotal": "Warehouse Biomass (g)",
       "currentAvgGramTotal": "Current Avg. gram",
       "totalShipmentFish": "Total Shipped Fish",
       "totalShipmentBiomass": "Total Shipped Biomass (Grams)",
@@ -1175,7 +1212,13 @@
       "metrics": {
         "stockedFish": "Beginner Fish",
         "liveFish": "Live Fish",
+        "cageFishStock": "Cage Stock",
+        "warehouseFishStock": "Warehouse Stock",
+        "totalSystemFishStock": "Total System Stock",
         "currentBiomassKg": "Current Biomass",
+        "cageBiomassKg": "Cage Biomass",
+        "warehouseBiomassKg": "Warehouse Biomass",
+        "totalSystemBiomassKg": "Total System Biomass",
         "totalFeedKg": "Total Feed",
         "survivalPct": "Survival %",
         "mortalityPct": "Mortality %",

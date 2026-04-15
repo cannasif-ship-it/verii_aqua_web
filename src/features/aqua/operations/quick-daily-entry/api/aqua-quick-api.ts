@@ -5,6 +5,7 @@ import type {
   ProjectDto,
   ProjectCageDto,
   StockDto,
+  WarehouseDto,
   FishBatchDto,
   WeatherSeverityDto,
   WeatherTypeDto,
@@ -43,6 +44,13 @@ interface StockListResponseItem {
   id: number;
   erpStockCode?: string;
   stockName?: string;
+}
+
+interface WarehouseListResponseItem {
+  id: number;
+  erpWarehouseCode?: number;
+  warehouseName?: string;
+  branchCode?: number;
 }
 
 interface CageListResponseItem {
@@ -153,6 +161,15 @@ function extractStockList(raw: PagedResultRaw<StockListResponseItem>): StockDto[
   }));
 }
 
+function extractWarehouseList(raw: PagedResultRaw<WarehouseListResponseItem>): WarehouseDto[] {
+  return extractPagedItems(raw).map((item) => ({
+    id: Number(item.id),
+    erpWarehouseCode: Number(item.erpWarehouseCode ?? 0),
+    warehouseName: String(item.warehouseName ?? ''),
+    branchCode: item.branchCode != null ? Number(item.branchCode) : undefined,
+  }));
+}
+
 async function getAllAquaItems<T>(endpoint: string, pageSize = 500): Promise<T[]> {
   const all: T[] = [];
   let page = 1;
@@ -235,6 +252,13 @@ export const aquaQuickDailyApi = {
     const response = await api.get<ApiResponse<PagedResultRaw<StockListResponseItem>>>(`/api/Stock?${query.toString()}`);
     const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
     return extractStockList(raw);
+  },
+
+  getWarehouses: async (): Promise<WarehouseDto[]> => {
+    const query = buildPagedQuery(1, 500);
+    const response = await api.get<ApiResponse<PagedResultRaw<WarehouseListResponseItem>>>(`/api/aqua/Warehouse?${query}`);
+    const raw = ensureSuccess(response, i18n.t('aqua.api.listLoadFailed', { ns: 'common' }));
+    return extractWarehouseList(raw);
   },
 
   getFishBatches: async (projectId: number): Promise<FishBatchDto[]> => {

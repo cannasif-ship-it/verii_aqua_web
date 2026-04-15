@@ -194,16 +194,32 @@ export function RawKpiReportPage(): ReactElement {
                 <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.stockedFish, i18n.language, 0)}</p>
               </div>
               <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
-                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.liveFish')}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.cageFishStock')}</p>
                 <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.liveFish, i18n.language, 0)}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.warehouseFishStock')}</p>
+                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.warehouseFish, i18n.language, 0)}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.totalSystemFishStock')}</p>
+                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.totalSystemFish, i18n.language, 0)}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.cageBiomassKg')}</p>
+                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.currentBiomassKg, i18n.language)} kg</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.warehouseBiomassKg')}</p>
+                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.warehouseBiomassKg, i18n.language)} kg</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.totalSystemBiomassKg')}</p>
+                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.totalSystemBiomassKg, i18n.language)} kg</p>
               </div>
               <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
                 <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.totalFeedKg')}</p>
                 <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.totalFeedKg, i18n.language)} kg</p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 p-4 dark:border-cyan-800/30">
-                <p className="text-xs text-slate-500 dark:text-slate-400">{t('aqua.rawKpiReport.metrics.currentBiomassKg')}</p>
-                <p className="mt-1 text-xl font-bold tabular-nums">{formatNumber(report.currentBiomassKg, i18n.language)} kg</p>
               </div>
             </CardContent>
           </Card>

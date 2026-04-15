@@ -130,10 +130,14 @@ export interface RawKpiReport {
   daysInSea: number;
   stockedFish: number;
   liveFish: number;
+  warehouseFish: number;
+  totalSystemFish: number;
   deadFish: number;
   initialAverageGram: number;
   currentAverageGram: number;
   currentBiomassKg: number;
+  warehouseBiomassKg: number;
+  totalSystemBiomassKg: number;
   totalFeedKg: number;
   biomassGainKg: number;
   survivalPct: number | null;
@@ -682,6 +686,8 @@ export const aquaKpiApi = {
     const liveFish = rows.reduce((sum, row) => sum + row.liveFish, 0);
     const deadFish = rows.reduce((sum, row) => sum + row.deadFish, 0);
     const currentBiomassKg = round(rows.reduce((sum, row) => sum + row.currentBiomassKg, 0));
+    const warehouseFish = detail.warehouseSummary.warehouseFishCount;
+    const warehouseBiomassKg = round(detail.warehouseSummary.warehouseBiomassGram / 1000);
     const totalFeedKg = round(rows.reduce((sum, row) => sum + row.totalFeedKg, 0));
     const biomassGainKg = round(rows.reduce((sum, row) => sum + row.biomassGainKg, 0));
     const totalCapacityGram = rows.reduce((sum, row) => {
@@ -703,10 +709,14 @@ export const aquaKpiApi = {
       daysInSea,
       stockedFish,
       liveFish,
+      warehouseFish,
+      totalSystemFish: liveFish + warehouseFish,
       deadFish,
       initialAverageGram,
       currentAverageGram,
       currentBiomassKg,
+      warehouseBiomassKg,
+      totalSystemBiomassKg: round(currentBiomassKg + warehouseBiomassKg),
       totalFeedKg,
       biomassGainKg,
       survivalPct: safePercent(liveFish, stockedFish),

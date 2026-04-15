@@ -78,6 +78,17 @@ export interface BatchCageBalanceDto {
   asOfDate: string;
 }
 
+export interface BatchWarehouseBalanceDto {
+  id: number;
+  projectId: number;
+  fishBatchId: number;
+  warehouseId: number;
+  liveCount: number;
+  averageGram: number;
+  biomassGram: number;
+  asOfDate: string;
+}
+
 export interface GoodsReceiptLineDto {
   id: number;
   fishAverageGram?: number;
@@ -257,8 +268,17 @@ export interface CageProjectReport {
   dailyRows: CageDailyRow[];
 }
 
+export interface ProjectWarehouseSummary {
+  activeWarehouseCount: number;
+  warehouseFishCount: number;
+  warehouseBiomassGram: number;
+  totalSystemFishCount: number;
+  totalSystemBiomassGram: number;
+}
+
 export interface ProjectDetailReport {
   project: ProjectDto;
   cages: CageProjectReport[];
   cageHistory: CageHistoryItem[];
+  warehouseSummary: ProjectWarehouseSummary;
 }

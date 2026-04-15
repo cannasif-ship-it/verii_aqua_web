@@ -34,7 +34,7 @@ export const shipmentQuickFormSchema = z.object({
   fishCount: z.coerce.number().int().positive('common.required'),
   unitPrice: z.coerce.number().min(0).optional(),
   currencyCode: z.string().min(1).default('TRY'),
-  targetWarehouse: z.string().max(100).optional(),
+  targetWarehouseId: z.coerce.number().int().positive('common.required'),
   description: z.string().optional(),
 });
 

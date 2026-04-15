@@ -14,6 +14,7 @@ import { ChevronRight, Info, Save } from 'lucide-react';
 interface ShipmentQuickFormProps {
   projectId: number | null;
   projectCageId: number | null;
+  warehouseOptions: Array<{ value: string; label: string }>;
   sourceBatch: { fishBatchId: number; liveCount: number; averageGram: number } | null;
   onSubmit: (data: ShipmentQuickFormSchema) => Promise<void>;
   isSubmitting: boolean;
@@ -30,6 +31,7 @@ const currencyOptions = [
 export function ShipmentQuickForm({
   projectId,
   projectCageId,
+  warehouseOptions,
   sourceBatch,
   onSubmit,
   isSubmitting,
@@ -43,7 +45,7 @@ export function ShipmentQuickForm({
       fishCount: 0,
       unitPrice: 0,
       currencyCode: 'TRY',
-      targetWarehouse: '',
+      targetWarehouseId: 0,
       description: '',
     },
   });
@@ -62,7 +64,7 @@ export function ShipmentQuickForm({
       fishCount: Number(sourceBatch?.liveCount ?? 0),
       unitPrice: 0,
       currencyCode: 'TRY',
-      targetWarehouse: '',
+      targetWarehouseId: 0,
       description: '',
     });
   };
@@ -145,14 +147,22 @@ export function ShipmentQuickForm({
               />
               <FormField
                 control={form.control}
-                name="targetWarehouse"
+                name="targetWarehouseId"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
                     <FormLabel className={labelStyle}>
                       <ChevronRight size={14} className="text-cyan-500" />
                       {t('aqua.quickDailyEntry.shipment.targetWarehouse')}
                     </FormLabel>
-                    <FormControl><Input className={inputStyle} {...field} /></FormControl>
+                    <FormControl>
+                      <Combobox
+                        options={warehouseOptions}
+                        value={field.value > 0 ? String(field.value) : ''}
+                        onValueChange={(value) => field.onChange(value ? Number(value) : 0)}
+                        className={inputStyle}
+                        placeholder={t('common.select')}
+                      />
+                    </FormControl>
                     <FormMessage className="text-xs text-red-500" />
                   </FormItem>
                 )}

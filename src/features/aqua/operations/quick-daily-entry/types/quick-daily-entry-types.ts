@@ -19,6 +19,13 @@ export interface StockDto {
   name?: string;
 }
 
+export interface WarehouseDto {
+  id: number;
+  erpWarehouseCode: number;
+  warehouseName: string;
+  branchCode?: number;
+}
+
 export interface FishBatchDto {
   id: number;
   fishStockId?: number;
@@ -180,6 +187,7 @@ export interface CreateStockConvertLinePayload {
 export interface CreateShipmentLineWithAutoHeaderPayload {
   projectId: number;
   shipmentDate: string;
+  targetWarehouseId?: number;
   fishBatchId: number;
   fromProjectCageId: number;
   fishCount: number;
@@ -187,7 +195,6 @@ export interface CreateShipmentLineWithAutoHeaderPayload {
   biomassGram: number;
   currencyCode?: string;
   unitPrice?: number;
-  targetWarehouse?: string;
   description?: string;
 }
 

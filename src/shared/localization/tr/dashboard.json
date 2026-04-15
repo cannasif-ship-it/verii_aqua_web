@@ -112,6 +112,11 @@
     "stats": {
       "activeCages": "Aktif Kafes",
       "liveFish": "Canlı Balık",
+      "cageFishStock": "Kafes Stoku",
+      "warehouseFishStock": "Depo Stoku",
+      "totalSystemFishStock": "Toplam Sistem Stoku",
+      "cageBiomass": "Kafes Biyokütlesi",
+      "warehouseBiomass": "Depo Biyokütlesi",
       "totalBiomass": "Toplam Biyokütle",
       "totalFeed": "Toplam Yem"
     },

@@ -112,6 +112,11 @@
     "stats": {
       "activeCages": "Active Cage",
       "liveFish": "Live Fish",
+      "cageFishStock": "Cage Stock",
+      "warehouseFishStock": "Warehouse Stock",
+      "totalSystemFishStock": "Total System Stock",
+      "cageBiomass": "Cage Biomass",
+      "warehouseBiomass": "Warehouse Biomass",
       "totalBiomass": "Total Biomass",
       "totalFeed": "Total Feed"
     },

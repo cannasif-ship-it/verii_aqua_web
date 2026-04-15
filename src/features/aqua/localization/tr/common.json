@@ -105,8 +105,20 @@
         "description": "Balık Fire başlık kayıtları."
       },
       "transfers": {
-        "title": "Transfer",
-        "description": "Transfer başlık kayıtları."
+        "title": "Kafes Transferi",
+        "description": "Kafes transfer başlık kayıtları."
+      },
+      "warehouseTransfers": {
+        "title": "Depo Transferi",
+        "description": "Depo transfer başlık kayıtları."
+      },
+      "cageWarehouseTransfers": {
+        "title": "Kafesten Depoya Transfer",
+        "description": "Kafesten depoya transfer başlık kayıtları."
+      },
+      "warehouseCageTransfers": {
+        "title": "Depodan Kafese Transfer",
+        "description": "Depodan kafese transfer başlık kayıtları."
       },
       "shipments": {
         "title": "Sevkiyat",
@@ -149,8 +161,20 @@
         "description": "Yemleme satırlarının parti/kafes dağıtımı."
       },
       "transferLines": {
-        "title": "Transfer Satırları",
-        "description": "Transfer satır kayıtları."
+        "title": "Kafes Transfer Satırları",
+        "description": "Kafes transfer satır kayıtları."
+      },
+      "warehouseTransferLines": {
+        "title": "Depo Transfer Satırları",
+        "description": "Depo transfer satır kayıtları."
+      },
+      "cageWarehouseTransferLines": {
+        "title": "Kafesten Depoya Transfer Satırları",
+        "description": "Kafesten depoya transfer satır kayıtları."
+      },
+      "warehouseCageTransferLines": {
+        "title": "Depodan Kafese Transfer Satırları",
+        "description": "Depodan kafese transfer satır kayıtları."
       },
       "shipmentLines": {
         "title": "Sevkiyat Satırları",
@@ -205,7 +229,7 @@
       "receiptNo": "Belge No",
       "receiptDate": "Belge Tarihi",
       "supplierId": "Tedarikçi ID",
-      "warehouseId": "Depo ID",
+      "warehouseId": "Depo",
       "goodsReceiptId": "Mal Kabul ID",
       "goodsReceiptLineId": "Mal Kabul Satır ID",
       "itemType": "Ürün Tipi",
@@ -237,7 +261,14 @@
       "deadCount": "Balık Fire Adet",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
+      "warehouseTransferId": "Depo Transfer ID",
+      "cageWarehouseTransferId": "Kafesten Depoya Transfer ID",
+      "warehouseCageTransferId": "Depodan Kafese Transfer ID",
       "transferDate": "Transfer Tarihi",
+      "fromWarehouseId": "Kaynak Depo",
+      "fromWarehouseCode": "Kaynak Depo Kodu",
+      "toWarehouseId": "Hedef Depo",
+      "toWarehouseCode": "Hedef Depo Kodu",
       "shipmentNo": "Sevkiyat No",
       "shipmentId": "Sevkiyat ID",
       "shipmentDate": "Sevkiyat Tarihi",
@@ -508,16 +539,22 @@
       "pickProjectFirst": "Rapor detaylarını görmek için proje seçin.",
       "totalCages": "Toplam kafes",
       "activeCages": "Aktif Kafes",
+      "activeWarehouses": "Aktif Depo",
       "inactiveCages": "Pasif Kafes",
       "currentVsInitial": "Mevcut / Başlangıç",
       "initialFish": "Başlangıç Balık",
       "currentFish": "Mevcut Balık",
       "initialFishTotal": "Başlangıç Balık",
       "currentFishTotal": "Mevcut Balık",
+      "cageFishStock": "Kafes Stoku",
+      "warehouseFishStock": "Depo Stoku",
+      "totalSystemFishStock": "Toplam Sistem Stoku",
       "initialAverageGram": "Başlangıç Ort. Gram",
       "currentAverageGram": "Mevcut Ort. Gram",
       "initialBiomassGram": "Başlangıç Biyokütle (g)",
       "currentBiomassGram": "Mevcut Biyokütle (g)",
+      "cageBiomassTotal": "Kafes Biyokütlesi (g)",
+      "warehouseBiomassTotal": "Depo Biyokütlesi (g)",
       "currentBiomassTotal": "Mevcut Biyokütle (g)",
       "currentAvgGramTotal": "Mevcut Ort. Gram",
       "totalDead": "Toplam Balık Fire",
@@ -593,7 +630,13 @@
       "metrics": {
         "stockedFish": "Başlangıç Balık",
         "liveFish": "Canlı Balık",
+        "cageFishStock": "Kafes Stoku",
+        "warehouseFishStock": "Depo Stoku",
+        "totalSystemFishStock": "Toplam Sistem Stoku",
         "currentBiomassKg": "Mevcut Biyokütle",
+        "cageBiomassKg": "Kafes Biyokütlesi",
+        "warehouseBiomassKg": "Depo Biyokütlesi",
+        "totalSystemBiomassKg": "Toplam Sistem Biyokütlesi",
         "totalFeedKg": "Toplam Yem",
         "survivalPct": "Survival %",
         "mortalityPct": "Mortality %",

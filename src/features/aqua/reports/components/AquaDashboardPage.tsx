@@ -71,15 +71,24 @@ interface DashboardProjectSummary {
   projectId: number;
   projectCode: string;
   projectName: string;
-  currentFish: number;
+  cageFish: number;
+  warehouseFish: number;
+  totalSystemFish: number;
   activeCageCount: number;
+  cageBiomassGram: number;
+  warehouseBiomassGram: number;
+  totalSystemBiomassGram: number;
   cages: DashboardCageSummary[];
 }
 
 interface DashboardStats {
-  totalFish: number;
   totalCages: number;
-  totalBio: number;
+  totalCageFish: number;
+  totalWarehouseFish: number;
+  totalSystemFish: number;
+  totalCageBiomass: number;
+  totalWarehouseBiomass: number;
+  totalSystemBiomass: number;
   totalFeed: number;
   totalDead: number;
 }
@@ -118,16 +127,30 @@ function formatNumber(value: number): string {
 function buildStats(projects: DashboardProjectSummary[]): DashboardStats {
   return projects.reduce<DashboardStats>(
     (acc, curr) => {
-      acc.totalFish += curr.currentFish;
       acc.totalCages += curr.activeCageCount;
+      acc.totalCageFish += curr.cageFish;
+      acc.totalWarehouseFish += curr.warehouseFish;
+      acc.totalSystemFish += curr.totalSystemFish;
+      acc.totalCageBiomass += curr.cageBiomassGram;
+      acc.totalWarehouseBiomass += curr.warehouseBiomassGram;
+      acc.totalSystemBiomass += curr.totalSystemBiomassGram;
       curr.cages.forEach((cage) => {
-        acc.totalBio += cage.currentBiomassGram;
         acc.totalFeed += cage.totalFeedGram;
         acc.totalDead += cage.totalDeadCount;
       });
       return acc;
     },
-    { totalFish: 0, totalCages: 0, totalBio: 0, totalFeed: 0, totalDead: 0 }
+    {
+      totalCages: 0,
+      totalCageFish: 0,
+      totalWarehouseFish: 0,
+      totalSystemFish: 0,
+      totalCageBiomass: 0,
+      totalWarehouseBiomass: 0,
+      totalSystemBiomass: 0,
+      totalFeed: 0,
+      totalDead: 0,
+    }
   );
 }
 
@@ -811,18 +834,46 @@ export function AquaDashboardPage(): ReactElement {
               bg: 'bg-cyan-50 dark:bg-cyan-500/10 border-cyan-100 dark:border-cyan-800/30',
             },
             {
-              label: t('aquaDashboard.stats.liveFish', { ns: 'dashboard' }),
-              val: globalStats.totalFish,
+              label: t('aquaDashboard.stats.cageFishStock', { ns: 'dashboard' }),
+              val: globalStats.totalCageFish,
               icon: Fish,
               color: 'text-emerald-600 dark:text-emerald-400',
               bg: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-800/30',
             },
             {
-              label: t('aquaDashboard.stats.totalBiomass', { ns: 'dashboard' }),
-              val: `${formatNumber(globalStats.totalBio)}g`,
+              label: t('aquaDashboard.stats.warehouseFishStock', { ns: 'dashboard' }),
+              val: globalStats.totalWarehouseFish,
+              icon: Package,
+              color: 'text-violet-600 dark:text-violet-400',
+              bg: 'bg-violet-50 dark:bg-violet-500/10 border-violet-100 dark:border-violet-800/30',
+            },
+            {
+              label: t('aquaDashboard.stats.totalSystemFishStock', { ns: 'dashboard' }),
+              val: globalStats.totalSystemFish,
               icon: Layers,
               color: 'text-blue-600 dark:text-blue-400',
               bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100 dark:border-blue-800/30',
+            },
+            {
+              label: t('aquaDashboard.stats.cageBiomass', { ns: 'dashboard' }),
+              val: `${formatNumber(globalStats.totalCageBiomass)}g`,
+              icon: Layers,
+              color: 'text-blue-600 dark:text-blue-400',
+              bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100 dark:border-blue-800/30',
+            },
+            {
+              label: t('aquaDashboard.stats.warehouseBiomass', { ns: 'dashboard' }),
+              val: `${formatNumber(globalStats.totalWarehouseBiomass)}g`,
+              icon: Package,
+              color: 'text-fuchsia-600 dark:text-fuchsia-400',
+              bg: 'bg-fuchsia-50 dark:bg-fuchsia-500/10 border-fuchsia-100 dark:border-fuchsia-800/30',
+            },
+            {
+              label: t('aquaDashboard.stats.totalBiomass', { ns: 'dashboard' }),
+              val: `${formatNumber(globalStats.totalSystemBiomass)}g`,
+              icon: Layers,
+              color: 'text-sky-600 dark:text-sky-400',
+              bg: 'bg-sky-50 dark:bg-sky-500/10 border-sky-100 dark:border-sky-800/30',
             },
             {
               label: t('aquaDashboard.stats.totalFeed', { ns: 'dashboard' }),
@@ -893,7 +944,17 @@ export function AquaDashboardPage(): ReactElement {
 
                       <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/10 text-[11px] font-black">
                         <Fish className="size-3.5" />
-                        {formatNumber(project.currentFish)}
+                        {formatNumber(project.cageFish)}
+                      </div>
+
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/10 text-[11px] font-black">
+                        <Package className="size-3.5" />
+                        {formatNumber(project.warehouseFish)}
+                      </div>
+
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/10 text-[11px] font-black">
+                        <Layers className="size-3.5" />
+                        {formatNumber(project.totalSystemFish)}
                       </div>
                     </div>
                   </div>
@@ -1180,7 +1241,12 @@ export function AquaDashboardPage(): ReactElement {
 
                           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/10 text-[11px] font-black">
                             <Fish className="size-3.5 shrink-0" />
-                            {formatNumber(project.currentFish)}
+                            {formatNumber(project.cageFish)}
+                          </div>
+
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/10 text-[11px] font-black">
+                            <Package className="size-3.5 shrink-0" />
+                            {formatNumber(project.warehouseFish)}
                           </div>
                         </div>
                       </div>

@@ -27,6 +27,7 @@ import { useProjectListQuery } from './hooks/useProjectListQuery';
 import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByProjectQuery';
 import { useTransferTargetProjectCagesQuery } from './hooks/useTransferTargetProjectCagesQuery';
 import { useStockListQuery } from './hooks/useStockListQuery';
+import { useWarehouseListQuery } from './hooks/useWarehouseListQuery';
 import { useFishBatchListByProjectQuery } from './hooks/useFishBatchListByProjectQuery';
 import { useWeatherSeverityListQuery } from './hooks/useWeatherSeverityListQuery';
 import { useWeatherTypeListQuery } from './hooks/useWeatherTypeListBySeverityQuery';
@@ -87,6 +88,7 @@ export function QuickDailyEntryPage(): ReactElement {
   const { data: projectCages, refetch: refetchProjectCages } = useProjectCageListByProjectQuery(projectId);
   const { data: transferTargetProjectCages, refetch: refetchTransferTargetProjectCages } = useTransferTargetProjectCagesQuery(targetProjectId);
   const { data: stocks, isLoading: isLoadingStocks } = useStockListQuery();
+  const { data: warehouses } = useWarehouseListQuery();
   const { data: fishBatches } = useFishBatchListByProjectQuery(projectId);
   const { data: weatherSeverities } = useWeatherSeverityListQuery();
   const { data: weatherTypes } = useWeatherTypeListQuery();
@@ -268,6 +270,15 @@ export function QuickDailyEntryPage(): ReactElement {
         };
       });
   }, [aquaSettings?.partialTransferOccupiedCageMode, aquaSettings?.requireFullTransfer, projectCageId, projects, sourceBatch?.fishBatchId, t, transferTargetBatchByCageId, transferTargetProjectCages]);
+
+  const warehouseOptions = useMemo(
+    () =>
+      (Array.isArray(warehouses) ? warehouses : []).map((warehouse) => ({
+        value: String(warehouse.id),
+        label: formatLabelWithKey(`${warehouse.erpWarehouseCode} - ${warehouse.warehouseName}`.trim(), warehouse.id),
+      })),
+    [warehouses]
+  );
 
   useEffect(() => {
     if (projectCageId == null) return;
@@ -466,6 +477,7 @@ export function QuickDailyEntryPage(): ReactElement {
       const shipmentLine = await createShipmentLineWithAutoHeader.mutateAsync({
         projectId,
         shipmentDate: selectedDate,
+        targetWarehouseId: Number(data.targetWarehouseId ?? 0),
         fishBatchId: activeBatch.fishBatchId,
         fromProjectCageId: projectCageId,
         fishCount: Number(data.fishCount ?? 0),
@@ -473,7 +485,6 @@ export function QuickDailyEntryPage(): ReactElement {
         biomassGram,
         currencyCode: data.currencyCode || 'TRY',
         unitPrice: data.unitPrice ? Number(data.unitPrice) : 0,
-        targetWarehouse: data.targetWarehouse,
         description: data.description,
       });
 
@@ -588,7 +599,7 @@ export function QuickDailyEntryPage(): ReactElement {
         weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} canSubmit={canCreateQuickDailyEntry} />}
         netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperationLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
         transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} targetProjectId={targetProjectId} projects={projectOptions} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} onTargetProjectChange={setTargetProjectId} isSubmitting={createTransferLineWithAutoHeader.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} />}
-        shipmentTab={<ShipmentQuickForm projectId={projectId} projectCageId={projectCageId} sourceBatch={sourceBatch} onSubmit={handleShipmentSubmit} isSubmitting={createShipmentLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        shipmentTab={<ShipmentQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} sourceBatch={sourceBatch} onSubmit={handleShipmentSubmit} isSubmitting={createShipmentLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
         stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvertLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
         projectMergeTab={<ProjectMergeQuickForm selectedProjectId={projectId} selectedDate={selectedDate} projects={Array.isArray(projects) ? projects : []} onSubmit={handleProjectMergeSubmit} isSubmitting={createProjectMerge.isPending} canSubmit={canCreateQuickDailyEntry} mergeEnabled={aquaSettings?.allowProjectMerge ?? false} />}
       />

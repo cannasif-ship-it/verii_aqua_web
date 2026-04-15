@@ -66,7 +66,7 @@ export interface AquaCrudConfig {
     editingRow: Record<string, unknown> | null;
     mode: 'create' | 'update';
   }) => Promise<Record<string, unknown>> | Record<string, unknown>;
-  postingSlug?: 'goods-receipt' | 'transfer' | 'shipment' | 'mortality' | 'weighing' | 'stock-convert' | 'net-operation';
+  postingSlug?: 'goods-receipt' | 'transfer' | 'shipment' | 'warehouse-transfer' | 'cage-warehouse-transfer' | 'warehouse-cage-transfer' | 'mortality' | 'weighing' | 'stock-convert' | 'net-operation';
   autoPostOnSave?: boolean;
 }
 

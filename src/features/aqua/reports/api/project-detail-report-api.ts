@@ -4,6 +4,7 @@ import { calculateBiomassGram, calculateIncrementedAverageGram, roundGram } from
 import type { ApiResponse } from '@/types/api';
 import type {
   BatchCageBalanceDto,
+  BatchWarehouseBalanceDto,
   BatchMovementDto,
   CageDailyRow,
   CageProjectReport,
@@ -204,6 +205,7 @@ function computeReport(
   mortalities: MortalityDto[],
   mortalityLines: MortalityLineDto[],
   batchCageBalances: BatchCageBalanceDto[],
+  batchWarehouseBalances: BatchWarehouseBalanceDto[],
   dailyWeathers: DailyWeatherDto[],
   netOperations: NetOperationDto[],
   netOperationLines: NetOperationLineDto[],
@@ -786,7 +788,31 @@ function computeReport(
     }))
     .sort((a, b) => String(b.releasedDate ?? '').localeCompare(String(a.releasedDate ?? '')));
 
-  return { project, cages, cageHistory };
+  const projectWarehouseBalances = batchWarehouseBalances.filter((row) => row.projectId === project.id);
+  const warehouseFishCount = projectWarehouseBalances.reduce((sum, row) => sum + Number(row.liveCount ?? 0), 0);
+  const warehouseBiomassGram = Number(
+    projectWarehouseBalances.reduce((sum, row) => sum + Number(row.biomassGram ?? 0), 0).toFixed(3)
+  );
+  const activeWarehouseCount = new Set(
+    projectWarehouseBalances
+      .filter((row) => Number(row.liveCount ?? 0) > 0 || Number(row.biomassGram ?? 0) > 0)
+      .map((row) => row.warehouseId)
+  ).size;
+  const cageFishCount = cages.reduce((sum, row) => sum + Number(row.currentFishCount ?? 0), 0);
+  const cageBiomassGram = cages.reduce((sum, row) => sum + Number(row.currentBiomassGram ?? 0), 0);
+
+  return {
+    project,
+    cages,
+    cageHistory,
+    warehouseSummary: {
+      activeWarehouseCount,
+      warehouseFishCount,
+      warehouseBiomassGram,
+      totalSystemFishCount: cageFishCount + warehouseFishCount,
+      totalSystemBiomassGram: Number((cageBiomassGram + warehouseBiomassGram).toFixed(3)),
+    },
+  };
 }
 
 export const projectDetailReportApi = {
@@ -812,6 +838,7 @@ export const projectDetailReportApi = {
       mortalities,
       mortalityLines,
       batchCageBalances,
+      batchWarehouseBalances,
       dailyWeathers,
       netOperations,
       netOperationLines,
@@ -835,6 +862,7 @@ export const projectDetailReportApi = {
       getAllPagedItems<MortalityDto>('Mortality', projectIdFilters, 'or'),
       getAllPagedItems<MortalityLineDto>('MortalityLine'),
       getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
+      getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
       getAllPagedItems<DailyWeatherDto>('DailyWeather', projectIdFilters, 'or'),
       getAllPagedItems<NetOperationDto>('NetOperation', projectIdFilters, 'or'),
       getAllPagedItems<NetOperationLineDto>('NetOperationLine'),
@@ -936,6 +964,7 @@ export const projectDetailReportApi = {
         mortalitiesByProjectId.get(projectId) ?? [],
         mortalityLines,
         batchCageBalances,
+        batchWarehouseBalances,
         dailyWeathersByProjectId.get(projectId) ?? [],
         netOperationsByProjectId.get(projectId) ?? [],
         netOperationLines,
@@ -963,7 +992,7 @@ export const projectDetailReportApi = {
       throw new Error(i18n.t('errors.projectNotFound', { ns: 'dashboard' }));
     }
 
-    const [projectCages, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines, batchCageBalances, dailyWeathers, netOperations, netOperationLines, transfers, transferLines, shipments, shipmentLines, weighings, weighingLines, stockConverts, stockConvertLines, batchMovements, stocks, fishBatches] =
+    const [projectCages, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines, batchCageBalances, batchWarehouseBalances, dailyWeathers, netOperations, netOperationLines, transfers, transferLines, shipments, shipmentLines, weighings, weighingLines, stockConverts, stockConvertLines, batchMovements, stocks, fishBatches] =
       await Promise.all([
         getAllPagedItems<ProjectCageDto>('ProjectCage', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<FeedingDto>('Feeding', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
@@ -972,6 +1001,7 @@ export const projectDetailReportApi = {
         getAllPagedItems<MortalityDto>('Mortality', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<MortalityLineDto>('MortalityLine'),
         getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
+        getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
         getAllPagedItems<DailyWeatherDto>('DailyWeather', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<NetOperationDto>('NetOperation', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<NetOperationLineDto>('NetOperationLine'),
@@ -997,6 +1027,7 @@ export const projectDetailReportApi = {
       mortalities,
       mortalityLines,
       batchCageBalances,
+      batchWarehouseBalances,
       dailyWeathers,
       netOperations,
       netOperationLines,

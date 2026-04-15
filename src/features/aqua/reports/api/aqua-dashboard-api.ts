@@ -3,6 +3,7 @@ import i18n from '@/lib/i18n';
 import type { ApiResponse } from '@/types/api';
 import type {
   BatchCageBalanceDto,
+  BatchWarehouseBalanceDto,
   FeedingDistributionDto,
   FeedingDto,
   FeedingLineDto,
@@ -35,9 +36,14 @@ export interface DashboardProjectSummary {
   projectCode: string;
   projectName: string;
   activeCageCount: number;
-  currentFish: number;
+  cageFish: number;
+  warehouseFish: number;
+  totalSystemFish: number;
   totalDead: number;
   totalFeed: number;
+  cageBiomassGram: number;
+  warehouseBiomassGram: number;
+  totalSystemBiomassGram: number;
   cages: DashboardCageSummary[];
 }
 
@@ -122,7 +128,9 @@ function toProjectSummary(
   cageCurrentFish: Map<number, number>,
   cageCurrentBiomass: Map<number, number>,
   cageDead: Map<number, number>,
-  cageFeed: Map<number, number>
+  cageFeed: Map<number, number>,
+  warehouseFishByProject: Map<number, number>,
+  warehouseBiomassByProject: Map<number, number>
 ): DashboardProjectSummary {
   const cages: DashboardCageSummary[] = projectCages.map((projectCage) => {
     const projectCageId = projectCage.id;
@@ -136,29 +144,38 @@ function toProjectSummary(
     };
   });
 
-  const currentFish = cages.reduce((acc, cage) => acc + cage.currentFishCount, 0);
+  const cageFish = cages.reduce((acc, cage) => acc + cage.currentFishCount, 0);
   const totalDead = cages.reduce((acc, cage) => acc + cage.totalDeadCount, 0);
   const totalFeed = cages.reduce((acc, cage) => acc + cage.totalFeedGram, 0);
+  const cageBiomassGram = cages.reduce((acc, cage) => acc + cage.currentBiomassGram, 0);
+  const warehouseFish = warehouseFishByProject.get(project.id) ?? 0;
+  const warehouseBiomassGram = warehouseBiomassByProject.get(project.id) ?? 0;
 
   return {
     projectId: project.id,
     projectCode: project.projectCode ?? '-',
     projectName: project.projectName ?? '-',
     activeCageCount: cages.length,
-    currentFish,
+    cageFish,
+    warehouseFish,
+    totalSystemFish: cageFish + warehouseFish,
     totalDead,
     totalFeed,
+    cageBiomassGram,
+    warehouseBiomassGram,
+    totalSystemBiomassGram: cageBiomassGram + warehouseBiomassGram,
     cages: cages.sort((a, b) => a.cageLabel.localeCompare(b.cageLabel)),
   };
 }
 
 export const aquaDashboardApi = {
   getActiveProjectSummaries: async (): Promise<DashboardProjectSummary[]> => {
-    const [projects, projectCages, balances, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines] =
+    const [projects, projectCages, balances, warehouseBalances, feedings, feedingLines, feedingDistributions, mortalities, mortalityLines] =
       await Promise.all([
         getAllPagedItems<ProjectDto>('Project'),
         getAllPagedItems<ProjectCageDto>('ProjectCage'),
         getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
+        getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
         getAllPagedItems<FeedingDto>('Feeding'),
         getAllPagedItems<FeedingLineDto>('FeedingLine'),
         getAllPagedItems<FeedingDistributionDto>('FeedingDistribution'),
@@ -178,6 +195,8 @@ export const aquaDashboardApi = {
 
     const cageCurrentFish = new Map<number, number>();
     const cageCurrentBiomass = new Map<number, number>();
+    const warehouseFishByProject = new Map<number, number>();
+    const warehouseBiomassByProject = new Map<number, number>();
 
     for (const balance of balances) {
       if (!cageToProjectId.has(balance.projectCageId)) continue;
@@ -188,6 +207,18 @@ export const aquaDashboardApi = {
       cageCurrentBiomass.set(
         balance.projectCageId,
         (cageCurrentBiomass.get(balance.projectCageId) ?? 0) + (balance.biomassGram ?? 0)
+      );
+    }
+
+    for (const balance of warehouseBalances) {
+      if (!activeProjectIdSet.has(balance.projectId)) continue;
+      warehouseFishByProject.set(
+        balance.projectId,
+        (warehouseFishByProject.get(balance.projectId) ?? 0) + (balance.liveCount ?? 0)
+      );
+      warehouseBiomassByProject.set(
+        balance.projectId,
+        (warehouseBiomassByProject.get(balance.projectId) ?? 0) + (balance.biomassGram ?? 0)
       );
     }
 
@@ -243,7 +274,9 @@ export const aquaDashboardApi = {
           cageCurrentFish,
           cageCurrentBiomass,
           cageDead,
-          cageFeed
+          cageFeed,
+          warehouseFishByProject,
+          warehouseBiomassByProject
         )
       )
       .sort((a, b) => a.projectCode.localeCompare(b.projectCode));

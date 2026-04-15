@@ -196,17 +196,22 @@ function ProjectSummaryCards({
   activeCageCount,
   inactiveCageCount,
   totalInitialFish,
-  totalCurrentFish,
+  cageFishCount,
+  warehouseFishCount,
+  totalSystemFishCount,
   totalDead,
   totalFeedGram,
-  totalCurrentBiomass,
+  cageBiomassGram,
+  warehouseBiomassGram,
+  totalSystemBiomassGram,
   avgCurrentGram,
+  activeWarehouseCount,
   totalShipmentFish,
   totalShipmentBiomass,
   lastShipmentDate,
   t,
 }: any): ReactElement {
-  const stockRatio = totalInitialFish > 0 ? clampPercent((totalCurrentFish / totalInitialFish) * 100) : 0;
+  const stockRatio = totalInitialFish > 0 ? clampPercent((cageFishCount / totalInitialFish) * 100) : 0;
 
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -224,17 +229,35 @@ function ProjectSummaryCards({
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
+          <p className="text-xs font-medium text-violet-600 dark:text-violet-400 truncate">{t('aqua.projectDetailReport.activeWarehouses')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(activeWarehouseCount)}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+        <CardContent className="pt-4 min-w-0">
           <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 truncate">{t('aqua.projectDetailReport.initialFishTotal')}</p>
           <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalInitialFish)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentFishTotal')}</p>
-          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalCurrentFish)}</p>
+          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.cageFishStock')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(cageFishCount)}</p>
           <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
             <div className="h-full rounded-full bg-blue-500 transition-[width]" style={{ width: `${stockRatio}%` }} />
           </div>
+        </CardContent>
+      </Card>
+      <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+        <CardContent className="pt-4 min-w-0">
+          <p className="text-xs font-medium text-violet-600 dark:text-violet-400 truncate">{t('aqua.projectDetailReport.warehouseFishStock')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(warehouseFishCount)}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+        <CardContent className="pt-4 min-w-0">
+          <p className="text-xs font-medium text-cyan-600 dark:text-cyan-400 truncate">{t('aqua.projectDetailReport.totalSystemFishStock')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalSystemFishCount)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
@@ -251,8 +274,20 @@ function ProjectSummaryCards({
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
         <CardContent className="pt-4 min-w-0">
-          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.currentBiomassTotal')}</p>
-          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalCurrentBiomass)}</p>
+          <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.cageBiomassTotal')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(cageBiomassGram)}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+        <CardContent className="pt-4 min-w-0">
+          <p className="text-xs font-medium text-fuchsia-600 dark:text-fuchsia-400 truncate">{t('aqua.projectDetailReport.warehouseBiomassTotal')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(warehouseBiomassGram)}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+        <CardContent className="pt-4 min-w-0">
+          <p className="text-xs font-medium text-sky-600 dark:text-sky-400 truncate">{t('aqua.projectDetailReport.currentBiomassTotal')}</p>
+          <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalSystemBiomassGram)}</p>
         </CardContent>
       </Card>
       <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
@@ -278,7 +313,7 @@ function ProjectSummaryCards({
   );
 }
 
-function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, liveRatePercent, aliveFishCount, deadFishCount, missingFeedCageCountToday, activeCageCount, totalShipmentFish, totalShipmentBiomass, lastShipmentDate, consistency, t }: any): ReactElement {
+function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, liveRatePercent, cageFishCount, warehouseFishCount, totalSystemFishCount, missingFeedCageCountToday, activeCageCount, cageBiomassGram, warehouseBiomassGram, totalSystemBiomassGram, totalShipmentFish, totalShipmentBiomass, lastShipmentDate, consistency, t }: any): ReactElement {
   const safeRate = clampPercent(liveRatePercent);
   const hasSnapshotDate = snapshotDate !== '-';
   const activeWithFeedCount = hasSnapshotDate ? Math.max(0, activeCageCount - missingFeedCageCountToday) : 0;
@@ -310,14 +345,43 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.aliveFishNow')}</p>
-              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(aliveFishCount)}</p>
+              <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.cageFishStock')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(cageFishCount)}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
             <CardContent className="pt-4 min-w-0">
-              <p className="text-xs font-medium text-red-600 dark:text-red-400 truncate">{t('aqua.projectDetailReport.totalDead')}</p>
-              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(deadFishCount)}</p>
+              <p className="text-xs font-medium text-violet-600 dark:text-violet-400 truncate">{t('aqua.projectDetailReport.warehouseFishStock')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(warehouseFishCount)}</p>
+            </CardContent>
+          </Card>
+          <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+            <CardContent className="pt-4 min-w-0">
+              <p className="text-xs font-medium text-cyan-600 dark:text-cyan-400 truncate">{t('aqua.projectDetailReport.totalSystemFishStock')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalSystemFishCount)}</p>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+          <div className="h-full rounded-full bg-emerald-500 transition-[width]" style={{ width: `${safeRate}%` }} />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+            <CardContent className="pt-4 min-w-0">
+              <p className="text-xs font-medium text-blue-600 dark:text-blue-400 truncate">{t('aqua.projectDetailReport.cageBiomassTotal')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(cageBiomassGram)}</p>
+            </CardContent>
+          </Card>
+          <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+            <CardContent className="pt-4 min-w-0">
+              <p className="text-xs font-medium text-fuchsia-600 dark:text-fuchsia-400 truncate">{t('aqua.projectDetailReport.warehouseBiomassTotal')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(warehouseBiomassGram)}</p>
+            </CardContent>
+          </Card>
+          <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
+            <CardContent className="pt-4 min-w-0">
+              <p className="text-xs font-medium text-sky-600 dark:text-sky-400 truncate">{t('aqua.projectDetailReport.currentBiomassTotal')}</p>
+              <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(totalSystemBiomassGram)}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
@@ -326,9 +390,6 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
               <p className="mt-1 text-xl sm:text-2xl font-bold tabular-nums text-slate-900 dark:text-white truncate">{formatNumber(activeWithFeedCount)} / {formatNumber(activeCageCount)}</p>
             </CardContent>
           </Card>
-        </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-          <div className="h-full rounded-full bg-emerald-500 transition-[width]" style={{ width: `${safeRate}%` }} />
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50 shadow-sm">
@@ -356,7 +417,7 @@ function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, l
               </Badge>
             </div>
             <p className="mt-2 text-sm font-semibold tabular-nums text-slate-900 dark:text-white truncate">
-              {formatNumber(aliveFishCount)} = {formatNumber(consistency.expectedCurrentFish)}
+              {formatNumber(cageFishCount)} = {formatNumber(consistency.expectedCurrentFish)}
             </p>
           </CardContent>
         </Card>
@@ -433,18 +494,39 @@ export function ProjectDetailReportPage(): ReactElement {
     if (!reportQuery.data) return null;
     const cages = reportQuery.data.cages;
     const totalInitialFish = cages.reduce((acc, x) => acc + Number(x.initialFishCount ?? 0), 0);
-    const totalCurrentFish = cages.reduce((acc, x) => acc + Number(x.currentFishCount ?? 0), 0);
+    const cageFishCount = cages.reduce((acc, x) => acc + Number(x.currentFishCount ?? 0), 0);
     const totalDead = cages.reduce((acc, x) => acc + Number(x.totalDeadCount ?? 0), 0);
     const totalFeedGram = cages.reduce((acc, x) => acc + Number(x.totalFeedGram ?? 0), 0);
-    const totalCurrentBiomass = cages.reduce((acc, x) => acc + Number(x.currentBiomassGram ?? 0), 0);
+    const cageBiomassGram = cages.reduce((acc, x) => acc + Number(x.currentBiomassGram ?? 0), 0);
+    const warehouseFishCount = reportQuery.data.warehouseSummary.warehouseFishCount;
+    const warehouseBiomassGram = reportQuery.data.warehouseSummary.warehouseBiomassGram;
     const totalShipmentFish = cages.reduce((acc, x) => acc + x.dailyRows.reduce((sum, row) => sum + Number(row.shipmentFishCount ?? 0), 0), 0);
     const totalShipmentBiomass = cages.reduce((acc, x) => acc + x.dailyRows.reduce((sum, row) => sum + Number(row.shipmentBiomassGram ?? 0), 0), 0);
     const shipmentDates = cages.flatMap((x) => x.dailyRows).filter((row) => row.shipmentCount > 0 || row.shipmentFishCount > 0 || row.shipmentBiomassGram > 0).map((row) => row.date).sort((a, b) => b.localeCompare(a));
-    const avgCurrentGram = totalCurrentFish > 0 ? totalCurrentBiomass / totalCurrentFish : 0;
+    const avgCurrentGram = cageFishCount > 0 ? cageBiomassGram / cageFishCount : 0;
     const expectedCurrentFish = Math.max(0, totalInitialFish - totalDead - totalShipmentFish);
-    const isConsistent = expectedCurrentFish === totalCurrentFish;
+    const isConsistent = expectedCurrentFish === cageFishCount;
 
-    return { activeCageCount: cages.length, inactiveCageCount: reportQuery.data.cageHistory.length, totalInitialFish, totalCurrentFish, totalDead, totalFeedGram, totalCurrentBiomass, avgCurrentGram, totalShipmentFish, totalShipmentBiomass, lastShipmentDate: shipmentDates[0] ?? '-', expectedCurrentFish, isConsistent };
+    return {
+      activeCageCount: cages.length,
+      inactiveCageCount: reportQuery.data.cageHistory.length,
+      activeWarehouseCount: reportQuery.data.warehouseSummary.activeWarehouseCount,
+      totalInitialFish,
+      cageFishCount,
+      warehouseFishCount,
+      totalSystemFishCount: reportQuery.data.warehouseSummary.totalSystemFishCount,
+      totalDead,
+      totalFeedGram,
+      cageBiomassGram,
+      warehouseBiomassGram,
+      totalSystemBiomassGram: reportQuery.data.warehouseSummary.totalSystemBiomassGram,
+      avgCurrentGram,
+      totalShipmentFish,
+      totalShipmentBiomass,
+      lastShipmentDate: shipmentDates[0] ?? '-',
+      expectedCurrentFish,
+      isConsistent,
+    };
   }, [reportQuery.data]);
 
   const projectCurrentSnapshot = useMemo(() => {
@@ -452,9 +534,26 @@ export function ProjectDetailReportPage(): ReactElement {
     const cages = reportQuery.data.cages;
     const latestDate = cages.flatMap((x) => x.dailyRows.map((r) => r.date)).sort((a, b) => b.localeCompare(a))[0];
     const snapshotDate = latestDate || '-';
-    const liveRatePercent = projectSummary.totalInitialFish > 0 ? (projectSummary.totalCurrentFish / projectSummary.totalInitialFish) * 100 : 0;
+    const liveRatePercent = projectSummary.totalInitialFish > 0 ? (projectSummary.cageFishCount / projectSummary.totalInitialFish) * 100 : 0;
 
-    return { projectCode: reportQuery.data.project.projectCode ?? '', projectName: reportQuery.data.project.projectName ?? '', snapshotDate, liveRatePercent, aliveFishCount: projectSummary.totalCurrentFish, deadFishCount: projectSummary.totalDead, missingFeedCageCountToday: latestDate != null ? cages.filter((cage) => cage.missingFeedingDays.includes(latestDate)).length : 0, activeCageCount: projectSummary.activeCageCount, totalShipmentFish: projectSummary.totalShipmentFish, totalShipmentBiomass: projectSummary.totalShipmentBiomass, lastShipmentDate: projectSummary.lastShipmentDate, consistency: { expectedCurrentFish: projectSummary.expectedCurrentFish, isConsistent: projectSummary.isConsistent } };
+    return {
+      projectCode: reportQuery.data.project.projectCode ?? '',
+      projectName: reportQuery.data.project.projectName ?? '',
+      snapshotDate,
+      liveRatePercent,
+      cageFishCount: projectSummary.cageFishCount,
+      warehouseFishCount: projectSummary.warehouseFishCount,
+      totalSystemFishCount: projectSummary.totalSystemFishCount,
+      missingFeedCageCountToday: latestDate != null ? cages.filter((cage) => cage.missingFeedingDays.includes(latestDate)).length : 0,
+      activeCageCount: projectSummary.activeCageCount,
+      cageBiomassGram: projectSummary.cageBiomassGram,
+      warehouseBiomassGram: projectSummary.warehouseBiomassGram,
+      totalSystemBiomassGram: projectSummary.totalSystemBiomassGram,
+      totalShipmentFish: projectSummary.totalShipmentFish,
+      totalShipmentBiomass: projectSummary.totalShipmentBiomass,
+      lastShipmentDate: projectSummary.lastShipmentDate,
+      consistency: { expectedCurrentFish: projectSummary.expectedCurrentFish, isConsistent: projectSummary.isConsistent },
+    };
   }, [projectSummary, reportQuery.data]);
 
   useEffect(() => {
