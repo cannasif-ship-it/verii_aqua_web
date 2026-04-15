@@ -1,11 +1,11 @@
 {
   "loading": "Caricamento...",
-  "saving": "Salvataggio...",
+  "saving": "Registrazione...",
   "error": "Errore",
-  "noData": "Nessun dato trovato",
+  "noData": "Nessun dato",
   "previous": "Precedente",
-  "next": "Successivo",
-  "actions": "Azioni",
+  "next": "Avanti",
+  "actions": "Transazioni",
   "edit": "Modifica",
   "delete": "Elimina",
   "back": "Indietro",
@@ -13,155 +13,155 @@
   "select": "Seleziona",
   "yes": "Sì",
   "add": "Aggiungi",
-  "backToQuotations": "Torna ai Preventivi",
+  "backToQuotations": "Torna alle Offerte",
   "cancel": "Annulla",
   "save": "Salva",
   "confirm": "Conferma",
-  "saveAndApply": "Salva e Applica",
+  "saveAndApply": "Salva e applica",
   "list": {
-    "revise": "Revisiona",
-    "showing": "Visualizzazione {{from}}-{{to}} di {{total}}"
+    "revise": "Revisionare",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}"
   },
   "detail": {
-    "title": "Dettaglio Preventivo"
+    "title": "Dettagli dell'offerta"
   },
   "create": {
-    "title": "Crea Nuovo Preventivo",
-    "submit": "Salva Preventivo e Invia per Approvazione",
-    "success": "Preventivo Creato con Successo",
-    "successMessage": "Il preventivo è stato inviato al processo di approvazione.",
-    "error": "Impossibile Creare il Preventivo",
-    "errorMessage": "Si è verificato un errore durante la creazione del preventivo."
+    "title": "Crea nuova offerta",
+    "submit": "Salvare l'offerta e inviarla per l'approvazione",
+    "success": "Offerta creata con successo",
+    "successMessage": "La proposta è stata inviata al processo di approvazione.",
+    "error": "Impossibile creare l'offerta",
+    "errorMessage": "Si è verificato un errore durante la creazione dell'offerta."
   },
   "header": {
-    "title": "Informazioni Preventivo",
-    "customer": "Cliente",
-    "selectCustomer": "Seleziona cliente",
-    "shippingAddress": "Indirizzo di Spedizione",
-    "selectShippingAddress": "Seleziona indirizzo di spedizione",
-    "representative": "Rappresentante di Vendita",
-    "selectRepresentative": "Seleziona rappresentante",
-    "offerType": "Tipo Offerta",
-    "selectOfferType": "Seleziona tipo offerta",
+    "title": "Informazioni sull'offerta",
+    "customer": "cliente",
+    "selectCustomer": "Seleziona Cliente",
+    "shippingAddress": "Indirizzo di spedizione",
+    "selectShippingAddress": "Seleziona Indirizzo di spedizione",
+    "representative": "Rappresentante delle vendite",
+    "selectRepresentative": "Seleziona un rappresentante",
+    "offerType": "Tipo di offerta",
+    "selectOfferType": "Seleziona il tipo di offerta",
     "currency": "Valuta",
-    "selectCurrency": "Si prega di selezionare la valuta",
-    "showExchangeRates": "Mostra Tassi di Cambio",
-    "offerDate": "Data Offerta",
-    "deliveryDate": "Data Consegna",
-    "paymentType": "Tipo Pagamento",
-    "selectPaymentType": "Seleziona tipo pagamento",
+    "selectCurrency": "Seleziona la valuta",
+    "showExchangeRates": "Mostra tariffe",
+    "offerDate": "Data dell'offerta",
+    "deliveryDate": "Data di consegna",
+    "paymentType": "Tipo di pagamento",
+    "selectPaymentType": "Seleziona il tipo di pagamento",
     "description": "Descrizione",
-    "descriptionPlaceholder": "Inserisci descrizione",
-    "offerNo": "N. Offerta",
-    "offerNoPlaceholder": "Numero offerta",
+    "descriptionPlaceholder": "Inserisci la descrizione",
+    "offerNo": "Offerta No",
+    "offerNoPlaceholder": "Numero dell'offerta",
     "currencyChange": {
-      "title": "Cambio Valuta",
-      "message": "Quando la valuta cambia, tutte le righe esistenti verranno ricalcolate in base alla nuova valuta. Approvi questa operazione?"
+      "title": "Cambio di valuta",
+      "message": "Quando la valuta cambia, tutte le righe esistenti verranno ricalcolate in base alla nuova valuta. Approvate questa transazione?"
     }
   },
   "lines": {
-    "title": "Righe Preventivo",
-    "add": "Aggiungi Riga",
+    "title": "Righe di citazione",
+    "add": "Aggiungi riga",
     "empty": "Nessuna riga ancora aggiunta",
-    "emptyDescription": "Usa il pulsante \"Seleziona Stock\" o \"Aggiungi Riga\" per aggiungere righe al preventivo",
-    "itemCount": "riga",
-    "editLine": "Modifica Riga",
-    "selectStock": "Seleziona Stock",
-    "selectProduct": "Seleziona Prodotto",
-    "selectStockFirst": "Stock non selezionato",
-    "stock": "Stock",
-    "productCode": "Codice Stock",
-    "enterProductCode": "Inserisci codice prodotto o cerca",
-    "productName": "Nome Stock",
-    "enterProductName": "Inserisci nome prodotto",
-    "quantity": "Quantità",
-    "unitPrice": "Prezzo Unitario",
+    "emptyDescription": "Utilizzare il pulsante \"Seleziona stock\" o \"Aggiungi riga\" per aggiungere righe di preventivo",
+    "itemCount": "linea",
+    "editLine": "Modifica riga",
+    "selectStock": "Seleziona Azione",
+    "selectProduct": "Seleziona prodotto",
+    "selectStockFirst": "Azione non selezionata",
+    "stock": "magazzino",
+    "productCode": "Codice magazzino",
+    "enterProductCode": "Inserisci o cerca il codice prodotto",
+    "productName": "Nome del titolo",
+    "enterProductName": "Inserisci il nome del prodotto",
+    "quantity": "quantità",
+    "unitPrice": "Prezzo unitario",
     "discount1": "Sconto 1 %",
     "discount2": "Sconto 2 %",
     "discount3": "Sconto 3 %",
     "discounts": "Sconti",
-    "discountAmount": "Importo Sconto",
-    "netPrice": "Prezzo Netto",
+    "discountAmount": "Importo dello sconto",
+    "netPrice": "Prezzo netto",
     "vatRate": "Aliquota IVA %",
-    "lineTotal": "Totale Riga (IVA Inclusa)",
+    "lineTotal": "Totale riga (IVA inclusa)",
     "calculations": "Calcoli",
-    "required": "Devi aggiungere almeno 1 riga",
-    "noProductsFound": "Nessun prodotto trovato",
+    "required": "È necessario aggiungere almeno 1 riga",
+    "noProductsFound": "Prodotto non trovato",
     "delete": {
-      "confirmTitle": "Elimina Riga",
+      "confirmTitle": "Elimina riga",
       "confirmMessage": "Sei sicuro di voler eliminare questa riga?"
     }
   },
   "exchangeRates": {
-    "title": "Tassi di Cambio",
+    "title": "Tassi di cambio",
     "currency": "Valuta",
-    "rate": "Tasso",
-    "date": "Data Tasso",
-    "isOfficial": "Tasso Ufficiale",
-    "official": "Ufficiale",
-    "custom": "Personalizzato",
-    "empty": "Nessun tasso di cambio trovato",
+    "rate": "Installa",
+    "date": "Data del tasso di cambio",
+    "isOfficial": "Installa ufficiale",
+    "official": "ufficiale",
+    "custom": "privato",
+    "empty": "Tariffa non trovata",
     "status": "Stato",
     "dialog": {
-      "title": "Tassi di Cambio",
-      "description": "Visualizza e modifica i valori del tasso di cambio se necessario. I tassi modificati non verranno contrassegnati come tassi ufficiali."
+      "title": "Tassi di cambio",
+      "description": "Visualizza i tassi di cambio e modificali se necessario. Le tariffe modificate non saranno contrassegnate come tariffe ufficiali."
     }
   },
   "summary": {
     "title": "Riepilogo",
-    "subtotal": "Subtotale",
-    "totalVat": "Totale IVA",
-    "grandTotal": "Totale Generale"
+    "subtotal": "Totale parziale",
+    "totalVat": "IVA totale",
+    "grandTotal": "Totale generale"
   },
   "offerType": {
-    "domestic": "Nazionale",
-    "export": "Esportazione"
+    "domestic": "domestico",
+    "export": "all'estero"
   },
   "wizard": {
-    "title": "Crea Nuovo Preventivo",
+    "title": "Crea nuova offerta",
     "step1": {
-      "title": "Fase 1: Informazioni Preventivo",
-      "description": "Inserisci le informazioni dell'intestazione del preventivo e i tassi di cambio",
+      "title": "Passaggio 1: informazioni sull'offerta",
+      "description": "Inserisci le informazioni sull'intestazione dell'offerta e i tassi di cambio",
       "validation": {
-        "offerType": "Tipo Offerta",
+        "offerType": "Tipo di offerta",
         "currency": "Valuta",
-        "exchangeRate": "Tasso di Cambio"
+        "exchangeRate": "Tasso di cambio"
       },
       "exchangeRate": {
-        "required": "È necessario aggiungere almeno un tasso di cambio per le valute diverse da TRY"
+        "required": "È necessario aggiungere almeno un tasso di cambio per le valute diverse dalla TRY"
       },
       "currency": {
         "try": {
-          "info": "Il tasso di cambio non è richiesto quando è selezionato TRY"
+          "info": "Nessun tasso di cambio richiesto quando è selezionato TRY"
         }
       }
     },
     "step2": {
-      "title": "Fase 2: Righe Preventivo",
-      "description": "Aggiungi informazioni su prodotti e prezzi",
-      "info": "Devi aggiungere almeno una riga",
+      "title": "Passaggio 2: righe di virgolette",
+      "description": "Aggiungi informazioni sul prodotto e sul prezzo",
+      "info": "È necessario aggiungere almeno una riga",
       "validation": {
-        "noLines": "Devi aggiungere almeno una riga",
-        "invalidLines": "Tutte le righe devono avere informazioni valide",
-        "allValid": "{{count}} righe aggiunte con successo"
+        "noLines": "È necessario aggiungere almeno una riga",
+        "invalidLines": "Tutte le righe devono contenere informazioni valide",
+        "allValid": "{{count}} riga aggiunta correttamente"
       }
     },
     "step3": {
-      "title": "Fase 3: Riepilogo e Approvazione",
-      "description": "Rivedi le informazioni e salva il preventivo",
+      "title": "Passaggio 3: riepilogo e approvazione",
+      "description": "Controlla le informazioni e salva l'offerta",
       "header": {
-        "title": "Informazioni Preventivo"
+        "title": "Informazioni sull'offerta"
       },
       "lines": {
-        "title": "Righe Preventivo"
+        "title": "Righe di citazione"
       },
       "summary": {
-        "title": "Riepilogo Finale"
+        "title": "Riepilogo finale"
       },
       "approval": {
-        "info": "Il preventivo verrà inviato automaticamente al processo di approvazione dopo il salvataggio"
+        "info": "Una volta salvata l'offerta, verrà automaticamente inviata al processo di approvazione."
       }
     }
   },
-  "guide": "Direttorio"
+  "guide": "Guida"
 }

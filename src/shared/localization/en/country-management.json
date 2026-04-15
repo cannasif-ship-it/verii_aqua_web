@@ -1,22 +1,22 @@
 {
   "menu": "Country Management",
-  "description": "Manage and edit countries",
+  "description": "Manage and regulate countries",
   "addButton": "Add New Country",
   "search": "Search...",
   "loading": "Loading...",
   "noData": "No data found",
-  "actions": "Actions",
+  "actions": "Transactions",
   "previous": "Previous",
   "next": "Next",
-  "deleteConfirmTitle": "Delete Confirmation",
+  "deleteConfirmTitle": "Deletion Confirmation",
   "cancel": "Cancel",
   "deleting": "Deleting...",
   "delete": "Delete",
-  "saving": "Saving...",
+  "saving": "Recording...",
   "save": "Save",
   "stats": {
-    "totalCountries": "Total Countries",
-    "activeCountries": "Active Countries",
+    "totalCountries": "Total Country",
+    "activeCountries": "Active Country",
     "newThisMonth": "New This Month"
   },
   "table": {
@@ -24,8 +24,8 @@
     "name": "Country Name",
     "code": "Code",
     "erpCode": "ERP Code",
-    "createdDate": "Created Date",
-    "createdBy": "Created By",
+    "createdDate": "Creation Date",
+    "createdBy": "Created by",
     "showing": "Showing {{from}}-{{to}} / {{total}}",
     "page": "Page {{current}} / {{total}}"
   },
@@ -37,17 +37,17 @@
     "name": "Country Name",
     "namePlaceholder": "Enter country name",
     "code": "Country Code",
-    "codePlaceholder": "Enter country code (e.g. TR, US)",
+    "codePlaceholder": "Enter the country code (ex: TR, US)",
     "erpCode": "ERP Code",
-    "erpCodePlaceholder": "Enter ERP code (optional)",
+    "erpCodePlaceholder": "Enter code ERP (optional)",
     "nameRequired": "Country name is required",
-    "nameMaxLength": "Country name cannot exceed 100 characters",
+    "nameMaxLength": "Country name can be up to 100 characters",
     "codeMinLength": "Country code must be at least 2 characters",
-    "codeMaxLength": "Country code cannot exceed 5 characters",
-    "erpCodeMaxLength": "ERP code cannot exceed 10 characters"
+    "codeMaxLength": "Country code can be up to 5 characters",
+    "erpCodeMaxLength": "The code ERP can be a maximum of 10 characters"
   },
   "deleteConfirm": {
-    "confirmMessage": "Are you sure you want to delete {{name}}?"
+    "confirmMessage": "Are you sure you want to delete country {{name}}?"
   },
   "advancedFilter": {
     "columnName": "Country Name",

@@ -8,6 +8,6 @@
     "error": "Validation Error"
   },
   "step": {
-    "unknown": "Unknown step"
+    "unknown": "unknown step"
   }
 }

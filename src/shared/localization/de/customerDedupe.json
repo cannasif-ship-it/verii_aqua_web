@@ -8,7 +8,7 @@
   "all": "Alle",
   "masterCustomer": "Hauptkunde",
   "duplicateCustomer": "Stammkunde",
-  "score": "Punkt",
+  "score": "Punktzahl",
   "actions": "Transaktionen",
   "previewMerge": "Vorschau der Zusammenführung",
   "merge": "kombinieren",
@@ -21,7 +21,7 @@
   "emptyDescription": "Es gibt keine doppelten Leads zur Überprüfung.",
   "loadErrorTitle": "Die Installation ist fehlgeschlagen",
   "loadErrorDescription": "Doppelte Kandidaten konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
-  "retry": "versuchen Sie es erneut",
+  "retry": "Versuchen Sie es noch einmal",
   "TaxNumber": "Steuernummer",
   "TcknNumber": "TR-ID-Nummer",
   "CustomerCode": "Kundencode"

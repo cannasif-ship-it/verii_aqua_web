@@ -2,73 +2,73 @@
   "title": "Customer 360",
   "notFound": "Customer not found",
   "error": "An error occurred",
-  "retry": "Retry",
+  "retry": "Try Again",
   "currencyFilter": {
-    "label": "Currency",
+    "label": "currency",
     "all": "All"
   },
   "tabs": {
-    "overview": "Overview",
-    "analytics": "Analytics"
+    "overview": "Summary",
+    "analytics": "analytics"
   },
   "kpi": {
-    "totalDemands": "Total Demands",
-    "totalQuotations": "Total Quotations",
-    "totalOrders": "Total Orders",
-    "openQuotations": "Open Quotations",
-    "openOrders": "Pending Orders"
+    "totalDemands": "Total Offer",
+    "totalQuotations": "Total Offer",
+    "totalOrders": "Total Order",
+    "openQuotations": "Open Offer",
+    "openOrders": "Pending Order"
   },
   "sections": {
-    "contacts": "Contacts",
+    "contacts": "Communications",
     "shippingAddresses": "Shipping Addresses",
-    "recentDemands": "Recent Demands",
-    "recentQuotations": "Recent Quotations",
-    "recentOrders": "Recent Orders",
-    "recentActivities": "Recent Activities",
+    "recentDemands": "Latest Offers",
+    "recentQuotations": "Latest Offers",
+    "recentOrders": "Latest Orders",
+    "recentActivities": "Latest Activities",
     "timeline": "Timeline"
   },
   "analytics": {
-    "error": "Could not load analytics data",
+    "error": "Failed to load analytics data",
     "last12MonthsOrderAmount": "Last 12 Months Order Amount",
-    "openQuotationAmount": "Open Quotation Amount",
+    "openQuotationAmount": "Open Bid Amount",
     "openOrderAmount": "Open Order Amount",
-    "activityCount": "Activity Count",
+    "activityCount": "Number of Activities",
     "lastActivityDate": "Last Activity Date"
   },
   "analyticsCharts": {
-    "demand": "Demand",
-    "quotation": "Quotation",
+    "demand": "Offer",
+    "quotation": "Offer",
     "order": "Order",
     "last12MonthsOrderAmount": "Last 12 Months Order",
-    "openQuotationAmount": "Open Quotation",
+    "openQuotationAmount": "Open Offer",
     "openOrderAmount": "Open Order",
-    "distributionTitle": "Distribution",
+    "distributionTitle": "distribution",
     "monthlyTrendTitle": "Monthly Trend",
     "amountComparisonTitle": "Amount Comparison"
   },
   "currencyTotals": {
     "currency": "Currency",
-    "demandAmount": "Demand Amount",
-    "quotationAmount": "Quotation Amount",
+    "demandAmount": "Bid Amount",
+    "quotationAmount": "Bid Amount",
     "orderAmount": "Order Amount"
   },
   "revenueQuality": {
     "title": "Revenue Quality",
-    "churnRisk": "Churn Risk",
-    "upsell": "Upsell Propensity",
+    "churnRisk": "Risk of Loss",
+    "upsell": "Upselling Trend",
     "payment": "Payment Behavior",
     "segment": "RFM Segment",
     "ltv": "LTV"
   },
   "cohort": {
-    "title": "Cohort Retention",
+    "title": "Keeping a Cohort",
     "empty": "No cohort data",
-    "cohortKey": "Cohort"
+    "cohortKey": "cohort"
   },
   "actions": {
     "title": "Recommended Actions",
-    "empty": "No recommended actions",
-    "execute": "Execute"
+    "empty": "No recommended action",
+    "execute": "Apply"
   },
   "status": {}
 }

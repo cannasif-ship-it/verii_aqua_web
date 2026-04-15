@@ -1,29 +1,29 @@
 {
-  "menu": "Monitoreo Hangfire",
-  "title": "Monitoreo Hangfire",
-  "description": "Supervisa la salud de jobs, fallos y la cola dead-letter.",
+  "menu": "Monitoreo de Hangfire",
+  "title": "Monitoreo de Hangfire",
+  "description": "Supervise el estado de los trabajos, los trabajos fallidos y la cola de mensajes no entregados.",
   "refresh": "Actualizar",
   "stats": {
-    "enqueued": "En cola",
-    "processing": "Procesando",
-    "succeeded": "Exitosos",
-    "failed": "Fallidos"
+    "enqueued": "en la cola",
+    "processing": "Procesamiento",
+    "succeeded": "exitoso",
+    "failed": "fallar"
   },
   "table": {
-    "jobId": "ID de trabajo",
+    "jobId": "Trabajo ID",
     "jobName": "trabajo",
     "state": "Estado",
-    "time": "Hora",
-    "reason": "Motivo"
+    "time": "tiempo",
+    "reason": "¿Por qué?"
   },
   "failed": {
-    "title": "Jobs fallidos",
-    "empty": "No hay jobs fallidos.",
-    "total": "Total"
+    "title": "Trabajos fallidos",
+    "empty": "No se encontraron trabajos fallidos.",
+    "total": "totales"
   },
   "deadLetter": {
-    "title": "Cola Dead-Letter",
-    "empty": "La cola dead-letter esta vacia.",
-    "enqueued": "En cola"
+    "title": "Cola de letra muerta",
+    "empty": "La cola de mensajes fallidos está vacía.",
+    "enqueued": "en la cola"
   }
 }

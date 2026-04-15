@@ -1,50 +1,50 @@
 {
-  "menu": "إدارة المدن",
+  "menu": "إدارة المدينة",
   "description": "إدارة وتنظيم المدن",
   "addButton": "إضافة مدينة جديدة",
-  "searchPlaceholder": "بحث...",
-  "loading": "جار التحميل...",
-  "noData": "لا توجد بيانات",
+  "searchPlaceholder": "يبحث...",
+  "loading": "تحميل...",
+  "noData": "لم يتم العثور على بيانات",
   "stats": {
-    "totalCities": "إجمالي المدن",
-    "activeCities": "المدن النشطة",
+    "totalCities": "توتال سيتي",
+    "activeCities": "مدينة نشطة",
     "newThisMonth": "جديد هذا الشهر"
   },
   "table": {
-    "id": "المعرف",
+    "id": "ID",
     "name": "اسم المدينة",
-    "erpCode": "كود ERP",
-    "countryName": "اسم الدولة",
+    "erpCode": "ERP الكود",
+    "countryName": "اسم البلد",
     "createdDate": "تاريخ الإنشاء",
-    "createdBy": "تم الإنشاء بواسطة",
+    "createdBy": "تم إنشاؤها بواسطة",
     "showing": "عرض {{from}}-{{to}} / {{total}}",
-    "page": "صفحة {{current}} / {{total}}"
+    "page": "الصفحة {{current}} / {{total}}"
   },
   "form": {
-    "editCity": "تعديل المدينة",
+    "editCity": "تحرير المدينة",
     "addCity": "إضافة مدينة جديدة",
-    "editDescription": "تعديل تفاصيل المدينة",
-    "addDescription": "إدخال تفاصيل مدينة جديدة",
+    "editDescription": "تحرير معلومات المدينة",
+    "addDescription": "أدخل معلومات المدينة الجديدة",
     "name": "اسم المدينة",
     "namePlaceholder": "أدخل اسم المدينة",
-    "country": "الدولة",
-    "selectCountry": "اختر الدولة",
-    "erpCode": "كود ERP",
-    "erpCodePlaceholder": "أدخل كود ERP (اختياري)",
-    "cancel": "إلغاء",
-    "save": "حفظ",
-    "saving": "جار الحفظ...",
+    "country": "دولة",
+    "selectCountry": "اختر البلد",
+    "erpCode": "ERP الكود",
+    "erpCodePlaceholder": "أدخل الرمز ERP (اختياري)",
+    "cancel": "يلغي",
+    "save": "يحفظ",
+    "saving": "تسجيل...",
     "nameRequired": "اسم المدينة مطلوب",
-    "nameMaxLength": "اسم المدينة لا يمكن أن يتجاوز 100 حرف",
-    "erpCodeMaxLength": "كود ERP لا يمكن أن يتجاوز 10 أحرف",
-    "countryRequired": "اختيار الدولة مطلوب"
+    "nameMaxLength": "يمكن أن يصل اسم المدينة إلى 100 حرف",
+    "erpCodeMaxLength": "يمكن أن يتكون الرمز ERP من 10 أحرف كحد أقصى",
+    "countryRequired": "اختيار البلد إلزامي"
   },
-  "actions": "إجراءات",
+  "actions": "المعاملات",
   "delete": {
-    "button": "حذف",
+    "button": "يمسح",
     "confirmTitle": "حذف المدينة",
-    "confirmMessage": "هل أنت متأكد من حذف {{name}}؟"
+    "confirmMessage": "هل أنت متأكد أنك تريد حذف المدينة {{name}}؟"
   },
-  "previous": "السابق",
+  "previous": "سابق",
   "next": "التالي"
 }

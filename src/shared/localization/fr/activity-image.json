@@ -1,7 +1,7 @@
 {
   "editDescription": "Modifier la description",
   "editDescriptionSubtitle": "Mettre à jour la description de l'image",
-  "description": "Description",
+  "description": "Descriptif",
   "descriptionPlaceholder": "Entrez une description de l'image...",
   "saveActivityFirst": "Enregistrer l'activité en premier",
   "saveActivityFirstDescription": "Pour ajouter une image, vous devez d'abord enregistrer l'activité.",
@@ -25,6 +25,6 @@
   "deleteError": "Impossible de supprimer l'image",
   "updateSuccess": "Image mise à jour avec succès",
   "updateError": "L'image n'a pas pu être mise à jour",
-  "uploadSuccess": "L'image {{count}} a été téléchargée avec succès",
+  "uploadSuccess": "{{count}} image a été téléchargée avec succès",
   "uploadError": "Les images n'ont pas pu être chargées"
 }

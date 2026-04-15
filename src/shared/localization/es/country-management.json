@@ -1,57 +1,57 @@
 {
-  "menu": "Gestión de Países",
-  "description": "Gestionar y editar países",
-  "addButton": "Añadir Nuevo País",
+  "menu": "Gestión País",
+  "description": "Gestionar y regular países.",
+  "addButton": "Agregar nuevo país",
   "search": "Buscar...",
   "loading": "Cargando...",
   "noData": "No se encontraron datos",
-  "actions": "Acciones",
+  "actions": "Transacciones",
   "previous": "Anterior",
   "next": "Siguiente",
-  "deleteConfirmTitle": "Confirmación de Eliminación",
+  "deleteConfirmTitle": "Confirmación de eliminación",
   "cancel": "Cancelar",
   "deleting": "Eliminando...",
   "delete": "Eliminar",
-  "saving": "Guardando...",
+  "saving": "Grabando...",
   "save": "Guardar",
   "stats": {
-    "totalCountries": "Países Totales",
-    "activeCountries": "Países Activos",
-    "newThisMonth": "Nuevos este Mes"
+    "totalCountries": "Total país",
+    "activeCountries": "País activo",
+    "newThisMonth": "Nuevo este mes"
   },
   "table": {
-    "id": "IDENTIFICACIÓN",
-    "name": "Nombre del País",
+    "id": "ID",
+    "name": "Nombre del país",
     "code": "Código",
-    "erpCode": "Código ERP",
-    "createdDate": "Fecha de Creación",
-    "createdBy": "Creado Por",
+    "erpCode": "ERP Código",
+    "createdDate": "Fecha de creación",
+    "createdBy": "Creado por",
     "showing": "Mostrando {{from}}-{{to}} / {{total}}",
     "page": "Página {{current}} / {{total}}"
   },
   "form": {
-    "addCountry": "Añadir Nuevo País",
-    "editCountry": "Editar País",
-    "addDescription": "Ingrese información del nuevo país",
+    "addCountry": "Agregar nuevo país",
+    "editCountry": "Editar país",
+    "addDescription": "Ingrese la nueva información del país",
     "editDescription": "Editar información del país",
-    "name": "Nombre del País",
-    "namePlaceholder": "Ingrese nombre del país",
-    "code": "Código del País",
-    "codePlaceholder": "Ingrese código del país (ej. ES, US)",
-    "erpCode": "Código ERP",
-    "erpCodePlaceholder": "Ingrese código ERP (opcional)",
-    "nameRequired": "El nombre del país es obligatorio",
-    "nameMaxLength": "El nombre del país no puede exceder los 100 caracteres",
-    "codeMinLength": "El código del país debe tener al menos 2 caracteres",
-    "codeMaxLength": "El código del país no puede exceder los 5 caracteres",
-    "erpCodeMaxLength": "El código ERP no puede exceder los 10 caracteres"
+    "name": "Nombre del país",
+    "namePlaceholder": "Introduzca el nombre del país",
+    "code": "Código de país",
+    "codePlaceholder": "Ingrese el código de país (por ejemplo, TR, EE. UU.)",
+    "erpCode": "ERP Código",
+    "erpCodePlaceholder": "Ingrese el código ERP (opcional)",
+    "nameRequired": "El nombre del país es obligatorio.",
+    "nameMaxLength": "El nombre del país puede tener hasta 100 caracteres.",
+    "codeMinLength": "El código de país debe tener al menos 2 caracteres.",
+    "codeMaxLength": "El código de país puede tener hasta 5 caracteres",
+    "erpCodeMaxLength": "El código ERP puede tener un máximo de 10 caracteres"
   },
   "deleteConfirm": {
-    "confirmMessage": "¿Está seguro de que desea eliminar {{name}}?"
+    "confirmMessage": "¿Está seguro de que desea eliminar el país {{name}}?"
   },
   "advancedFilter": {
     "columnName": "Nombre del país",
     "columnCode": "Código de país",
-    "columnErpCode": "Código ERP"
+    "columnErpCode": "ERP Código"
   }
 }

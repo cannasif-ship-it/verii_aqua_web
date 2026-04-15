@@ -1,54 +1,54 @@
 {
   "list": {
-    "title": "Aprobaciones Pendientes",
-    "description": "Ver y aprobar o rechazar cotizaciones asignadas a usted",
+    "title": "Aprobaciones pendientes",
+    "description": "Puede ver y aprobar o rechazar las ofertas que se le asignaron",
     "empty": "No hay aprobaciones pendientes",
-    "error": "Ocurrió un error al cargar las aprobaciones"
+    "error": "Se produjo un error al cargar las confirmaciones."
   },
-  "yes": "Sí",
-  "no": "No",
+  "yes": "si",
+  "no": "no",
   "processing": "Procesando...",
   "detail": {
-    "title": "Detalle de Cotización",
-    "subtitle": "Ver detalles de la cotización y realizar acciones",
+    "title": "Detalle de la oferta",
+    "subtitle": "Ver detalles de la oferta y tomar medidas",
     "tabs": {
       "detail": "Detalle",
-      "history": "Historial",
-      "action": "Acción"
+      "history": "pasado",
+      "action": "transacción"
     },
-    "notFound": "Cotización no encontrada",
-    "quotationInfo": "Información de la Cotización",
-    "offerNo": "Nº Oferta",
-    "customer": "Cliente",
-    "representative": "Representante",
+    "notFound": "No offer found",
+    "quotationInfo": "Información de la oferta",
+    "offerNo": "Oferta No",
+    "customer": "cliente",
+    "representative": "representante",
     "currency": "Moneda",
-    "offerDate": "Fecha Oferta",
-    "deliveryDate": "Fecha Entrega",
-    "total": "Total",
-    "grandTotal": "Gran Total",
+    "offerDate": "Fecha de oferta",
+    "deliveryDate": "Fecha de entrega",
+    "total": "totales",
+    "grandTotal": "Total general",
     "description": "Descripción",
-    "lines": "Líneas de Cotización",
-    "productCode": "Código Producto",
-    "productName": "Nombre Producto",
-    "quantity": "Cantidad",
-    "unitPrice": "Precio Unitario",
-    "lineTotal": "Total Línea",
-    "lineGrandTotal": "Gran Total Línea",
-    "exchangeRates": "Tipos de Cambio",
-    "exchangeRate": "Tasa",
-    "exchangeRateDate": "Fecha Tasa",
-    "isOfficial": "Tasa Oficial"
+    "lines": "Líneas de cotización",
+    "productCode": "Código de producto",
+    "productName": "Nombre del producto",
+    "quantity": "cantidad",
+    "unitPrice": "Precio unitario",
+    "lineTotal": "Total de filas",
+    "lineGrandTotal": "Total general de fila",
+    "exchangeRates": "Tipos de cambio",
+    "exchangeRate": "Instalar",
+    "exchangeRateDate": "Fecha del tipo de cambio",
+    "isOfficial": "Instalar oficial"
   },
   "actions": {
     "view": "Ver",
-    "approve": "Aprobar",
-    "reject": "Rechazar"
+    "approve": "Confirmar",
+    "reject": "rechazar"
   },
   "status": {
-    "notRequired": "No Requerido",
-    "waiting": "Esperando",
+    "notRequired": "No requerido",
+    "waiting": "esperando",
     "approved": "Aprobado",
-    "rejected": "Rechazado",
+    "rejected": "rechazado",
     "closed": "Cerrado"
   },
   "closedReason": "Este registro se cerró porque se aprobó otro registro con el mismo número de oferta.",
@@ -58,28 +58,28 @@
     "regionalManager": "Gerente Regional",
     "finance": "Finanzas",
     "generalManager": "Gerente General",
-    "unknown": "Desconocido"
+    "unknown": "desconocido"
   },
   "note": {
-    "label": "Nota",
+    "label": "nota",
     "placeholder": "Puede agregar una nota de aprobación/rechazo (opcional)",
-    "maxLength": "La nota puede tener como máximo 500 caracteres"
+    "maxLength": "La nota puede tener hasta 500 caracteres."
   },
   "approve": {
     "success": "Aprobado",
-    "successMessage": "Cotización aprobada exitosamente",
-    "error": "Error de Aprobación",
-    "errorMessage": "Ocurrió un error al aprobar la cotización"
+    "successMessage": "Oferta aprobada con éxito",
+    "error": "Error de afirmación",
+    "errorMessage": "Se produjo un error al aprobar la oferta."
   },
   "reject": {
-    "success": "Rechazado",
-    "successMessage": "Cotización rechazada",
-    "error": "Error de Rechazo",
-    "errorMessage": "Ocurrió un error al rechazar la cotización"
+    "success": "rechazado",
+    "successMessage": "oferta rechazada",
+    "error": "Error de rechazo",
+    "errorMessage": "Se produjo un error al rechazar la oferta."
   },
   "history": {
-    "empty": "Sin historial de aprobaciones",
-    "approvedBy": "Aprobado Por"
+    "empty": "No hay historial de aprobación",
+    "approvedBy": "Aprobado por"
   },
-  "assignedTo": "Usuario Asignado"
+  "assignedTo": "Usuario asignado"
 }

@@ -1,56 +1,56 @@
 {
   "approvalRole": {
-    "menu": "Gestion des Rôles d'Approbation",
+    "menu": "Gestion des rôles d'approbation",
     "description": "Gérer et modifier les rôles d'approbation",
-    "addButton": "Ajouter un Nouveau Rôle d'Approbation",
+    "addButton": "Ajouter un nouveau rôle d'approbation",
     "searchPlaceholder": "Rechercher...",
     "refresh": "Actualiser",
     "loading": "Chargement...",
     "noData": "Aucune donnée",
     "table": {
-      "id": "IDENTIFIANT",
-      "approvalRoleGroupName": "Groupe de Rôles",
-      "name": "Nom du Rôle",
-      "maxAmount": "Montant Maximum",
-      "createdDate": "Date de Création",
-      "createdBy": "Créé Par",
-      "actions": "Actions",
-      "totalRecords": "Total {{count}} enregistrements.",
-      "page": "Page {{current}} / {{total}}",
+      "id": "ID",
+      "approvalRoleGroupName": "Groupe de rôles",
+      "name": "Nom du rôle",
+      "maxAmount": "Montant maximum",
+      "createdDate": "Date de création",
+      "createdBy": "Créé par l'utilisateur",
+      "actions": "Opérations",
+      "totalRecords": "Total de {{count}} enregistrements.",
+      "page": "Pages {{current}} / {{total}}",
       "previous": "Précédent",
       "next": "Suivant"
     },
     "delete": {
-      "confirmTitle": "Confirmation de Suppression",
-      "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet enregistrement ? Cette action est irréversible.",
+      "confirmTitle": "Processus de suppression",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer cet enregistrement ? Cette action ne peut pas être annulée.",
       "cancelButton": "Annuler",
       "confirmButton": "Supprimer",
       "deleting": "Suppression..."
     },
     "form": {
-      "editTitle": "Modifier le Rôle d'Approbation",
-      "addTitle": "Ajouter un Nouveau Rôle d'Approbation",
-      "editDescription": "Modifier les détails du rôle d'approbation",
-      "addDescription": "Entrez les détails du nouveau rôle d'approbation",
-      "approvalRoleGroupId": "Groupe de Rôles d'Approbation",
-      "selectApprovalRoleGroup": "Sélectionner un Groupe de Rôles",
-      "noApprovalRoleGroupSelected": "Aucun groupe de rôles sélectionné",
-      "name": "Nom du Rôle",
+      "editTitle": "Modifier le rôle d'approbation",
+      "addTitle": "Ajouter un nouveau rôle d'approbation",
+      "editDescription": "Modifier les informations sur le rôle d'approbation",
+      "addDescription": "Saisir les nouvelles informations sur le rôle d'approbation",
+      "approvalRoleGroupId": "Groupe de rôles d'approbation",
+      "selectApprovalRoleGroup": "Sélectionnez un groupe de rôles d'approbation",
+      "noApprovalRoleGroupSelected": "Groupe de rôles d'approbation non sélectionné",
+      "name": "Nom du rôle",
       "namePlaceholder": "Entrez le nom du rôle",
-      "maxAmount": "Montant Maximum",
+      "maxAmount": "Montant maximum",
       "maxAmountPlaceholder": "Entrez le montant maximum",
       "cancel": "Annuler",
       "save": "Enregistrer",
       "saving": "Enregistrement...",
-      "approvalRoleGroupIdRequired": "Approval role group selection is required",
-      "nameRequired": "Role name is required",
-      "nameMaxLength": "Role name can be at most 100 characters",
-      "maxAmountMin": "Max amount cannot be less than 0"
+      "approvalRoleGroupIdRequired": "La sélection du groupe de rôles d’approbation est obligatoire",
+      "nameRequired": "Le nom du rôle est requis",
+      "nameMaxLength": "Le nom du rôle peut contenir jusqu'à 100 caractères",
+      "maxAmountMin": "Le montant maximum ne peut être inférieur à 0"
     },
     "advancedFilter": {
       "columnName": "Nom du rôle",
       "columnApprovalRoleGroupName": "Groupe de rôles",
-      "columnMaxAmount": "Montant max."
+      "columnMaxAmount": "Max. Montant"
     }
   }
 }

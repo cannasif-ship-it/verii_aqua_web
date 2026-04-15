@@ -1,6 +1,6 @@
 {
-  "title": "Seleziona stock correlati",
-  "description": "Seleziona gli stock correlati da aggiungere insieme allo stock principale. Gli stock obbligatori sono selezionati automaticamente.",
+  "title": "Seleziona Azioni affiliate",
+  "description": "Seleziona i titoli sussidiari che desideri aggiungere insieme al titolo principale. Le azioni obbligatorie vengono selezionate automaticamente.",
   "searchPlaceholder": "Cerca stock correlati...",
   "select": "Seleziona",
   "cancel": "Annulla",
@@ -12,12 +12,12 @@
   },
   "noData": "Nessun stock correlato trovato",
   "loading": "Caricamento...",
-  "mandatoryStocks": "Stock obbligatori",
-  "optionalStocks": "Stock opzionali",
+  "mandatoryStocks": "Azioni obbligatorie",
+  "optionalStocks": "Scorte opzionali",
   "unknownStock": "Stock sconosciuto",
-  "quantity": "Quantità",
-  "mandatory": "Obbligatorio",
-  "noRelatedStocks": "Nessuno stock correlato trovato",
+  "quantity": "quantità",
+  "mandatory": "obbligatorio",
+  "noRelatedStocks": "Azioni collegate non trovate",
   "add": "Aggiungi",
   "calculating": "Calcolo..."
 }

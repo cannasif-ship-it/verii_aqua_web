@@ -30,6 +30,14 @@ export const transferQuickFormSchema = z.object({
   description: z.string().optional(),
 });
 
+export const shipmentQuickFormSchema = z.object({
+  fishCount: z.coerce.number().int().positive('common.required'),
+  unitPrice: z.coerce.number().min(0).optional(),
+  currencyCode: z.string().min(1).default('TRY'),
+  targetWarehouse: z.string().max(100).optional(),
+  description: z.string().optional(),
+});
+
 export const stockChangeQuickFormSchema = z.object({
   toFishBatchId: z.coerce.number().int().positive('common.required'),
   fishCount: z.coerce.number().int().positive('common.required'),
@@ -42,4 +50,5 @@ export type MortalityQuickFormSchema = z.infer<typeof mortalityQuickFormSchema>;
 export type WeatherQuickFormSchema = z.infer<typeof weatherQuickFormSchema>;
 export type NetOperationQuickFormSchema = z.infer<typeof netOperationQuickFormSchema>;
 export type TransferQuickFormSchema = z.infer<typeof transferQuickFormSchema>;
+export type ShipmentQuickFormSchema = z.infer<typeof shipmentQuickFormSchema>;
 export type StockChangeQuickFormSchema = z.infer<typeof stockChangeQuickFormSchema>;

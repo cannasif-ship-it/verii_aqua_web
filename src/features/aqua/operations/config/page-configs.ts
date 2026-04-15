@@ -1,4 +1,5 @@
 import type { AquaCrudConfig } from '@/features/aqua/shared/types/aqua-crud';
+import { localDateString } from '../quick-daily-entry/utils/quick-operations';
 
 const documentStatusOptions = [
   { label: 'aqua.status.draft', value: 0 },
@@ -16,6 +17,11 @@ const currencyCodeOptions = [
   { label: 'USD', value: 'USD' },
   { label: 'EUR', value: 'EUR' },
   { label: 'GBP', value: 'GBP' },
+];
+
+const booleanOptions = [
+  { label: 'common:yes', value: 'true' },
+  { label: 'common:no', value: 'false' },
 ];
 
 export const goodsReceiptsConfig: AquaCrudConfig = {
@@ -338,11 +344,26 @@ export const dailyWeathersConfig: AquaCrudConfig = {
         valueKey: 'id',
         staleTimeMs: 120000,
         dependsOnFieldKey: 'weatherTypeId',
-        filterColumn: 'WeatherTypeId',
+        clientFilterColumn: 'weatherTypeId',
+        includeNullClientFilterMatch: true,
       },
     },
     { key: 'temperatureC', label: 'aqua.fields.temperatureC', type: 'number' },
     { key: 'windKnot', label: 'aqua.fields.windKnot', type: 'number' },
+    { key: 'waterTemperatureSurfaceC', label: 'aqua.fields.waterTemperatureSurfaceC', type: 'number' },
+    { key: 'waterTemperatureDepthC', label: 'aqua.fields.waterTemperatureDepthC', type: 'number' },
+    { key: 'dissolvedOxygenMgL', label: 'aqua.fields.dissolvedOxygenMgL', type: 'number' },
+    { key: 'salinityPpt', label: 'aqua.fields.salinityPpt', type: 'number' },
+    { key: 'ph', label: 'aqua.fields.ph', type: 'number' },
+    { key: 'currentSpeedKn', label: 'aqua.fields.currentSpeedKn', type: 'number' },
+    { key: 'waveHeightM', label: 'aqua.fields.waveHeightM', type: 'number' },
+    { key: 'turbidityNtu', label: 'aqua.fields.turbidityNtu', type: 'number' },
+    { key: 'ammoniaMgL', label: 'aqua.fields.ammoniaMgL', type: 'number' },
+    { key: 'nitriteMgL', label: 'aqua.fields.nitriteMgL', type: 'number' },
+    { key: 'algalBloomIndex', label: 'aqua.fields.algalBloomIndex', type: 'number' },
+    { key: 'sensorHealthScore', label: 'aqua.fields.sensorHealthScore', type: 'number' },
+    { key: 'sensorRecordedAt', label: 'aqua.fields.sensorRecordedAt', type: 'datetime' },
+    { key: 'dataSource', label: 'aqua.fields.dataSource', type: 'text' },
     { key: 'note', label: 'aqua.fields.note', type: 'textarea' },
   ],
   columns: [
@@ -351,7 +372,90 @@ export const dailyWeathersConfig: AquaCrudConfig = {
     { key: 'weatherDate', label: 'aqua.fields.weatherDate' },
     { key: 'weatherTypeName', label: 'aqua.fields.weatherTypeId' },
     { key: 'weatherSeverityName', label: 'aqua.fields.weatherSeverityId' },
+    { key: 'weatherSeverityScore', label: 'aqua.fields.weatherSeverityScore' },
+    { key: 'operationalRiskScore', label: 'aqua.fields.operationalRiskScore' },
+    { key: 'operationalRiskLevel', label: 'aqua.fields.operationalRiskLevel' },
+    { key: 'dissolvedOxygenMgL', label: 'aqua.fields.dissolvedOxygenMgL' },
+    { key: 'salinityPpt', label: 'aqua.fields.salinityPpt' },
+    { key: 'ph', label: 'aqua.fields.ph' },
   ],
+};
+
+export const fishBatchesConfig: AquaCrudConfig = {
+  key: 'fishBatches',
+  title: 'aqua.pages.fishBatches.title',
+  description: 'aqua.pages.fishBatches.description',
+  endpoint: 'FishBatch',
+  listStaleTimeMs: 30000,
+  fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'batchCode', label: 'aqua.fields.batchCode', type: 'text', required: true },
+    {
+      key: 'fishStockId',
+      label: 'aqua.fields.fishStockId',
+      type: 'select',
+      required: true,
+      lookup: {
+        endpoint: '/api/Stock',
+        labelKeys: ['erpStockCode', 'stockName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 30000,
+      },
+    },
+    { key: 'currentAverageGram', label: 'aqua.fields.currentAverageGram', type: 'number', required: true },
+    { key: 'startDate', label: 'aqua.fields.startDate', type: 'date', required: true },
+    {
+      key: 'sourceGoodsReceiptLineId',
+      label: 'aqua.fields.sourceGoodsReceiptLineId',
+      type: 'select',
+      lookup: {
+        endpoint: 'GoodsReceiptLine',
+        labelKeys: ['stock.stockName', 'itemType', 'id'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 30000,
+      },
+    },
+    { key: 'supplierId', label: 'aqua.fields.supplierId', type: 'number' },
+    { key: 'supplierLotCode', label: 'aqua.fields.supplierLotCode', type: 'text' },
+    { key: 'hatcheryName', label: 'aqua.fields.hatcheryName', type: 'text' },
+    { key: 'originCountryCode', label: 'aqua.fields.originCountryCode', type: 'text' },
+    { key: 'strainCode', label: 'aqua.fields.strainCode', type: 'text' },
+    { key: 'generationCode', label: 'aqua.fields.generationCode', type: 'text' },
+    { key: 'broodstockCode', label: 'aqua.fields.broodstockCode', type: 'text' },
+    { key: 'isVaccinated', label: 'aqua.fields.isVaccinated', type: 'select', options: booleanOptions },
+    { key: 'vaccinationDate', label: 'aqua.fields.vaccinationDate', type: 'date' },
+    { key: 'vaccinationNote', label: 'aqua.fields.vaccinationNote', type: 'textarea' },
+    { key: 'treatmentHistoryNote', label: 'aqua.fields.treatmentHistoryNote', type: 'textarea' },
+    { key: 'targetHarvestAverageGram', label: 'aqua.fields.targetHarvestAverageGram', type: 'number' },
+    { key: 'targetHarvestDate', label: 'aqua.fields.targetHarvestDate', type: 'date' },
+    { key: 'targetHarvestClass', label: 'aqua.fields.targetHarvestClass', type: 'text' },
+    { key: 'qualityGrade', label: 'aqua.fields.qualityGrade', type: 'text' },
+  ],
+  columns: [
+    { key: 'batchCode', label: 'aqua.fields.batchCode' },
+    { key: 'projectId', label: 'aqua.fields.projectId' },
+    { key: 'fishStock.stockName', label: 'aqua.fields.fishStockId' },
+    { key: 'currentAverageGram', label: 'aqua.fields.currentAverageGram' },
+    { key: 'startDate', label: 'aqua.fields.startDate' },
+    { key: 'supplierLotCode', label: 'aqua.fields.supplierLotCode' },
+    { key: 'targetHarvestAverageGram', label: 'aqua.fields.targetHarvestAverageGram' },
+    { key: 'targetHarvestDate', label: 'aqua.fields.targetHarvestDate' },
+  ],
+  defaultValues: { isVaccinated: false },
 };
 
 export const netOperationsConfig: AquaCrudConfig = {
@@ -435,12 +539,12 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
         staleTimeMs: 30000,
       },
     },
-    { key: 'qtyUnit', label: 'aqua.fields.qtyUnit', type: 'number' },
-    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number' },
-    { key: 'totalGram', label: 'aqua.fields.totalGram', type: 'number' },
-    { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number' },
-    { key: 'fishAverageGram', label: 'aqua.fields.fishAverageGram', type: 'number' },
-    { key: 'fishTotalGram', label: 'aqua.fields.fishTotalGram', type: 'number' },
+    { key: 'qtyUnit', label: 'aqua.fields.qtyUnit', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [0] } },
+    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [0] } },
+    { key: 'totalGram', label: 'aqua.fields.totalGram', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [0] } },
+    { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [1] } },
+    { key: 'fishAverageGram', label: 'aqua.fields.fishAverageGram', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [1] } },
+    { key: 'fishTotalGram', label: 'aqua.fields.fishTotalGram', type: 'number', visibleWhen: { fieldKey: 'itemType', values: [1] } },
     { key: 'currencyCode', label: 'aqua.fields.currencyCode', type: 'select', options: currencyCodeOptions },
     { key: 'exchangeRate', label: 'aqua.fields.exchangeRate', type: 'number' },
     { key: 'unitPrice', label: 'aqua.fields.unitPrice', type: 'number' },
@@ -451,6 +555,7 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
       key: 'fishBatchId',
       label: 'aqua.fields.fishBatchId',
       type: 'select',
+      visibleWhen: { fieldKey: 'itemType', values: [1] },
       lookup: {
         endpoint: 'FishBatch',
         labelKeys: ['batchCode'],
@@ -462,7 +567,7 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
   columns: [
     { key: 'goodsReceiptId', label: 'aqua.fields.goodsReceiptId' },
     { key: 'itemType', label: 'aqua.fields.itemType' },
-    { key: 'stockId', label: 'aqua.fields.stockId' },
+    { key: 'stock.stockName', label: 'aqua.fields.stockId' },
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'totalGram', label: 'aqua.fields.totalGram' },
     { key: 'currencyCode', label: 'aqua.fields.currencyCode' },
@@ -486,7 +591,8 @@ export const goodsReceiptFishDistributionsConfig: AquaCrudConfig = {
       required: true,
       lookup: {
         endpoint: 'GoodsReceiptLine',
-        labelKeys: ['id'],
+        labelKeys: ['stock.stockName', 'itemType', 'id'],
+        labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
       },
@@ -559,13 +665,14 @@ export const feedingLinesConfig: AquaCrudConfig = {
       },
     },
     { key: 'qtyUnit', label: 'aqua.fields.qtyUnit', type: 'number', required: true },
-    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number', required: true, hideInForm: true },
+    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit', type: 'number', required: true },
     { key: 'totalGram', label: 'aqua.fields.totalGram', type: 'number', required: true },
   ],
   columns: [
     { key: 'feedingId', label: 'aqua.fields.feedingId' },
-    { key: 'stockId', label: 'aqua.fields.stockId' },
+    { key: 'stock.stockName', label: 'aqua.fields.stockId' },
     { key: 'qtyUnit', label: 'aqua.fields.qtyUnit' },
+    { key: 'gramPerUnit', label: 'aqua.fields.gramPerUnit' },
     { key: 'totalGram', label: 'aqua.fields.totalGram' },
   ],
   defaultValues: { gramPerUnit: 1 },
@@ -585,7 +692,8 @@ export const feedingDistributionsConfig: AquaCrudConfig = {
       required: true,
       lookup: {
         endpoint: 'FeedingLine',
-        labelKeys: ['id'],
+        labelKeys: ['stock.stockName', 'totalGram', 'id'],
+        labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
       },
@@ -630,13 +738,30 @@ export const transferLinesConfig: AquaCrudConfig = {
   title: 'aqua.pages.transferLines.title',
   description: 'aqua.pages.transferLines.description',
   endpoint: 'TransferLine',
+  createEndpoint: 'TransferLine/auto-header',
   listStaleTimeMs: 10000,
   fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      hideOnEdit: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'transferDate', label: 'aqua.fields.transferDate', type: 'date', required: true, hideOnEdit: true },
     {
       key: 'transferId',
       label: 'aqua.fields.transferId',
       type: 'select',
       required: true,
+      hideInForm: true,
       lookup: {
         endpoint: 'Transfer',
         labelKeys: ['transferNo'],
@@ -654,6 +779,7 @@ export const transferLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -667,6 +793,7 @@ export const transferLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -680,6 +807,7 @@ export const transferLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', required: true },
@@ -692,6 +820,7 @@ export const transferLinesConfig: AquaCrudConfig = {
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'averageGram', label: 'aqua.fields.averageGram' },
   ],
+  defaultValues: { transferDate: localDateString() },
 };
 
 export const shipmentLinesConfig: AquaCrudConfig = {
@@ -699,13 +828,30 @@ export const shipmentLinesConfig: AquaCrudConfig = {
   title: 'aqua.pages.shipmentLines.title',
   description: 'aqua.pages.shipmentLines.description',
   endpoint: 'ShipmentLine',
+  createEndpoint: 'ShipmentLine/auto-header',
   listStaleTimeMs: 10000,
   fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      hideOnEdit: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'shipmentDate', label: 'aqua.fields.shipmentDate', type: 'date', required: true, hideOnEdit: true },
     {
       key: 'shipmentId',
       label: 'aqua.fields.shipmentId',
       type: 'select',
       required: true,
+      hideInForm: true,
       lookup: {
         endpoint: 'Shipment',
         labelKeys: ['shipmentNo'],
@@ -723,6 +869,7 @@ export const shipmentLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -736,6 +883,7 @@ export const shipmentLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', required: true },
@@ -758,7 +906,7 @@ export const shipmentLinesConfig: AquaCrudConfig = {
     { key: 'unitPrice', label: 'aqua.fields.unitPrice' },
     { key: 'localLineAmount', label: 'aqua.fields.localLineAmount' },
   ],
-  defaultValues: { currencyCode: 'TRY', exchangeRate: 1 },
+  defaultValues: { currencyCode: 'TRY', exchangeRate: 1, shipmentDate: localDateString() },
 };
 
 export const mortalityLinesConfig: AquaCrudConfig = {
@@ -766,16 +914,34 @@ export const mortalityLinesConfig: AquaCrudConfig = {
   title: 'aqua.pages.mortalityLines.title',
   description: 'aqua.pages.mortalityLines.description',
   endpoint: 'MortalityLine',
+  createEndpoint: 'MortalityLine/auto-header',
   listStaleTimeMs: 10000,
   fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      hideOnEdit: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'mortalityDate', label: 'aqua.fields.mortalityDate', type: 'date', required: true, hideOnEdit: true },
     {
       key: 'mortalityId',
       label: 'aqua.fields.mortalityId',
       type: 'select',
       required: true,
+      hideInForm: true,
       lookup: {
         endpoint: 'Mortality',
-        labelKeys: ['id'],
+        labelKeys: ['projectCode', 'mortalityDate'],
+        labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
       },
@@ -790,6 +956,7 @@ export const mortalityLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -803,6 +970,7 @@ export const mortalityLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'deadCount', label: 'aqua.fields.deadCount', type: 'number', required: true },
@@ -813,6 +981,7 @@ export const mortalityLinesConfig: AquaCrudConfig = {
     { key: 'projectCageId', label: 'aqua.fields.projectCageId' },
     { key: 'deadCount', label: 'aqua.fields.deadCount' },
   ],
+  defaultValues: { mortalityDate: localDateString() },
 };
 
 export const weighingLinesConfig: AquaCrudConfig = {
@@ -820,13 +989,30 @@ export const weighingLinesConfig: AquaCrudConfig = {
   title: 'aqua.pages.weighingLines.title',
   description: 'aqua.pages.weighingLines.description',
   endpoint: 'WeighingLine',
+  createEndpoint: 'WeighingLine/auto-header',
   listStaleTimeMs: 10000,
   fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      hideOnEdit: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'weighingDate', label: 'aqua.fields.weighingDate', type: 'date', required: true, hideOnEdit: true },
     {
       key: 'weighingId',
       label: 'aqua.fields.weighingId',
       type: 'select',
       required: true,
+      hideInForm: true,
       lookup: {
         endpoint: 'Weighing',
         labelKeys: ['weighingNo'],
@@ -844,6 +1030,7 @@ export const weighingLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -857,6 +1044,7 @@ export const weighingLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'measuredCount', label: 'aqua.fields.measuredCount', type: 'number', required: true },
@@ -869,6 +1057,7 @@ export const weighingLinesConfig: AquaCrudConfig = {
     { key: 'measuredCount', label: 'aqua.fields.measuredCount' },
     { key: 'measuredAverageGram', label: 'aqua.fields.measuredAverageGram' },
   ],
+  defaultValues: { weighingDate: localDateString() },
 };
 
 export const stockConvertLinesConfig: AquaCrudConfig = {
@@ -876,13 +1065,30 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
   title: 'aqua.pages.stockConvertLines.title',
   description: 'aqua.pages.stockConvertLines.description',
   endpoint: 'StockConvertLine',
+  createEndpoint: 'StockConvertLine/auto-header',
   listStaleTimeMs: 10000,
   fields: [
+    {
+      key: 'projectId',
+      label: 'aqua.fields.projectId',
+      type: 'select',
+      required: true,
+      hideOnEdit: true,
+      lookup: {
+        endpoint: 'Project',
+        labelKeys: ['projectCode', 'projectName'],
+        labelSeparator: ' - ',
+        valueKey: 'id',
+        staleTimeMs: 60000,
+      },
+    },
+    { key: 'convertDate', label: 'aqua.fields.convertDate', type: 'date', required: true, hideOnEdit: true },
     {
       key: 'stockConvertId',
       label: 'aqua.fields.stockConvertId',
       type: 'select',
       required: true,
+      hideInForm: true,
       lookup: {
         endpoint: 'StockConvert',
         labelKeys: ['convertNo'],
@@ -900,6 +1106,7 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -912,6 +1119,7 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -925,6 +1133,7 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -938,6 +1147,7 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', required: true },
@@ -950,6 +1160,7 @@ export const stockConvertLinesConfig: AquaCrudConfig = {
     { key: 'averageGram', label: 'aqua.fields.averageGram' },
     { key: 'biomassGram', label: 'aqua.fields.biomassGram' },
   ],
+  defaultValues: { convertDate: localDateString() },
 };
 
 export const netOperationLinesConfig: AquaCrudConfig = {
@@ -982,6 +1193,7 @@ export const netOperationLinesConfig: AquaCrudConfig = {
         labelSeparator: ' - ',
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     {
@@ -993,6 +1205,7 @@ export const netOperationLinesConfig: AquaCrudConfig = {
         labelKeys: ['batchCode'],
         valueKey: 'id',
         staleTimeMs: 30000,
+        contextFilters: [{ sourceKey: 'projectId', column: 'ProjectId' }],
       },
     },
     { key: 'note', label: 'aqua.fields.note', type: 'textarea' },

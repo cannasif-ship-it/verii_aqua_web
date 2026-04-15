@@ -1,6 +1,6 @@
 {
-  "title": "Selezione Prodotto",
-  "searchPlaceholder": "Cerca prodotto...",
+  "title": "Seleziona prodotto",
+  "searchPlaceholder": "Cerca per codice prodotto o nome...",
   "select": "Seleziona",
   "cancel": "Annulla",
   "columns": {
@@ -12,10 +12,10 @@
     "stock": "Magazzino"
   },
   "noData": "Nessun prodotto trovato",
-  "loading": "Caricamento",
-  "description": "Seleziona i prodotti ERP da aggiungere al tuo ordine",
-  "product": "Prodotto",
-  "noProducts": "Nessun prodotto",
-  "noResults": "Nessun risultato trovato",
-  "voiceSearch": "Ricerca vocale"
+  "loading": "caricamento",
+  "description": "Seleziona il prodotto da aggiungere alla riga del preventivo",
+  "product": "PRODOTTO",
+  "noProducts": "Prodotto non trovato",
+  "noResults": "Risultati della ricerca non trovati",
+  "voiceSearch": "ricerca vocale"
 }

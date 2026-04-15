@@ -8,7 +8,9 @@ interface OperationTypeTabsProps {
   weatherTab: ReactElement;
   netOperationTab: ReactElement;
   transferTab: ReactElement;
+  shipmentTab: ReactElement;
   stockChangeTab: ReactElement;
+  projectMergeTab: ReactElement;
 }
 
 export function OperationTypeTabs({
@@ -17,7 +19,9 @@ export function OperationTypeTabs({
   weatherTab,
   netOperationTab,
   transferTab,
+  shipmentTab,
   stockChangeTab,
+  projectMergeTab,
 }: OperationTypeTabsProps): ReactElement {
   const { t } = useTranslation('common');
   
@@ -41,8 +45,14 @@ export function OperationTypeTabs({
           <TabsTrigger className={tabTriggerStyle} value="transfer">
             {t('aqua.quickDailyEntry.tabTransfer')}
           </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="shipment">
+            {t('aqua.quickDailyEntry.tabShipment')}
+          </TabsTrigger>
           <TabsTrigger className={tabTriggerStyle} value="stockChange">
             {t('aqua.quickDailyEntry.tabStockChange')}
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="projectMerge">
+            {t('aqua.quickDailyEntry.tabProjectMerge')}
           </TabsTrigger>
         </TabsList>
       </div>
@@ -53,7 +63,9 @@ export function OperationTypeTabs({
         <TabsContent value="weather" className="m-0 focus-visible:ring-0">{weatherTab}</TabsContent>
         <TabsContent value="net" className="m-0 focus-visible:ring-0">{netOperationTab}</TabsContent>
         <TabsContent value="transfer" className="m-0 focus-visible:ring-0">{transferTab}</TabsContent>
+        <TabsContent value="shipment" className="m-0 focus-visible:ring-0">{shipmentTab}</TabsContent>
         <TabsContent value="stockChange" className="m-0 focus-visible:ring-0">{stockChangeTab}</TabsContent>
+        <TabsContent value="projectMerge" className="m-0 focus-visible:ring-0">{projectMergeTab}</TabsContent>
       </div>
     </Tabs>
   );

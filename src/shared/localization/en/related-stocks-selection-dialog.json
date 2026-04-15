@@ -1,12 +1,12 @@
 {
-  "title": "Select Related Stocks",
-  "description": "Select the related stocks you want to add along with the main stock. Mandatory stocks are selected automatically.",
+  "title": "Select Affiliated Stocks",
+  "description": "Select the subsidiary stocks you want to add along with the master stock. Mandatory stocks are automatically selected.",
   "mandatoryStocks": "Mandatory Stocks",
   "optionalStocks": "Optional Stocks",
   "unknownStock": "Unknown Stock",
-  "quantity": "Quantity",
-  "mandatory": "Mandatory",
-  "noRelatedStocks": "No related stocks found",
+  "quantity": "quantity",
+  "mandatory": "mandatory",
+  "noRelatedStocks": "Linked stock not found",
   "cancel": "Cancel",
   "add": "Add",
   "calculating": "Calculating..."

@@ -73,7 +73,7 @@ function extractTotalCount<T>(raw: PagedResultRaw<T>, fallbackCount: number): nu
   return raw.totalCount ?? raw.TotalCount ?? fallbackCount;
 }
 
-function buildPagedQuery(pageNumber: number, filters?: FilterDescriptor[]): string {
+function buildPagedQuery(pageNumber: number, filters?: FilterDescriptor[], filterLogic: 'and' | 'or' = 'and'): string {
   const query = new URLSearchParams({
     pageNumber: String(pageNumber),
     pageSize: String(PAGE_SIZE),
@@ -83,18 +83,22 @@ function buildPagedQuery(pageNumber: number, filters?: FilterDescriptor[]): stri
 
   if (filters && filters.length > 0) {
     query.append('filters', JSON.stringify(filters));
-    query.append('filterLogic', 'and');
+    query.append('filterLogic', filterLogic);
   }
 
   return query.toString();
 }
 
-async function getAllPagedItems<T>(endpoint: string, filters?: FilterDescriptor[]): Promise<T[]> {
+async function getAllPagedItems<T>(
+  endpoint: string,
+  filters?: FilterDescriptor[],
+  filterLogic: 'and' | 'or' = 'and'
+): Promise<T[]> {
   const result: T[] = [];
   let pageNumber = 1;
 
   while (pageNumber <= MAX_PAGE_GUARD) {
-    const query = buildPagedQuery(pageNumber, filters);
+    const query = buildPagedQuery(pageNumber, filters, filterLogic);
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`/api/aqua/${endpoint}?${query}`);
     const raw = ensureSuccess(response, i18n.t('errors.listLoadFailed', { ns: 'dashboard' }));
     const pageItems = extractPagedItems(raw);
@@ -111,12 +115,16 @@ async function getAllPagedItems<T>(endpoint: string, filters?: FilterDescriptor[
   return result;
 }
 
-async function getAllPagedItemsByPath<T>(path: string, filters?: FilterDescriptor[]): Promise<T[]> {
+async function getAllPagedItemsByPath<T>(
+  path: string,
+  filters?: FilterDescriptor[],
+  filterLogic: 'and' | 'or' = 'and'
+): Promise<T[]> {
   const result: T[] = [];
   let pageNumber = 1;
 
   while (pageNumber <= MAX_PAGE_GUARD) {
-    const query = buildPagedQuery(pageNumber, filters);
+    const query = buildPagedQuery(pageNumber, filters, filterLogic);
     const response = await api.get<ApiResponse<PagedResultRaw<T>>>(`${path}?${query}`);
     const raw = ensureSuccess(response, i18n.t('errors.pathListLoadFailed', { ns: 'dashboard' }));
     const pageItems = extractPagedItems(raw);
@@ -181,6 +189,10 @@ function formatStockTransition(
     fromStockId != null ? stockLabelById.get(fromStockId) ?? String(fromStockId) : '?';
   const toText = toStockId != null ? stockLabelById.get(toStockId) ?? String(toStockId) : '?';
   return `stock:${fromText} -> ${toText}`;
+}
+
+function buildEqualityFilters(column: string, values: number[]): FilterDescriptor[] {
+  return values.map((value) => ({ column, operator: 'eq', value: String(value) }));
 }
 
 function computeReport(
@@ -441,9 +453,12 @@ function computeReport(
     const date = toDateOnly(row.weatherDate);
     const parts = [
       row.weatherSeverityName,
+      row.weatherSeverityScore != null ? `risk-base:${row.weatherSeverityScore}` : null,
       row.weatherTypeName,
       row.temperatureC != null ? `${row.temperatureC}C` : null,
       row.windKnot != null ? `${row.windKnot}kt` : null,
+      row.operationalRiskScore != null ? `risk:${row.operationalRiskScore}` : null,
+      row.operationalRiskLevel ? `risk-level:${row.operationalRiskLevel}` : null,
     ].filter((x): x is string => x != null && x.length > 0);
     if (parts.length > 0) {
       weatherByDate.set(date, parts.join(' | '));
@@ -777,6 +792,166 @@ function computeReport(
 export const projectDetailReportApi = {
   getProjects: async (): Promise<ProjectDto[]> => {
     return getAllPagedItems<ProjectDto>('Project');
+  },
+
+  getProjectDetailReports: async (projectIds: number[]): Promise<ProjectDetailReport[]> => {
+    const uniqueProjectIds = Array.from(new Set(projectIds)).filter((id) => Number.isFinite(id));
+    if (uniqueProjectIds.length === 0) {
+      return [];
+    }
+
+    const projectFilters = buildEqualityFilters('Id', uniqueProjectIds);
+    const projectIdFilters = buildEqualityFilters('ProjectId', uniqueProjectIds);
+
+    const [
+      projects,
+      projectCages,
+      feedings,
+      feedingLines,
+      feedingDistributions,
+      mortalities,
+      mortalityLines,
+      batchCageBalances,
+      dailyWeathers,
+      netOperations,
+      netOperationLines,
+      transfers,
+      transferLines,
+      shipments,
+      shipmentLines,
+      weighings,
+      weighingLines,
+      stockConverts,
+      stockConvertLines,
+      batchMovements,
+      stocks,
+      fishBatches,
+    ] = await Promise.all([
+      getAllPagedItems<ProjectDto>('Project', projectFilters, 'or'),
+      getAllPagedItems<ProjectCageDto>('ProjectCage', projectIdFilters, 'or'),
+      getAllPagedItems<FeedingDto>('Feeding', projectIdFilters, 'or'),
+      getAllPagedItems<FeedingLineDto>('FeedingLine'),
+      getAllPagedItems<FeedingDistributionDto>('FeedingDistribution'),
+      getAllPagedItems<MortalityDto>('Mortality', projectIdFilters, 'or'),
+      getAllPagedItems<MortalityLineDto>('MortalityLine'),
+      getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
+      getAllPagedItems<DailyWeatherDto>('DailyWeather', projectIdFilters, 'or'),
+      getAllPagedItems<NetOperationDto>('NetOperation', projectIdFilters, 'or'),
+      getAllPagedItems<NetOperationLineDto>('NetOperationLine'),
+      getAllPagedItems<TransferDto>('Transfer', projectIdFilters, 'or'),
+      getAllPagedItems<TransferLineDto>('TransferLine'),
+      getAllPagedItems<ShipmentDto>('Shipment', projectIdFilters, 'or'),
+      getAllPagedItems<ShipmentLineDto>('ShipmentLine'),
+      getAllPagedItems<WeighingDto>('Weighing', projectIdFilters, 'or'),
+      getAllPagedItems<WeighingLineDto>('WeighingLine'),
+      getAllPagedItems<StockConvertDto>('StockConvert', projectIdFilters, 'or'),
+      getAllPagedItems<StockConvertLineDto>('StockConvertLine'),
+      getAllPagedItems<BatchMovementDto>('BatchMovement'),
+      getAllPagedItemsByPath<StockListItem>('/api/Stock'),
+      getAllPagedItems<FishBatchDto>('FishBatch', projectIdFilters, 'or'),
+    ]);
+
+    const projectCagesByProjectId = new Map<number, ProjectCageDto[]>();
+    for (const projectCage of projectCages) {
+      const list = projectCagesByProjectId.get(projectCage.projectId) ?? [];
+      list.push(projectCage);
+      projectCagesByProjectId.set(projectCage.projectId, list);
+    }
+
+    const feedingsByProjectId = new Map<number, FeedingDto[]>();
+    for (const feeding of feedings) {
+      const list = feedingsByProjectId.get(feeding.projectId) ?? [];
+      list.push(feeding);
+      feedingsByProjectId.set(feeding.projectId, list);
+    }
+
+    const mortalitiesByProjectId = new Map<number, MortalityDto[]>();
+    for (const mortality of mortalities) {
+      const list = mortalitiesByProjectId.get(mortality.projectId) ?? [];
+      list.push(mortality);
+      mortalitiesByProjectId.set(mortality.projectId, list);
+    }
+
+    const dailyWeathersByProjectId = new Map<number, DailyWeatherDto[]>();
+    for (const dailyWeather of dailyWeathers) {
+      const list = dailyWeathersByProjectId.get(dailyWeather.projectId) ?? [];
+      list.push(dailyWeather);
+      dailyWeathersByProjectId.set(dailyWeather.projectId, list);
+    }
+
+    const netOperationsByProjectId = new Map<number, NetOperationDto[]>();
+    for (const netOperation of netOperations) {
+      const list = netOperationsByProjectId.get(netOperation.projectId) ?? [];
+      list.push(netOperation);
+      netOperationsByProjectId.set(netOperation.projectId, list);
+    }
+
+    const transfersByProjectId = new Map<number, TransferDto[]>();
+    for (const transfer of transfers) {
+      const list = transfersByProjectId.get(transfer.projectId) ?? [];
+      list.push(transfer);
+      transfersByProjectId.set(transfer.projectId, list);
+    }
+
+    const shipmentsByProjectId = new Map<number, ShipmentDto[]>();
+    for (const shipment of shipments) {
+      const list = shipmentsByProjectId.get(shipment.projectId) ?? [];
+      list.push(shipment);
+      shipmentsByProjectId.set(shipment.projectId, list);
+    }
+
+    const weighingsByProjectId = new Map<number, WeighingDto[]>();
+    for (const weighing of weighings) {
+      const list = weighingsByProjectId.get(weighing.projectId) ?? [];
+      list.push(weighing);
+      weighingsByProjectId.set(weighing.projectId, list);
+    }
+
+    const stockConvertsByProjectId = new Map<number, StockConvertDto[]>();
+    for (const stockConvert of stockConverts) {
+      const list = stockConvertsByProjectId.get(stockConvert.projectId) ?? [];
+      list.push(stockConvert);
+      stockConvertsByProjectId.set(stockConvert.projectId, list);
+    }
+
+    const fishBatchesByProjectId = new Map<number, FishBatchDto[]>();
+    for (const fishBatch of fishBatches) {
+      const list = fishBatchesByProjectId.get(fishBatch.projectId) ?? [];
+      list.push(fishBatch);
+      fishBatchesByProjectId.set(fishBatch.projectId, list);
+    }
+
+    return uniqueProjectIds.map((projectId) => {
+      const project = projects.find((item) => item.id === projectId);
+      if (!project) {
+        throw new Error(i18n.t('errors.projectNotFound', { ns: 'dashboard' }));
+      }
+
+      return computeReport(
+        project,
+        projectCagesByProjectId.get(projectId) ?? [],
+        feedingsByProjectId.get(projectId) ?? [],
+        feedingLines,
+        feedingDistributions,
+        mortalitiesByProjectId.get(projectId) ?? [],
+        mortalityLines,
+        batchCageBalances,
+        dailyWeathersByProjectId.get(projectId) ?? [],
+        netOperationsByProjectId.get(projectId) ?? [],
+        netOperationLines,
+        transfersByProjectId.get(projectId) ?? [],
+        transferLines,
+        shipmentsByProjectId.get(projectId) ?? [],
+        shipmentLines,
+        weighingsByProjectId.get(projectId) ?? [],
+        weighingLines,
+        stockConvertsByProjectId.get(projectId) ?? [],
+        stockConvertLines,
+        batchMovements,
+        stocks,
+        fishBatchesByProjectId.get(projectId) ?? []
+      );
+    });
   },
 
   getProjectDetailReport: async (projectId: number): Promise<ProjectDetailReport> => {

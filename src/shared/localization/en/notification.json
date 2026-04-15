@@ -1,8 +1,8 @@
 {
   "title": "Notifications",
-  "loading": "Loading",
-  "noNotifications": "No notifications found",
-  "markAllAsRead": "Mark all as read",
+  "loading": "loading",
+  "noNotifications": "Notification not found",
+  "markAllAsRead": "Mark All Read",
   "close": "Close",
-  "unread": "Unread"
+  "unread": "Not read"
 }

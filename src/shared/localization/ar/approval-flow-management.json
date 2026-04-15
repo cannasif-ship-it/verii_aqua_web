@@ -1,82 +1,82 @@
 {
   "approvalFlow": {
-    "menu": "إدارة تدفقات الموافقة",
-    "description": "إدارة وتنظيم تدفقات الموافقة",
-    "addButton": "إضافة تدفق جديد",
+    "menu": "إدارة تدفق الموافقة",
+    "description": "إدارة وتبسيط تدفقات الموافقة",
+    "addButton": "إضافة تدفق موافقة جديد",
     "table": {
-      "id": "المعرف",
-      "documentType": "نوع المستند",
-      "description": "الوصف",
-      "isActive": "نشط",
+      "id": "ID",
+      "documentType": "نوع الوثيقة",
+      "description": "توضيح",
+      "isActive": "نشيط",
       "createdDate": "تاريخ الإنشاء",
-      "createdBy": "تم الإنشاء بواسطة",
-      "actions": "إجراءات",
-      "showing": "عرض {{from}}-{{to}} من {{total}}",
-      "page": "صفحة {{current}} / {{total}}"
+      "createdBy": "تم إنشاؤها بواسطة المستخدم",
+      "actions": "المعاملات",
+      "showing": "عرض {{from}}-{{to}} / {{total}}",
+      "page": "الصفحة {{current}} / {{total}}"
     },
     "form": {
       "addTitle": "إضافة تدفق موافقة جديد",
-      "editTitle": "تعديل تدفق الموافقة",
-      "addDescription": "إدخال معلومات تدفق الموافقة الجديد",
-      "editDescription": "تعديل معلومات تدفق الموافقة",
-      "documentType": "نوع المستند",
-      "selectDocumentType": "اختر نوع المستند",
-      "noDocumentTypeSelected": "لم يتم اختيار نوع المستند",
-      "documentTypeRequired": "اختيار نوع المستند مطلوب",
-      "description": "الوصف",
-      "descriptionPlaceholder": "أدخل الوصف (اختياري)",
-      "descriptionMaxLength": "الوصف يمكن أن يكون بحد أقصى 200 حرف",
-      "isActive": "نشط",
-      "isActiveDescription": "حالة نشاط تدفق الموافقة",
-      "cancel": "إلغاء",
-      "save": "حفظ",
-      "saving": "جاري الحفظ..."
+      "editTitle": "تحرير تدفق الموافقة",
+      "addDescription": "أدخل معلومات تدفق الموافقة الجديدة",
+      "editDescription": "تحرير معلومات تدفق الموافقة",
+      "documentType": "نوع الوثيقة",
+      "selectDocumentType": "حدد نوع المستند",
+      "noDocumentTypeSelected": "لم يتم تحديد نوع المستند",
+      "documentTypeRequired": "اختيار نوع الوثيقة إلزامي",
+      "description": "توضيح",
+      "descriptionPlaceholder": "أدخل وصفًا (اختياري)",
+      "descriptionMaxLength": "يمكن أن يصل الوصف إلى 200 حرف",
+      "isActive": "نشيط",
+      "isActiveDescription": "الحالة النشطة لتدفق الموافقة",
+      "cancel": "يلغي",
+      "save": "يحفظ",
+      "saving": "تسجيل..."
     },
-    "loading": "جاري التحميل...",
+    "loading": "تحميل...",
     "noData": "لا توجد بيانات",
-    "active": "نشط",
-    "inactive": "غير نشط",
-    "previous": "السابق",
+    "active": "نشيط",
+    "inactive": "سلبي",
+    "previous": "سابق",
     "next": "التالي",
     "delete": {
-      "action": "حذف",
-      "cancel": "إلغاء",
+      "action": "يمسح",
+      "cancel": "يلغي",
       "confirmTitle": "حذف تدفق الموافقة",
-      "confirmMessage": "هل أنت متأكد من أنك تريد حذف تدفق الموافقة هذا؟"
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف عملية التأكيد هذه؟"
     },
     "documentType": {
-      "offer": "عرض",
+      "offer": "يعرض",
       "request": "طلب",
-      "order": "طلب شراء"
+      "order": "طلب"
     },
     "advancedFilter": {
-      "columnDocumentType": "نوع المستند",
-      "columnDescription": "الوصف",
-      "columnIsActive": "نشط",
-      "columnCreatedBy": "أنشأه"
+      "columnDocumentType": "نوع الوثيقة",
+      "columnDescription": "توضيح",
+      "columnIsActive": "نشيط",
+      "columnCreatedBy": "تم إنشاؤها بواسطة"
     }
   },
   "approvalFlowStep": {
     "title": "خطوات التدفق",
-    "addButton": "إضافة خطوة",
-    "empty": "لم تتم إضافة خطوات بعد",
-    "unknownRoleGroup": "لا يوجد مجموعة أدوار",
-    "stepDescription": "ترتيب الموافقة: {{order}}",
+    "addButton": "أضف خطوة",
+    "empty": "لم تتم إضافة أي خطوات حتى الآن",
+    "unknownRoleGroup": "لا توجد مجموعة دور",
+    "stepDescription": "أمر الموافقة: {{order}}",
     "form": {
-      "addTitle": "إضافة خطوة جديدة",
-      "editTitle": "تعديل الخطوة",
-      "addDescription": "إضافة خطوة جديدة للتدفق",
-      "editDescription": "تعديل معلومات الخطوة",
-      "approvalRoleGroup": "مجموعة الأدوار",
-      "selectRoleGroup": "اختر مجموعة الأدوار",
-      "noRoleGroupSelected": "لم يتم اختيار مجموعة أدوار",
-      "approvalRoleGroupIdRequired": "اختيار مجموعة الأدوار مطلوب",
-      "cancel": "إلغاء",
-      "save": "حفظ",
-      "saving": "جاري الحفظ..."
+      "addTitle": "أضف خطوة جديدة",
+      "editTitle": "تحرير الخطوة",
+      "addDescription": "إضافة خطوة تدفق جديدة",
+      "editDescription": "تحرير معلومات خطوة التدفق",
+      "approvalRoleGroup": "مجموعة الدور",
+      "selectRoleGroup": "حدد مجموعة الدور",
+      "noRoleGroupSelected": "لم يتم تحديد مجموعة الدور",
+      "approvalRoleGroupIdRequired": "اختيار مجموعة الدور إلزامي",
+      "cancel": "يلغي",
+      "save": "يحفظ",
+      "saving": "تسجيل..."
     },
     "messages": {
-      "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذه الخطوة؟"
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذه الخطوة؟"
     }
   }
 }

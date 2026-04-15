@@ -1,165 +1,165 @@
 {
-  "loading": "Wird geladen...",
-  "saving": "Wird gespeichert...",
+  "loading": "Laden...",
+  "saving": "Aufnahme...",
   "error": "Fehler",
   "noData": "Keine Daten",
-  "previous": "Previous",
-  "next": "Weiter",
-  "actions": "Aktionen",
+  "previous": "Zurück",
+  "next": "Als nächstes",
+  "actions": "Transaktionen",
   "edit": "Bearbeiten",
-  "delete": "Delete",
-  "back": "Back",
+  "delete": "Löschen",
+  "back": "Zurück",
   "refresh": "Aktualisieren",
   "select": "Auswählen",
   "yes": "Ja",
   "confirm": "Bestätigen",
-  "add": "Add",
-  "backToOrders": "Back to Orders",
+  "add": "Hinzufügen",
+  "backToOrders": "Zurück zu Bestellungen",
   "cancel": "Abbrechen",
   "save": "Speichern",
-  "saveAndApply": "Speichern und Anwenden",
+  "saveAndApply": "Speichern und anwenden",
   "list": {
-    "revise": "Revise",
-    "showing": "Zeige {{from}}-{{to}} / {{total}}"
+    "revise": "Überarbeiten",
+    "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}"
   },
   "detail": {
-    "title": "Angebotsdetails"
+    "title": "Bestelldetails"
   },
   "create": {
-    "title": "Neues Angebot erstellen",
-    "submit": "Angebot speichern und zur Genehmigung senden",
-    "success": "Angebot erfolgreich erstellt",
-    "successMessage": "Angebot wurde an den Genehmigungsprozess gesendet.",
-    "error": "Angebot konnte nicht erstellt werden",
-    "errorMessage": "Beim Erstellen des Angebots ist ein Fehler aufgetreten."
+    "title": "Neue Bestellung erstellen",
+    "submit": "Speichern Sie die Bestellung und senden Sie sie zur Genehmigung",
+    "success": "Bestellung erfolgreich erstellt",
+    "successMessage": "Die Bestellung wurde an den Genehmigungsprozess weitergeleitet.",
+    "error": "Bestellung konnte nicht erstellt werden",
+    "errorMessage": "Beim Erstellen der Bestellung ist ein Fehler aufgetreten."
   },
   "header": {
-    "title": "Angebotsinformationen",
+    "title": "Bestellinformationen",
     "customer": "Kunde",
-    "selectCustomer": "Kunde auswählen",
+    "selectCustomer": "Wählen Sie Kunde aus",
     "shippingAddress": "Lieferadresse",
-    "selectShippingAddress": "Lieferadresse auswählen",
+    "selectShippingAddress": "Wählen Sie die Lieferadresse aus",
     "representative": "Vertriebsmitarbeiter",
-    "selectRepresentative": "Mitarbeiter auswählen",
-    "offerType": "Angebotstyp",
-    "selectOfferType": "Angebotstyp auswählen",
+    "selectRepresentative": "Wählen Sie einen Vertreter aus",
+    "offerType": "Auftragstyp",
+    "selectOfferType": "Bestellart auswählen",
     "currency": "Währung",
-    "selectCurrency": "Bitte Währung auswählen",
-    "showExchangeRates": "Wechselkurse anzeigen",
-    "offerDate": "Angebotsdatum",
-    "deliveryDate": "Lieferdatum",
+    "selectCurrency": "Bitte wählen Sie die Währung aus",
+    "showExchangeRates": "Preise anzeigen",
+    "offerDate": "Bestelldatum",
+    "deliveryDate": "Liefertermin",
     "paymentType": "Zahlungsart",
     "selectPaymentType": "Zahlungsart auswählen",
     "description": "Beschreibung",
-    "descriptionPlaceholder": "Beschreibung eingeben",
-    "offerNo": "Angebots-Nr.",
-    "offerNoPlaceholder": "Angebotsnummer",
+    "descriptionPlaceholder": "Geben Sie eine Beschreibung ein",
+    "offerNo": "Bestellen Sie No",
+    "offerNoPlaceholder": "Bestellnummer",
     "currencyChange": {
-      "title": "Währungsänderung",
-      "message": "Wenn die Währung geändert wird, werden alle vorhandenen Zeilen basierend auf der neuen Währung neu berechnet. Bestätigen Sie diesen Vorgang?"
+      "title": "Währungswechsel",
+      "message": "Wenn sich die Währung ändert, werden alle vorhandenen Zeilen entsprechend der neuen Währung neu berechnet. Genehmigen Sie diese Transaktion?"
     }
   },
   "lines": {
-    "title": "Angebotszeilen",
-    "add": "Add Line",
-    "empty": "No lines added yet",
-    "emptyDescription": "Use \"Select Stock\" or \"Add Line\" button to add order lines",
-    "itemCount": "Artikel",
+    "title": "Bestellzeilen",
+    "add": "Zeile hinzufügen",
+    "empty": "Es wurden noch keine Zeilen hinzugefügt",
+    "emptyDescription": "Um Bestellpositionen hinzuzufügen, verwenden Sie die Schaltfläche „Lagerbestand auswählen“ oder „Zeile hinzufügen“.",
+    "itemCount": "Linie",
     "editLine": "Zeile bearbeiten",
-    "selectStock": "Bestand auswählen",
-    "selectProduct": "Produkt auswählen",
-    "selectStockFirst": "Kein Bestand ausgewählt",
-    "stock": "Bestand",
-    "productCode": "Bestandscode",
-    "enterProductCode": "Produktcode eingeben oder suchen",
-    "productName": "Bestandsname",
-    "enterProductName": "Produktname eingeben",
+    "selectStock": "Wählen Sie Lagerbestand",
+    "selectProduct": "Wählen Sie Produkt aus",
+    "selectStockFirst": "Lagerbestand nicht ausgewählt",
+    "stock": "Lager",
+    "productCode": "Aktiencode",
+    "enterProductCode": "Geben Sie den Produktcode ein oder suchen Sie ihn",
+    "productName": "Aktienname",
+    "enterProductName": "Geben Sie den Produktnamen ein",
     "quantity": "Menge",
-    "unitPrice": "Unit Price",
+    "unitPrice": "Stückpreis",
     "discount1": "Rabatt 1 %",
     "discount2": "Rabatt 2 %",
     "discount3": "Rabatt 3 %",
     "discounts": "Rabatte",
     "discountAmount": "Rabattbetrag",
     "netPrice": "Nettopreis",
-    "vatRate": "MwSt.-Satz %",
+    "vatRate": "Mehrwertsteuersatz %",
     "lineTotal": "Zeilensumme (inkl. MwSt.)",
     "calculations": "Berechnungen",
-    "required": "At least 1 line must be added",
-    "noProductsFound": "Kein Produkt gefunden",
+    "required": "Es muss mindestens 1 Zeile hinzugefügt werden",
+    "noProductsFound": "Produkt nicht gefunden",
     "delete": {
-      "confirmTitle": "Delete Line",
-      "confirmMessage": "Are you sure you want to delete this line?"
+      "confirmTitle": "Zeile löschen",
+      "confirmMessage": "Sind Sie sicher, dass Sie diese Zeile löschen möchten?"
     }
   },
   "exchangeRates": {
     "title": "Wechselkurse",
     "currency": "Währung",
-    "rate": "Kurs",
-    "date": "Kursdatum",
-    "isOfficial": "Offizieller Kurs",
-    "official": "Offiziell",
-    "custom": "Benutzerdefiniert",
-    "empty": "Kein Kurs gefunden",
+    "rate": "Installieren",
+    "date": "Wechselkursdatum",
+    "isOfficial": "Installieren Sie offiziell",
+    "official": "offiziell",
+    "custom": "privat",
+    "empty": "Preis nicht gefunden",
     "status": "Status",
     "dialog": {
       "title": "Wechselkurse",
-      "description": "Kursdaten anzeigen und bei Bedarf bearbeiten. Geänderte Kurse werden nicht als offizieller Kurs markiert."
+      "description": "Wechselkurse einsehen und bei Bedarf bearbeiten. Geänderte Tarife werden nicht als offizielle Tarife gekennzeichnet."
     }
   },
   "summary": {
     "title": "Zusammenfassung",
     "subtotal": "Zwischensumme",
-    "totalVat": "Gesamt MwSt.",
+    "totalVat": "Gesamte Mehrwertsteuer",
     "grandTotal": "Gesamtsumme"
   },
   "offerType": {
-    "domestic": "Inland",
-    "export": "Export"
+    "domestic": "inländisch",
+    "export": "im Ausland"
   },
   "wizard": {
-    "title": "Neues Angebot erstellen",
+    "title": "Neue Bestellung erstellen",
     "step1": {
-      "title": "Schritt 1: Angebotsinformationen",
-      "description": "Angebotskopfdaten und Wechselkurse eingeben",
+      "title": "Schritt 1: Bestellinformationen",
+      "description": "Geben Sie Auftragskopfinformationen und Wechselkurse ein",
       "validation": {
-        "offerType": "Angebotstyp",
+        "offerType": "Auftragstyp",
         "currency": "Währung",
         "exchangeRate": "Wechselkurs"
       },
       "exchangeRate": {
-        "required": "At least one exchange rate must be added for non-TRY currencies"
+        "required": "Für Nicht-TRY-Währungen muss mindestens ein Wechselkurs hinzugefügt werden"
       },
       "currency": {
         "try": {
-          "info": "Wenn TRY ausgewählt ist, ist kein Wechselkurs erforderlich"
+          "info": "Bei Auswahl von TRY ist kein Wechselkurs erforderlich"
         }
       }
     },
     "step2": {
-      "title": "Schritt 2: Angebotszeilen",
-      "description": "Add product and price information",
-      "info": "You must add at least one line",
+      "title": "Schritt 2: Bestellpositionen",
+      "description": "Fügen Sie Produkt- und Preisinformationen hinzu",
+      "info": "Sie müssen mindestens eine Zeile hinzufügen",
       "validation": {
-        "noLines": "At least one line must be added",
-        "invalidLines": "All lines must have valid information",
-        "allValid": "{{count}} lines successfully added"
+        "noLines": "Es muss mindestens eine Zeile hinzugefügt werden",
+        "invalidLines": "Alle Zeilen müssen gültige Informationen enthalten",
+        "allValid": "{{count}} Zeile erfolgreich hinzugefügt"
       }
     },
     "step3": {
       "title": "Schritt 3: Zusammenfassung und Genehmigung",
-      "description": "Review information and save order",
+      "description": "Informationen prüfen und Bestellung speichern",
       "header": {
-        "title": "Angebotsinformationen"
+        "title": "Bestellinformationen"
       },
       "lines": {
-        "title": "Angebotszeilen"
+        "title": "Bestellzeilen"
       },
       "summary": {
-        "title": "Final Summary"
+        "title": "Abschließende Zusammenfassung"
       },
       "approval": {
-        "info": "Nach dem Speichern wird das Angebot automatisch an den Genehmigungsprozess gesendet"
+        "info": "Sobald die Bestellung gespeichert ist, wird sie automatisch an den Genehmigungsprozess weitergeleitet"
       }
     }
   }

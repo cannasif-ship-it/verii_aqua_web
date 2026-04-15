@@ -1,11 +1,11 @@
 {
   "mailSettings": {
     "Fields": {
-      "Host": "Presenter",
+      "Host": "Server",
       "Port": "Connection Port",
       "EnableSsl": "Use SSL",
-      "Username": "User name",
-      "Password": "Password",
+      "Username": "Username",
+      "Password": "password",
       "PasswordPlaceholder": "Enter new password to change",
       "FromEmail": "From Email",
       "FromName": "Sender Name",

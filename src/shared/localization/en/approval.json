@@ -1,54 +1,54 @@
 {
   "list": {
     "title": "Pending Approvals",
-    "description": "View and approve or reject quotations assigned to you",
-    "empty": "No pending approvals",
-    "error": "An error occurred while loading approvals"
+    "description": "You can view and approve or reject offers assigned to you",
+    "empty": "There are no pending approvals",
+    "error": "An error occurred while loading confirmations"
   },
   "yes": "Yes",
-  "no": "No",
+  "no": "no",
   "processing": "Processing...",
   "detail": {
-    "title": "Quotation Detail",
-    "subtitle": "View quotation details and perform actions",
+    "title": "Offer Detail",
+    "subtitle": "View offer details and take action",
     "tabs": {
       "detail": "Detail",
-      "history": "History",
-      "action": "Action"
+      "history": "past",
+      "action": "transaction"
     },
-    "notFound": "Quotation not found",
-    "quotationInfo": "Quotation Information",
+    "notFound": "No offer found",
+    "quotationInfo": "Offer Information",
     "offerNo": "Offer No",
-    "customer": "Customer",
-    "representative": "Representative",
+    "customer": "customer",
+    "representative": "representative",
     "currency": "Currency",
     "offerDate": "Offer Date",
     "deliveryDate": "Delivery Date",
     "total": "Total",
     "grandTotal": "Grand Total",
     "description": "Description",
-    "lines": "Quotation Lines",
+    "lines": "Quote Lines",
     "productCode": "Product Code",
     "productName": "Product Name",
-    "quantity": "Quantity",
+    "quantity": "quantity",
     "unitPrice": "Unit Price",
-    "lineTotal": "Line Total",
-    "lineGrandTotal": "Line Grand Total",
+    "lineTotal": "Row Total",
+    "lineGrandTotal": "Row Grand Total",
     "exchangeRates": "Exchange Rates",
-    "exchangeRate": "Rate",
-    "exchangeRateDate": "Rate Date",
-    "isOfficial": "Official Rate"
+    "exchangeRate": "Install",
+    "exchangeRateDate": "Exchange Rate Date",
+    "isOfficial": "Install Official"
   },
   "actions": {
     "view": "View",
-    "approve": "Approve",
-    "reject": "Reject"
+    "approve": "Confirm",
+    "reject": "reject"
   },
   "status": {
     "notRequired": "Not Required",
-    "waiting": "Waiting",
+    "waiting": "waiting",
     "approved": "Approved",
-    "rejected": "Rejected",
+    "rejected": "rejected",
     "closed": "Closed"
   },
   "closedReason": "This record was closed because another record with the same offer number was approved.",
@@ -58,28 +58,28 @@
     "regionalManager": "Regional Manager",
     "finance": "Finance",
     "generalManager": "General Manager",
-    "unknown": "Unknown"
+    "unknown": "unknown"
   },
   "note": {
-    "label": "Note",
+    "label": "note",
     "placeholder": "You can add an approval/rejection note (optional)",
-    "maxLength": "Note can be at most 500 characters"
+    "maxLength": "Note can be up to 500 characters"
   },
   "approve": {
     "success": "Approved",
-    "successMessage": "Quotation approved successfully",
-    "error": "Approval Error",
-    "errorMessage": "An error occurred while approving the quotation"
+    "successMessage": "Offer approved successfully",
+    "error": "Assertion Error",
+    "errorMessage": "An error occurred while approving the offer"
   },
   "reject": {
-    "success": "Rejected",
-    "successMessage": "Quotation rejected",
+    "success": "rejected",
+    "successMessage": "offer rejected",
     "error": "Rejection Error",
-    "errorMessage": "An error occurred while rejecting the quotation"
+    "errorMessage": "An error occurred while rejecting the offer"
   },
   "history": {
-    "empty": "No approval history",
-    "approvedBy": "Approved By"
+    "empty": "There is no approval history",
+    "approvedBy": "Approved by"
   },
   "assignedTo": "Assigned User"
 }

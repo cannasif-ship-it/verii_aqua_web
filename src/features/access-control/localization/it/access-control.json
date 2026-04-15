@@ -1,41 +1,41 @@
 {
   "help": {
     "permissionDefinition": {
-      "code": "Chiave univoca usata dalle guardie di route e pagina. Preferire naming snake_case o con punto stabile.",
-      "name": "Nome mostrato agli amministratori nella gestione dei permessi.",
-      "description": "Spiegazione interna opzionale per questo permesso.",
-      "isActive": "I permessi inattivi non vengono considerati nel calcolo dell'accesso utente.",
-      "save": "Le modifiche influenzano i flussi di autorizzazione di ruoli e gruppi."
+      "code": "Chiave univoca utilizzata dai manutentori del percorso e della pagina. Preferisci la notazione stabile snake_case o dot.",
+      "name": "Il nome visualizzato mostrato agli amministratori durante la gestione delle autorizzazioni.",
+      "description": "Descrizione interna facoltativa per questa autorizzazione.",
+      "isActive": "Le autorizzazioni passive non vengono prese in considerazione nel calcolo dell'accesso utente.",
+      "save": "Le modifiche influiscono sui flussi di autorizzazione dei ruoli e dei gruppi."
     },
     "permissionGroup": {
-      "name": "Nome del gruppo per l'identificazione nell'assegnazione agli utenti.",
-      "isSystemAdmin": "I membri di questo gruppo possono accedere a tutte le pagine e azioni senza controlli individuali sui permessi.",
-      "isActive": "I gruppi inattivi non devono essere assegnati per nuove decisioni di accesso.",
-      "permissions": "I permessi selezionati definiscono a cosa possono accedere i membri di questo gruppo.",
-      "save": "Aggiorna l'accesso effettivo per tutti gli utenti assegnati a questo gruppo."
+      "name": "Nome del gruppo per l'identificazione durante l'assegnazione agli utenti.",
+      "isSystemAdmin": "I membri di questo gruppo possono accedere a tutte le pagine e azioni senza controlli di autorizzazione individuali.",
+      "isActive": "I gruppi passivi non devono essere assegnati per nuove decisioni di accesso.",
+      "permissions": "Le autorizzazioni scelte determinano a quali membri di questo gruppo possono accedere.",
+      "save": "Aggiorna l'accesso corrente per tutti gli utenti assegnati a questo gruppo."
     },
     "userAssignment": {
-      "user": "Scegli l'utente di cui desideri gestire l'ambito di accesso.",
-      "groups": "L'utente riceve permessi combinati da tutti i gruppi selezionati.",
-      "save": "Le assegnazioni si applicano immediatamente per i prossimi controlli di autorizzazione. Gli utenti potrebbero dover aggiornare la sessione.",
-      "systemAdminNote": "Se l'utente ha un gruppo amministratore di sistema, i permessi dettagliati vengono ignorati."
+      "user": "Seleziona l'utente di cui desideri gestire l'ambito di accesso.",
+      "groups": "L'utente ottiene autorizzazioni combinate da tutti i gruppi selezionati.",
+      "save": "Le assegnazioni vengono applicate immediatamente per i successivi controlli di autorizzazione. Gli utenti possono rinnovare le loro sessioni.",
+      "systemAdminNote": "Se l'utente dispone di un gruppo di amministratori di sistema, le autorizzazioni dettagliate vengono ignorate."
     }
   },
   "permissionDefinitions": {
-    "title": "Permission Definitions",
-    "description": "Manage permission codes used in the system",
-    "add": "Add Definition",
+    "title": "Definizioni dei permessi",
+    "description": "Gestire i codici di autorizzazione utilizzati nel sistema",
+    "add": "Aggiungi descrizione",
     "form": {
-      "editTitle": "Edit Permission Definition",
-      "addTitle": "Add Permission Definition",
-      "editDescription": "Update permission definition details",
-      "addDescription": "Create a new permission definition",
-      "code": "Code",
-      "name": "Name",
-      "namePlaceholder": "Display name",
-      "description": "Description",
-      "descriptionPlaceholder": "Optional description",
-      "isActive": "Active",
+      "editTitle": "Modifica definizione autorizzazione",
+      "addTitle": "Aggiungi la definizione di autorizzazione",
+      "editDescription": "Aggiorna le informazioni sulla definizione delle autorizzazioni",
+      "addDescription": "Crea una nuova definizione di autorizzazione",
+      "code": "Codice",
+      "name": "Nome",
+      "namePlaceholder": "nome visualizzato",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "descrizione facoltativa",
+      "isActive": "attivo",
       "codePlaceholder": "Scegli il codice",
       "affectedRoutes": "Pagine interessate",
       "affectedRoutesNone": "Nessun percorso corrispondente trovato per questo codice",
@@ -43,93 +43,108 @@
       "codeEmpty": "Nessun risultato trovato"
     },
     "table": {
-      "code": "Code",
-      "name": "Name",
-      "isActive": "Active",
-      "updatedDate": "Updated",
-      "showing": "{{from}}-{{to}} of {{total}}"
+      "code": "Codice",
+      "name": "Nome",
+      "isActive": "attivo",
+      "updatedDate": "Aggiornato",
+      "showing": "{{from}}-{{to}} / {{total}}"
     },
     "delete": {
-      "confirmTitle": "Delete Permission Definition",
-      "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
+      "confirmTitle": "Elimina definizione autorizzazione",
+      "confirmMessage": "Vuoi eliminare \"{{name}}\"? Questa azione non può essere annullata."
     },
-    "syncFromRoutes": "Sincronizzazione dai percorsi"
+    "syncFromRoutes": "Sincronizzazione dai percorsi",
+    "missingCodes": "{{count}} trovato codice di autorizzazione mancante. I record CRUD vengono sincronizzati automaticamente."
   },
   "permissionGroups": {
-    "title": "Permission Groups",
-    "description": "Manage permission groups and their assignments",
-    "add": "Add Group",
-    "selectAll": "Select all",
-    "noDefinitions": "No permission definitions available",
+    "title": "Gruppi di autorizzazione",
+    "description": "Gestisci gruppi di autorizzazioni e assegnazioni",
+    "add": "Aggiungi gruppo",
+    "selectAll": "seleziona tutto",
+    "noDefinitions": "Nessuna definizione di autorizzazione disponibile",
     "form": {
-      "editTitle": "Edit Permission Group",
-      "addTitle": "Add Permission Group",
-      "editDescription": "Update permission group details",
-      "addDescription": "Create a new permission group",
-      "name": "Name",
-      "namePlaceholder": "Group name",
-      "description": "Description",
-      "descriptionPlaceholder": "Optional description",
-      "isSystemAdmin": "System Admin",
-      "isActive": "Active",
-      "permissions": "Permissions"
+      "editTitle": "Modifica gruppo di autorizzazioni",
+      "addTitle": "Aggiungi gruppo di autorizzazioni",
+      "editDescription": "Aggiorna le informazioni sul gruppo di autorizzazioni",
+      "addDescription": "Crea un nuovo gruppo di autorizzazioni",
+      "name": "Nome",
+      "namePlaceholder": "Nome del gruppo",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "descrizione facoltativa",
+      "isSystemAdmin": "Amministratore di sistema",
+      "isActive": "attivo",
+      "permissions": "Autorizzazioni"
     },
     "table": {
-      "name": "Name",
-      "isSystemAdmin": "System Admin",
-      "isActive": "Active",
-      "permissionCount": "Permissions",
-      "showing": "{{from}}-{{to}} of {{total}}"
+      "name": "Nome",
+      "isSystemAdmin": "Amministratore di sistema",
+      "isActive": "attivo",
+      "permissionCount": "Autorizzazioni",
+      "showing": "{{from}}-{{to}} / {{total}}"
     },
-    "managePermissions": "Manage permissions",
+    "managePermissions": "Gestisci le autorizzazioni",
     "permissionsPanel": {
-      "title": "Edit Group Permissions",
-      "description": "Select permissions for this group",
-      "currentCodes": "Current permission codes"
+      "title": "Modifica autorizzazioni gruppo",
+      "description": "Seleziona le autorizzazioni per questo gruppo",
+      "currentCodes": "Codici di autorizzazione disponibili"
     },
     "delete": {
-      "confirmTitle": "Delete Permission Group",
-      "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
+      "confirmTitle": "Elimina gruppo di autorizzazioni",
+      "confirmMessage": "Vuoi eliminare \"{{name}}\"? Questa azione non può essere annullata."
     },
     "search": "Cerca...",
-    "moduleTitle": "AQUA MODÜLÜ",
-    "systemAdminLocked": "System Admin grubu yetkileri kilitlidir ve değiştirilemez."
+    "moduleTitle": "MODULO ACQUA",
+    "systemAdminLocked": "I privilegi del gruppo Amministratore di sistema sono bloccati e non possono essere modificati.",
+    "matrixDescription": "Ogni riga rappresenta una schermata o una risorsa. Definisci un accesso più controllato selezionando i privilegi Visualizza, Crea, Aggiorna ed Elimina separatamente.",
+    "sections": {
+      "aquaDefinitions": "Definizioni dell'acqua",
+      "aquaOperations": "Transazioni dell'acqua",
+      "aquaReports": "Rapporti sull'acqua",
+      "accessControl": "Controllo degli accessi",
+      "stock": "Gestione delle scorte",
+      "users": "Utente e profilo",
+      "dashboard": "Cruscotto",
+      "other": "Altro"
+    },
+    "matrix": {
+      "resource": "Schermo/Sorgente"
+    }
   },
   "userGroupAssignments": {
-    "title": "User Group Assignments",
-    "description": "Assign permission groups to users",
-    "selectUser": "Select User",
-    "selectUserPlaceholder": "Search and select user...",
-    "selectUserHint": "Select a user to manage their permission group assignments",
-    "assignedGroups": "Assigned Permission Groups",
-    "noUsers": "No users found",
-    "noGroups": "No permission groups available",
-    "selectAll": "Select all",
-    "unsavedChanges": "Le modifiche non sono state salvate"
+    "title": "Assegnazioni dei gruppi di utenti",
+    "description": "Assegna gruppi di autorizzazioni agli utenti",
+    "selectUser": "Seleziona Utente",
+    "selectUserPlaceholder": "Cerca e seleziona utente...",
+    "selectUserHint": "Seleziona un utente per gestire le assegnazioni dei gruppi di autorizzazioni",
+    "assignedGroups": "Gruppi di autorizzazione assegnati",
+    "noUsers": "Utente non trovato",
+    "noGroups": "Nessun gruppo di autorizzazioni disponibile",
+    "selectAll": "seleziona tutto",
+    "unsavedChanges": "Modifiche non salvate"
   },
   "common": {
     "cancel": "Annulla",
     "saving": "Registrazione...",
-    "save": "Save and Apply",
+    "save": "Salva e applica",
     "loading": "Caricamento...",
     "search": "Cerca...",
     "noData": "Nessun dato",
     "actions": "Transazioni",
-    "yes": "SÌ",
-    "no": "No",
-    "edit": "Modificare",
-    "delete": "Eliminare",
-    "previous": "Ex",
-    "next": "Prossimo",
+    "yes": "Sì",
+    "no": "no",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "previous": "Precedente",
+    "next": "Avanti",
     "processing": "Elaborazione..."
   },
   "sidebar": {
-    "accessControl": "Controllo Accessi",
-    "permissionDefinitions": "Permission Definitions",
-    "permissionGroups": "Permission Groups",
-    "userGroupAssignments": "User Group Assignments"
+    "accessControl": "Controllo degli accessi",
+    "permissionDefinitions": "Definizioni dei permessi",
+    "permissionGroups": "Gruppi di autorizzazione",
+    "userGroupAssignments": "Assegnazioni dei gruppi di utenti"
   },
   "assignments": {
-    "userListLoadFailed": "Impossibile caricare l’elenco utenti"
+    "userListLoadFailed": "Impossibile caricare l'elenco degli utenti"
   }
 }

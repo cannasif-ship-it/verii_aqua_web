@@ -120,6 +120,10 @@
         "title": "Stok Dönüşüm",
         "description": "Stok sınıf dönüşüm başlık kayıtları."
       },
+      "fishBatches": {
+        "title": "Balık Partileri",
+        "description": "Balık partisi biyoloji, köken ve hasat hedefi kayıtları."
+      },
       "dailyWeathers": {
         "title": "Günlük Hava Durumu",
         "description": "Proje bazlı günlük hava durumu kayıtları."
@@ -186,6 +190,9 @@
       "note": "Not",
       "cageCode": "Kafes Kodu",
       "cageName": "Kafes Adı",
+      "currentCageCode": "Mevcut Kafes",
+      "fromCageCode": "Çıkış Kafesi",
+      "toCageCode": "Varış Kafesi",
       "capacityCount": "Kapasite Adet",
       "capacityGram": "Kapasite (Gram)",
       "projectId": "Proje ID",
@@ -203,6 +210,9 @@
       "goodsReceiptLineId": "Mal Kabul Satır ID",
       "itemType": "Ürün Tipi",
       "stockId": "Stok ID",
+      "fishStockName": "Balık Stoku",
+      "fromStockName": "Çıkış Stoku",
+      "toStockName": "Varış Stoku",
       "currencyCode": "Para Birimi",
       "exchangeRate": "Kur",
       "qtyUnit": "Miktar (Birim)",
@@ -231,6 +241,8 @@
       "shipmentNo": "Sevkiyat No",
       "shipmentId": "Sevkiyat ID",
       "shipmentDate": "Sevkiyat Tarihi",
+      "movementTypeName": "Hareket Tipi",
+      "referenceDocumentNo": "Referans Belge No",
       "weighingNo": "Tartım No",
       "weighingId": "Tartım ID",
       "weighingDate": "Tartım Tarihi",
@@ -240,12 +252,45 @@
       "weatherDate": "Tarih",
       "weatherTypeId": "Hava Tipi",
       "weatherSeverityId": "Hava Şiddeti",
+      "weatherSeverityScore": "Hava Şiddeti Skoru",
       "temperatureC": "Sıcaklık (C)",
       "windKnot": "Rüzgar (knot)",
+      "waterTemperatureSurfaceC": "Yüzey Su Sıcaklığı (C)",
+      "waterTemperatureDepthC": "Derinlik Su Sıcaklığı (C)",
+      "dissolvedOxygenMgL": "Çözünmüş Oksijen (mg/L)",
+      "salinityPpt": "Tuzluluk (ppt)",
+      "ph": "pH",
+      "currentSpeedKn": "Akıntı Hızı (knot)",
+      "waveHeightM": "Dalga Yüksekliği (m)",
+      "turbidityNtu": "Bulanıklık (NTU)",
+      "ammoniaMgL": "Amonyak (mg/L)",
+      "nitriteMgL": "Nitrit (mg/L)",
+      "algalBloomIndex": "Alg Bloom İndeksi",
+      "sensorHealthScore": "Sensör Sağlık Skoru",
+      "sensorRecordedAt": "Sensör Kayıt Zamanı",
+      "dataSource": "Veri Kaynağı",
+      "operationalRiskScore": "Operasyonel Risk Skoru",
+      "operationalRiskLevel": "Operasyonel Risk Seviyesi",
       "operationTypeId": "İşlem Tipi ID",
       "operationNo": "İşlem No",
       "operationDate": "İşlem Tarihi",
       "fishBatchId": "Balık Partisi ID",
+      "fishStockId": "Balık Stok ID",
+      "sourceGoodsReceiptLineId": "Kaynak Mal Kabul Satırı ID",
+      "supplierLotCode": "Tedarikçi Lot Kodu",
+      "hatcheryName": "Kuluçkahane",
+      "originCountryCode": "Menşe Ülke Kodu",
+      "strainCode": "Strain Kodu",
+      "generationCode": "Jenerasyon Kodu",
+      "broodstockCode": "Anaç Kodu",
+      "isVaccinated": "Aşılı",
+      "vaccinationDate": "Aşı Tarihi",
+      "vaccinationNote": "Aşı Notu",
+      "treatmentHistoryNote": "Tedavi Geçmişi Notu",
+      "targetHarvestAverageGram": "Hedef Hasat Ortalama Gram",
+      "targetHarvestDate": "Hedef Hasat Tarihi",
+      "targetHarvestClass": "Hedef Hasat Sınıfı",
+      "qualityGrade": "Kalite Sınıfı",
       "fromFishBatchId": "Kaynak Balık Partisi ID",
       "toFishBatchId": "Hedef Balık Partisi ID",
       "projectCageId": "Proje Kafes ID",
@@ -343,7 +388,9 @@
       "tabWeather": "Hava Durumu",
       "tabNetOperation": "Ağ İşlemi",
       "tabTransfer": "Kafes Değişimi",
+      "tabShipment": "Sevkiyat",
       "tabStockChange": "Stok Değişimi",
+      "tabProjectMerge": "Proje Birleştirme",
       "feeding": {
         "title": "Yemleme",
         "slot": "Slot",
@@ -413,6 +460,19 @@
         "description": "Açıklama",
         "save": "Kaydet"
       },
+      "shipment": {
+        "title": "Sevkiyat",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "fishCount": "Adet",
+        "currency": "Döviz",
+        "unitPrice": "Birim Fiyat",
+        "targetWarehouse": "Hedef Depo",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
+      "projectMerge": {
+        "title": "Proje Birleştirme"
+      },
       "transferLine": {
         "fullTransferInfo": "Transfer tamamı zorunlu açık. Bu satır için adet {{count}} olarak sabitlendi.",
         "fullTransferRequired": "Transfer tamamı zorunlu açık. Bu satırda adet {{count}} olmalıdır."
@@ -432,6 +492,8 @@
         "stockChangeCountTooHigh": "Stok değişim adedi, kafesteki canlı adedini aşamaz.",
         "invalidNewAverageGram": "Eklenecek gram 0'dan büyük olmalı.",
         "stockChangeSaved": "Stok değişimi kaydedildi.",
+        "shipmentCountTooHigh": "Sevk adedi, kafesteki canlı adedini aşamaz.",
+        "shipmentSaved": "Sevkiyat kaydedildi.",
         "saveFailed": "Kayıt başarısız"
       },
       "transferSuccessDialog": {
@@ -642,13 +704,16 @@
       "loading": "Devir / FCR raporu yükleniyor...",
       "loadFailed": "Devir / FCR raporu yüklenemedi.",
       "emptyState": "Raporu görmek için en az bir proje seçin.",
+      "pendingState": "Tarih aralığını ve projeleri seçip raporu getir butonuna basın.",
       "filters": {
         "fromDate": "Başlangıç Tarihi",
         "toDate": "Bitiş Tarihi",
         "projects": "Projeler",
         "searchProject": "Proje ara...",
         "selectFiltered": "Filtreleneni Seç",
-        "clearFiltered": "Filtreleneni Kaldır"
+        "clearFiltered": "Filtreleneni Kaldır",
+        "selectionSummary": "{{count}} proje seçildi",
+        "apply": "Raporu Getir"
       },
       "summary": {
         "openingFish": "Başlangıç Adet",

@@ -1,59 +1,59 @@
 {
-  "menu": "Gestione Tipi di Attività",
+  "menu": "Gestione del tipo di attività",
   "description": "Gestisci e modifica i tipi di attività",
-  "addButton": "Aggiungi Nuovo Tipo di Attività",
+  "addButton": "Aggiungi nuovo tipo di attività",
   "loading": "Caricamento...",
-  "noData": "Nessun dato trovato",
-  "actions": "Azioni",
+  "noData": "Nessun dato",
+  "actions": "Transazioni",
   "edit": "Modifica",
   "deleteButton": "Elimina",
   "cancel": "Annulla",
   "save": "Salva",
-  "saving": "Salvataggio...",
+  "saving": "Registrazione...",
   "previous": "Precedente",
-  "next": "Successivo",
+  "next": "Avanti",
   "form": {
-    "addTitle": "Aggiungi Nuovo Tipo di Attività",
-    "editTitle": "Modifica Tipo di Attività",
-    "addDescription": "Inserisci le informazioni del nuovo tipo di attività",
-    "editDescription": "Modifica le informazioni del tipo di attività",
-    "name": "Nome Tipo di Attività",
-    "namePlaceholder": "Inserisci nome tipo di attività",
+    "addTitle": "Aggiungi nuovo tipo di attività",
+    "editTitle": "Tipo di attività Modifica",
+    "addDescription": "Inserisci le informazioni sul nuovo tipo di attività",
+    "editDescription": "Modifica le informazioni sul tipo di attività",
+    "name": "Nome del tipo di attività",
+    "namePlaceholder": "Inserisci il nome del tipo di attività",
     "nameRequired": "Il nome del tipo di attività è obbligatorio",
-    "nameMaxLength": "Il nome del tipo di attività deve contenere al massimo 100 caratteri",
+    "nameMaxLength": "Il nome del tipo di attività può contenere fino a 100 caratteri",
     "description": "Descrizione",
-    "descriptionPlaceholder": "Inserisci descrizione (opzionale)",
-    "descriptionMaxLength": "La descrizione deve contenere al massimo 500 caratteri"
+    "descriptionPlaceholder": "Inserisci una descrizione (facoltativo)",
+    "descriptionMaxLength": "La descrizione può contenere fino a 500 caratteri"
   },
   "table": {
     "id": "ID",
-    "name": "Nome Tipo di Attività",
+    "name": "Nome del tipo di attività",
     "description": "Descrizione",
-    "createdDate": "Data Creazione",
-    "createdBy": "Creato Da",
-    "showing": "Visualizzazione {{from}}-{{to}} / {{total}}",
+    "createdDate": "Data di creazione",
+    "createdBy": "Creato dall'utente",
+    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
     "page": "Pagina {{current}} / {{total}}"
   },
   "stats": {
-    "totalActivityTypes": "Totale Tipi di Attività",
-    "activeActivityTypes": "Tipi di Attività Attivi",
-    "newThisMonth": "Nuovi Questo Mese"
+    "totalActivityTypes": "Tipo di attività totale",
+    "activeActivityTypes": "Tipo di attività attiva",
+    "newThisMonth": "Novità questo mese"
   },
   "messages": {
-    "createSuccess": "Tipo di attività creato con successo",
+    "createSuccess": "Tipo di attività creato correttamente",
     "createError": "Impossibile creare il tipo di attività",
-    "updateSuccess": "Tipo di attività aggiornato con successo",
+    "updateSuccess": "Tipo di attività aggiornato correttamente",
     "updateError": "Impossibile aggiornare il tipo di attività",
-    "deleteSuccess": "Tipo di attività eliminato con successo",
+    "deleteSuccess": "Tipo di attività eliminato correttamente",
     "deleteError": "Impossibile eliminare il tipo di attività"
   },
   "deleteConfirm": {
-    "confirmTitle": "Elimina Tipo di Attività",
-    "confirmMessage": "Sei sicuro di voler eliminare il tipo di attività {{name}}?"
+    "confirmTitle": "Elimina tipo di attività",
+    "confirmMessage": "Vuoi eliminare il tipo di attività {{name}}?"
   },
   "advancedFilter": {
-    "columnName": "Aktivite Tipi Adı",
-    "columnDescription": "Açıklama",
-    "columnCreatedBy": "Oluşturan"
+    "columnName": "Nome del tipo di attività",
+    "columnDescription": "Descrizione",
+    "columnCreatedBy": "Creato da"
   }
 }

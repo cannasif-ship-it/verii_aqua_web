@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useMemo, useState } from 'react';
+import { type ReactElement, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { CalendarRange, Fish, Loader2, Scale, Search, TrendingUp } from 'lucide-react';
@@ -76,17 +76,16 @@ export function DevirFcrReportPage(): ReactElement {
   const [toDate, setToDate] = useState(initialToDate);
   const [projectSearch, setProjectSearch] = useState('');
   const [selectedProjectIds, setSelectedProjectIds] = useState<number[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<{
+    fromDate: string;
+    toDate: string;
+    projectIds: number[];
+  } | null>(null);
 
   const projectsQuery = useQuery({
     queryKey: PROJECTS_QUERY_KEY,
     queryFn: devirFcrApi.getProjects,
   });
-
-  useEffect(() => {
-    if (selectedProjectIds.length > 0) return;
-    if (!projectsQuery.data || projectsQuery.data.length === 0) return;
-    setSelectedProjectIds(projectsQuery.data.map((project) => project.id));
-  }, [projectsQuery.data, selectedProjectIds.length]);
 
   const filteredProjects = useMemo(() => {
     const items = projectsQuery.data ?? [];
@@ -97,10 +96,18 @@ export function DevirFcrReportPage(): ReactElement {
     );
   }, [projectSearch, projectsQuery.data]);
 
+  const sortedSelectedProjectIds = useMemo(() => [...selectedProjectIds].sort((a, b) => a - b), [selectedProjectIds]);
+  const canApplyFilters = selectedProjectIds.length > 0 && fromDate <= toDate;
+
   const reportQuery = useQuery({
-    queryKey: [...REPORT_QUERY_KEY, fromDate, toDate, [...selectedProjectIds].sort((a, b) => a - b).join(',')],
-    queryFn: () => devirFcrApi.getReport(selectedProjectIds, fromDate, toDate),
-    enabled: selectedProjectIds.length > 0 && fromDate <= toDate,
+    queryKey: [
+      ...REPORT_QUERY_KEY,
+      appliedFilters?.fromDate ?? '',
+      appliedFilters?.toDate ?? '',
+      appliedFilters?.projectIds.join(',') ?? '',
+    ],
+    queryFn: () => devirFcrApi.getReport(appliedFilters?.projectIds ?? [], appliedFilters?.fromDate ?? '', appliedFilters?.toDate ?? ''),
+    enabled: Boolean(appliedFilters && appliedFilters.projectIds.length > 0 && appliedFilters.fromDate <= appliedFilters.toDate),
   });
 
   const toggleProject = (projectId: number): void => {
@@ -120,7 +127,17 @@ export function DevirFcrReportPage(): ReactElement {
   };
 
   const allFilteredSelected = filteredProjects.length > 0 && filteredProjects.every((project) => selectedProjectIds.includes(project.id));
+  const selectedCount = selectedProjectIds.length;
   const report = reportQuery.data;
+
+  const applyFilters = (): void => {
+    if (!canApplyFilters) return;
+    setAppliedFilters({
+      fromDate,
+      toDate,
+      projectIds: sortedSelectedProjectIds,
+    });
+  };
 
   return (
     <div className="space-y-6 p-4 md:p-6">
@@ -170,6 +187,15 @@ export function DevirFcrReportPage(): ReactElement {
                   </div>
                   <Button type="button" variant="outline" onClick={toggleAllFiltered}>
                     {allFilteredSelected ? t('aqua.devirFcrReport.filters.clearFiltered') : t('aqua.devirFcrReport.filters.selectFiltered')}
+                  </Button>
+                </div>
+
+                <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    {t('aqua.devirFcrReport.filters.selectionSummary', { count: selectedCount })}
+                  </p>
+                  <Button type="button" onClick={applyFilters} disabled={!canApplyFilters || reportQuery.isFetching}>
+                    {t('aqua.devirFcrReport.filters.apply')}
                   </Button>
                 </div>
 
@@ -240,10 +266,10 @@ export function DevirFcrReportPage(): ReactElement {
             {reportQuery.error instanceof Error ? reportQuery.error.message : t('aqua.devirFcrReport.loadFailed')}
           </CardContent>
         </Card>
-      ) : selectedProjectIds.length === 0 ? (
+      ) : !appliedFilters || appliedFilters.projectIds.length === 0 ? (
         <Card className="border-slate-200 bg-white dark:border-cyan-800/30 dark:bg-blue-950/50">
           <CardContent className="py-10 text-sm text-slate-600 dark:text-slate-300">
-            {t('aqua.devirFcrReport.emptyState')}
+            {t('aqua.devirFcrReport.pendingState')}
           </CardContent>
         </Card>
       ) : report ? (

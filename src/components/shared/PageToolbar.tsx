@@ -8,6 +8,7 @@ interface PageToolbarProps {
   searchPlaceholder: string;
   searchValue: string;
   onSearchChange: (value: string) => void;
+  onSearchSubmit?: () => void;
   onRefresh: () => Promise<void>;
   rightSlot?: React.ReactNode;
 }
@@ -16,6 +17,7 @@ export function PageToolbar({
   searchPlaceholder,
   searchValue,
   onSearchChange,
+  onSearchSubmit,
   onRefresh,
   rightSlot,
 }: PageToolbarProps): ReactElement {
@@ -42,6 +44,9 @@ export function PageToolbar({
           placeholder={searchPlaceholder}
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') onSearchSubmit?.();
+          }}
           className="pl-10 h-10 bg-white/50 dark:bg-card/50 border-slate-200 dark:border-cyan-800/30 focus:border-pink-500/50 focus:ring-pink-500/20 rounded-xl transition-all"
         />
         {searchValue && (
@@ -56,6 +61,15 @@ export function PageToolbar({
       
       {/* BURASI DÜZELTİLDİ: Refresh butonu ve sağdaki menüler tek satırda kalsın diye flex row içine alındı */}
       <div className="flex items-center gap-2">
+        {onSearchSubmit ? (
+          <button
+            type="button"
+            onClick={onSearchSubmit}
+            className="h-10 px-4 flex items-center justify-center rounded-xl shrink-0 transition-all bg-pink-600 hover:bg-pink-500 text-white text-sm font-semibold"
+          >
+            Ara
+          </button>
+        ) : null}
         <div
           className={`h-10 w-10 flex items-center justify-center rounded-xl shrink-0 transition-all ${
             isRefreshDisabled

@@ -1,6 +1,6 @@
 {
-  "title": "الإشعارات",
-  "markAllAsRead": "تحديد الكل كمقروء",
+  "title": "إشعارات",
+  "markAllAsRead": "وضع علامة على الكل مقروءة",
   "viewAll": "عرض الكل",
   "empty": "ليس لديك إشعارات",
   "new": "جديد",
@@ -11,8 +11,8 @@
     "warning": "تحذير",
     "error": "خطأ"
   },
-  "loading": "جارٍ التحميل",
-  "noNotifications": "لا توجد إشعارات",
-  "close": "إغلاق",
-  "unread": "غير مقروء"
+  "loading": "تحميل",
+  "noNotifications": "لم يتم العثور على الإخطار",
+  "close": "يغلق",
+  "unread": "لا تقرأ"
 }

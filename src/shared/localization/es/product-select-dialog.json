@@ -1,6 +1,6 @@
 {
-  "title": "Selección de Producto",
-  "searchPlaceholder": "Buscar producto...",
+  "title": "Seleccionar Producto",
+  "searchPlaceholder": "Buscar por código de producto o nombre...",
   "select": "Seleccionar",
   "cancel": "Cancelar",
   "columns": {
@@ -12,10 +12,10 @@
     "stock": "Stock"
   },
   "noData": "No se encontraron productos",
-  "loading": "Cargando",
-  "description": "Seleccione productos del ERP para agregar a su pedido",
-  "product": "Producto",
-  "noProducts": "No hay productos",
-  "noResults": "No se encontraron resultados",
-  "voiceSearch": "Búsqueda por voz"
+  "loading": "cargando",
+  "description": "Seleccione el producto para agregar a la línea de cotización",
+  "product": "PRODUCTO",
+  "noProducts": "Producto no encontrado",
+  "noResults": "Resultados de búsqueda no encontrados",
+  "voiceSearch": "búsqueda por voz"
 }

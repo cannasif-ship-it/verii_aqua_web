@@ -1,18 +1,18 @@
 {
-  "title": "Gestion des Types de Paiement",
-  "description": "Description",
-  "create": "Nouveau Type de Paiement",
-  "edit": "Modifier le Type de Paiement",
-  "editDescription": "Modifier les informations du type de paiement",
-  "createDescription": "Entrez les informations du nouveau type de paiement",
+  "title": "Gestion des types de paiement",
+  "description": "Descriptif",
+  "create": "Nouveau type de paiement",
+  "edit": "Modifier le type de paiement",
+  "editDescription": "Modifier les informations sur le type de paiement",
+  "createDescription": "Saisissez les nouvelles informations sur le type de paiement",
   "delete": "Supprimer",
-  "deleteTitle": "Supprimer le Type de Paiement",
+  "deleteTitle": "Supprimer le type de paiement",
   "name": "Nom",
-  "namePlaceholder": "Entrer le nom du type de paiement",
-  "descriptionPlaceholder": "Entrer une description (optionnel)",
-  "createdDate": "Date de Création",
-  "updatedDate": "Date de Mise à Jour",
-  "actions": "Actions",
+  "namePlaceholder": "Saisissez le nom du type de paiement",
+  "descriptionPlaceholder": "Entrez une description (facultatif)",
+  "createdDate": "Date de création",
+  "updatedDate": "Date de mise à jour",
+  "actions": "Opérations",
   "search": "Rechercher",
   "refresh": "Actualiser",
   "loading": "Chargement...",
@@ -22,34 +22,34 @@
   "save": "Enregistrer",
   "saving": "Enregistrement...",
   "noData": "Aucune donnée trouvée",
-  "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce type de paiement ?",
+  "confirmDelete": "Etes-vous sûr de vouloir supprimer ce type de paiement ?",
   "createSuccess": "Type de paiement créé avec succès",
   "updateSuccess": "Type de paiement mis à jour avec succès",
   "deleteSuccess": "Type de paiement supprimé avec succès",
-  "createError": "Une erreur est survenue lors de la création du type de paiement",
-  "updateError": "Une erreur est survenue lors de la mise à jour du type de paiement",
-  "deleteError": "Une erreur est survenue lors de la suppression du type de paiement",
+  "createError": "Une erreur s'est produite lors de la création du type de paiement",
+  "updateError": "Une erreur s'est produite lors de la mise à jour du type de paiement",
+  "deleteError": "Une erreur s'est produite lors de la suppression du type de paiement",
   "table": {
-    "id": "IDENTIFIANT",
+    "id": "ID",
     "name": "Nom",
-    "description": "Description",
-    "createdDate": "Date de Création",
-    "updatedDate": "Date de Mise à Jour",
-    "showing": "Affichage de {{from}}-{{to}} sur {{total}}",
-    "page": "Page {{current}} sur {{total}}"
+    "description": "Descriptif",
+    "createdDate": "Date de création",
+    "updatedDate": "Date de mise à jour",
+    "showing": "Affichage de {{from}}-{{to}} / {{total}}",
+    "page": "Pages {{current}} / {{total}}"
   },
   "form": {
     "name": {
       "required": "Le nom est requis",
-      "maxLength": "Le nom peut comporter au plus 100 caractères"
+      "maxLength": "Le nom peut contenir jusqu'à 100 caractères"
     },
     "description": {
-      "maxLength": "La description peut comporter au plus 500 caractères"
+      "maxLength": "La description peut contenir jusqu'à 500 caractères"
     }
   },
-  "headerDescription": "Gérez et modifiez les types de paiement",
+  "headerDescription": "Gérer et modifier les types de paiement",
   "advancedFilter": {
-    "columnName": "Ad",
-    "columnDescription": "Açıklama"
+    "columnName": "Nom",
+    "columnDescription": "Descriptif"
   }
 }

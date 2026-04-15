@@ -1,19 +1,19 @@
 {
   "PageTitle": "Configuración de correo",
-  "PageDescription": "Configura los ajustes del servidor SMTP",
+  "PageDescription": "Configurar los ajustes del servidor SMTP",
   "Save": "Guardar",
   "SavedSuccessfully": "La configuración de correo se guardó correctamente",
   "SaveFailed": "No se pudo guardar la configuración de correo",
   "Fields": {
-    "Host": "Servidor",
-    "Port": "Puerto",
+    "Host": "Nombre del servidor",
+    "Port": "Puerto de conexión",
     "EnableSsl": "Usar SSL",
     "Username": "Nombre de usuario",
-    "Password": "Contraseña",
-    "PasswordPlaceholder": "Introduce una nueva contraseña para cambiar",
-    "FromEmail": "Correo del remitente",
+    "Password": "contraseña",
+    "PasswordPlaceholder": "Ingrese una nueva contraseña para cambiar",
+    "FromEmail": "Desde correo electrónico",
     "FromName": "Nombre del remitente",
-    "Timeout": "Tiempo de espera (s)"
+    "Timeout": "Tiempo de espera (seg.)"
   },
   "TestMail": {
     "Send": "Enviar correo electrónico de prueba",

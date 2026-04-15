@@ -1,9 +1,9 @@
 {
   "list": {
     "title": "Ausstehende Genehmigungen",
-    "description": "View and approve or reject quotations assigned to you",
-    "empty": "Keine ausstehenden Genehmigungen",
-    "error": "Fehler beim Laden der Genehmigungen"
+    "description": "Sie können Ihnen zugewiesene Angebote einsehen und genehmigen oder ablehnen",
+    "empty": "Es liegen keine ausstehenden Genehmigungen vor",
+    "error": "Beim Laden der Bestätigungen ist ein Fehler aufgetreten"
   },
   "yes": "Ja",
   "no": "Nein",
@@ -12,73 +12,73 @@
     "title": "Angebotsdetails",
     "description": "Beschreibung",
     "tabs": {
-      "detail": "Detail",
-      "history": "Verlauf",
-      "action": "Aktion"
+      "detail": "Detailliert",
+      "history": "Vergangenheit",
+      "action": "Transaktion"
     },
-    "notFound": "Angebot nicht gefunden",
+    "notFound": "Kein Angebot gefunden",
     "quotationInfo": "Angebotsinformationen",
-    "offerNo": "Angebotsnr.",
+    "offerNo": "Angebot No",
     "customer": "Kunde",
     "representative": "Vertreter",
     "currency": "Währung",
     "offerDate": "Angebotsdatum",
-    "deliveryDate": "Lieferdatum",
-    "total": "Gesamt",
+    "deliveryDate": "Liefertermin",
+    "total": "Insgesamt",
     "grandTotal": "Gesamtsumme",
     "lines": "Angebotszeilen",
     "productCode": "Produktcode",
     "productName": "Produktname",
     "quantity": "Menge",
-    "unitPrice": "Einzelpreis",
+    "unitPrice": "Stückpreis",
     "lineTotal": "Zeilensumme",
-    "lineGrandTotal": "Zeilengesamtsumme",
+    "lineGrandTotal": "Gesamtsumme der Zeile",
     "exchangeRates": "Wechselkurse",
-    "exchangeRate": "Kurs",
-    "exchangeRateDate": "Kursdatum",
-    "isOfficial": "Offizieller Kurs",
-    "subtitle": "View quotation details and perform actions"
+    "exchangeRate": "Installieren",
+    "exchangeRateDate": "Wechselkursdatum",
+    "isOfficial": "Installieren Sie offiziell",
+    "subtitle": "Angebotsdetails anzeigen und Maßnahmen ergreifen"
   },
   "actions": {
-    "view": "Anzeigen",
-    "approve": "Genehmigen",
-    "reject": "Ablehnen"
+    "view": "Ansicht",
+    "approve": "Bestätigen",
+    "reject": "ablehnen"
   },
   "status": {
     "notRequired": "Nicht erforderlich",
-    "waiting": "Wartend",
+    "waiting": "warten",
     "approved": "Genehmigt",
-    "rejected": "Abgelehnt",
+    "rejected": "abgelehnt",
     "closed": "Geschlossen"
   },
-  "closedReason": "Dieser Datensatz wurde geschlossen, weil ein anderer Datensatz mit derselben Angebotsnummer genehmigt wurde.",
+  "closedReason": "Dieser Datensatz wurde geschlossen, da ein anderer Datensatz mit derselben Angebotsnummer genehmigt wurde.",
   "statusFilterLabel": "Genehmigungsstatus",
   "level": {
-    "salesManager": "Verkaufsleiter",
+    "salesManager": "Vertriebsleiter",
     "regionalManager": "Regionalleiter",
     "finance": "Finanzen",
-    "generalManager": "General Manager",
-    "unknown": "Unbekannt"
+    "generalManager": "Generaldirektor",
+    "unknown": "unbekannt"
   },
   "note": {
-    "label": "Notiz",
-    "placeholder": "You can add an approval/rejection note (optional)",
-    "maxLength": "Notiz darf maximal 500 Zeichen lang sein"
+    "label": "Hinweis",
+    "placeholder": "Sie können eine Genehmigungs-/Ablehnungsnotiz hinzufügen (optional)",
+    "maxLength": "Die Notiz kann bis zu 500 Zeichen lang sein"
   },
   "approve": {
     "success": "Genehmigt",
-    "successMessage": "Angebot erfolgreich genehmigt",
-    "error": "Genehmigungsfehler",
-    "errorMessage": "Fehler beim Genehmigen des Angebots"
+    "successMessage": "Angebot erfolgreich angenommen",
+    "error": "Behauptungsfehler",
+    "errorMessage": "Beim Genehmigen des Angebots ist ein Fehler aufgetreten"
   },
   "reject": {
-    "success": "Abgelehnt",
+    "success": "abgelehnt",
     "successMessage": "Angebot abgelehnt",
     "error": "Ablehnungsfehler",
-    "errorMessage": "Fehler beim Ablehnen des Angebots"
+    "errorMessage": "Beim Ablehnen des Angebots ist ein Fehler aufgetreten"
   },
   "history": {
-    "empty": "Kein Genehmigungsverlauf",
+    "empty": "Es gibt keine Genehmigungshistorie",
     "approvedBy": "Genehmigt von"
   },
   "assignedTo": "Zugewiesener Benutzer"

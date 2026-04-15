@@ -2,38 +2,38 @@
   "auth": {
     "login": {
       "title": "Connexion au système",
-      "subtitle": "Connectez-vous pour continuer",
-      "branch": "Succursale",
-      "selectBranch": "Sélectionner une succursale",
-      "branchNotFound": "Succursale introuvable",
-      "email": "E-mail",
+      "subtitle": "WMS DE DONNÉES",
+      "branch": "branche",
+      "selectBranch": "Sélectionnez une succursale",
+      "branchNotFound": "Branche introuvable",
+      "email": "Courriel",
       "emailPlaceholder": "Entrez votre adresse e-mail",
-      "password": "Mot de passe",
-      "passwordPlaceholder": "Entrez votre mot de passe",
-      "loginButton": "Se connecter",
-      "loggingIn": "Connexion en cours...",
+      "password": "mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "loginButton": "Connexion",
+      "loggingIn": "Connexion...",
       "wrongPassword": "L'e-mail ou le mot de passe est incorrect",
       "loginError": "Une erreur s'est produite lors de la connexion",
       "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
       "copyright": "© 2025 VERII. Tous droits réservés.",
-      "branchPlaceholder": "Sélectionner une succursale",
-      "rememberMe": "Se souvenir de moi",
-      "forgotPassword": "Mot de passe oublié ?",
-      "processing": "Connexion en cours...",
-      "submitButton": "Se connecter",
-      "slogan": "Renforcez votre activité avec <1>VERII AQUA</1>",
-      "capsLockOn": "Verr. Maj. activé",
-      "animationOff": "Désactiver l'animation",
-      "animationOn": "Activer l'animation"
+      "branchPlaceholder": "Sélectionnez une succursale",
+      "rememberMe": "Souviens-toi de moi",
+      "forgotPassword": "J'ai oublié mon mot de passe ?",
+      "processing": "Connexion...",
+      "submitButton": "Connexion",
+      "slogan": "Informations avec <1>V3RII</1>, Gestion avec <2>AQUA</2> ;<br/>Expérience numérique en aquaculture.",
+      "capsLockOn": "Le verrouillage des majuscules est activé",
+      "animationOff": "Fermer l'animation",
+      "animationOn": "Animation ouverte"
     },
-    "logout": "Déconnexion",
+    "logout": "sortir",
     "changePassword": {
       "error": "Le mot de passe n'a pas pu être modifié",
-      "success": "Succès"
+      "success": "réussi"
     },
     "resetPassword": {
       "successRedirect": "Votre mot de passe a été réinitialisé avec succès. Vous êtes dirigé vers la page de connexion...",
-      "failed": "La réinitialisation du mot de passe a échoué",
+      "failed": "Échec de la réinitialisation du mot de passe",
       "error": "Une erreur s'est produite lors du processus de réinitialisation du mot de passe"
     }
   }

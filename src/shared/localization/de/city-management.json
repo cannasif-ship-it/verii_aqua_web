@@ -1,50 +1,50 @@
 {
   "menu": "Stadtverwaltung",
   "description": "Städte verwalten und organisieren",
-  "addButton": "Add New City",
+  "addButton": "Neue Stadt hinzufügen",
   "searchPlaceholder": "Suchen...",
   "loading": "Laden...",
   "noData": "Keine Daten gefunden",
   "stats": {
-    "totalCities": "Gesamtstädte",
-    "activeCities": "Aktive Städte",
-    "newThisMonth": "Neu diesen Monat"
+    "totalCities": "Totale Stadt",
+    "activeCities": "Aktive Stadt",
+    "newThisMonth": "Neu in diesem Monat"
   },
   "table": {
-    "id": "AUSWEIS",
+    "id": "ID",
     "name": "Stadtname",
-    "erpCode": "ERP-Code",
+    "erpCode": "ERP Code",
     "countryName": "Ländername",
     "createdDate": "Erstellungsdatum",
     "createdBy": "Erstellt von",
-    "showing": "Zeige {{from}}-{{to}} / {{total}}",
+    "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}",
     "page": "Seite {{current}} / {{total}}"
   },
   "form": {
     "editCity": "Stadt bearbeiten",
-    "addCity": "Add New City",
-    "editDescription": "Stadtdetails bearbeiten",
-    "addDescription": "Neue Stadtdetails eingeben",
+    "addCity": "Neue Stadt hinzufügen",
+    "editDescription": "Stadtinformationen bearbeiten",
+    "addDescription": "Geben Sie neue Stadtinformationen ein",
     "name": "Stadtname",
-    "namePlaceholder": "Stadtname eingeben",
+    "namePlaceholder": "Geben Sie den Namen der Stadt ein",
     "country": "Land",
     "selectCountry": "Land auswählen",
-    "erpCode": "ERP-Code",
-    "erpCodePlaceholder": "ERP-Code eingeben (optional)",
+    "erpCode": "ERP Code",
+    "erpCodePlaceholder": "Geben Sie den Code ERP ein (optional)",
     "cancel": "Abbrechen",
     "save": "Speichern",
-    "saving": "Speichern...",
-    "nameRequired": "City name is required",
-    "nameMaxLength": "City name can be at most 100 characters",
-    "erpCodeMaxLength": "ERP code can be at most 10 characters",
-    "countryRequired": "Country selection is required"
+    "saving": "Aufnahme...",
+    "nameRequired": "Der Name der Stadt ist erforderlich",
+    "nameMaxLength": "Der Städtename kann bis zu 100 Zeichen lang sein",
+    "erpCodeMaxLength": "Der Code ERP kann maximal 10 Zeichen lang sein",
+    "countryRequired": "Die Länderauswahl ist obligatorisch"
   },
-  "actions": "Aktionen",
+  "actions": "Transaktionen",
   "delete": {
-    "button": "Delete",
-    "confirmTitle": "Delete City",
-    "confirmMessage": "Are you sure you want to delete {{name}}?"
+    "button": "Löschen",
+    "confirmTitle": "Stadt löschen",
+    "confirmMessage": "Sind Sie sicher, dass Sie die Stadt {{name}} löschen möchten?"
   },
-  "previous": "Previous",
-  "next": "Weiter"
+  "previous": "Zurück",
+  "next": "Als nächstes"
 }

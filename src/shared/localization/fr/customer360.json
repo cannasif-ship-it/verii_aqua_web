@@ -1,74 +1,74 @@
 {
-  "title": "Customer 360",
-  "notFound": "Customer not found",
-  "error": "An error occurred",
-  "retry": "Retry",
+  "title": "Client 360",
+  "notFound": "Client introuvable",
+  "error": "Une erreur s'est produite",
+  "retry": "Réessayez",
   "currencyFilter": {
-    "label": "Currency",
-    "all": "All"
+    "label": "monnaie",
+    "all": "Tout"
   },
   "tabs": {
-    "overview": "Overview",
-    "analytics": "Analytics"
+    "overview": "Résumé",
+    "analytics": "analytique"
   },
   "kpi": {
-    "totalDemands": "Total Demands",
-    "totalQuotations": "Total Quotations",
-    "totalOrders": "Total Orders",
-    "openQuotations": "Open Quotations",
-    "openOrders": "Pending Orders"
+    "totalDemands": "Offre totale",
+    "totalQuotations": "Offre totale",
+    "totalOrders": "Commande totale",
+    "openQuotations": "Offre ouverte",
+    "openOrders": "Commande en attente"
   },
   "sections": {
-    "contacts": "Contacts",
-    "shippingAddresses": "Shipping Addresses",
-    "recentDemands": "Recent Demands",
-    "recentQuotations": "Recent Quotations",
-    "recentOrders": "Recent Orders",
-    "recentActivities": "Recent Activities",
-    "timeline": "Timeline"
+    "contacts": "Communications",
+    "shippingAddresses": "Adresses de livraison",
+    "recentDemands": "Dernières offres",
+    "recentQuotations": "Dernières offres",
+    "recentOrders": "Dernières commandes",
+    "recentActivities": "Dernières activités",
+    "timeline": "Chronologie"
   },
   "analytics": {
-    "error": "Could not load analytics data",
-    "last12MonthsOrderAmount": "Last 12 Months Order Amount",
-    "openQuotationAmount": "Open Quotation Amount",
-    "openOrderAmount": "Open Order Amount",
-    "activityCount": "Activity Count",
-    "lastActivityDate": "Last Activity Date"
+    "error": "Échec du chargement des données d'analyse",
+    "last12MonthsOrderAmount": "Montant de la commande des 12 derniers mois",
+    "openQuotationAmount": "Montant de l'offre ouverte",
+    "openOrderAmount": "Montant de la commande ouverte",
+    "activityCount": "Nombre d'activités",
+    "lastActivityDate": "Date de la dernière activité"
   },
   "analyticsCharts": {
-    "demand": "Demand",
-    "quotation": "Quotation",
-    "order": "Order",
-    "last12MonthsOrderAmount": "Last 12 Months Order",
-    "openQuotationAmount": "Open Quotation",
-    "openOrderAmount": "Open Order",
-    "distributionTitle": "Distribution",
-    "monthlyTrendTitle": "Monthly Trend",
-    "amountComparisonTitle": "Amount Comparison"
+    "demand": "Offre",
+    "quotation": "Offre",
+    "order": "Commande",
+    "last12MonthsOrderAmount": "Commande des 12 derniers mois",
+    "openQuotationAmount": "Offre ouverte",
+    "openOrderAmount": "Commande ouverte",
+    "distributionTitle": "répartition",
+    "monthlyTrendTitle": "Tendance mensuelle",
+    "amountComparisonTitle": "Comparaison des montants"
   },
   "currencyTotals": {
-    "currency": "Currency",
-    "demandAmount": "Demand Amount",
-    "quotationAmount": "Quotation Amount",
-    "orderAmount": "Order Amount"
+    "currency": "Devise",
+    "demandAmount": "Montant de l'offre",
+    "quotationAmount": "Montant de l'offre",
+    "orderAmount": "Montant de la commande"
   },
   "revenueQuality": {
-    "title": "Revenue Quality",
-    "churnRisk": "Churn Risk",
-    "upsell": "Upsell Propensity",
-    "payment": "Payment Behavior",
-    "segment": "RFM Segment",
+    "title": "Qualité des revenus",
+    "churnRisk": "Risque de perte",
+    "upsell": "Tendance des ventes incitatives",
+    "payment": "Comportement de paiement",
+    "segment": "Segment RFM",
     "ltv": "LTV"
   },
   "cohort": {
-    "title": "Cohort Retention",
-    "empty": "No cohort data",
-    "cohortKey": "Cohort"
+    "title": "Garder une cohorte",
+    "empty": "Aucune donnée de cohorte",
+    "cohortKey": "cohorte"
   },
   "actions": {
-    "title": "Recommended Actions",
-    "empty": "No recommended actions",
-    "execute": "Execute"
+    "title": "Actions recommandées",
+    "empty": "Aucune action recommandée",
+    "execute": "Postuler"
   },
   "status": {}
 }

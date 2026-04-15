@@ -1,15 +1,7 @@
 import { type ReactElement } from 'react';
-import { AquaHeaderLineCrudPage } from './AquaHeaderLineCrudPage';
+import { AquaCrudPage } from '@/features/aqua/shared/components/AquaCrudPage';
 import { transferLinesConfig, transfersConfig } from '../config/page-configs';
 
 export function TransfersPage(): ReactElement {
-  return (
-    <AquaHeaderLineCrudPage
-      headerConfig={transfersConfig}
-      lineConfig={transferLinesConfig}
-      lineForeignKey="transferId"
-      lineSectionTitle="aqua.pages.transferLines.title"
-      lineSectionDescription="aqua.common.linesForRecord"
-    />
-  );
+  return <AquaCrudPage config={{ ...transferLinesConfig, title: transfersConfig.title, description: transfersConfig.description }} />;
 }

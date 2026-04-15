@@ -12,6 +12,12 @@ import type {
   CreateTransferLinePayload,
   CreateStockConvertPayload,
   CreateStockConvertLinePayload,
+  CreateShipmentLineWithAutoHeaderPayload,
+  CreateTransferLineWithAutoHeaderPayload,
+  CreateStockConvertLineWithAutoHeaderPayload,
+  CreateFeedingLineWithAutoHeaderPayload,
+  CreateMortalityLineWithAutoHeaderPayload,
+  CreateNetOperationLineWithAutoHeaderPayload,
 } from '../types/quick-daily-entry-types';
 
 const FEEDINGS_KEY = ['aqua', 'feedings'];
@@ -19,6 +25,7 @@ const MORTALITIES_KEY = ['aqua', 'mortalities'];
 const DAILY_WEATHER_KEY = ['aqua', 'dailyWeathers'];
 const NET_OPERATIONS_KEY = ['aqua', 'netOperations'];
 const TRANSFERS_KEY = ['aqua', 'transfers'];
+const SHIPMENTS_KEY = ['aqua', 'shipments'];
 const STOCK_CONVERTS_KEY = ['aqua', 'stockConverts'];
 
 export function useCreateFeedingMutation() {
@@ -38,6 +45,13 @@ export function useCreateFeedingLineMutation() {
   });
 }
 
+export function useCreateFeedingLineWithAutoHeaderMutation() {
+  return useMutation({
+    mutationFn: (payload: CreateFeedingLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createFeedingLineWithAutoHeader(payload),
+  });
+}
+
 export function useCreateMortalityMutation() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -52,6 +66,13 @@ export function useCreateMortalityLineMutation() {
   return useMutation({
     mutationFn: (payload: CreateMortalityLinePayload) =>
       aquaQuickDailyApi.createMortalityLine(payload),
+  });
+}
+
+export function useCreateMortalityLineWithAutoHeaderMutation() {
+  return useMutation({
+    mutationFn: (payload: CreateMortalityLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createMortalityLineWithAutoHeader(payload),
   });
 }
 
@@ -84,6 +105,13 @@ export function useCreateNetOperationLineMutation() {
   });
 }
 
+export function useCreateNetOperationLineWithAutoHeaderMutation() {
+  return useMutation({
+    mutationFn: (payload: CreateNetOperationLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createNetOperationLineWithAutoHeader(payload),
+  });
+}
+
 export function useCreateTransferMutation() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -102,6 +130,28 @@ export function useCreateTransferLineMutation() {
   });
 }
 
+export function useCreateTransferLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateTransferLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createTransferLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: TRANSFERS_KEY });
+    },
+  });
+}
+
+export function useCreateShipmentLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateShipmentLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createShipmentLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: SHIPMENTS_KEY });
+    },
+  });
+}
+
 export function useCreateStockConvertMutation() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -117,5 +167,16 @@ export function useCreateStockConvertLineMutation() {
   return useMutation({
     mutationFn: (payload: CreateStockConvertLinePayload) =>
       aquaQuickDailyApi.createStockConvertLine(payload),
+  });
+}
+
+export function useCreateStockConvertLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateStockConvertLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createStockConvertLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: STOCK_CONVERTS_KEY });
+    },
   });
 }

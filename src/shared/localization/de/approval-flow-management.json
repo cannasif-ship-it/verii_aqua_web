@@ -1,85 +1,85 @@
 {
   "approvalFlow": {
-    "menu": "Genehmigungsablauf-Verwaltung",
-    "description": "Genehmigungsabläufe verwalten und bearbeiten",
-    "addButton": "Add New Approval Flow",
+    "menu": "Genehmigungsflussmanagement",
+    "description": "Genehmigungsabläufe verwalten und optimieren",
+    "addButton": "Neuen Genehmigungsablauf hinzufügen",
     "table": {
-      "id": "AUSWEIS",
-      "documentType": "Dokumententyp",
+      "id": "ID",
+      "documentType": "Dokumenttyp",
       "description": "Beschreibung",
-      "isActive": "Aktiv",
+      "isActive": "aktiv",
       "createdDate": "Erstellungsdatum",
-      "createdBy": "Erstellt von",
-      "actions": "Aktionen",
-      "showing": "Zeige {{from}}-{{to}} / {{total}}",
+      "createdBy": "Erstellt vom Benutzer",
+      "actions": "Transaktionen",
+      "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}",
       "page": "Seite {{current}} / {{total}}"
     },
     "form": {
-      "addTitle": "Add New Approval Flow",
+      "addTitle": "Neuen Genehmigungsablauf hinzufügen",
       "editTitle": "Genehmigungsablauf bearbeiten",
-      "addDescription": "Enter new approval flow information",
-      "editDescription": "Bearbeiten Sie die Informationen des Genehmigungsablaufs",
-      "documentType": "Dokumententyp",
-      "selectDocumentType": "Dokumententyp auswählen",
-      "noDocumentTypeSelected": "Kein Dokumententyp ausgewählt",
+      "addDescription": "Geben Sie neue Informationen zum Genehmigungsablauf ein",
+      "editDescription": "Informationen zum Genehmigungsablauf bearbeiten",
+      "documentType": "Dokumenttyp",
+      "selectDocumentType": "Wählen Sie den Dokumenttyp aus",
+      "noDocumentTypeSelected": "Dokumenttyp nicht ausgewählt",
       "description": "Beschreibung",
-      "descriptionPlaceholder": "Beschreibung eingeben (optional)",
-      "isActive": "Aktiv",
-      "isActiveDescription": "Status des Genehmigungsablaufs",
+      "descriptionPlaceholder": "Geben Sie eine Beschreibung ein (optional)",
+      "isActive": "aktiv",
+      "isActiveDescription": "Aktiver Status des Genehmigungsablaufs",
       "cancel": "Abbrechen",
       "save": "Speichern",
-      "saving": "Speichern...",
-      "documentTypeRequired": "Document type selection is required",
-      "descriptionMaxLength": "Description can be at most 200 characters"
+      "saving": "Aufnahme...",
+      "documentTypeRequired": "Die Auswahl des Dokumenttyps ist obligatorisch",
+      "descriptionMaxLength": "Die Beschreibung kann bis zu 200 Zeichen lang sein"
     },
-    "loading": "Wird geladen...",
+    "loading": "Laden...",
     "noData": "Keine Daten",
-    "active": "Aktiv",
-    "inactive": "Inaktiv",
-    "previous": "Previous",
-    "next": "Weiter",
+    "active": "aktiv",
+    "inactive": "passiv",
+    "previous": "Zurück",
+    "next": "Als nächstes",
     "delete": {
-      "action": "Delete",
+      "action": "Löschen",
       "cancel": "Abbrechen",
-      "confirmTitle": "Delete Approval Flow",
-      "confirmMessage": "Are you sure you want to delete this approval flow?"
+      "confirmTitle": "Genehmigungsablauf löschen",
+      "confirmMessage": "Sind Sie sicher, dass Sie diesen Bestätigungsfluss löschen möchten?"
     },
     "documentType": {
       "offer": "Angebot",
       "request": "Anfrage",
-      "order": "Bestellung"
+      "order": "Bestellen"
     },
     "advancedFilter": {
       "columnDocumentType": "Dokumenttyp",
       "columnDescription": "Beschreibung",
-      "columnIsActive": "Aktiv",
+      "columnIsActive": "aktiv",
       "columnCreatedBy": "Erstellt von"
     }
   },
   "approvalFlowStep": {
-    "title": "Ablaufschritte",
-    "addButton": "Add Step",
-    "empty": "No steps added yet",
+    "title": "Flow-Schritte",
+    "addButton": "Schritt hinzufügen",
+    "empty": "Es wurden noch keine Schritte hinzugefügt",
     "unknownRoleGroup": "Keine Rollengruppe",
-    "stepDescription": "Genehmigungsreihenfolge: {{order}}",
+    "stepDescription": "Genehmigungsauftrag: {{order}}",
     "form": {
-      "addTitle": "Add New Step",
+      "addTitle": "Neuen Schritt hinzufügen",
       "editTitle": "Schritt bearbeiten",
-      "addDescription": "Add new flow step",
-      "editDescription": "Ablaufschritt bearbeiten",
+      "addDescription": "Neuen Flow-Schritt hinzufügen",
+      "editDescription": "Bearbeiten Sie die Informationen zum Ablaufschritt",
       "approvalRoleGroup": "Rollengruppe",
       "selectRoleGroup": "Rollengruppe auswählen",
-      "noRoleGroupSelected": "Keine Rollengruppe ausgewählt",
+      "noRoleGroupSelected": "Rollengruppe nicht ausgewählt",
       "approvalRoleGroupId": {
         "required": "Auswahl der Rollengruppe ist erforderlich"
       },
       "cancel": "Abbrechen",
       "save": "Speichern",
-      "saving": "Speichern...",
-      "approvalRoleGroupIdRequired": "Role group selection is required"
+      "saving": "Aufnahme...",
+      "approvalRoleGroupIdRequired": "Die Auswahl der Rollengruppe ist obligatorisch"
     },
     "messages": {
-      "deleteConfirm": "Are you sure you want to delete this step?"
+      "deleteConfirm": "Möchten Sie diesen Schritt wirklich löschen?"
     }
   }
 }

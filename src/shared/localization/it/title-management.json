@@ -7,7 +7,7 @@
   "deleteMessage": "Sei sicuro di voler eliminare questo titolo?",
   "deleteSuccess": "Titolo eliminato con successo",
   "table": {
-    "name": "Nome titolo",
+    "name": "Nome del titolo",
     "code": "Codice",
     "description": "Descrizione",
     "status": "Stato",
@@ -18,7 +18,7 @@
     "rowsPerPage": "Righe per pagina",
     "id": "ID",
     "createdDate": "Data di creazione",
-    "createdBy": "Creato da"
+    "createdBy": "Creato dall'utente"
   },
   "form": {
     "addTitle": "Aggiungi nuovo titolo",
@@ -34,37 +34,37 @@
     "required": "Obbligatorio",
     "successAdd": "Titolo aggiunto con successo",
     "successUpdate": "Titolo aggiornato con successo",
-    "addDescription": "Inserisci le informazioni del nuovo titolo",
-    "editDescription": "Modifica le informazioni del titolo",
-    "titleName": "Nome titolo",
+    "addDescription": "Inserisci le nuove informazioni sul titolo",
+    "editDescription": "Modifica le informazioni sul titolo",
+    "titleName": "Nome del titolo",
     "titleNamePlaceholder": "Inserisci il nome del titolo",
-    "titleCode": "Codice titolo",
-    "codePlaceholder": "Inserisci codice (opzionale)",
-    "saving": "Salvataggio..."
+    "titleCode": "Codice del titolo",
+    "codePlaceholder": "Inserisci il codice (facoltativo)",
+    "saving": "Registrazione..."
   },
   "loading": "Caricamento...",
   "noData": "Nessun dato trovato",
   "search": "Cerca...",
   "refresh": "Aggiorna",
   "previous": "Precedente",
-  "next": "Successivo",
+  "next": "Avanti",
   "cancel": "Annulla",
   "save": "Salva",
-  "saving": "Salvataggio...",
+  "saving": "Registrazione...",
   "delete": {
     "confirmTitle": "Elimina titolo",
-    "confirmMessage": "Sei sicuro di voler eliminare il titolo {{name}}?",
+    "confirmMessage": "Sei sicuro di voler eliminare il titolo {{titleName}}?",
     "button": "Elimina"
   },
   "deleting": "Eliminazione...",
-  "actions": "Azioni",
+  "actions": "Transazioni",
   "edit": "Modifica",
   "header": {
-    "title": "Gestione titoli",
-    "description": "Puoi gestire qui le definizioni dei titoli."
+    "title": "Gestione dei titoli",
+    "description": "Puoi gestire le definizioni dei titoli qui."
   },
   "advancedFilter": {
-    "columnTitleName": "Ünvan Adı",
-    "columnCode": "Kod"
+    "columnTitleName": "Nome del titolo",
+    "columnCode": "Codice"
   }
 }

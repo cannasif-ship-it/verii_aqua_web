@@ -1,27 +1,27 @@
 {
   "menu": "Approval Role Group Management",
-  "description": "Manage and organize approval role groups",
+  "description": "Manage and edit approval role groups",
   "addButton": "Add New Group",
   "refresh": "Refresh",
   "searchPlaceholder": "Search...",
   "loading": "Loading...",
   "noData": "No data found",
-  "noDataDescription": "No records found matching your search criteria or no records added yet.",
+  "noDataDescription": "No records matching your search criteria were found or no records have been added yet.",
   "table": {
     "id": "ID",
     "name": "Group Name",
-    "createdDate": "Created Date",
-    "createdBy": "Created By",
-    "actions": "Actions",
-    "showing": "Showing {{from}}-{{to}} of {{total}} records"
+    "createdDate": "Creation Date",
+    "createdBy": "Created by User",
+    "actions": "Transactions",
+    "showing": "Total {{total}} from record showing {{from}}-{{to}}"
   },
   "delete": {
-    "confirmTitle": "Delete Confirmation",
+    "confirmTitle": "Deletion Confirmation",
     "confirmMessage": "This action cannot be undone. Do you want to continue?"
   },
   "cancel": "Cancel",
   "save": "Save",
-  "saving": "Saving...",
+  "saving": "Recording...",
   "deleteButton": "Delete",
   "form": {
     "editTitle": "Edit Approval Role Group",
@@ -31,10 +31,10 @@
     "name": "Group Name",
     "namePlaceholder": "Enter group name",
     "nameRequired": "Group name is required",
-    "nameMaxLength": "Group name can be at most 100 characters"
+    "nameMaxLength": "Group name can be up to 100 characters"
   },
   "advancedFilter": {
     "columnName": "Group Name",
-    "columnCreatedBy": "Created By"
+    "columnCreatedBy": "Created by"
   }
 }

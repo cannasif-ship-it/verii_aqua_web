@@ -1,11 +1,11 @@
 {
   "loading": "Laden...",
-  "saving": "Speichern...",
+  "saving": "Aufnahme...",
   "error": "Fehler",
   "noData": "Keine Daten gefunden",
   "previous": "Zurück",
-  "next": "Weiter",
-  "actions": "Aktionen",
+  "next": "Als nächstes",
+  "actions": "Transaktionen",
   "edit": "Bearbeiten",
   "delete": "Löschen",
   "back": "Zurück",
@@ -13,84 +13,84 @@
   "select": "Auswählen",
   "yes": "Ja",
   "add": "Hinzufügen",
-  "backToQuotations": "Zurück zu Anforderungen",
+  "backToQuotations": "Zurück zu Anfragen",
   "cancel": "Abbrechen",
   "save": "Speichern",
   "confirm": "Bestätigen",
-  "saveAndApply": "Speichern und Anwenden",
+  "saveAndApply": "Speichern und anwenden",
   "list": {
     "revise": "Überarbeiten",
-    "showing": "Zeige {{from}}-{{to}} / {{total}}",
+    "showing": "{{total}} aus der Aufzeichnung zeigt {{from}}-{{to}}",
     "title": "Anforderungsliste",
-    "description": "Alle Anforderungen anzeigen und verwalten",
-    "createNew": "Neue Anforderung erstellen",
-    "searchPlaceholder": "Nach Anforderungs-Nr. oder Kundenname suchen..."
+    "description": "Alle Anfragen anzeigen und verwalten",
+    "createNew": "Neue Anfrage erstellen",
+    "searchPlaceholder": "Suche nach Anfragenummer oder Kundenname..."
   },
   "detail": {
-    "title": "Anforderungsdetails"
+    "title": "Details anfordern"
   },
   "create": {
-    "title": "Neue Anforderung erstellen",
-    "submit": "Anforderung speichern und zur Genehmigung senden",
-    "success": "Anforderung erfolgreich erstellt",
-    "successMessage": "Die Anforderung wurde an den Genehmigungsprozess gesendet.",
-    "error": "Anforderung konnte nicht erstellt werden",
-    "errorMessage": "Beim Erstellen der Anforderung ist ein Fehler aufgetreten."
+    "title": "Neue Anfrage erstellen",
+    "submit": "Anfrage speichern und zur Genehmigung senden",
+    "success": "Anfrage erfolgreich erstellt",
+    "successMessage": "Die Anfrage wurde an den Genehmigungsprozess weitergeleitet.",
+    "error": "Anfrage konnte nicht erstellt werden",
+    "errorMessage": "Beim Erstellen der Anfrage ist ein Fehler aufgetreten."
   },
   "header": {
-    "title": "Anforderungsinformationen",
+    "title": "Informationen anfordern",
     "customer": "Kunde",
     "selectCustomer": "Kunde auswählen",
     "shippingAddress": "Lieferadresse",
-    "selectShippingAddress": "Lieferadresse auswählen",
+    "selectShippingAddress": "Lieferadresse wählen",
     "representative": "Vertriebsmitarbeiter",
-    "selectRepresentative": "Mitarbeiter auswählen",
-    "offerType": "Anforderungstyp",
-    "selectOfferType": "Anforderungstyp auswählen",
+    "selectRepresentative": "Wählen Sie einen Vertreter aus",
+    "offerType": "Anfragetyp",
+    "selectOfferType": "Wählen Sie den Anfragetyp aus",
     "currency": "Währung",
-    "selectCurrency": "Bitte Währung auswählen",
+    "selectCurrency": "Bitte wählen Sie die Währung aus",
     "showExchangeRates": "Wechselkurse anzeigen",
-    "offerDate": "Anforderungsdatum",
-    "deliveryDate": "Lieferdatum",
+    "offerDate": "Anfragedatum",
+    "deliveryDate": "Liefertermin",
     "paymentType": "Zahlungsart",
     "selectPaymentType": "Zahlungsart auswählen",
     "description": "Beschreibung",
-    "descriptionPlaceholder": "Beschreibung eingeben",
-    "offerNo": "Anforderungs-Nr.",
-    "offerNoPlaceholder": "Anforderungsnummer",
+    "descriptionPlaceholder": "Geben Sie eine Beschreibung ein",
+    "offerNo": "Anfrage No",
+    "offerNoPlaceholder": "Anfragenummer",
     "currencyChange": {
-      "title": "Währungsänderung",
-      "message": "Wenn die Währung geändert wird, werden alle vorhandenen Zeilen entsprechend der neuen Währung neu berechnet. Möchten Sie diesen Vorgang genehmigen?"
+      "title": "Währungswechsel",
+      "message": "Wenn sich die Währung ändert, werden alle vorhandenen Zeilen entsprechend der neuen Währung neu berechnet. Genehmigen Sie diese Transaktion?"
     }
   },
   "lines": {
-    "title": "Anforderungszeilen",
+    "title": "Anforderungsleitungen",
     "add": "Zeile hinzufügen",
-    "empty": "Noch keine Zeilen hinzugefügt",
-    "emptyDescription": "Verwenden Sie die Schaltfläche \"Lager auswählen\" oder \"Zeile hinzufügen\", um Anforderungszeilen hinzuzufügen",
-    "itemCount": "Zeile",
+    "empty": "Es wurden noch keine Zeilen hinzugefügt",
+    "emptyDescription": "Verwenden Sie die Schaltfläche „Bestand auswählen“ oder „Zeile hinzufügen“, um Anforderungszeilen hinzuzufügen",
+    "itemCount": "Linie",
     "editLine": "Zeile bearbeiten",
-    "selectStock": "Lager auswählen",
-    "selectProduct": "Produkt auswählen",
-    "selectStockFirst": "Lager nicht ausgewählt",
+    "selectStock": "Wählen Sie Lagerbestand",
+    "selectProduct": "Wählen Sie Produkt aus",
+    "selectStockFirst": "Lagerbestand nicht ausgewählt",
     "stock": "Lager",
-    "productCode": "Lager-Code",
-    "enterProductCode": "Produktcode eingeben oder suchen",
-    "productName": "Lager-Name",
-    "enterProductName": "Produktname eingeben",
+    "productCode": "Aktiencode",
+    "enterProductCode": "Geben Sie den Produktcode ein oder suchen Sie ihn",
+    "productName": "Aktienname",
+    "enterProductName": "Geben Sie den Produktnamen ein",
     "quantity": "Menge",
-    "unitPrice": "Einzelpreis",
+    "unitPrice": "Stückpreis",
     "discount1": "Rabatt 1 %",
     "discount2": "Rabatt 2 %",
     "discount3": "Rabatt 3 %",
     "discounts": "Rabatte",
     "discountAmount": "Rabattbetrag",
     "netPrice": "Nettopreis",
-    "vatRate": "MwSt.-Satz %",
+    "vatRate": "Mehrwertsteuersatz %",
     "lineTotal": "Zeilensumme (inkl. MwSt.)",
     "calculations": "Berechnungen",
     "required": "Es muss mindestens 1 Zeile hinzugefügt werden",
-    "noProductsFound": "Keine Produkte gefunden",
+    "noProductsFound": "Produkt nicht gefunden",
     "delete": {
       "confirmTitle": "Zeile löschen",
       "confirmMessage": "Sind Sie sicher, dass Sie diese Zeile löschen möchten?"
@@ -99,71 +99,71 @@
   "exchangeRates": {
     "title": "Wechselkurse",
     "currency": "Währung",
-    "rate": "Kurs",
-    "date": "Kursdatum",
-    "isOfficial": "Offizieller Kurs",
-    "official": "Offiziell",
-    "custom": "Benutzerdefiniert",
-    "empty": "Keine Wechselkurse gefunden",
+    "rate": "Installieren",
+    "date": "Wechselkursdatum",
+    "isOfficial": "Installieren Sie offiziell",
+    "official": "offiziell",
+    "custom": "privat",
+    "empty": "Wechselkurs nicht gefunden",
     "status": "Status",
     "dialog": {
       "title": "Wechselkurse",
-      "description": "Wechselkurswerte bei Bedarf anzeigen und bearbeiten. Geänderte Kurse werden nicht als offizielle Kurse markiert."
+      "description": "Wechselkurse einsehen und bei Bedarf bearbeiten. Geänderte Tarife werden nicht als offizielle Tarife gekennzeichnet."
     }
   },
   "summary": {
     "title": "Zusammenfassung",
     "subtotal": "Zwischensumme",
-    "totalVat": "Gesamt MwSt.",
+    "totalVat": "Gesamte Mehrwertsteuer",
     "grandTotal": "Gesamtsumme"
   },
   "offerType": {
-    "domestic": "Inland",
-    "export": "Export"
+    "domestic": "inländisch",
+    "export": "exportieren"
   },
   "wizard": {
-    "title": "Neue Anforderung erstellen",
+    "title": "Neue Anfrage erstellen",
     "step1": {
-      "title": "Schritt 1: Anforderungsinformationen",
-      "description": "Geben Sie die Anforderungskopfdaten und Wechselkurse ein",
+      "title": "Schritt 1: Informationen anfordern",
+      "description": "Geben Sie die Header-Informationen und Wechselkurse der Anfrage ein",
       "validation": {
-        "offerType": "Anforderungstyp",
+        "offerType": "Anfragetyp",
         "currency": "Währung",
         "exchangeRate": "Wechselkurs"
       },
       "exchangeRate": {
-        "required": "Für Nicht-TRY-Währungen muss mindestens ein Wechselkurs hinzugefügt werden"
+        "required": "Für Währungen, die nicht TRY sind, muss mindestens ein Wechselkurs hinzugefügt werden"
       },
       "currency": {
         "try": {
-          "info": "Wechselkurs ist nicht erforderlich, wenn TRY ausgewählt ist"
+          "info": "Bei Auswahl von TRY ist kein Wechselkurs erforderlich"
         }
       }
     },
     "step2": {
-      "title": "Schritt 2: Anforderungszeilen",
-      "description": "Produkt- und Preisinformationen hinzufügen",
+      "title": "Schritt 2: Leitungen anfordern",
+      "description": "Fügen Sie Produkt- und Preisinformationen hinzu",
       "info": "Sie müssen mindestens eine Zeile hinzufügen",
       "validation": {
         "noLines": "Es muss mindestens eine Zeile hinzugefügt werden",
         "invalidLines": "Alle Zeilen müssen gültige Informationen enthalten",
-        "allValid": "{{count}} Zeilen erfolgreich hinzugefügt"
+        "allValid": "{{count}} Zeile erfolgreich hinzugefügt"
       }
     },
     "step3": {
       "title": "Schritt 3: Zusammenfassung und Genehmigung",
-      "description": "Informationen überprüfen und Anforderung speichern",
+      "description": "Überprüfen Sie die Informationen und speichern Sie die Anfrage",
       "header": {
-        "title": "Anforderungsinformationen"
+        "title": "Informationen anfordern"
       },
       "lines": {
-        "title": "Anforderungszeilen"
+        "title": "Anforderungsleitungen"
       },
       "summary": {
-        "title": "Endgültige Zusammenfassung"
+        "title": "Abschließende Zusammenfassung"
       },
       "approval": {
-        "info": "Die Anforderung wird nach dem Speichern automatisch an den Genehmigungsprozess gesendet"
+        "info": "Sobald die Anfrage gespeichert ist, wird sie automatisch an den Genehmigungsprozess weitergeleitet"
       }
     }
   }

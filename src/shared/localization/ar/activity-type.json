@@ -1,59 +1,59 @@
 {
-  "menu": "إدارة أنواع الأنشطة",
-  "description": "إدارة وتعديل أنواع الأنشطة",
+  "menu": "إدارة نوع النشاط",
+  "description": "إدارة وتحرير أنواع الأنشطة",
   "addButton": "إضافة نوع نشاط جديد",
-  "loading": "جاري التحميل...",
-  "noData": "لم يتم العثور على بيانات",
-  "actions": "إجراءات",
-  "edit": "تعديل",
-  "deleteButton": "حذف",
-  "cancel": "إلغاء",
-  "save": "حفظ",
-  "saving": "جاري الحفظ...",
-  "previous": "السابق",
+  "loading": "تحميل...",
+  "noData": "لا توجد بيانات",
+  "actions": "المعاملات",
+  "edit": "يحرر",
+  "deleteButton": "يمسح",
+  "cancel": "يلغي",
+  "save": "يحفظ",
+  "saving": "تسجيل...",
+  "previous": "سابق",
   "next": "التالي",
   "form": {
     "addTitle": "إضافة نوع نشاط جديد",
     "editTitle": "تعديل نوع النشاط",
     "addDescription": "أدخل معلومات نوع النشاط الجديد",
-    "editDescription": "تعديل معلومات نوع النشاط",
+    "editDescription": "تحرير معلومات نوع النشاط",
     "name": "اسم نوع النشاط",
     "namePlaceholder": "أدخل اسم نوع النشاط",
     "nameRequired": "اسم نوع النشاط مطلوب",
-    "nameMaxLength": "يجب أن يكون اسم نوع النشاط بحد أقصى 100 حرفًا",
-    "description": "الوصف",
-    "descriptionPlaceholder": "أدخل الوصف (اختياري)",
-    "descriptionMaxLength": "يجب أن يكون الوصف بحد أقصى 500 حرفًا"
+    "nameMaxLength": "يمكن أن يصل اسم نوع النشاط إلى 100 حرف",
+    "description": "توضيح",
+    "descriptionPlaceholder": "أدخل وصفًا (اختياري)",
+    "descriptionMaxLength": "يمكن أن يصل الوصف إلى 500 حرف"
   },
   "table": {
-    "id": "المعرف",
+    "id": "ID",
     "name": "اسم نوع النشاط",
-    "description": "الوصف",
+    "description": "توضيح",
     "createdDate": "تاريخ الإنشاء",
-    "createdBy": "تم الإنشاء بواسطة",
+    "createdBy": "تم إنشاؤها بواسطة المستخدم",
     "showing": "عرض {{from}}-{{to}} / {{total}}",
-    "page": "صفحة {{current}} / {{total}}"
+    "page": "الصفحة {{current}} / {{total}}"
   },
   "stats": {
-    "totalActivityTypes": "إجمالي أنواع الأنشطة",
-    "activeActivityTypes": "أنواع الأنشطة النشطة",
+    "totalActivityTypes": "نوع النشاط الإجمالي",
+    "activeActivityTypes": "نوع النشاط النشط",
     "newThisMonth": "جديد هذا الشهر"
   },
   "messages": {
     "createSuccess": "تم إنشاء نوع النشاط بنجاح",
-    "createError": "فشل في إنشاء نوع النشاط",
+    "createError": "لا يمكن إنشاء نوع النشاط",
     "updateSuccess": "تم تحديث نوع النشاط بنجاح",
-    "updateError": "فشل في تحديث نوع النشاط",
+    "updateError": "لا يمكن تحديث نوع النشاط",
     "deleteSuccess": "تم حذف نوع النشاط بنجاح",
-    "deleteError": "فشل في حذف نوع النشاط"
+    "deleteError": "لا يمكن حذف نوع النشاط"
   },
   "deleteConfirm": {
     "confirmTitle": "حذف نوع النشاط",
-    "confirmMessage": "هل أنت متأكد أنك تريد حذف نوع النشاط {{name}}؟"
+    "confirmMessage": "هل أنت متأكد من أنك تريد حذف نوع النشاط {{name}}؟"
   },
   "advancedFilter": {
-    "columnName": "Aktivite Tipi Adı",
-    "columnDescription": "Açıklama",
-    "columnCreatedBy": "Oluşturan"
+    "columnName": "اسم نوع النشاط",
+    "columnDescription": "توضيح",
+    "columnCreatedBy": "تم إنشاؤها بواسطة"
   }
 }

@@ -1,15 +1,7 @@
 import { type ReactElement } from 'react';
-import { AquaHeaderLineCrudPage } from './AquaHeaderLineCrudPage';
+import { AquaCrudPage } from '@/features/aqua/shared/components/AquaCrudPage';
 import { stockConvertLinesConfig, stockConvertsConfig } from '../config/page-configs';
 
 export function StockConvertsPage(): ReactElement {
-  return (
-    <AquaHeaderLineCrudPage
-      headerConfig={stockConvertsConfig}
-      lineConfig={stockConvertLinesConfig}
-      lineForeignKey="stockConvertId"
-      lineSectionTitle="aqua.pages.stockConvertLines.title"
-      lineSectionDescription="aqua.common.linesForRecord"
-    />
-  );
+  return <AquaCrudPage config={{ ...stockConvertLinesConfig, title: stockConvertsConfig.title, description: stockConvertsConfig.description }} />;
 }

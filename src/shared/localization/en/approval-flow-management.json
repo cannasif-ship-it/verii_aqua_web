@@ -1,16 +1,16 @@
 {
   "approvalFlow": {
     "menu": "Approval Flow Management",
-    "description": "Manage and organize approval flows",
+    "description": "Manage and streamline approval flows",
     "addButton": "Add New Approval Flow",
     "table": {
       "id": "ID",
       "documentType": "Document Type",
       "description": "Description",
-      "isActive": "Active",
-      "createdDate": "Created Date",
-      "createdBy": "Created By",
-      "actions": "Actions",
+      "isActive": "active",
+      "createdDate": "Creation Date",
+      "createdBy": "Created by User",
+      "actions": "Transactions",
       "showing": "Showing {{from}}-{{to}} / {{total}}",
       "page": "Page {{current}} / {{total}}"
     },
@@ -21,28 +21,28 @@
       "editDescription": "Edit approval flow information",
       "documentType": "Document Type",
       "selectDocumentType": "Select document type",
-      "noDocumentTypeSelected": "No document type selected",
-      "documentTypeRequired": "Document type selection is required",
+      "noDocumentTypeSelected": "Document type not selected",
+      "documentTypeRequired": "Document type selection is mandatory",
       "description": "Description",
-      "descriptionPlaceholder": "Enter description (optional)",
-      "descriptionMaxLength": "Description can be at most 200 characters",
-      "isActive": "Active",
-      "isActiveDescription": "Active status of the approval flow",
+      "descriptionPlaceholder": "Enter a description (optional)",
+      "descriptionMaxLength": "Description can be up to 200 characters",
+      "isActive": "active",
+      "isActiveDescription": "Active status of approval flow",
       "cancel": "Cancel",
       "save": "Save",
-      "saving": "Saving..."
+      "saving": "Recording..."
     },
     "loading": "Loading...",
     "noData": "No data",
-    "active": "Active",
-    "inactive": "Inactive",
+    "active": "active",
+    "inactive": "passive",
     "previous": "Previous",
     "next": "Next",
     "delete": {
       "action": "Delete",
       "cancel": "Cancel",
       "confirmTitle": "Delete Approval Flow",
-      "confirmMessage": "Are you sure you want to delete this approval flow?"
+      "confirmMessage": "Are you sure you want to delete this confirmation flow?"
     },
     "documentType": {
       "offer": "Offer",
@@ -52,8 +52,8 @@
     "advancedFilter": {
       "columnDocumentType": "Document Type",
       "columnDescription": "Description",
-      "columnIsActive": "Active",
-      "columnCreatedBy": "Created By"
+      "columnIsActive": "active",
+      "columnCreatedBy": "Created by"
     }
   },
   "approvalFlowStep": {
@@ -69,11 +69,11 @@
       "editDescription": "Edit flow step information",
       "approvalRoleGroup": "Role Group",
       "selectRoleGroup": "Select role group",
-      "noRoleGroupSelected": "No role group selected",
-      "approvalRoleGroupIdRequired": "Role group selection is required",
+      "noRoleGroupSelected": "Role group not selected",
+      "approvalRoleGroupIdRequired": "Role group selection is mandatory",
       "cancel": "Cancel",
       "save": "Save",
-      "saving": "Saving..."
+      "saving": "Recording..."
     },
     "messages": {
       "deleteConfirm": "Are you sure you want to delete this step?"

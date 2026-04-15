@@ -3,7 +3,7 @@
     "PageTitle": "E-Mail-Einstellungen",
     "PageDescription": "Konfigurieren Sie die SMTP-Servereinstellungen",
     "Fields": {
-      "Host": "Moderator",
+      "Host": "Server",
       "Port": "Verbindungsport",
       "EnableSsl": "Verwenden Sie SSL",
       "Username": "Benutzername",

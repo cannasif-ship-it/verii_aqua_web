@@ -1,29 +1,29 @@
 {
-  "title": "إدارة أنواع الدفع",
-  "description": "إعداد وإدارة طرق الدفع",
-  "create": "نوع دفع جديد",
-  "edit": "تعديل نوع الدفع",
-  "delete": "حذف",
+  "title": "إدارة نوع الدفع",
+  "description": "توضيح",
+  "create": "نوع الدفع الجديد",
+  "edit": "تحرير نوع الدفع",
+  "delete": "يمسح",
   "table": {
-    "id": "المعرف",
-    "name": "الاسم",
+    "id": "ID",
+    "name": "اسم",
     "code": "الرمز",
-    "description": "الوصف",
+    "description": "توضيح",
     "isActive": "نشط",
     "actions": "إجراءات",
-    "createdDate": "Created Date",
-    "updatedDate": "Updated Date",
-    "showing": "Showing {{from}}-{{to}} of {{total}}",
-    "page": "Page {{current}} of {{total}}"
+    "createdDate": "تاريخ الإنشاء",
+    "updatedDate": "تاريخ التحديث",
+    "showing": "عرض {{from}}-{{to}} / {{total}}",
+    "page": "الصفحة {{current}} / {{total}}"
   },
   "form": {
     "name": {
-      "required": "Name is required",
-      "maxLength": "Name can be at most 100 characters"
+      "required": "الاسم مطلوب",
+      "maxLength": "يمكن أن يصل الاسم إلى 100 حرف"
     },
     "code": "الرمز",
     "description": {
-      "maxLength": "Description can be at most 500 characters"
+      "maxLength": "يمكن أن يصل الوصف إلى 500 حرف"
     },
     "isActive": "نشط",
     "nameRequired": "الاسم مطلوب",
@@ -35,26 +35,26 @@
     "deleteSuccess": "تم حذف نوع الدفع بنجاح",
     "confirmDelete": "هل أنت متأكد أنك تريد حذف نوع الدفع هذا؟"
   },
-  "headerDescription": "إدارة وتعديل أنواع الدفع",
-  "editDescription": "قم بتعديل معلومات نوع الدفع",
-  "createDescription": "أدخل معلومات نوع الدفع الجديد",
+  "headerDescription": "إدارة وتحرير أنواع الدفع",
+  "editDescription": "تحرير معلومات نوع الدفع",
+  "createDescription": "أدخل معلومات نوع الدفع الجديدة",
   "deleteTitle": "حذف نوع الدفع",
-  "name": "الاسم",
+  "name": "اسم",
   "namePlaceholder": "أدخل اسم نوع الدفع",
   "descriptionPlaceholder": "أدخل وصفًا (اختياري)",
   "createdDate": "تاريخ الإنشاء",
   "updatedDate": "تاريخ التحديث",
-  "actions": "الإجراءات",
-  "search": "بحث",
-  "refresh": "تحديث",
-  "loading": "جارٍ التحميل...",
-  "previous": "السابق",
+  "actions": "المعاملات",
+  "search": "يبحث",
+  "refresh": "ينعش",
+  "loading": "تحميل...",
+  "previous": "سابق",
   "next": "التالي",
-  "cancel": "إلغاء",
-  "save": "حفظ",
-  "saving": "جارٍ الحفظ...",
-  "noData": "لا توجد بيانات",
-  "confirmDelete": "هل أنت متأكد من حذف نوع الدفع هذا؟",
+  "cancel": "يلغي",
+  "save": "يحفظ",
+  "saving": "تسجيل...",
+  "noData": "لم يتم العثور على بيانات",
+  "confirmDelete": "هل أنت متأكد أنك تريد حذف نوع الدفع هذا؟",
   "createSuccess": "تم إنشاء نوع الدفع بنجاح",
   "updateSuccess": "تم تحديث نوع الدفع بنجاح",
   "deleteSuccess": "تم حذف نوع الدفع بنجاح",
@@ -62,7 +62,7 @@
   "updateError": "حدث خطأ أثناء تحديث نوع الدفع",
   "deleteError": "حدث خطأ أثناء حذف نوع الدفع",
   "advancedFilter": {
-    "columnName": "Ad",
-    "columnDescription": "Açıklama"
+    "columnName": "اسم",
+    "columnDescription": "توضيح"
   }
 }

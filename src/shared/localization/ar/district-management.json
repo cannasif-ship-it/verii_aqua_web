@@ -1,51 +1,51 @@
 {
-  "menu": "إدارة المناطق",
-  "description": "إدارة وتعديل المناطق",
+  "menu": "إدارة المنطقة",
+  "description": "إدارة وتنظيم المناطق",
   "addButton": "إضافة منطقة جديدة",
-  "listTitle": "قائمة المناطق",
+  "listTitle": "قائمة المنطقة",
   "listDescription": "يمكنك إدارة جميع المناطق المسجلة في النظام هنا.",
-  "loading": "جار التحميل...",
+  "loading": "تحميل...",
   "noData": "لا توجد بيانات",
-  "actions": "إجراءات",
-  "previous": "السابق",
+  "actions": "المعاملات",
+  "previous": "سابق",
   "next": "التالي",
-  "cancel": "إلغاء",
-  "delete": "حذف",
-  "save": "حفظ",
-  "saving": "جار الحفظ...",
+  "cancel": "يلغي",
+  "delete": "يمسح",
+  "save": "يحفظ",
+  "saving": "تسجيل...",
   "table": {
-    "id": "المعرف",
+    "id": "ID",
     "name": "اسم المنطقة",
-    "erpCode": "كود ERP",
+    "erpCode": "ERP الكود",
     "cityName": "اسم المدينة",
     "createdDate": "تاريخ الإنشاء",
-    "createdBy": "تم الإنشاء بواسطة",
+    "createdBy": "تم إنشاؤها بواسطة",
     "showing": "عرض {{from}}-{{to}} / {{total}}",
-    "page": "صفحة {{current}} / {{total}}"
+    "page": "الصفحة {{current}} / {{total}}"
   },
   "deleteConfirm": {
     "confirmTitle": "حذف المنطقة",
-    "confirmMessage": "هل أنت متأكد من حذف المنطقة {{name}}؟"
+    "confirmMessage": "هل أنت متأكد أنك تريد حذف منطقة {{name}}؟"
   },
   "form": {
-    "editDistrict": "تعديل المنطقة",
+    "editDistrict": "تحرير المنطقة",
     "addDistrict": "إضافة منطقة جديدة",
-    "editDescription": "تعديل معلومات المنطقة",
-    "addDescription": "إدخال معلومات منطقة جديدة",
+    "editDescription": "تحرير معلومات المنطقة",
+    "addDescription": "أدخل معلومات المنطقة الجديدة",
     "name": "اسم المنطقة",
     "namePlaceholder": "أدخل اسم المنطقة",
-    "city": "المدينة",
+    "city": "مدينة",
     "selectCity": "اختر المدينة",
-    "erpCode": "كود ERP",
-    "erpCodePlaceholder": "أدخل كود ERP (اختياري)",
+    "erpCode": "ERP الكود",
+    "erpCodePlaceholder": "أدخل الرمز ERP (اختياري)",
     "nameRequired": "اسم المنطقة مطلوب",
-    "nameMaxLength": "اسم المنطقة لا يمكن أن يتجاوز 100 حرف",
-    "erpCodeMaxLength": "كود ERP لا يمكن أن يتجاوز 10 أحرف",
-    "cityRequired": "اختيار المدينة مطلوب"
+    "nameMaxLength": "يمكن أن يصل اسم المنطقة إلى 100 حرف كحد أقصى",
+    "erpCodeMaxLength": "يمكن أن يتكون الرمز ERP من 10 أحرف كحد أقصى",
+    "cityRequired": "اختيار المدينة إلزامي"
   },
   "stats": {
-    "totalDistricts": "إجمالي المناطق",
-    "activeDistricts": "المناطق النشطة",
+    "totalDistricts": "المنطقة الإجمالية",
+    "activeDistricts": "منطقة نشطة",
     "newThisMonth": "جديد هذا الشهر"
   }
 }

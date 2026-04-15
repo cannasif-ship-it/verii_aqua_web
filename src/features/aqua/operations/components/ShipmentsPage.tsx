@@ -1,15 +1,7 @@
 import { type ReactElement } from 'react';
-import { AquaHeaderLineCrudPage } from './AquaHeaderLineCrudPage';
+import { AquaCrudPage } from '@/features/aqua/shared/components/AquaCrudPage';
 import { shipmentLinesConfig, shipmentsConfig } from '../config/page-configs';
 
 export function ShipmentsPage(): ReactElement {
-  return (
-    <AquaHeaderLineCrudPage
-      headerConfig={shipmentsConfig}
-      lineConfig={shipmentLinesConfig}
-      lineForeignKey="shipmentId"
-      lineSectionTitle="aqua.pages.shipmentLines.title"
-      lineSectionDescription="aqua.common.linesForRecord"
-    />
-  );
+  return <AquaCrudPage config={{ ...shipmentLinesConfig, title: shipmentsConfig.title, description: shipmentsConfig.description }} />;
 }

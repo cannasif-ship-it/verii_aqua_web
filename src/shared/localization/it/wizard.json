@@ -2,12 +2,12 @@
   "buttons": {
     "back": "Indietro",
     "next": "Avanti",
-    "complete": "Salva e Invia per Approvazione"
+    "complete": "Salva e invia per l'approvazione"
   },
   "validation": {
-    "error": "Errore di Validazione"
+    "error": "Errore di convalida"
   },
   "step": {
-    "unknown": "Passaggio sconosciuto"
+    "unknown": "passo sconosciuto"
   }
 }

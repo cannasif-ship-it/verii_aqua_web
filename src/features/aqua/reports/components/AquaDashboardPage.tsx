@@ -281,7 +281,7 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
         )}
       />
 
-      {isCritical && <div className="absolute inset-0 pointer-events-none bg-rose-500/[0.04] dark:bg-rose-500/[0.06]" />}
+      {isCritical && <div className="absolute inset-0 pointer-events-none bg-rose-500/4 dark:bg-rose-500/6" />}
 
       <div className="flex flex-col h-full z-10 relative">
         <div
@@ -385,7 +385,7 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
               }}
               className="w-full h-9 rounded-xl bg-linear-to-r from-cyan-500 via-blue-500 to-orange-400 text-white font-black text-xs shadow-lg shadow-cyan-500/25 hover:from-cyan-600 hover:via-blue-600 hover:to-orange-500"
             >
-              {t('aquaDashboard.cageCard.quickDailyEntry', { ns: 'dashboard', defaultValue: 'Hızlı Giriş' })}
+              {t('aquaDashboard.cageCard.quickDailyEntry', { ns: 'dashboard' })}
             </Button>
           )}
           <div className="flex justify-between items-end mb-1.5">
@@ -953,7 +953,7 @@ export function AquaDashboardPage(): ReactElement {
                               key={cage.projectCageId}
                               className={cn(
                                 'hover:bg-slate-50 dark:hover:bg-blue-900/20 transition-colors group cursor-pointer',
-                                isCritical && 'bg-rose-50/40 dark:bg-rose-500/[0.04]'
+                                isCritical && 'bg-rose-50/40 dark:bg-rose-500/4'
                               )}
                               onClick={() => openDailyFromProjectList(project.projectId, cage.projectCageId)}
                             >
@@ -1045,10 +1045,10 @@ export function AquaDashboardPage(): ReactElement {
               </div>
 
               <div className="min-w-0 flex-1">
-                <SheetTitle className="text-lg sm:text-xl font-black text-slate-900 dark:text-white break-words leading-tight">
+                <SheetTitle className="text-lg sm:text-xl font-black text-slate-900 dark:text-white wrap-break-word leading-tight">
                   {t('aquaDashboard.projectSelector.title', { ns: 'dashboard' })}
                 </SheetTitle>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 break-words">
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 wrap-break-word">
                   {t('aquaDashboard.projectSelector.description', { ns: 'dashboard' })}
                 </p>
               </div>
@@ -1160,7 +1160,7 @@ export function AquaDashboardPage(): ReactElement {
                             <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-cyan-600 mb-1">
                               {project.projectCode}
                             </p>
-                            <p className="text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 break-words">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 wrap-break-word">
                               {project.projectName}
                             </p>
                           </div>
@@ -1223,7 +1223,7 @@ export function AquaDashboardPage(): ReactElement {
       </Sheet>
 
       <Dialog open={isDailyDialogOpen} onOpenChange={closeDailyDialog}>
-      <DialogContent className="w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] lg:!w-[1200px] !max-w-[96vw] xl:!max-w-[1300px] max-h-[90dvh] overflow-hidden bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30 p-0 shadow-2xl rounded-[24px] sm:rounded-[28px] flex flex-col outline-none">
+      <DialogContent className="w-[calc(100vw-1rem)] sm:w-[calc(100vw-2rem)] lg:w-[1200px]! max-w-[96vw]! xl:max-w-[1300px]! max-h-[90dvh] overflow-hidden bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30 p-0 shadow-2xl rounded-[24px] sm:rounded-[28px] flex flex-col outline-none">
           <DialogHeader className="border-b border-slate-200 dark:border-cyan-800/30 bg-linear-to-r from-slate-50 via-white to-cyan-50/40 dark:from-blue-950 dark:via-blue-950 dark:to-cyan-950/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 shrink-0 relative">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4 min-w-0">
@@ -1339,7 +1339,7 @@ export function AquaDashboardPage(): ReactElement {
 
                                 <div className="min-w-0">
                                   <div className="flex flex-wrap items-center gap-2 min-w-0">
-                                    <h3 className="text-base font-black text-slate-900 dark:text-white break-words min-w-0">
+                                    <h3 className="text-base font-black text-slate-900 dark:text-white wrap-break-word min-w-0">
                                       {row.date}
                                     </h3>
 
@@ -1737,7 +1737,7 @@ export function AquaDashboardPage(): ReactElement {
                 <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 border border-cyan-500/15 shrink-0">
                   {getDetailTypeIcon(detailDialog.type)}
                 </div>
-                <span className="break-words">{detailDialog.title}</span>
+                <span className="wrap-break-word">{detailDialog.title}</span>
               </DialogTitle>
 
               <div className="flex flex-wrap items-center gap-2">

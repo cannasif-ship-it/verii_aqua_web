@@ -1,40 +1,40 @@
 {
-  "menu": "Gestione Gruppi Ruoli di Approvazione",
-  "description": "Gestisci e organizza i gruppi di ruoli di approvazione",
-  "addButton": "Aggiungi Nuovo Gruppo",
+  "menu": "Gestione del gruppo di ruoli di approvazione",
+  "description": "Gestire e modificare i gruppi di ruoli di approvazione",
+  "addButton": "Aggiungi nuovo gruppo",
   "refresh": "Aggiorna",
   "searchPlaceholder": "Cerca...",
   "loading": "Caricamento...",
   "noData": "Nessun dato trovato",
-  "noDataDescription": "Nessun record trovato corrispondente alla ricerca o nessun record aggiunto.",
+  "noDataDescription": "Nessun record corrispondente ai tuoi criteri di ricerca è stato trovato o nessun record è stato ancora aggiunto.",
   "table": {
     "id": "ID",
-    "name": "Nome Gruppo",
-    "createdDate": "Data Creazione",
-    "createdBy": "Creato Da",
-    "actions": "Azioni",
-    "showing": "Visualizzazione {{from}}-{{to}} di {{total}} record"
+    "name": "Nome del gruppo",
+    "createdDate": "Data di creazione",
+    "createdBy": "Creato dall'utente",
+    "actions": "Transazioni",
+    "showing": "Totale {{total}} dal record che mostra {{from}}-{{to}}"
   },
   "delete": {
-    "confirmTitle": "Conferma Eliminazione",
+    "confirmTitle": "Conferma di cancellazione",
     "confirmMessage": "Questa azione non può essere annullata. Vuoi continuare?"
   },
   "cancel": "Annulla",
   "save": "Salva",
-  "saving": "Salvataggio...",
+  "saving": "Registrazione...",
   "deleteButton": "Elimina",
   "form": {
-    "editTitle": "Modifica Gruppo Ruoli",
-    "addTitle": "Aggiungi Nuovo Gruppo Ruoli",
-    "editDescription": "Modifica informazioni gruppo ruoli",
-    "addDescription": "Inserisci informazioni nuovo gruppo",
-    "name": "Nome Gruppo",
-    "namePlaceholder": "Inserisci nome gruppo",
+    "editTitle": "Modifica gruppo di ruoli di approvazione",
+    "addTitle": "Aggiungi nuovo gruppo di ruoli di approvazione",
+    "editDescription": "Modifica le informazioni sul gruppo di ruoli di approvazione",
+    "addDescription": "Immettere le informazioni sul nuovo gruppo di ruoli di approvazione",
+    "name": "Nome del gruppo",
+    "namePlaceholder": "Inserisci il nome del gruppo",
     "nameRequired": "Il nome del gruppo è obbligatorio",
-    "nameMaxLength": "Il nome può avere max 100 caratteri"
+    "nameMaxLength": "Il nome del gruppo può contenere fino a 100 caratteri"
   },
   "advancedFilter": {
-    "columnName": "Nome gruppo",
+    "columnName": "Nome del gruppo",
     "columnCreatedBy": "Creato da"
   }
 }

@@ -58,6 +58,7 @@ export function AquaHeaderLineCrudPage({
               config={lineConfig}
               hidePageHeader
               disablePageTitleSync
+              lookupContextValues={selectedHeaderRow ?? undefined}
               contextFilter={{
                 fieldKey: lineForeignKey,
                 value: selectedHeaderId,

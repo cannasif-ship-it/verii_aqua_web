@@ -1,7 +1,7 @@
 {
   "editDescription": "Edit Description",
   "editDescriptionSubtitle": "Update image description",
-  "description": "Explanation",
+  "description": "Description",
   "descriptionPlaceholder": "Enter a description about the image...",
   "saveActivityFirst": "Save Activity First",
   "saveActivityFirstDescription": "To add an image, you must first save the activity.",

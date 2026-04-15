@@ -1,13 +1,13 @@
 {
-  "title": "Verwandte Bestände auswählen",
-  "description": "Select the related stocks you want to add along with the main stock. Mandatory stocks are selected automatically.",
-  "mandatoryStocks": "Obligatorische Bestände",
-  "optionalStocks": "Optionale Bestände",
+  "title": "Wählen Sie Verbundene Aktien aus",
+  "description": "Wählen Sie die Tochterbestände aus, die Sie zusammen mit dem Stammbestand hinzufügen möchten. Pflichtbestände werden automatisch ausgewählt.",
+  "mandatoryStocks": "Pflichtaktien",
+  "optionalStocks": "Optionale Aktien",
   "unknownStock": "Unbekannter Bestand",
   "quantity": "Menge",
-  "mandatory": "Obligatorisch",
-  "noRelatedStocks": "Keine verwandten Bestände gefunden",
+  "mandatory": "obligatorisch",
+  "noRelatedStocks": "Verlinkter Bestand nicht gefunden",
   "cancel": "Abbrechen",
-  "add": "Add",
-  "calculating": "Berechnung..."
+  "add": "Hinzufügen",
+  "calculating": "Berechnen..."
 }

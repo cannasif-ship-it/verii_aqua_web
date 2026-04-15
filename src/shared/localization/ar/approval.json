@@ -1,85 +1,85 @@
 {
   "list": {
     "title": "الموافقات المعلقة",
-    "description": "عرض والموافقة أو رفض عروض الأسعار المسندة إليك",
+    "description": "يمكنك عرض العروض المخصصة لك والموافقة عليها أو رفضها",
     "empty": "لا توجد موافقات معلقة",
-    "error": "حدث خطأ أثناء تحميل الموافقات"
+    "error": "حدث خطأ أثناء تحميل التأكيدات"
   },
   "yes": "نعم",
   "no": "لا",
-  "processing": "جاري المعالجة...",
+  "processing": "يعالج...",
   "detail": {
-    "title": "تفاصيل عرض السعر",
-    "subtitle": "عرض تفاصيل عرض السعر واتخاذ الإجراءات",
+    "title": "تفاصيل العرض",
+    "subtitle": "عرض تفاصيل العرض واتخاذ الإجراءات اللازمة",
     "tabs": {
       "detail": "التفاصيل",
-      "history": "السجل",
-      "action": "إجراء"
+      "history": "ماضي",
+      "action": "عملية"
     },
-    "notFound": "عرض السعر غير موجود",
-    "quotationInfo": "معلومات عرض السعر",
-    "offerNo": "رقم العرض",
-    "customer": "العميل",
-    "representative": "المندوب",
-    "currency": "العملة",
+    "notFound": "لم يتم العثور على أي عرض",
+    "quotationInfo": "معلومات العرض",
+    "offerNo": "العرض No",
+    "customer": "عميل",
+    "representative": "ممثل",
+    "currency": "عملة",
     "offerDate": "تاريخ العرض",
-    "deliveryDate": "تاريخ التسليم",
-    "total": "الإجمالي",
-    "grandTotal": "الإجمالي الكلي",
-    "description": "الوصف",
-    "lines": "بنود عرض السعر",
-    "productCode": "كود المنتج",
+    "deliveryDate": "تاريخ التسليم او الوصول",
+    "total": "المجموع",
+    "grandTotal": "المجموع الإجمالي",
+    "description": "توضيح",
+    "lines": "خطوط الاقتباس",
+    "productCode": "رمز المنتج",
     "productName": "اسم المنتج",
-    "quantity": "الكمية",
+    "quantity": "كمية",
     "unitPrice": "سعر الوحدة",
-    "lineTotal": "إجمالي البند",
-    "lineGrandTotal": "الإجمالي الكلي للبند",
+    "lineTotal": "إجمالي الصف",
+    "lineGrandTotal": "المجموع الكلي للصف",
     "exchangeRates": "أسعار الصرف",
-    "exchangeRate": "السعر",
-    "exchangeRateDate": "تاريخ السعر",
-    "isOfficial": "سعر رسمي"
+    "exchangeRate": "دواء",
+    "exchangeRateDate": "تاريخ سعر الصرف",
+    "isOfficial": "تثبيت الرسمي"
   },
   "actions": {
-    "view": "عرض",
-    "approve": "موافقة",
-    "reject": "رفض"
+    "view": "منظر",
+    "approve": "يتأكد",
+    "reject": "يرفض"
   },
   "status": {
     "notRequired": "غير مطلوب",
-    "waiting": "في الانتظار",
-    "approved": "تمت الموافقة",
+    "waiting": "منتظر",
+    "approved": "موافقة",
     "rejected": "مرفوض",
     "closed": "مغلق"
   },
-  "closedReason": "تم إغلاق هذا السجل لأن سجلاً آخر بنفس رقم العرض تمت الموافقة عليه.",
+  "closedReason": "تم إغلاق هذا السجل بسبب الموافقة على سجل آخر بنفس رقم العرض.",
   "statusFilterLabel": "حالة الموافقة",
   "level": {
     "salesManager": "مدير المبيعات",
     "regionalManager": "المدير الإقليمي",
-    "finance": "المالية",
+    "finance": "تمويل",
     "generalManager": "المدير العام",
-    "unknown": "غير معروف"
+    "unknown": "مجهول"
   },
   "note": {
-    "label": "ملاحظة",
-    "placeholder": "يمكنك إضافة ملاحظة موافقة/رفض (اختياري)",
-    "maxLength": "الملاحظة يمكن أن تكون بحد أقصى 500 حرف"
+    "label": "ملحوظات",
+    "placeholder": "يمكنك إضافة مذكرة الموافقة/الرفض (اختياري)",
+    "maxLength": "يمكن أن تصل الملاحظة إلى 500 حرف"
   },
   "approve": {
-    "success": "تمت الموافقة",
-    "successMessage": "تمت الموافقة على عرض السعر بنجاح",
-    "error": "خطأ في الموافقة",
-    "errorMessage": "حدث خطأ أثناء الموافقة على عرض السعر"
+    "success": "موافقة",
+    "successMessage": "تمت الموافقة على العرض بنجاح",
+    "error": "خطأ في التأكيد",
+    "errorMessage": "حدث خطأ أثناء الموافقة على العرض"
   },
   "reject": {
-    "success": "تم الرفض",
-    "successMessage": "تم رفض عرض السعر",
+    "success": "مرفوض",
+    "successMessage": "تم رفض العرض",
     "error": "خطأ في الرفض",
-    "errorMessage": "حدث خطأ أثناء رفض عرض السعر"
+    "errorMessage": "حدث خطأ أثناء رفض العرض"
   },
   "history": {
-    "empty": "لا يوجد سجل موافقات",
-    "approvedBy": "تمت الموافقة بواسطة"
+    "empty": "لا يوجد سجل الموافقة",
+    "approvedBy": "تمت الموافقة عليه من قبل"
   },
-  "assignedTo": "المستخدم المسند إليه"
+  "assignedTo": "المستخدم المعين"
 }

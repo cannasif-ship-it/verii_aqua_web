@@ -1,74 +1,74 @@
 {
-  "title": "Customer 360",
-  "notFound": "Customer not found",
-  "error": "An error occurred",
-  "retry": "Retry",
+  "title": "Kunde 360",
+  "notFound": "Kunde nicht gefunden",
+  "error": "Es ist ein Fehler aufgetreten",
+  "retry": "Versuchen Sie es erneut",
   "currencyFilter": {
-    "label": "Currency",
-    "all": "All"
+    "label": "Währung",
+    "all": "Alle"
   },
   "tabs": {
-    "overview": "Overview",
-    "analytics": "Analytics"
+    "overview": "Zusammenfassung",
+    "analytics": "Analytik"
   },
   "kpi": {
-    "totalDemands": "Total Demands",
-    "totalQuotations": "Total Quotations",
-    "totalOrders": "Total Orders",
-    "openQuotations": "Open Quotations",
-    "openOrders": "Pending Orders"
+    "totalDemands": "Gesamtangebot",
+    "totalQuotations": "Gesamtangebot",
+    "totalOrders": "Gesamtbestellung",
+    "openQuotations": "Offenes Angebot",
+    "openOrders": "Ausstehende Bestellung"
   },
   "sections": {
-    "contacts": "Contacts",
-    "shippingAddresses": "Shipping Addresses",
-    "recentDemands": "Recent Demands",
-    "recentQuotations": "Recent Quotations",
-    "recentOrders": "Recent Orders",
-    "recentActivities": "Recent Activities",
-    "timeline": "Timeline"
+    "contacts": "Kommunikation",
+    "shippingAddresses": "Lieferadressen",
+    "recentDemands": "Aktuelle Angebote",
+    "recentQuotations": "Aktuelle Angebote",
+    "recentOrders": "Neueste Bestellungen",
+    "recentActivities": "Neueste Aktivitäten",
+    "timeline": "Zeitleiste"
   },
   "analytics": {
-    "error": "Could not load analytics data",
-    "last12MonthsOrderAmount": "Last 12 Months Order Amount",
-    "openQuotationAmount": "Open Quotation Amount",
-    "openOrderAmount": "Open Order Amount",
-    "activityCount": "Activity Count",
-    "lastActivityDate": "Last Activity Date"
+    "error": "Analysedaten konnten nicht geladen werden",
+    "last12MonthsOrderAmount": "Bestellmenge der letzten 12 Monate",
+    "openQuotationAmount": "Offener Gebotsbetrag",
+    "openOrderAmount": "Offener Bestellbetrag",
+    "activityCount": "Anzahl der Aktivitäten",
+    "lastActivityDate": "Datum der letzten Aktivität"
   },
   "analyticsCharts": {
-    "demand": "Demand",
-    "quotation": "Quotation",
-    "order": "Order",
-    "last12MonthsOrderAmount": "Last 12 Months Order",
-    "openQuotationAmount": "Open Quotation",
-    "openOrderAmount": "Open Order",
-    "distributionTitle": "Distribution",
-    "monthlyTrendTitle": "Monthly Trend",
-    "amountComparisonTitle": "Amount Comparison"
+    "demand": "Angebot",
+    "quotation": "Angebot",
+    "order": "Bestellen",
+    "last12MonthsOrderAmount": "Bestellung der letzten 12 Monate",
+    "openQuotationAmount": "Offenes Angebot",
+    "openOrderAmount": "Bestellung öffnen",
+    "distributionTitle": "Verteilung",
+    "monthlyTrendTitle": "Monatlicher Trend",
+    "amountComparisonTitle": "Mengenvergleich"
   },
   "currencyTotals": {
-    "currency": "Currency",
-    "demandAmount": "Demand Amount",
-    "quotationAmount": "Quotation Amount",
-    "orderAmount": "Order Amount"
+    "currency": "Währung",
+    "demandAmount": "Gebotsbetrag",
+    "quotationAmount": "Gebotsbetrag",
+    "orderAmount": "Bestellmenge"
   },
   "revenueQuality": {
-    "title": "Revenue Quality",
-    "churnRisk": "Churn Risk",
-    "upsell": "Upsell Propensity",
-    "payment": "Payment Behavior",
-    "segment": "RFM Segment",
+    "title": "Umsatzqualität",
+    "churnRisk": "Verlustrisiko",
+    "upsell": "Upselling-Trend",
+    "payment": "Zahlungsverhalten",
+    "segment": "RFM-Segment",
     "ltv": "LTV"
   },
   "cohort": {
-    "title": "Cohort Retention",
-    "empty": "No cohort data",
-    "cohortKey": "Cohort"
+    "title": "Eine Kohorte behalten",
+    "empty": "Keine Kohortendaten",
+    "cohortKey": "Kohorte"
   },
   "actions": {
-    "title": "Recommended Actions",
-    "empty": "No recommended actions",
-    "execute": "Execute"
+    "title": "Empfohlene Aktionen",
+    "empty": "Keine empfohlene Maßnahme",
+    "execute": "Bewerben"
   },
   "status": {}
 }

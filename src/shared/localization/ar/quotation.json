@@ -1,165 +1,165 @@
 {
-  "loading": "جاري التحميل...",
-  "saving": "جاري الحفظ...",
+  "loading": "تحميل...",
+  "saving": "تسجيل...",
   "error": "خطأ",
   "noData": "لا توجد بيانات",
-  "previous": "السابق",
+  "previous": "سابق",
   "next": "التالي",
-  "actions": "الإجراءات",
-  "edit": "تعديل",
-  "delete": "حذف",
-  "back": "رجوع",
-  "refresh": "تحديث",
-  "select": "تحديد",
+  "actions": "المعاملات",
+  "edit": "يحرر",
+  "delete": "يمسح",
+  "back": "خلف",
+  "refresh": "ينعش",
+  "select": "يختار",
   "yes": "نعم",
-  "add": "إضافة",
-  "backToQuotations": "العودة إلى عروض الأسعار",
-  "cancel": "إلغاء",
-  "save": "حفظ",
-  "confirm": "تأكيد",
+  "add": "يضيف",
+  "backToQuotations": "العودة إلى العروض",
+  "cancel": "يلغي",
+  "save": "يحفظ",
+  "confirm": "يتأكد",
   "saveAndApply": "حفظ وتطبيق",
   "list": {
-    "revise": "مراجعة",
-    "showing": "عرض {{from}}-{{to}} من {{total}}"
+    "revise": "يراجع",
+    "showing": "عرض {{from}}-{{to}} / {{total}}"
   },
   "detail": {
-    "title": "تفاصيل عرض السعر"
+    "title": "تفاصيل العرض"
   },
   "create": {
-    "title": "إنشاء عرض سعر جديد",
-    "submit": "حفظ عرض السعر وإرساله للموافقة",
-    "success": "تم إنشاء عرض السعر بنجاح",
-    "successMessage": "تم إرسال عرض السعر إلى عملية الموافقة.",
-    "error": "تعذر إنشاء عرض السعر",
-    "errorMessage": "حدث خطأ أثناء إنشاء عرض السعر."
+    "title": "إنشاء عرض جديد",
+    "submit": "احفظ العرض وأرسله للموافقة",
+    "success": "تم إنشاء العرض بنجاح",
+    "successMessage": "تم إرسال الاقتراح لعملية الموافقة.",
+    "error": "تعذر إنشاء العرض",
+    "errorMessage": "حدث خطأ أثناء إنشاء العرض."
   },
   "header": {
-    "title": "معلومات عرض السعر",
-    "customer": "العميل",
+    "title": "معلومات العرض",
+    "customer": "عميل",
     "selectCustomer": "حدد العميل",
     "shippingAddress": "عنوان الشحن",
     "selectShippingAddress": "حدد عنوان الشحن",
-    "representative": "مندوب المبيعات",
-    "selectRepresentative": "حدد المندوب",
+    "representative": "مندوب مبيعات",
+    "selectRepresentative": "اختر ممثلاً",
     "offerType": "نوع العرض",
-    "selectOfferType": "حدد نوع العرض",
-    "currency": "العملة",
-    "selectCurrency": "يرجى تحديد العملة",
-    "showExchangeRates": "إظهار أسعار الصرف",
+    "selectOfferType": "اختر نوع العرض",
+    "currency": "عملة",
+    "selectCurrency": "الرجاء تحديد العملة",
+    "showExchangeRates": "عرض الأسعار",
     "offerDate": "تاريخ العرض",
-    "deliveryDate": "تاريخ التسليم",
+    "deliveryDate": "تاريخ التسليم او الوصول",
     "paymentType": "نوع الدفع",
-    "selectPaymentType": "حدد نوع الدفع",
-    "description": "الوصف",
+    "selectPaymentType": "اختر نوع الدفع",
+    "description": "توضيح",
     "descriptionPlaceholder": "أدخل الوصف",
-    "offerNo": "رقم العرض",
+    "offerNo": "العرض No",
     "offerNoPlaceholder": "رقم العرض",
     "currencyChange": {
       "title": "تغيير العملة",
-      "message": "عند تغيير العملة، سيتم إعادة حساب جميع الأسطر الموجودة وفقًا للعملة الجديدة. هل توافق على هذه العملية؟"
+      "message": "عندما تتغير العملة، ستتم إعادة حساب كافة الصفوف الموجودة وفقًا للعملة الجديدة. هل توافق على هذه الصفقة؟"
     }
   },
   "lines": {
-    "title": "بنود عرض السعر",
-    "add": "إضافة بند",
-    "empty": "لم تتم إضافة بنود بعد",
-    "emptyDescription": "استخدم زر \"تحديد المخزون\" أو \"إضافة بند\" لإضافة بنود لعرض السعر",
-    "itemCount": "بند",
-    "editLine": "تعديل البند",
-    "selectStock": "تحديد المخزون",
-    "selectProduct": "تحديد المنتج",
+    "title": "خطوط الاقتباس",
+    "add": "إضافة صف",
+    "empty": "لم تتم إضافة أي صفوف حتى الآن",
+    "emptyDescription": "استخدم زر \"تحديد المخزون\" أو \"إضافة سطر\" لإضافة بنود عرض الأسعار",
+    "itemCount": "خط",
+    "editLine": "تحرير الصف",
+    "selectStock": "حدد المخزون",
+    "selectProduct": "حدد المنتج",
     "selectStockFirst": "لم يتم تحديد المخزون",
-    "stock": "المخزون",
+    "stock": "مخزون",
     "productCode": "رمز المخزون",
-    "enterProductCode": "أدخل رمز المنتج أو ابحث",
-    "productName": "اسم المخزون",
+    "enterProductCode": "أدخل أو ابحث عن رمز المنتج",
+    "productName": "اسم السهم",
     "enterProductName": "أدخل اسم المنتج",
-    "quantity": "الكمية",
+    "quantity": "كمية",
     "unitPrice": "سعر الوحدة",
-    "discount1": "خصم 1 %",
-    "discount2": "خصم 2 %",
-    "discount3": "خصم 3 %",
-    "discounts": "الخصومات",
+    "discount1": "الخصم 1 %",
+    "discount2": "الخصم 2 %",
+    "discount3": "الخصم 3 %",
+    "discounts": "خصومات",
     "discountAmount": "مبلغ الخصم",
-    "netPrice": "السعر الصافي",
-    "vatRate": "نسبة الضريبة %",
-    "lineTotal": "إجمالي البند (شامل الضريبة)",
+    "netPrice": "صافي السعر",
+    "vatRate": "معدل ضريبة القيمة المضافة %",
+    "lineTotal": "إجمالي الخط (شامل ضريبة القيمة المضافة)",
     "calculations": "الحسابات",
-    "required": "يجب إضافة بند واحد على الأقل",
-    "noProductsFound": "لم يتم العثور على منتجات",
+    "required": "يجب إضافة سطر واحد على الأقل",
+    "noProductsFound": "لم يتم العثور على المنتج",
     "delete": {
-      "confirmTitle": "حذف البند",
-      "confirmMessage": "هل أنت متأكد أنك تريد حذف هذا البند؟"
+      "confirmTitle": "حذف الصف",
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف هذا الصف؟"
     }
   },
   "exchangeRates": {
     "title": "أسعار الصرف",
-    "currency": "العملة",
-    "rate": "السعر",
-    "date": "تاريخ السعر",
-    "isOfficial": "سعر رسمي",
+    "currency": "عملة",
+    "rate": "دواء",
+    "date": "تاريخ سعر الصرف",
+    "isOfficial": "تثبيت الرسمي",
     "official": "رسمي",
-    "custom": "مخصص",
-    "empty": "لم يتم العثور على أسعار صرف",
-    "status": "الحالة",
+    "custom": "خاص",
+    "empty": "لم يتم العثور على المعدل",
+    "status": "الموقف",
     "dialog": {
       "title": "أسعار الصرف",
-      "description": "عرض وتعديل قيم سعر الصرف إذا لزم الأمر. لن يتم تمييز الأسعار المعدلة كأسعار رسمية."
+      "description": "عرض أسعار الصرف وتعديلها إذا لزم الأمر. لن يتم وضع علامة على الأسعار المتغيرة على أنها أسعار رسمية."
     }
   },
   "summary": {
-    "title": "الملخص",
+    "title": "ملخص",
     "subtotal": "المجموع الفرعي",
-    "totalVat": "إجمالي الضريبة",
-    "grandTotal": "الإجمالي الكلي"
+    "totalVat": "إجمالي ضريبة القيمة المضافة",
+    "grandTotal": "المجموع الإجمالي"
   },
   "offerType": {
     "domestic": "محلي",
-    "export": "تصدير"
+    "export": "في الخارج"
   },
   "wizard": {
-    "title": "إنشاء عرض سعر جديد",
+    "title": "إنشاء عرض جديد",
     "step1": {
-      "title": "الخطوة 1: معلومات عرض السعر",
-      "description": "أدخل معلومات رأس عرض السعر وأسعار الصرف",
+      "title": "الخطوة 1: تقديم المعلومات",
+      "description": "أدخل معلومات رأس العرض وأسعار الصرف",
       "validation": {
         "offerType": "نوع العرض",
-        "currency": "العملة",
+        "currency": "عملة",
         "exchangeRate": "سعر الصرف"
       },
       "exchangeRate": {
-        "required": "يجب إضافة سعر صرف واحد على الأقل للعملات غير TRY"
+        "required": "يجب إضافة سعر صرف واحد على الأقل للعملات غير الليرة التركية"
       },
       "currency": {
         "try": {
-          "info": "سعر الصرف غير مطلوب عند اختيار TRY"
+          "info": "لا يوجد سعر صرف مطلوب عند تحديد TRY"
         }
       }
     },
     "step2": {
-      "title": "الخطوة 2: بنود عرض السعر",
+      "title": "الخطوة 2: خطوط الاقتباس",
       "description": "إضافة معلومات المنتج والسعر",
-      "info": "يجب عليك إضافة بند واحد على الأقل",
+      "info": "يجب عليك إضافة سطر واحد على الأقل",
       "validation": {
-        "noLines": "يجب إضافة بند واحد على الأقل",
-        "invalidLines": "يجب أن تحتوي جميع البنود على معلومات صالحة",
-        "allValid": "تمت إضافة {{count}} بنود بنجاح"
+        "noLines": "يجب إضافة سطر واحد على الأقل",
+        "invalidLines": "يجب أن تحتوي كافة الصفوف على معلومات صالحة",
+        "allValid": "تمت إضافة صف {{count}} بنجاح"
       }
     },
     "step3": {
       "title": "الخطوة 3: الملخص والموافقة",
-      "description": "مراجعة المعلومات وحفظ عرض السعر",
+      "description": "تأكد من المعلومات واحفظ العرض",
       "header": {
-        "title": "معلومات عرض السعر"
+        "title": "معلومات العرض"
       },
       "lines": {
-        "title": "بنود عرض السعر"
+        "title": "خطوط الاقتباس"
       },
       "summary": {
         "title": "الملخص النهائي"
       },
       "approval": {
-        "info": "سيتم إرسال عرض السعر تلقائيًا إلى عملية الموافقة بعد الحفظ"
+        "info": "بمجرد حفظ العرض، سيتم إرساله تلقائيًا إلى عملية الموافقة."
       }
     }
   },

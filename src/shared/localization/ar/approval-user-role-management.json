@@ -1,51 +1,51 @@
 {
   "approvalUserRole": {
-    "menu": "إدارة أدوار مستخدمي الموافقة",
-    "description": "إدارة وتنظيم أدوار مستخدمي الموافقة",
+    "menu": "الموافقة على إدارة دور المستخدم",
+    "description": "إدارة وتحرير أدوار مستخدم الموافقة",
     "addButton": "إضافة دور جديد",
-    "searchPlaceholder": "بحث...",
-    "refresh": "تحديث",
-    "loading": "جاري التحميل...",
+    "searchPlaceholder": "يبحث...",
+    "refresh": "ينعش",
+    "loading": "تحميل...",
     "noData": "لا توجد بيانات",
     "table": {
-      "id": "المعرف",
-      "userFullName": "المستخدم",
+      "id": "ID",
+      "userFullName": "مستخدم",
       "approvalRoleName": "دور الموافقة",
       "createdDate": "تاريخ الإنشاء",
-      "createdBy": "تم الإنشاء بواسطة",
-      "actions": "إجراءات",
+      "createdBy": "تم إنشاؤها بواسطة المستخدم",
+      "actions": "المعاملات",
       "showing": "عرض {{from}}-{{to}} / {{total}}",
-      "page": "صفحة {{current}} / {{total}}",
-      "previous": "السابق",
+      "page": "الصفحة {{current}} / {{total}}",
+      "previous": "سابق",
       "next": "التالي"
     },
     "delete": {
       "title": "حذف الدور",
-      "confirmMessage": "هل أنت متأكد من أنك تريد حذف دور المستخدم هذا؟",
-      "confirmButton": "حذف",
-      "cancelButton": "إلغاء"
+      "confirmMessage": "هل أنت متأكد أنك تريد حذف دور المستخدم هذا؟",
+      "confirmButton": "يمسح",
+      "cancelButton": "يلغي"
     },
     "form": {
-      "editTitle": "تعديل دور المستخدم",
-      "addTitle": "إضافة دور مستخدم جديد",
-      "editDescription": "تعديل معلومات دور المستخدم",
-      "addDescription": "إدخال معلومات دور المستخدم الجديد",
-      "userId": "المستخدم",
-      "selectUser": "اختر المستخدم",
-      "noUserSelected": "لم يتم اختيار مستخدم",
+      "editTitle": "تحرير دور المستخدم الموافقة",
+      "addTitle": "إضافة دور مستخدم موافقة جديد",
+      "editDescription": "تحرير معلومات دور مستخدم الموافقة",
+      "addDescription": "أدخل معلومات دور مستخدم الموافقة الجديدة",
+      "userId": "مستخدم",
+      "selectUser": "حدد المستخدم",
+      "noUserSelected": "لم يتم تحديد المستخدم",
       "approvalRoleId": "دور الموافقة",
-      "selectApprovalRole": "اختر دور الموافقة",
-      "noApprovalRoleSelected": "لم يتم اختيار دور",
-      "userIdRequired": "اختيار المستخدم مطلوب",
-      "approvalRoleIdRequired": "اختيار دور الموافقة مطلوب",
-      "save": "حفظ",
-      "saving": "جاري الحفظ...",
-      "cancel": "إلغاء"
+      "selectApprovalRole": "حدد دور الموافقة",
+      "noApprovalRoleSelected": "لم يتم تحديد دور الموافقة",
+      "userIdRequired": "مطلوب اختيار المستخدم",
+      "approvalRoleIdRequired": "الموافقة على اختيار الدور مطلوبة",
+      "save": "يحفظ",
+      "saving": "تسجيل...",
+      "cancel": "يلغي"
     },
     "advancedFilter": {
-      "columnUserFullName": "المستخدم",
+      "columnUserFullName": "مستخدم",
       "columnApprovalRoleName": "دور الموافقة",
-      "columnCreatedBy": "أنشأه"
+      "columnCreatedBy": "تم إنشاؤها بواسطة"
     }
   }
 }

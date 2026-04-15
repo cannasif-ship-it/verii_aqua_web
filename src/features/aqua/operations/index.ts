@@ -6,6 +6,7 @@ export { MortalitiesPage } from './components/MortalitiesPage';
 export { TransfersPage } from './components/TransfersPage';
 export { ShipmentsPage } from './components/ShipmentsPage';
 export { StockConvertsPage } from './components/StockConvertsPage';
+export { FishBatchesPage } from './components/FishBatchesPage';
 export { DailyWeathersPage } from './components/DailyWeathersPage';
 export { NetOperationsPage } from './components/NetOperationsPage';
 export { GoodsReceiptLinesPage } from './components/GoodsReceiptLinesPage';

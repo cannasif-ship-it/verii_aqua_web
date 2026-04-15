@@ -1,48 +1,48 @@
 {
   "approvalFlow": {
-    "menu": "Gestione flussi di approvazione",
-    "description": "Gestisci e modifica i flussi di approvazione",
+    "menu": "Gestione del flusso di approvazione",
+    "description": "Gestire e semplificare i flussi di approvazione",
     "addButton": "Aggiungi nuovo flusso di approvazione",
     "table": {
       "id": "ID",
-      "documentType": "Tipo documento",
+      "documentType": "Tipo di documento",
       "description": "Descrizione",
-      "isActive": "Attivo",
+      "isActive": "attivo",
       "createdDate": "Data di creazione",
-      "createdBy": "Creato da",
-      "actions": "Azioni",
+      "createdBy": "Creato dall'utente",
+      "actions": "Transazioni",
       "showing": "Mostrando {{from}}-{{to}} / {{total}}",
       "page": "Pagina {{current}} / {{total}}"
     },
     "form": {
       "addTitle": "Aggiungi nuovo flusso di approvazione",
       "editTitle": "Modifica flusso di approvazione",
-      "addDescription": "Inserisci le informazioni del nuovo flusso di approvazione",
-      "editDescription": "Modifica le informazioni del flusso di approvazione",
-      "documentType": "Tipo documento",
-      "selectDocumentType": "Seleziona tipo documento",
-      "noDocumentTypeSelected": "Nessun tipo documento selezionato",
-      "documentTypeRequired": "La selezione del tipo documento è obbligatoria",
+      "addDescription": "Inserisci le nuove informazioni sul flusso di approvazione",
+      "editDescription": "Modifica le informazioni sul flusso di approvazione",
+      "documentType": "Tipo di documento",
+      "selectDocumentType": "Seleziona il tipo di documento",
+      "noDocumentTypeSelected": "Tipo di documento non selezionato",
+      "documentTypeRequired": "La selezione del tipo di documento è obbligatoria",
       "description": "Descrizione",
-      "descriptionPlaceholder": "Inserisci una descrizione (opzionale)",
-      "descriptionMaxLength": "La descrizione può avere al massimo 200 caratteri",
-      "isActive": "Attivo",
+      "descriptionPlaceholder": "Inserisci una descrizione (facoltativo)",
+      "descriptionMaxLength": "La descrizione può contenere fino a 200 caratteri",
+      "isActive": "attivo",
       "isActiveDescription": "Stato attivo del flusso di approvazione",
       "cancel": "Annulla",
       "save": "Salva",
-      "saving": "Salvataggio..."
+      "saving": "Registrazione..."
     },
     "loading": "Caricamento...",
     "noData": "Nessun dato",
-    "active": "Attivo",
-    "inactive": "Inattivo",
+    "active": "attivo",
+    "inactive": "passivo",
     "previous": "Precedente",
-    "next": "Successivo",
+    "next": "Avanti",
     "delete": {
       "action": "Elimina",
       "cancel": "Annulla",
       "confirmTitle": "Elimina flusso di approvazione",
-      "confirmMessage": "Sei sicuro di voler eliminare questo flusso di approvazione?"
+      "confirmMessage": "Sei sicuro di voler eliminare questo flusso di conferma?"
     },
     "documentType": {
       "offer": "Offerta",
@@ -50,30 +50,30 @@
       "order": "Ordine"
     },
     "advancedFilter": {
-      "columnDocumentType": "Tipo documento",
+      "columnDocumentType": "Tipo di documento",
       "columnDescription": "Descrizione",
-      "columnIsActive": "Attivo",
+      "columnIsActive": "attivo",
       "columnCreatedBy": "Creato da"
     }
   },
   "approvalFlowStep": {
     "title": "Passaggi del flusso",
     "addButton": "Aggiungi passaggio",
-    "empty": "Nessun passaggio aggiunto",
-    "unknownRoleGroup": "Nessun gruppo ruoli",
-    "stepDescription": "Ordine approvazione: {{order}}",
+    "empty": "Nessun passaggio ancora aggiunto",
+    "unknownRoleGroup": "Nessun gruppo di ruoli",
+    "stepDescription": "Ordine di approvazione: {{order}}",
     "form": {
       "addTitle": "Aggiungi nuovo passaggio",
       "editTitle": "Modifica passaggio",
-      "addDescription": "Aggiungi un nuovo passaggio al flusso",
-      "editDescription": "Modifica le informazioni del passaggio",
-      "approvalRoleGroup": "Gruppo ruoli",
-      "selectRoleGroup": "Seleziona gruppo ruoli",
-      "noRoleGroupSelected": "Nessun gruppo ruoli selezionato",
-      "approvalRoleGroupIdRequired": "La selezione del gruppo ruoli è obbligatoria",
+      "addDescription": "Aggiungi una nuova fase del flusso",
+      "editDescription": "Modifica le informazioni sulla fase del flusso",
+      "approvalRoleGroup": "Gruppo di ruoli",
+      "selectRoleGroup": "Seleziona il gruppo di ruoli",
+      "noRoleGroupSelected": "Gruppo di ruoli non selezionato",
+      "approvalRoleGroupIdRequired": "La selezione del gruppo di ruoli è obbligatoria",
       "cancel": "Annulla",
       "save": "Salva",
-      "saving": "Salvataggio..."
+      "saving": "Registrazione..."
     },
     "messages": {
       "deleteConfirm": "Sei sicuro di voler eliminare questo passaggio?"

@@ -57,6 +57,7 @@ import { CSS } from '@dnd-kit/utilities';
 interface AquaCrudPageProps {
   config: AquaCrudConfig;
   contextFilter?: AquaCrudContextFilter;
+  lookupContextValues?: Record<string, unknown>;
   hidePageHeader?: boolean;
   disablePageTitleSync?: boolean;
   rowSelectionEnabled?: boolean;
@@ -154,6 +155,15 @@ function formatCellValue(value: unknown, t: (key: string) => string): string {
   return JSON.stringify(value);
 }
 
+function getRecordValueByPath(record: Record<string, unknown>, path: string): unknown {
+  return path
+    .split('.')
+    .reduce<unknown>((current, segment) => {
+      if (current == null || typeof current !== 'object') return null;
+      return (current as Record<string, unknown>)[segment];
+    }, record);
+}
+
 function extractRecordId(record: Record<string, unknown> | null | undefined): number | null {
   if (!record) return null;
   const id = Number(record.id ?? record.Id);
@@ -210,7 +220,10 @@ function resolveLookupLabel(item: Record<string, unknown>, field: AquaFieldConfi
   if (!field.lookup) return null;
   const labelKeys = field.lookup.labelKeys?.length ? field.lookup.labelKeys : field.lookup.labelKey ? [field.lookup.labelKey] : [];
   if (labelKeys.length === 0) return null;
-  const parts = labelKeys.map((key) => item[key]).filter((part): part is string | number => part != null && String(part).trim().length > 0).map((part) => String(part));
+  const parts = labelKeys
+    .map((key) => getRecordValueByPath(item, key))
+    .filter((part): part is string | number => part != null && String(part).trim().length > 0)
+    .map((part) => String(part));
   if (parts.length === 0) return null;
   const baseLabel = parts.join(field.lookup.labelSeparator ?? ' - ');
   return formatLabelWithKey(baseLabel, item[field.lookup.valueKey]);
@@ -253,7 +266,7 @@ const DraggableTh = ({ id, children, className, onClick, ...props }: React.ThHTM
 };
 
 export function AquaCrudPage({
-  config, contextFilter, hidePageHeader = false, disablePageTitleSync = false, rowSelectionEnabled = false, selectedRowId = null, onRowSelect,
+  config, contextFilter, lookupContextValues, hidePageHeader = false, disablePageTitleSync = false, rowSelectionEnabled = false, selectedRowId = null, onRowSelect,
 }: AquaCrudPageProps): ReactElement {
   const { t } = useTranslation();
   const { setPageTitle } = useUIStore();
@@ -264,6 +277,7 @@ export function AquaCrudPage({
   const { data: aquaSettings } = useAquaSettingsQuery();
   const { data: permissions } = useMyPermissionsQuery();
 
+  const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [pageSize, setPageSize] = useState<number>(20);
   const [pageNumber, setPageNumber] = useState(1);
@@ -346,6 +360,10 @@ export function AquaCrudPage({
     setSelectedIds([]); // Filtre değişince seçimleri temizle
   }, [searchTerm, pageSize, sortConfig, appliedFilterRows]);
 
+  const handleToolbarSearch = (): void => {
+    setSearchTerm(searchInput.trim());
+  };
+
   const handleAdvancedSearch = () => { setAppliedFilterRows(draftFilterRows); setShowFilters(false); };
   const handleAdvancedClear = () => { setDraftFilterRows([]); setAppliedFilterRows([]); };
   const hasFiltersActive = appliedFilterRows.some((r) => r.value != null && String(r.value).trim() !== '');
@@ -365,14 +383,17 @@ export function AquaCrudPage({
   const isTransferLineConfig = config.key === 'transferLines';
   const requireFullTransfer = aquaSettings?.requireFullTransfer ?? true;
   const partialTransferOccupiedCageMode = aquaSettings?.partialTransferOccupiedCageMode ?? 0;
+  const sortBy = sortConfig?.key ?? 'Id';
+  const sortDirection = sortConfig?.direction ?? 'desc';
+  const effectiveFiltersKey = JSON.stringify(effectiveFilters ?? []);
   const permissionSet = AQUA_CONFIG_PERMISSION_CODES[config.key] ?? {};
   const canCreate = config.readOnly ? false : !permissionSet.create || hasPermission(permissions, permissionSet.create);
   const canUpdate = config.readOnly ? false : !permissionSet.update || hasPermission(permissions, permissionSet.update);
   const canDelete = config.readOnly ? false : !permissionSet.delete || hasPermission(permissions, permissionSet.delete);
 
   const listQuery = useQuery({
-    queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, sortConfig, effectiveFilters],
-    queryFn: () => aquaCrudApi.getList(config.endpoint, { pageNumber, pageSize, sortBy: sortConfig?.key ?? 'Id', sortDirection: sortConfig?.direction ?? 'desc', filters: effectiveFilters, filterLogic: 'and' }),
+    queryKey: ['aqua', config.key, pageNumber, pageSize, searchTerm, sortBy, sortDirection, effectiveFiltersKey],
+    queryFn: () => aquaCrudApi.getList(config.endpoint, { pageNumber, pageSize, sortBy, sortDirection, filters: effectiveFilters, filterLogic: 'and' }),
     staleTime: config.listStaleTimeMs,
     enabled: canQueryList,
   });
@@ -404,6 +425,7 @@ export function AquaCrudPage({
   const lookupFields = useMemo(() => {
     return config.fields.filter((field) => {
       if (field.type !== 'select' || !field.lookup) return false;
+      if (field.hideInForm) return false;
       if (
         contextFilter &&
         contextFilter.hideFieldInForm &&
@@ -423,33 +445,69 @@ export function AquaCrudPage({
         config.key,
         field.key,
         field.lookup?.dependsOnFieldKey ? String(formValues[field.lookup.dependsOnFieldKey] ?? '') : '',
+        JSON.stringify(
+          (field.lookup?.contextFilters ?? []).map((filter) => {
+            const rawValue = lookupContextValues?.[filter.sourceKey] ?? formValues[filter.sourceKey];
+            return rawValue == null ? '' : String(rawValue);
+          })
+        ),
       ],
       queryFn: async () => {
         const dependencyFieldKey = field.lookup?.dependsOnFieldKey;
         const dependencyValue = dependencyFieldKey ? formValues[dependencyFieldKey] : null;
         const normalizedDependencyValue = dependencyValue == null || String(dependencyValue).trim() === '' ? null : String(dependencyValue);
 
-        if (dependencyFieldKey && !normalizedDependencyValue) {
+        const requiresDependencyForLookup = dependencyFieldKey && !!field.lookup?.filterColumn;
+        if (requiresDependencyForLookup && !normalizedDependencyValue) {
           return { data: [], totalCount: 0, pageNumber: 1, pageSize: 0 };
         }
 
-        const filters = dependencyFieldKey && field.lookup?.filterColumn
-          ? [{ column: field.lookup.filterColumn, operator: 'eq', value: normalizedDependencyValue! }]
-          : undefined;
+        const contextFilters = (field.lookup?.contextFilters ?? [])
+          .map((filter) => {
+            const rawValue = lookupContextValues?.[filter.sourceKey] ?? formValues[filter.sourceKey];
+            if (rawValue == null || String(rawValue).trim() === '') return null;
+            return {
+              column: filter.column,
+              operator: filter.operator ?? 'eq',
+              value: String(rawValue),
+            };
+          });
+
+        const hasContextFilterConfig = (field.lookup?.contextFilters ?? []).length > 0;
+        const hasMissingContextFilterValue = hasContextFilterConfig && contextFilters.some((item) => item === null);
+        if (hasMissingContextFilterValue) {
+          return { data: [], totalCount: 0, pageNumber: 1, pageSize: 0 };
+        }
+
+        const filters = [
+          ...(dependencyFieldKey && field.lookup?.filterColumn && normalizedDependencyValue
+            ? [{ column: field.lookup.filterColumn, operator: 'eq', value: normalizedDependencyValue }]
+            : []),
+          ...contextFilters.filter((item): item is { column: string; operator: string; value: string } => item !== null),
+        ];
 
         let pageNumber = 1, totalCount = 0; const allRows: Record<string, unknown>[] = [];
         do {
-          const response = await aquaCrudApi.getList(field.lookup!.endpoint, { pageNumber, pageSize: LOOKUP_PAGE_SIZE, sortBy: 'Id', sortDirection: 'asc', filters, filterLogic: 'and' });
+          const response = await aquaCrudApi.getList(field.lookup!.endpoint, {
+            pageNumber,
+            pageSize: LOOKUP_PAGE_SIZE,
+            sortBy: 'Id',
+            sortDirection: 'asc',
+            filters: filters.length > 0 ? filters : undefined,
+            filterLogic: 'and',
+          });
           totalCount = response.totalCount ?? 0; allRows.push(...(response.data ?? [])); pageNumber += 1;
         } while (allRows.length < totalCount);
         return { data: allRows, totalCount, pageNumber: 1, pageSize: allRows.length };
       },
       staleTime: field.lookup!.staleTimeMs,
+      enabled: formOpen,
     })),
   });
 
   const createMutation = useMutation({
-    mutationFn: (payload: Record<string, unknown>) => aquaCrudApi.create(config.endpoint, payload),
+    mutationFn: ({ endpoint, payload }: { endpoint: string; payload: Record<string, unknown> }) =>
+      aquaCrudApi.create(endpoint, payload),
     onSuccess: async (createdRecord) => {
       if (config.autoPostOnSave && config.postingSlug) {
         const createdId = extractRecordId(createdRecord);
@@ -515,7 +573,22 @@ export function AquaCrudPage({
   const lookupOptionsByField = useMemo((): Record<string, Array<{ label: string; value: string }>> => {
     const result: Record<string, Array<{ label: string; value: string }>> = {};
     lookupFields.forEach((field, index) => {
-      const queryData = lookupQueries[index]?.data?.data ?? [];
+      const dependencyFieldKey = field.lookup?.dependsOnFieldKey;
+      const clientFilterColumn = field.lookup?.clientFilterColumn;
+      const dependencyRawValue = dependencyFieldKey ? formValues[dependencyFieldKey] : null;
+      const dependencyValue = dependencyRawValue == null || String(dependencyRawValue).trim() === '' ? null : String(dependencyRawValue);
+      let queryData = lookupQueries[index]?.data?.data ?? [];
+
+      if (dependencyFieldKey && clientFilterColumn) {
+        queryData = dependencyValue == null
+          ? []
+          : queryData.filter((item) => {
+              const candidate = getRecordValueByPath(item, clientFilterColumn);
+              if (candidate == null) return !!field.lookup?.includeNullClientFilterMatch;
+              return String(candidate) === dependencyValue;
+            });
+      }
+
       const valueKey = field.lookup!.valueKey;
       result[field.key] = queryData.map((item) => {
         const value = item[valueKey]; const label = resolveLookupLabel(item, field);
@@ -582,11 +655,25 @@ export function AquaCrudPage({
 
   useEffect(() => {
     if (!formOpen) return;
-    if (config.key !== 'goodsReceiptLines' && config.key !== 'shipmentLines') return;
+    if (config.key !== 'goodsReceiptLines' && config.key !== 'shipmentLines' && config.key !== 'feedingLines') return;
 
     setFormValues((previous) => {
       const next = { ...previous };
       let hasChanged = false;
+
+      if (config.key === 'feedingLines') {
+        const qtyUnit = toNumericValue(previous.qtyUnit);
+        const gramPerUnit = toNumericValue(previous.gramPerUnit);
+        const totalGram = qtyUnit != null && gramPerUnit != null ? qtyUnit * gramPerUnit : null;
+        const normalizedTotalGram = formatCalculatedNumber(totalGram);
+
+        if (String(previous.totalGram ?? '') !== normalizedTotalGram) {
+          next.totalGram = normalizedTotalGram;
+          hasChanged = true;
+        }
+
+        return hasChanged ? next : previous;
+      }
 
       const currentCurrency = String(previous.currencyCode ?? '').trim().toUpperCase() || 'TRY';
       if (String(previous.currencyCode ?? '') !== currentCurrency) {
@@ -652,10 +739,17 @@ export function AquaCrudPage({
 
   const visibleFields = useMemo(() => config.fields.filter((field) => {
     if (field.hideInForm) return false;
+    if (editingRow && field.hideOnEdit) return false;
     if (contextFilter?.hideFieldInForm && contextFilter.fieldKey === field.key) return false;
     if (config.postingSlug && field.key.toLowerCase() === 'status') return false;
+    if (field.visibleWhen) {
+      const dependencyValue = formValues[field.visibleWhen.fieldKey];
+      const normalizedDependency = dependencyValue == null ? null : String(dependencyValue);
+      const matches = field.visibleWhen.values.some((value) => String(value) === normalizedDependency);
+      if (!matches) return false;
+    }
     return true;
-  }), [config.fields, contextFilter, config.postingSlug]);
+  }), [config.fields, config.postingSlug, contextFilter, editingRow, formValues]);
 
   const hasMissingRequiredField = useMemo(() => {
     const candidatePayload: Record<string, unknown> = {};
@@ -707,9 +801,14 @@ export function AquaCrudPage({
       payload[contextFilter.fieldKey] = contextFilter.value;
     }
 
+    const mode: 'create' | 'update' = editingRow ? 'update' : 'create';
+    const preparedPayload = config.prepareSubmitPayload
+      ? await config.prepareSubmitPayload({ payload: { ...payload }, formValues: { ...formValues }, editingRow, mode })
+      : payload;
+
     if (isTransferLineConfig && requireFullTransfer) {
       const requiredFishCount = Number(transferLineSourceBalanceQuery.data ?? 0);
-      const payloadFishCount = Number(payload.fishCount ?? 0);
+      const payloadFishCount = Number(preparedPayload.fishCount ?? 0);
       if (requiredFishCount > 0 && payloadFishCount !== requiredFishCount) {
         toast.error(t('aqua.quickDailyEntry.transferLine.fullTransferRequired', { count: requiredFishCount }));
         return;
@@ -718,11 +817,11 @@ export function AquaCrudPage({
 
     if (isTransferLineConfig && !requireFullTransfer) {
       const sourceLiveCount = Number(transferLineSourceBalanceQuery.data ?? 0);
-      const payloadFishCount = Number(payload.fishCount ?? 0);
+      const payloadFishCount = Number(preparedPayload.fishCount ?? 0);
       const isPartialTransfer = sourceLiveCount > 0 && payloadFishCount < sourceLiveCount;
       if (isPartialTransfer) {
-        const targetProjectCageId = Number(payload.toProjectCageId ?? 0);
-        const targetBatchId = Number(payload.fishBatchId ?? 0);
+        const targetProjectCageId = Number(preparedPayload.toProjectCageId ?? 0);
+        const targetBatchId = Number(preparedPayload.fishBatchId ?? 0);
         if (targetProjectCageId > 0) {
           const targetBalances = await aquaCrudApi.getList('BatchCageBalance', {
             pageNumber: 1,
@@ -750,13 +849,16 @@ export function AquaCrudPage({
       }
     }
 
-    const firstMissingRequiredField = visibleFields.find((field) => isRequiredFieldMissing(field, payload[field.key]));
+    const firstMissingRequiredField = visibleFields.find((field) => isRequiredFieldMissing(field, preparedPayload[field.key] ?? payload[field.key]));
     if (firstMissingRequiredField) { toast.error(`${t(firstMissingRequiredField.label)} * - ${t('aqua.common.requiredField')}`); return; }
     if (editingRow) {
       const id = Number(editingRow.id ?? editingRow.Id); if (!id) return;
-      updateMutation.mutate({ id, payload }); return;
+      updateMutation.mutate({ id, payload: preparedPayload }); return;
     }
-    createMutation.mutate(payload);
+    createMutation.mutate({
+      endpoint: config.createEndpoint ?? config.endpoint,
+      payload: preparedPayload,
+    });
   };
 
   const handleSort = (key: string) => {
@@ -768,6 +870,7 @@ export function AquaCrudPage({
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
   const isDeleting = deleteMutation.isPending;
   const isPricingLineConfig = config.key === 'goodsReceiptLines' || config.key === 'shipmentLines';
+  const isFeedingLineConfig = config.key === 'feedingLines';
   
   let rows = canQueryList ? listQuery.data?.data ?? [] : [];
   if (searchTerm && rows.length > 0) {
@@ -791,7 +894,7 @@ export function AquaCrudPage({
   };
 
   const getFormattedCellValue = (row: Record<string, unknown>, columnKey: string): string => {
-    const rawValue = row[columnKey];
+    const rawValue = getRecordValueByPath(row, columnKey);
     const lookupLabel = lookupLabelsByFieldAndValue[columnKey]?.[String(rawValue)];
     const selectLabel = selectOptionLabelsByFieldAndValue[columnKey]?.[String(rawValue)];
     return String(lookupLabel ?? selectLabel ?? formatCellValue(rawValue, t));
@@ -913,8 +1016,9 @@ export function AquaCrudPage({
             <div className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl p-5 flex flex-col gap-5 transition-all duration-300">
               <PageToolbar
                 searchPlaceholder={t('common.search')}
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
+                searchValue={searchInput}
+                onSearchChange={setSearchInput}
+                onSearchSubmit={handleToolbarSearch}
                 onRefresh={async () => { await listQuery.refetch(); }}
                 rightSlot={
                   <div className="flex flex-wrap items-start sm:items-center gap-2 w-full flex-1">
@@ -1174,6 +1278,7 @@ export function AquaCrudPage({
                           className={INPUT_STYLE}
                           readOnly={
                             (isTransferLineConfig && requireFullTransfer && field.key === 'fishCount') ||
+                            (isFeedingLineConfig && field.key === 'totalGram') ||
                             (isPricingLineConfig &&
                               (
                                 field.key === 'localUnitPrice' ||

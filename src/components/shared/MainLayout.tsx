@@ -54,6 +54,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
           { title: sidebarT('aquaProjectMerges'), href: '/aqua/operations/project-merges' },
           { title: sidebarT('aquaShipments'), href: '/aqua/operations/shipments' },
           { title: sidebarT('aquaStockConverts'), href: '/aqua/operations/stock-converts' },
+          { title: sidebarT('aquaFishBatches'), href: '/aqua/operations/fish-batches' },
           { title: sidebarT('aquaDailyWeathers'), href: '/aqua/operations/daily-weathers' },
           { title: sidebarT('aquaNetOperations'), href: '/aqua/operations/net-operations' },
         ],

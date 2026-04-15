@@ -6,8 +6,7 @@ export function useTransferTargetProjectCagesQuery(targetProjectId: number | nul
     queryKey: ['aqua', 'quick-daily-entry', 'transfer-target-project-cages', targetProjectId] as const,
     queryFn: () => aquaQuickDailyApi.getTransferTargetProjectCages(targetProjectId!),
     enabled: targetProjectId != null && targetProjectId > 0,
-    staleTime: 0,
-    refetchOnMount: 'always',
-    refetchOnWindowFocus: true,
+    staleTime: 30_000,
+    refetchOnWindowFocus: false,
   });
 }

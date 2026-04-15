@@ -1,29 +1,29 @@
 {
-  "menu": "Monitoraggio Hangfire",
-  "title": "Monitoraggio Hangfire",
-  "description": "Monitora stato job, errori e coda dead-letter.",
+  "menu": "Monitoraggio degli incendi",
+  "title": "Monitoraggio degli incendi",
+  "description": "Monitora lo stato dei lavori, i lavori non riusciti e la coda dei messaggi non recapitati.",
   "refresh": "Aggiorna",
   "stats": {
-    "enqueued": "In coda",
-    "processing": "In elaborazione",
-    "succeeded": "Riusciti",
-    "failed": "Falliti"
+    "enqueued": "in coda",
+    "processing": "Elaborazione",
+    "succeeded": "successo",
+    "failed": "fallire"
   },
   "table": {
-    "jobId": "ID lavoro",
+    "jobId": "Lavoro ID",
     "jobName": "lavoro",
     "state": "Stato",
-    "time": "Ora",
-    "reason": "Motivo"
+    "time": "tempo",
+    "reason": "Perché"
   },
   "failed": {
-    "title": "Job falliti",
-    "empty": "Nessun job fallito.",
+    "title": "Lavori non riusciti",
+    "empty": "Nessun lavoro non riuscito trovato.",
     "total": "Totale"
   },
   "deadLetter": {
-    "title": "Coda Dead-Letter",
-    "empty": "La coda dead-letter e vuota.",
-    "enqueued": "In coda"
+    "title": "Coda di lettere morte",
+    "empty": "La coda dei messaggi non recapitabili è vuota.",
+    "enqueued": "in coda"
   }
 }

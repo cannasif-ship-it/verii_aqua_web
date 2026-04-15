@@ -1,37 +1,37 @@
 {
   "title": "Armaturenbrett",
-  "loading": "Wird geladen",
+  "loading": "Laden...",
   "stats": {
     "totalRevenue": "Gesamtumsatz",
-    "activeOpportunities": "Aktive Verkaufschancen",
-    "newLeads": "Neue Interessenten",
+    "activeOpportunities": "Aktive Möglichkeiten",
+    "newLeads": "Neue Kandidaten",
     "pendingOrders": "Ausstehende Bestellungen"
   },
   "salesAnalysis": "Verkaufsanalyse",
-  "targetVsActual": "Ziel vs. Ist",
+  "targetVsActual": "Ziel vs. erreicht",
   "latestActivities": "Neueste Aktivitäten",
   "viewAll": "Alle anzeigen",
   "reportDownload": "Bericht herunterladen",
-  "quickAction": "Schnellaktion",
+  "quickAction": "Schnelle Transaktion",
   "activityType": {
     "meeting": "Treffen",
-    "call": "Anruf",
+    "call": "Suchen",
     "email": "E-Mail",
     "general": "Allgemein"
   },
   "monthsShort": {
-    "jan": "Jan",
+    "jan": "Januar",
     "feb": "Feb",
-    "mar": "Mär",
+    "mar": "März",
     "apr": "Apr",
     "may": "Mai",
-    "jun": "Jun",
-    "jul": "Jul",
+    "jun": "Vergnügen",
+    "jul": "Juli",
     "aug": "Aug",
-    "sep": "Sep",
+    "sep": "Sept",
     "oct": "Okt",
-    "nov": "Nov",
-    "dec": "Dez"
+    "nov": "Muskel",
+    "dec": "Suchen"
   },
   "quickStats": {
     "pendingTasks": "Ausstehende Aufgaben",
@@ -44,11 +44,11 @@
     "reviewQuotations": "Schauen Sie sich die Angebote an",
     "stockStatus": "Siehe Lagerstatus"
   },
-  "noDate": "Kein Datum",
-  "unnamedActivity": "Unbenannte Aktivität",
+  "noDate": "kein Datum",
+  "unnamedActivity": "Anonyme Aktivität",
   "greeting": {
     "morning": "Guten Morgen",
-    "afternoon": "Einen schönen Tag noch",
+    "afternoon": "Guten Tag",
     "evening": "Guten Abend"
   },
   "refresh": "Aktualisieren",
@@ -73,52 +73,52 @@
     "activityManagement": "Aktivitätsmanagement"
   },
   "errors": {
-    "listLoadFailed": "Liste konnte nicht geladen werden",
-    "pathListLoadFailed": "Pfadliste konnte nicht geladen werden",
+    "listLoadFailed": "Liste konnte nicht abgerufen werden",
+    "pathListLoadFailed": "Routenliste konnte nicht abgerufen werden",
     "projectNotFound": "Projekt nicht gefunden"
   },
   "aquaDashboard": {
     "title": "Aqua-Dashboard",
     "description": "Allgemeiner Produktions- und Projektstatus Ihrer Anlage.",
     "selectedProject": "Angezeigtes Projekt",
-    "selectProjectPlaceholder": "Aus allen Projekten auswählen...",
-    "facilitySummary": "Anlagenübersicht",
-    "projectDetail": "Projektdetail",
-    "dataLoadFailed": "Daten konnten nicht geladen werden.",
+    "selectProjectPlaceholder": "Wählen Sie aus allen Projekten...",
+    "facilitySummary": "Übersicht über die Einrichtung",
+    "projectDetail": "Projektdetails",
+    "dataLoadFailed": "Daten konnten nicht abgerufen werden.",
     "detailReportButton": "Detailbericht",
-    "selectProjectHint": "Bitte wählen Sie oben ein Projekt aus, um die Details anzuzeigen.",
-    "dailyFlow": "Täglicher Datenfluss",
+    "selectProjectHint": "Bitte wählen Sie oben ein Projekt aus, um dessen Details anzuzeigen.",
+    "dailyFlow": "Täglicher Datenstrom",
     "activeProjectFilters": {
       "title": "Aktive Projektfilter",
-      "description": "Ausgewählte Projekte filtern die Karten und Listen unten."
+      "description": "Die von Ihnen ausgewählten Projekte filtern die Karten und Listen unten."
     },
     "projectSelector": {
       "title": "Projektauswahl",
-      "description": "Filtern Sie das Dashboard, indem Sie ein oder mehrere Projekte auswählen.",
+      "description": "Filtern Sie die Dashboard-Ansicht, indem Sie ein oder mehrere Projekte auswählen.",
       "searchPlaceholder": "Nach Projektcode oder Name suchen...",
       "selectedCount": "Ausgewählt: {{count}}",
       "emptySelection": "Noch kein Projekt ausgewählt",
-      "activeBadge": "Aktiv",
-      "noResults": "Keine passenden Projekte gefunden.",
-      "apply": "Übernehmen",
-      "openButton": "Projekt auswählen",
+      "activeBadge": "aktiv",
+      "noResults": "Es wurde kein Projekt gefunden, das Ihrer Suche entspricht.",
+      "apply": "Bewerben",
+      "openButton": "Wählen Sie Projekt aus",
       "closeButton": "Schließen",
-      "clearButton": "Leeren",
-      "applyButton": "Übernehmen",
+      "clearButton": "klar",
+      "applyButton": "Bewerben",
       "cancelButton": "Abbrechen",
-      "resetButton": "Zurücksetzen"
+      "resetButton": "zurückgesetzt"
     },
     "stats": {
-      "activeCages": "Aktive Käfige",
-      "liveFish": "Lebende Fische",
+      "activeCages": "Aktiver Käfig",
+      "liveFish": "Lebender Fisch",
       "totalBiomass": "Gesamtbiomasse",
       "totalFeed": "Gesamtfutter"
     },
     "detailTypes": {
-      "feeding": "Fütterungsdetail",
-      "netOperation": "Netzvorgang",
-      "transfer": "Transfer",
-      "stockConvert": "Bestandsumwandlung",
+      "feeding": "Fütterungsdetails",
+      "netOperation": "Netzwerkbetrieb",
+      "transfer": "Übertragen",
+      "stockConvert": "Aktienumwandlung",
       "shipment": "Versand"
     },
     "detailDialog": {
@@ -127,69 +127,82 @@
     "dailyTable": {
       "date": "Datum",
       "feedGram": "Futter (g)",
-      "stock": "Bestand",
-      "dead": "Tot",
+      "stock": "Lager",
+      "dead": "Fischfeuer",
       "delta": "Delta",
-      "biomassDelta": "Biomasse-Delta",
+      "biomassDelta": "Bio-Delta",
       "weather": "Wetter",
-      "net": "Netz",
-      "transfer": "Transfer",
+      "net": "Netzwerk",
+      "transfer": "Übertragen",
       "shipment": "Versand",
       "status": "Status",
-      "stockCount": "{{count}} Bestand",
-      "operationCount": "{{count}} Vorgang",
-      "fed": "GEFÜTTERT",
-      "notFed": "NICHT GEFÜTTERT",
-      "criticalDay": "Kritischer Tag"
+      "stockCount": "{{count}} Lagerbestand",
+      "operationCount": "{{count}} Transaktion",
+      "fed": "gefüttert",
+      "notFed": "nicht gefüttert",
+      "criticalDay": "Kritischer Tag",
+      "netOperation": "Netzwerkverarbeitung",
+      "shipmentOperation": "Versandprozess",
+      "netOperationCount": "{{count}} Netzwerkverarbeitung",
+      "shipmentCount": "{{count}} Versandtransaktion",
+      "stockConvertCount": "{{count}} Konvertierungsprozess",
+      "transferQty": "{{count}} Menge"
     },
     "dailyCards": {
-      "feed": "Futter",
-      "dead": "Fischverlust",
+      "feed": "Köder",
+      "dead": "Fischfeuer",
       "delta": "Delta",
       "biomass": "Biomasse"
     },
     "dailySections": {
-      "feedStocks": "Futterbestände",
-      "net": "Netz",
-      "transfer": "Transfer",
-      "shipment": "Versand"
+      "feedStocks": "Futtermittelvorräte",
+      "net": "Netzwerk",
+      "transfer": "Übertragen",
+      "shipment": "Versand",
+      "netOperation": "Netzwerkverarbeitung",
+      "transferQty": "Anzahl der Überweisungen",
+      "shipmentOperation": "Versandprozess"
     },
     "projectDialog": {
       "fish": "Fische",
-      "dead": "Sterblichkeit",
+      "dead": "Fischfeuer",
       "feedGram": "Futter (g)",
-      "cages": "Käfige",
-      "cagePools": "Käfigbecken",
-      "clickForDailyDetail": "Für Tagesdetails klicken"
+      "cages": "Käfig",
+      "cagePools": "Käfigpools",
+      "clickForDailyDetail": "Klicken Sie hier für tägliche Details"
     },
     "cageCard": {
-      "fishUnit": "Fische",
-      "totalDead": "Sterblichkeit",
-      "feed": "Futter",
+      "fishUnit": "Fisch",
+      "totalDead": "Fischfeuer",
+      "feed": "Köder",
       "biomass": "Biomasse",
       "survivalRate": "Überlebensrate",
-      "quickDailyEntry": "Schneller Tages-Eintrag"
+      "quickDailyEntry": "Täglicher Login"
     },
     "controls": {
-      "viewAndProject": "Ansicht und Projekt",
-      "projectCountAndView": "{{count}} Projekte • {{view}}",
+      "viewAndProject": "Auftritt und Projekt",
+      "projectCountAndView": "{{count}} Projekt • {{view}}",
       "cardView": "Karte",
       "listView": "Liste",
-      "viewType": "Ansichtstyp",
+      "viewType": "Aussehen",
       "projectSelection": "Projektauswahl",
-      "selectAll": "Alle auswählen",
-      "clear": "Leeren"
+      "selectAll": "Wählen Sie „Alle“ aus",
+      "clear": "klar"
     },
     "selectedProjects": "Ausgewählte Projekte",
     "listTable": {
       "cage": "Käfig",
-      "fish": "Fisch",
-      "dead": "Fischverlust",
-      "feed": "Futter",
+      "fish": "Fische",
+      "dead": "Fischfeuer",
+      "feed": "Köder",
       "biomass": "Biomasse",
       "survivalRate": "Überlebensrate",
-      "action": "Aktion",
-      "dailyFlowButton": "Tagesfluss"
+      "action": "Transaktion",
+      "dailyFlowButton": "Täglicher Stream"
+    },
+    "yesterdayAlert": {
+      "title": "Die Einträge von gestern fehlen",
+      "description": "Für Datum {{date}} wurden keine Journaleinträge gefunden. Kontrollieren Sie Fütterung, Wetter, Netz, Transfer und andere tägliche Vorgänge."
     }
   }
 }

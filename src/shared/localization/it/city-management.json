@@ -1,50 +1,50 @@
 {
-  "menu": "Gestione Città",
-  "description": "Gestisci e organizza le città",
-  "addButton": "Aggiungi Nuova Città",
+  "menu": "Amministrazione Comunale",
+  "description": "Gestire e organizzare le città",
+  "addButton": "Aggiungi nuova città",
   "searchPlaceholder": "Cerca...",
   "loading": "Caricamento...",
   "noData": "Nessun dato trovato",
   "stats": {
-    "totalCities": "Città Totali",
-    "activeCities": "Città Attive",
-    "newThisMonth": "Nuove questo Mese"
+    "totalCities": "Città totale",
+    "activeCities": "Città attiva",
+    "newThisMonth": "Novità questo mese"
   },
   "table": {
     "id": "ID",
-    "name": "Nome Città",
-    "erpCode": "Codice ERP",
-    "countryName": "Nome Paese",
-    "createdDate": "Data Creazione",
-    "createdBy": "Creato Da",
+    "name": "Nome della città",
+    "erpCode": "ERP Codice",
+    "countryName": "Nome del paese",
+    "createdDate": "Data di creazione",
+    "createdBy": "Creato da",
     "showing": "Mostrando {{from}}-{{to}} / {{total}}",
     "page": "Pagina {{current}} / {{total}}"
   },
   "form": {
-    "editCity": "Modifica Città",
-    "addCity": "Aggiungi Nuova Città",
-    "editDescription": "Modifica dettagli città",
-    "addDescription": "Inserisci dettagli nuova città",
-    "name": "Nome Città",
-    "namePlaceholder": "Inserisci nome città",
+    "editCity": "Modifica città",
+    "addCity": "Aggiungi nuova città",
+    "editDescription": "Modifica le informazioni sulla città",
+    "addDescription": "Inserisci le informazioni sulla nuova città",
+    "name": "Nome della città",
+    "namePlaceholder": "Inserisci il nome della città",
     "country": "Paese",
-    "selectCountry": "Seleziona paese",
-    "erpCode": "Codice ERP",
-    "erpCodePlaceholder": "Inserisci codice ERP (opzionale)",
+    "selectCountry": "Seleziona il paese",
+    "erpCode": "ERP Codice",
+    "erpCodePlaceholder": "Inserisci il codice ERP (facoltativo)",
     "cancel": "Annulla",
     "save": "Salva",
-    "saving": "Salvataggio...",
+    "saving": "Registrazione...",
     "nameRequired": "Il nome della città è obbligatorio",
-    "nameMaxLength": "Il nome della città può essere al massimo 100 caratteri",
-    "erpCodeMaxLength": "Il codice ERP può essere al massimo 10 caratteri",
+    "nameMaxLength": "Il nome della città può contenere fino a 100 caratteri",
+    "erpCodeMaxLength": "Il codice ERP può contenere un massimo di 10 caratteri",
     "countryRequired": "La selezione del paese è obbligatoria"
   },
-  "actions": "Azioni",
+  "actions": "Transazioni",
   "delete": {
     "button": "Elimina",
-    "confirmTitle": "Elimina Città",
-    "confirmMessage": "Sei sicuro di voler eliminare {{name}}?"
+    "confirmTitle": "Elimina città",
+    "confirmMessage": "Sei sicuro di voler eliminare la città {{name}}?"
   },
   "previous": "Precedente",
-  "next": "Successivo"
+  "next": "Avanti"
 }

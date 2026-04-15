@@ -1,10 +1,10 @@
 {
-  "menu": "Gestion des types d'activité",
-  "description": "Gérer et modifier les types d'activité",
+  "menu": "Gestion des types d'activités",
+  "description": "Gérer et modifier les types d'activités",
   "addButton": "Ajouter un nouveau type d'activité",
   "loading": "Chargement...",
-  "noData": "Aucune donnée trouvée",
-  "actions": "Actions",
+  "noData": "Aucune donnée",
+  "actions": "Opérations",
   "edit": "Modifier",
   "deleteButton": "Supprimer",
   "cancel": "Annuler",
@@ -14,46 +14,46 @@
   "next": "Suivant",
   "form": {
     "addTitle": "Ajouter un nouveau type d'activité",
-    "editTitle": "Modifier le type d'activité",
-    "addDescription": "Entrez les informations du nouveau type d'activité",
-    "editDescription": "Modifier les informations du type d'activité",
+    "editTitle": "Type d'activité Modifier",
+    "addDescription": "Saisir les nouvelles informations sur le type d'activité",
+    "editDescription": "Modifier les informations sur le type d'activité",
     "name": "Nom du type d'activité",
     "namePlaceholder": "Entrez le nom du type d'activité",
-    "nameRequired": "Le nom du type d'activité est requis",
-    "nameMaxLength": "Le nom du type d'activité ne peut pas dépasser 100 caractères",
-    "description": "Description",
-    "descriptionPlaceholder": "Entrez la description (optionnel)",
-    "descriptionMaxLength": "La description ne peut pas dépasser 500 caractères"
+    "nameRequired": "Le nom du type d'activité est obligatoire",
+    "nameMaxLength": "Le nom du type d'activité peut contenir jusqu'à 100 caractères",
+    "description": "Descriptif",
+    "descriptionPlaceholder": "Entrez une description (facultatif)",
+    "descriptionMaxLength": "La description peut contenir jusqu'à 500 caractères"
   },
   "table": {
-    "id": "IDENTIFIANT",
+    "id": "ID",
     "name": "Nom du type d'activité",
-    "description": "Description",
+    "description": "Descriptif",
     "createdDate": "Date de création",
-    "createdBy": "Créé par",
-    "showing": "Affichage de {{from}}-{{to}} sur {{total}}",
-    "page": "Page {{current}} / {{total}}"
+    "createdBy": "Créé par l'utilisateur",
+    "showing": "Affichage de {{from}}-{{to}} / {{total}}",
+    "page": "Pages {{current}} / {{total}}"
   },
   "stats": {
-    "totalActivityTypes": "Total des types d'activité",
-    "activeActivityTypes": "Types d'activité actifs",
-    "newThisMonth": "Nouveaux ce mois-ci"
+    "totalActivityTypes": "Type d'activité totale",
+    "activeActivityTypes": "Type d'activité active",
+    "newThisMonth": "Nouveau ce mois-ci"
   },
   "messages": {
     "createSuccess": "Type d'activité créé avec succès",
-    "createError": "Échec de la création du type d'activité",
-    "updateSuccess": "Type d'activité mis à jour avec succès",
-    "updateError": "Échec de la mise à jour du type d'activité",
+    "createError": "Le type d'activité n'a pas pu être créé",
+    "updateSuccess": "Le type d'activité a été mis à jour avec succès",
+    "updateError": "Le type d'activité n'a pas pu être mis à jour",
     "deleteSuccess": "Type d'activité supprimé avec succès",
-    "deleteError": "Échec de la suppression du type d'activité"
+    "deleteError": "Le type d'activité n'a pas pu être supprimé"
   },
   "deleteConfirm": {
     "confirmTitle": "Supprimer le type d'activité",
-    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type d'activité {{name}} ?"
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type d'activité {{name}} ?"
   },
   "advancedFilter": {
-    "columnName": "Aktivite Tipi Adı",
-    "columnDescription": "Açıklama",
-    "columnCreatedBy": "Oluşturan"
+    "columnName": "Nom du type d'activité",
+    "columnDescription": "Descriptif",
+    "columnCreatedBy": "Créé par"
   }
 }

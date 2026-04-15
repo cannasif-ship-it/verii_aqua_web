@@ -133,7 +133,7 @@ export const devirFcrApi = {
   getReport: async (projectIds: number[], fromDate: string, toDate: string): Promise<DevirFcrReport> => {
     const safeFromDate = clampDate(fromDate);
     const safeToDate = clampDate(toDate);
-    const details = await Promise.all(projectIds.map((projectId) => projectDetailReportApi.getProjectDetailReport(projectId)));
+    const details = await projectDetailReportApi.getProjectDetailReports(projectIds);
     const rows = details
       .map((detail) => buildRow(detail, safeFromDate, safeToDate))
       .sort((a, b) => a.projectCode.localeCompare(b.projectCode, 'tr'));

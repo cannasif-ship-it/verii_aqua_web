@@ -1,12 +1,12 @@
 {
-  "menu": "Gestion des Districts",
-  "description": "Gérer et modifier les districts",
-  "addButton": "Ajouter un Nouveau District",
-  "listTitle": "Liste des Districts",
-  "listDescription": "Vous pouvez gérer ici tous les districts enregistrés dans le système.",
+  "menu": "Administration de district",
+  "description": "Gérer et organiser les quartiers",
+  "addButton": "Ajouter un nouveau quartier",
+  "listTitle": "Liste des districts",
+  "listDescription": "Vous pouvez gérer ici toutes les circonscriptions enregistrées dans le système.",
   "loading": "Chargement...",
-  "noData": "Pas de données",
-  "actions": "Actions",
+  "noData": "Aucune donnée",
+  "actions": "Opérations",
   "previous": "Précédent",
   "next": "Suivant",
   "cancel": "Annuler",
@@ -14,42 +14,42 @@
   "save": "Enregistrer",
   "saving": "Enregistrement...",
   "table": {
-    "id": "IDENTIFIANT",
-    "name": "Nom du District",
-    "erpCode": "Code ERP",
-    "cityName": "Nom de la Ville",
-    "createdDate": "Date de Création",
-    "createdBy": "Créé Par",
-    "showing": "Affichage de {{from}} à {{to}} sur {{total}}",
-    "page": "Page {{current}} sur {{total}}"
+    "id": "ID",
+    "name": "Nom du district",
+    "erpCode": "ERPCode",
+    "cityName": "Nom de la ville",
+    "createdDate": "Date de création",
+    "createdBy": "Créé par",
+    "showing": "Affichage de {{from}}-{{to}} / {{total}}",
+    "page": "Pages {{current}} / {{total}}"
   },
   "form": {
-    "editDistrict": "Modifier le District",
-    "addDistrict": "Ajouter un Nouveau District",
+    "editDistrict": "Modifier le quartier",
+    "addDistrict": "Ajouter un nouveau quartier",
     "editDescription": "Modifier les informations du district",
-    "addDescription": "Entrer les informations du nouveau district",
-    "name": "Nom du District",
-    "namePlaceholder": "Entrer le nom du district",
-    "city": "Ville",
-    "selectCity": "Sélectionner une ville",
-    "erpCode": "Code ERP",
-    "erpCodePlaceholder": "Entrer le code ERP (optionnel)",
+    "addDescription": "Entrez les nouvelles informations du district",
+    "name": "Nom du district",
+    "namePlaceholder": "Entrez le nom du district",
+    "city": "ville",
+    "selectCity": "Sélectionnez la ville",
+    "erpCode": "ERPCode",
+    "erpCodePlaceholder": "Entrez le code ERP (facultatif)",
     "name.required": "Le nom du district est requis",
     "name.maxLength": "Le nom du district ne peut pas dépasser 100 caractères",
     "erpCode.maxLength": "Le code ERP ne peut pas dépasser 10 caractères",
     "city.required": "La sélection de la ville est requise",
-    "nameRequired": "District name is required",
-    "nameMaxLength": "District name cannot exceed 100 characters",
-    "erpCodeMaxLength": "ERP code cannot exceed 10 characters",
-    "cityRequired": "City selection is required"
+    "nameRequired": "Le nom du district est requis",
+    "nameMaxLength": "Le nom du district peut comporter un maximum de 100 caractères",
+    "erpCodeMaxLength": "Le code ERP peut comporter un maximum de 10 caractères",
+    "cityRequired": "La sélection de la ville est obligatoire"
   },
   "deleteConfirm": {
-    "confirmTitle": "Supprimer le district",
-    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le district {{name}} ?"
+    "confirmTitle": "Supprimer le quartier",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le district {{name}} ?"
   },
   "stats": {
-    "totalDistricts": "TOTAL DES DISTRICTS",
-    "activeDistricts": "DISTRICTS ACTIFS",
-    "newThisMonth": "NOUVEAUX CE MOIS-CI"
+    "totalDistricts": "QUARTIER TOTAL",
+    "activeDistricts": "QUARTIER ACTIF",
+    "newThisMonth": "NOUVEAU CE MOIS"
   }
 }

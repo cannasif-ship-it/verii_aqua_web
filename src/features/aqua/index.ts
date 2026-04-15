@@ -13,7 +13,9 @@ export { FeedingsPage } from './operations/components/FeedingsPage';
 export { MortalitiesPage } from './operations/components/MortalitiesPage';
 export { TransfersPage } from './operations/components/TransfersPage';
 export { ShipmentsPage } from './operations/components/ShipmentsPage';
+export { WeighingsPage } from './operations/components/WeighingsPage';
 export { StockConvertsPage } from './operations/components/StockConvertsPage';
+export { FishBatchesPage } from './operations/components/FishBatchesPage';
 export { DailyWeathersPage } from './operations/components/DailyWeathersPage';
 export { NetOperationsPage } from './operations/components/NetOperationsPage';
 export { GoodsReceiptLinesPage } from './operations/components/GoodsReceiptLinesPage';
@@ -23,6 +25,7 @@ export { FeedingDistributionsPage } from './operations/components/FeedingDistrib
 export { TransferLinesPage } from './operations/components/TransferLinesPage';
 export { ShipmentLinesPage } from './operations/components/ShipmentLinesPage';
 export { MortalityLinesPage } from './operations/components/MortalityLinesPage';
+export { WeighingLinesPage } from './operations/components/WeighingLinesPage';
 export { StockConvertLinesPage } from './operations/components/StockConvertLinesPage';
 export { NetOperationLinesPage } from './operations/components/NetOperationLinesPage';
 export { BatchMovementsPage } from './reports/components/BatchMovementsPage';

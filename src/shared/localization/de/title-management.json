@@ -3,47 +3,47 @@
   "noData": "Keine Daten gefunden",
   "search": "Suchen...",
   "refresh": "Aktualisieren",
-  "previous": "Previous",
-  "next": "Weiter",
+  "previous": "Zurück",
+  "next": "Als nächstes",
   "cancel": "Abbrechen",
   "save": "Speichern",
-  "saving": "Speichern...",
+  "saving": "Aufnahme...",
   "delete": {
-    "confirmTitle": "Delete Title",
-    "confirmMessage": "Are you sure you want to delete the title {{name}}?",
-    "button": "Delete"
+    "confirmTitle": "Titel löschen",
+    "confirmMessage": "Sind Sie sicher, dass Sie den Titel {{titleName}} löschen möchten?",
+    "button": "Löschen"
   },
-  "deleting": "Deleting...",
-  "actions": "Aktionen",
+  "deleting": "Löschen...",
+  "actions": "Transaktionen",
   "edit": "Bearbeiten",
   "header": {
     "title": "Titelverwaltung",
-    "description": "Verwalten Sie hier Titeldefinitionen."
+    "description": "Hier können Sie Titeldefinitionen verwalten."
   },
   "table": {
-    "id": "AUSWEIS",
+    "id": "ID",
     "name": "Titelname",
     "code": "Code",
     "createdDate": "Erstellungsdatum",
-    "createdBy": "Erstellt von",
-    "showing": "Zeige {{from}}-{{to}} / {{total}}",
+    "createdBy": "Erstellt vom Benutzer",
+    "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}",
     "page": "Seite {{current}} / {{total}}"
   },
   "form": {
-    "addTitle": "Add New Title",
+    "addTitle": "Neuen Titel hinzufügen",
     "editTitle": "Titel bearbeiten",
-    "addDescription": "Geben Sie die neuen Titeldetails ein",
-    "editDescription": "Bearbeiten Sie die Titeldetails",
+    "addDescription": "Geben Sie neue Titelinformationen ein",
+    "editDescription": "Titelinformationen bearbeiten",
     "titleName": "Titelname",
-    "titleNamePlaceholder": "Titelnamen eingeben",
+    "titleNamePlaceholder": "Geben Sie den Titelnamen ein",
     "titleCode": "Titelcode",
     "codePlaceholder": "Code eingeben (optional)",
     "cancel": "Abbrechen",
     "save": "Speichern",
-    "saving": "Speichern..."
+    "saving": "Aufnahme..."
   },
   "advancedFilter": {
-    "columnTitleName": "Ünvan Adı",
-    "columnCode": "Kod"
+    "columnTitleName": "Titelname",
+    "columnCode": "Code"
   }
 }

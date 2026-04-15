@@ -19,8 +19,10 @@ import { MortalityQuickForm } from './components/MortalityQuickForm';
 import { WeatherQuickForm } from './components/WeatherQuickForm';
 import { NetOperationQuickForm } from './components/NetOperationQuickForm';
 import { TransferQuickForm } from './components/TransferQuickForm';
+import { ShipmentQuickForm } from './components/ShipmentQuickForm';
 import { useAquaSettingsQuery } from '@/features/aqua/settings/hooks/useAquaSettingsQuery';
 import { StockChangeQuickForm } from './components/StockChangeQuickForm';
+import { ProjectMergeQuickForm } from './components/ProjectMergeQuickForm';
 import { useProjectListQuery } from './hooks/useProjectListQuery';
 import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByProjectQuery';
 import { useTransferTargetProjectCagesQuery } from './hooks/useTransferTargetProjectCagesQuery';
@@ -31,17 +33,13 @@ import { useWeatherTypeListQuery } from './hooks/useWeatherTypeListBySeverityQue
 import { useNetOperationTypeListQuery } from './hooks/useNetOperationTypeListQuery';
 import { aquaQuickDailyApi } from './api/aqua-quick-api';
 import {
-  useCreateFeedingMutation,
-  useCreateFeedingLineMutation,
-  useCreateMortalityMutation,
-  useCreateMortalityLineMutation,
+  useCreateFeedingLineWithAutoHeaderMutation,
+  useCreateMortalityLineWithAutoHeaderMutation,
   useCreateDailyWeatherMutation,
-  useCreateNetOperationMutation,
-  useCreateNetOperationLineMutation,
-  useCreateTransferMutation,
-  useCreateTransferLineMutation,
-  useCreateStockConvertMutation,
-  useCreateStockConvertLineMutation,
+  useCreateNetOperationLineWithAutoHeaderMutation,
+  useCreateTransferLineWithAutoHeaderMutation,
+  useCreateShipmentLineWithAutoHeaderMutation,
+  useCreateStockConvertLineWithAutoHeaderMutation,
 } from './hooks/useQuickDailyEntryMutations';
 import type { 
   FeedingQuickFormSchema, 
@@ -49,14 +47,11 @@ import type {
   WeatherQuickFormSchema, 
   NetOperationQuickFormSchema, 
   TransferQuickFormSchema, 
+  ShipmentQuickFormSchema,
   StockChangeQuickFormSchema 
 } from './schema/quick-daily-entry-schema';
 import type { ActiveCageBatchSnapshot } from './types/quick-daily-entry-types';
 import {
-  formatFeedingNo,
-  formatNetOperationNo,
-  formatTransferNo,
-  formatStockConvertNo,
   localDateString,
 } from './utils/quick-operations';
 import { ChevronRight, ClipboardEdit, CheckCircle2, CalendarDays } from 'lucide-react';
@@ -64,6 +59,8 @@ import { Input } from '@/components/ui/input';
 import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
 import { hasPermission } from '@/features/access-control/utils/hasPermission';
 import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
+import { useCreateProjectMergeMutation } from '../project-merges/hooks/useCreateProjectMergeMutation';
+import type { ProjectMergeFormSchema } from '../project-merges/types/projectMerge';
 
 export function QuickDailyEntryPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -95,17 +92,14 @@ export function QuickDailyEntryPage(): ReactElement {
   const { data: weatherTypes } = useWeatherTypeListQuery();
   const { data: netOperationTypes } = useNetOperationTypeListQuery();
 
-  const createFeeding = useCreateFeedingMutation();
-  const createFeedingLine = useCreateFeedingLineMutation();
-  const createMortality = useCreateMortalityMutation();
-  const createMortalityLine = useCreateMortalityLineMutation();
+  const createFeedingLineWithAutoHeader = useCreateFeedingLineWithAutoHeaderMutation();
+  const createMortalityLineWithAutoHeader = useCreateMortalityLineWithAutoHeaderMutation();
   const createDailyWeather = useCreateDailyWeatherMutation();
-  const createNetOperation = useCreateNetOperationMutation();
-  const createNetOperationLine = useCreateNetOperationLineMutation();
-  const createTransfer = useCreateTransferMutation();
-  const createTransferLine = useCreateTransferLineMutation();
-  const createStockConvert = useCreateStockConvertMutation();
-  const createStockConvertLine = useCreateStockConvertLineMutation();
+  const createNetOperationLineWithAutoHeader = useCreateNetOperationLineWithAutoHeaderMutation();
+  const createTransferLineWithAutoHeader = useCreateTransferLineWithAutoHeaderMutation();
+  const createShipmentLineWithAutoHeader = useCreateShipmentLineWithAutoHeaderMutation();
+  const createStockConvertLineWithAutoHeader = useCreateStockConvertLineWithAutoHeaderMutation();
+  const createProjectMerge = useCreateProjectMergeMutation();
 
   const handleProjectChange = (value: string): void => {
     const id = value ? Number(value) : null;
@@ -116,6 +110,24 @@ export function QuickDailyEntryPage(): ReactElement {
 
   const handleCageChange = (value: string): void => {
     setProjectCageId(value ? Number(value) : null);
+  };
+
+  const refreshActiveBatches = async (
+    cages: Array<{ id: number }> | undefined,
+    setter: (value: Record<number, ActiveCageBatchSnapshot | null>) => void
+  ): Promise<void> => {
+    const ids = (Array.isArray(cages) ? cages : []).map((cage) => Number(cage.id)).filter((id) => Number.isFinite(id) && id > 0);
+    if (ids.length === 0) {
+      setter({});
+      return;
+    }
+
+    try {
+      const snapshots = await aquaQuickDailyApi.getActiveFishBatchSnapshotsByProjectCageIds(ids);
+      setter(snapshots);
+    } catch {
+      setter(Object.fromEntries(ids.map((id) => [id, null])));
+    }
   };
 
   useEffect(() => {
@@ -160,18 +172,16 @@ export function QuickDailyEntryPage(): ReactElement {
       return;
     }
     void (async () => {
-      const entries = await Promise.all(
-        cages.map(async (cage) => {
-          try {
-            const snapshot = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(cage.id);
-            return [cage.id, snapshot] as const;
-          } catch {
-            return [cage.id, null] as const;
-          }
-        })
-      );
+      let snapshots: Record<number, ActiveCageBatchSnapshot | null>;
+      try {
+        snapshots = await aquaQuickDailyApi.getActiveFishBatchSnapshotsByProjectCageIds(
+          cages.map((cage) => cage.id)
+        );
+      } catch {
+        snapshots = Object.fromEntries(cages.map((cage) => [cage.id, null]));
+      }
       if (!active) return;
-      setSourceBatchByCageId(Object.fromEntries(entries));
+      setSourceBatchByCageId(snapshots);
     })();
     return () => { active = false; };
   }, [projectCages]);
@@ -184,18 +194,16 @@ export function QuickDailyEntryPage(): ReactElement {
       return;
     }
     void (async () => {
-      const entries = await Promise.all(
-        cages.map(async (cage) => {
-          try {
-            const snapshot = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(cage.id);
-            return [cage.id, snapshot] as const;
-          } catch {
-            return [cage.id, null] as const;
-          }
-        })
-      );
+      let snapshots: Record<number, ActiveCageBatchSnapshot | null>;
+      try {
+        snapshots = await aquaQuickDailyApi.getActiveFishBatchSnapshotsByProjectCageIds(
+          cages.map((cage) => cage.id)
+        );
+      } catch {
+        snapshots = Object.fromEntries(cages.map((cage) => [cage.id, null]));
+      }
       if (!active) return;
-      setTransferTargetBatchByCageId(Object.fromEntries(entries));
+      setTransferTargetBatchByCageId(snapshots);
     })();
     return () => { active = false; };
   }, [transferTargetProjectCages]);
@@ -281,11 +289,17 @@ export function QuickDailyEntryPage(): ReactElement {
     if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
-      const feedingDate = selectedDate;
-      const existingHeader = await aquaQuickDailyApi.findFeedingHeaderByProjectAndDate(projectId, feedingDate);
-      const feeding = existingHeader ?? (await createFeeding.mutateAsync({ projectId, feedingNo: formatFeedingNo(), feedingDate, feedingSlot: data.feedingSlot, sourceType: 0, status: 1 }));
       const effectiveGramPerUnit = data.gramPerUnit > 0 ? data.gramPerUnit : 1;
-      await createFeedingLine.mutateAsync({ feedingId: feeding.id, projectId, feedingDate, feedingSlot: data.feedingSlot, sourceType: 0, status: 1, stockId: data.stockId, qtyUnit: data.qtyUnit, gramPerUnit: effectiveGramPerUnit, totalGram: data.qtyUnit * effectiveGramPerUnit });
+      await createFeedingLineWithAutoHeader.mutateAsync({
+        projectId,
+        feedingDate: selectedDate,
+        feedingSlot: data.feedingSlot,
+        sourceType: 0,
+        stockId: data.stockId,
+        qtyUnit: data.qtyUnit,
+        gramPerUnit: effectiveGramPerUnit,
+        totalGram: data.qtyUnit * effectiveGramPerUnit,
+      });
       toast.success(t('aqua.quickDailyEntry.toast.feedingSaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
@@ -298,11 +312,16 @@ export function QuickDailyEntryPage(): ReactElement {
     try {
       const sourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
       if (sourceBatch == null) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
-      const mortalityDate = selectedDate;
-      const existingHeader = await aquaQuickDailyApi.findMortalityHeaderByProjectAndDate(projectId, mortalityDate);
-      const canReuseDraft = existingHeader != null && Number(existingHeader.status ?? 0) === 0;
-      const mortality = canReuseDraft ? existingHeader : (await createMortality.mutateAsync({ projectId, mortalityDate, status: 0 }));
-      await createMortalityLine.mutateAsync({ mortalityId: mortality.id, fishBatchId: sourceBatch.fishBatchId, projectCageId, deadCount: data.deadCount });
+      const mortalityLine = await createMortalityLineWithAutoHeader.mutateAsync({
+        projectId,
+        mortalityDate: selectedDate,
+        fishBatchId: sourceBatch.fishBatchId,
+        projectCageId,
+        deadCount: data.deadCount,
+      });
+      if (Number(mortalityLine.mortalityId ?? 0) > 0) {
+        try { await aquaQuickDailyApi.postMortality(Number(mortalityLine.mortalityId)); } catch {}
+      }
       toast.success(t('aqua.quickDailyEntry.toast.mortalitySaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
@@ -324,10 +343,17 @@ export function QuickDailyEntryPage(): ReactElement {
     if (!canCreateQuickDailyEntry) return;
     if (projectId == null || projectCageId == null) return;
     try {
-      const operationDate = selectedDate;
-      const existingHeader = await aquaQuickDailyApi.findNetOperationHeaderByProjectAndDate(projectId, operationDate);
-      const netOperation = existingHeader != null && Number(existingHeader.status ?? 0) === 0 ? existingHeader : (await createNetOperation.mutateAsync({ projectId, operationTypeId: data.netOperationTypeId, operationNo: formatNetOperationNo(), operationDate, status: 0, note: data.description }));
-      await createNetOperationLine.mutateAsync({ netOperationId: netOperation.id, projectCageId, fishBatchId: data.fishBatchId > 0 ? data.fishBatchId : undefined, note: data.description });
+      const netOperationLine = await createNetOperationLineWithAutoHeader.mutateAsync({
+        projectId,
+        operationDate: selectedDate,
+        operationTypeId: data.netOperationTypeId,
+        projectCageId,
+        fishBatchId: data.fishBatchId > 0 ? data.fishBatchId : undefined,
+        note: data.description,
+      });
+      if (Number(netOperationLine.netOperationId ?? 0) > 0) {
+        try { await aquaQuickDailyApi.postNetOperation(Number(netOperationLine.netOperationId)); } catch {}
+      }
       toast.success(t('aqua.quickDailyEntry.toast.netOperationSaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
@@ -360,13 +386,31 @@ export function QuickDailyEntryPage(): ReactElement {
         }
       }
 
-      const transferDate = selectedDate;
-      const transfer = await createTransfer.mutateAsync({ projectId, transferNo: formatTransferNo(), transferDate, status: 0, note: data.description });
       const averageGram = sourceBatch.averageGram > 0 ? sourceBatch.averageGram : 0;
       const biomassGram = transferFishCount * averageGram;
-      await createTransferLine.mutateAsync({ transferId: transfer.id, fishBatchId: sourceBatch.fishBatchId, fromProjectCageId: projectCageId, toProjectCageId: data.toProjectCageId, fishCount: transferFishCount, averageGram, biomassGram });
-      try { await aquaQuickDailyApi.postTransfer(transfer.id); } catch {}
-      await Promise.all([refetchProjectCages(), refetchTransferTargetProjectCages()]);
+      const transferLine = await createTransferLineWithAutoHeader.mutateAsync({
+        projectId,
+        transferDate: selectedDate,
+        fishBatchId: sourceBatch.fishBatchId,
+        fromProjectCageId: projectCageId,
+        toProjectCageId: data.toProjectCageId,
+        fishCount: transferFishCount,
+        averageGram,
+        biomassGram,
+      });
+      if (Number(transferLine.transferId ?? 0) > 0) {
+        try { await aquaQuickDailyApi.postTransfer(Number(transferLine.transferId)); } catch {}
+      }
+      const [sourceProjectCagesResponse, targetProjectCagesResponse] = await Promise.all([
+        refetchProjectCages(),
+        refetchTransferTargetProjectCages(),
+      ]);
+      await Promise.all([
+        refreshActiveBatches(sourceProjectCagesResponse.data, setSourceBatchByCageId),
+        refreshActiveBatches(targetProjectCagesResponse.data, setTransferTargetBatchByCageId),
+      ]);
+      const refreshedSourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
+      setSourceBatch(refreshedSourceBatch);
       setIsTransferSuccessDialogOpen(true);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
@@ -382,16 +426,83 @@ export function QuickDailyEntryPage(): ReactElement {
       if (data.toFishBatchId === sourceBatch.fishBatchId) throw new Error(t('aqua.quickDailyEntry.toast.sameBatchStockChangeNotAllowed'));
       if (data.fishCount > sourceBatch.liveCount) throw new Error(t('aqua.quickDailyEntry.toast.stockChangeCountTooHigh'));
 
-      const convertDate = selectedDate;
-      const stockConvert = await createStockConvert.mutateAsync({ projectId, convertNo: formatStockConvertNo(), convertDate, status: 0, note: data.description });
       const averageGram = sourceBatch.averageGram > 0 ? sourceBatch.averageGram : 0;
       const newAverageGram = Number(data.newAverageGram);
       if (newAverageGram <= 0) throw new Error(t('aqua.quickDailyEntry.toast.invalidNewAverageGram'));
       const biomassGram = data.fishCount * averageGram;
-      await createStockConvertLine.mutateAsync({ stockConvertId: stockConvert.id, fromFishBatchId: sourceBatch.fishBatchId, toFishBatchId: data.toFishBatchId, fromProjectCageId: projectCageId, toProjectCageId: projectCageId, fishCount: data.fishCount, averageGram, newAverageGram, biomassGram });
+      const stockConvertLine = await createStockConvertLineWithAutoHeader.mutateAsync({
+        projectId,
+        convertDate: selectedDate,
+        fromFishBatchId: sourceBatch.fishBatchId,
+        toFishBatchId: data.toFishBatchId,
+        fromProjectCageId: projectCageId,
+        toProjectCageId: projectCageId,
+        fishCount: data.fishCount,
+        averageGram,
+        newAverageGram,
+        biomassGram,
+      });
+      if (Number(stockConvertLine.stockConvertId ?? 0) > 0) {
+        try { await aquaQuickDailyApi.postStockConvert(Number(stockConvertLine.stockConvertId)); } catch {}
+      }
       toast.success(t('aqua.quickDailyEntry.toast.stockChangeSaved'));
     } catch (e) {
       toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
+    }
+  };
+
+  const handleShipmentSubmit = async (data: ShipmentQuickFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
+    if (projectId == null || projectCageId == null) return;
+    try {
+      const activeBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
+      if (!activeBatch) throw new Error(t('aqua.quickDailyEntry.toast.noActiveBatchForCage'));
+      if (Number(data.fishCount ?? 0) > Number(activeBatch.liveCount ?? 0)) {
+        throw new Error(t('aqua.quickDailyEntry.toast.shipmentCountTooHigh'));
+      }
+
+      const averageGram = Number(activeBatch.averageGram ?? 0);
+      const biomassGram = Number(data.fishCount ?? 0) * averageGram;
+      const shipmentLine = await createShipmentLineWithAutoHeader.mutateAsync({
+        projectId,
+        shipmentDate: selectedDate,
+        fishBatchId: activeBatch.fishBatchId,
+        fromProjectCageId: projectCageId,
+        fishCount: Number(data.fishCount ?? 0),
+        averageGram,
+        biomassGram,
+        currencyCode: data.currencyCode || 'TRY',
+        unitPrice: data.unitPrice ? Number(data.unitPrice) : 0,
+        targetWarehouse: data.targetWarehouse,
+        description: data.description,
+      });
+
+      if (Number(shipmentLine.shipmentId ?? 0) > 0) {
+        try { await aquaQuickDailyApi.postShipment(Number(shipmentLine.shipmentId)); } catch {}
+      }
+
+      const refreshedSourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
+      setSourceBatch(refreshedSourceBatch);
+      await refreshActiveBatches(sourceProjectCages, setSourceBatchByCageId);
+      toast.success(t('aqua.quickDailyEntry.toast.shipmentSaved'));
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t('aqua.quickDailyEntry.toast.saveFailed')); throw e;
+    }
+  };
+
+  const handleProjectMergeSubmit = async (data: ProjectMergeFormSchema): Promise<void> => {
+    if (!canCreateQuickDailyEntry) return;
+    try {
+      await createProjectMerge.mutateAsync({
+        targetProjectId: data.targetProjectId,
+        mergeDate: data.mergeDate,
+        description: data.description,
+        sourceProjectIds: data.sourceProjectIds,
+        sourceProjectStateAfterMerge: data.sourceProjectStateAfterMerge,
+      });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : t('projectMerge.toast.saveFailed'));
+      throw e;
     }
   };
 
@@ -472,12 +583,14 @@ export function QuickDailyEntryPage(): ReactElement {
       
       {/* İşlem Sekmeleri (Tab'lar) */}
       <OperationTypeTabs
-        feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeeding.isPending || createFeedingLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortality.isPending || createMortalityLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeedingLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortalityLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
         weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperation.isPending || createNetOperationLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} targetProjectId={targetProjectId} projects={projectOptions} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} onTargetProjectChange={setTargetProjectId} isSubmitting={createTransfer.isPending || createTransferLine.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} />}
-        stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvert.isPending || createStockConvertLine.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperationLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} targetProjectId={targetProjectId} projects={projectOptions} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} onTargetProjectChange={setTargetProjectId} isSubmitting={createTransferLineWithAutoHeader.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} />}
+        shipmentTab={<ShipmentQuickForm projectId={projectId} projectCageId={projectCageId} sourceBatch={sourceBatch} onSubmit={handleShipmentSubmit} isSubmitting={createShipmentLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvertLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
+        projectMergeTab={<ProjectMergeQuickForm selectedProjectId={projectId} selectedDate={selectedDate} projects={Array.isArray(projects) ? projects : []} onSubmit={handleProjectMergeSubmit} isSubmitting={createProjectMerge.isPending} canSubmit={canCreateQuickDailyEntry} mergeEnabled={aquaSettings?.allowProjectMerge ?? false} />}
       />
 
       {/* Transfer Başarılı Dialog */}
@@ -499,7 +612,6 @@ export function QuickDailyEntryPage(): ReactElement {
               className="bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/20 border-0 font-bold h-11 px-8 rounded-xl transition-all"
               onClick={() => {
                 setIsTransferSuccessDialogOpen(false);
-                window.location.reload();
               }}
             >
               {t('common.ok')}

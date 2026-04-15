@@ -74,6 +74,7 @@ export interface ActiveCageBatchSnapshot {
   liveCount: number;
   averageGram: number;
   biomassGram: number;
+  batchCode?: string;
 }
 
 export interface CreateFeedingPayload {
@@ -174,4 +175,71 @@ export interface CreateStockConvertLinePayload {
   averageGram: number;
   newAverageGram: number;
   biomassGram: number;
+}
+
+export interface CreateShipmentLineWithAutoHeaderPayload {
+  projectId: number;
+  shipmentDate: string;
+  fishBatchId: number;
+  fromProjectCageId: number;
+  fishCount: number;
+  averageGram: number;
+  biomassGram: number;
+  currencyCode?: string;
+  unitPrice?: number;
+  targetWarehouse?: string;
+  description?: string;
+}
+
+export interface CreateTransferLineWithAutoHeaderPayload {
+  projectId: number;
+  transferDate: string;
+  fishBatchId: number;
+  fromProjectCageId: number;
+  toProjectCageId: number;
+  fishCount: number;
+  averageGram: number;
+  biomassGram: number;
+}
+
+export interface CreateStockConvertLineWithAutoHeaderPayload {
+  projectId: number;
+  convertDate: string;
+  fromFishBatchId: number;
+  toFishBatchId: number;
+  fromProjectCageId: number;
+  toProjectCageId: number;
+  fishCount: number;
+  averageGram: number;
+  newAverageGram: number;
+  biomassGram: number;
+}
+
+export interface CreateFeedingLineWithAutoHeaderPayload {
+  projectId: number;
+  feedingDate: string;
+  feedingSlot: number;
+  sourceType?: number;
+  note?: string;
+  stockId: number;
+  qtyUnit: number;
+  gramPerUnit: number;
+  totalGram: number;
+}
+
+export interface CreateMortalityLineWithAutoHeaderPayload {
+  projectId: number;
+  mortalityDate: string;
+  fishBatchId: number;
+  projectCageId: number;
+  deadCount: number;
+}
+
+export interface CreateNetOperationLineWithAutoHeaderPayload {
+  projectId: number;
+  operationDate: string;
+  operationTypeId: number;
+  projectCageId: number;
+  fishBatchId?: number;
+  note?: string;
 }

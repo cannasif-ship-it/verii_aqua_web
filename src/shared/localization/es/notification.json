@@ -11,8 +11,8 @@
     "warning": "Advertencia",
     "error": "Error"
   },
-  "loading": "Cargando",
-  "noNotifications": "No se encontraron notificaciones",
+  "loading": "cargando",
+  "noNotifications": "Notificación no encontrada",
   "close": "Cerrar",
-  "unread": "No leído"
+  "unread": "no leer"
 }

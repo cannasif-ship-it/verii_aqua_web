@@ -1,5 +1,5 @@
 import { lazy, type ComponentType } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/shared/ProtectedRoute';
 import { MainLayout } from '@/components/shared/MainLayout';
 import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback';
@@ -40,7 +40,9 @@ const FeedingsPage = lazyImport(() => import('@/features/aqua'), 'FeedingsPage')
 const MortalitiesPage = lazyImport(() => import('@/features/aqua'), 'MortalitiesPage');
 const TransfersPage = lazyImport(() => import('@/features/aqua'), 'TransfersPage');
 const ShipmentsPage = lazyImport(() => import('@/features/aqua'), 'ShipmentsPage');
+const WeighingsPage = lazyImport(() => import('@/features/aqua'), 'WeighingsPage');
 const StockConvertsPage = lazyImport(() => import('@/features/aqua'), 'StockConvertsPage');
+const FishBatchesPage = lazyImport(() => import('@/features/aqua'), 'FishBatchesPage');
 const DailyWeathersPage = lazyImport(() => import('@/features/aqua'), 'DailyWeathersPage');
 const NetOperationsPage = lazyImport(() => import('@/features/aqua'), 'NetOperationsPage');
 const GoodsReceiptLinesPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptLinesPage');
@@ -50,6 +52,7 @@ const FeedingDistributionsPage = lazyImport(() => import('@/features/aqua'), 'Fe
 const TransferLinesPage = lazyImport(() => import('@/features/aqua'), 'TransferLinesPage');
 const ShipmentLinesPage = lazyImport(() => import('@/features/aqua'), 'ShipmentLinesPage');
 const MortalityLinesPage = lazyImport(() => import('@/features/aqua'), 'MortalityLinesPage');
+const WeighingLinesPage = lazyImport(() => import('@/features/aqua'), 'WeighingLinesPage');
 const StockConvertLinesPage = lazyImport(() => import('@/features/aqua'), 'StockConvertLinesPage');
 const NetOperationLinesPage = lazyImport(() => import('@/features/aqua'), 'NetOperationLinesPage');
 const BatchMovementsPage = lazyImport(() => import('@/features/aqua'), 'BatchMovementsPage');
@@ -102,8 +105,9 @@ export const router = createBrowserRouter([
       { path: 'aqua/operations/mortalities', element: <MortalitiesPage /> },
       { path: 'aqua/operations/transfers', element: <TransfersPage /> },
       { path: 'aqua/operations/shipments', element: <ShipmentsPage /> },
-      { path: 'aqua/operations/weighings', element: <Navigate to="/aqua/operations/stock-converts" replace /> },
+      { path: 'aqua/operations/weighings', element: <WeighingsPage /> },
       { path: 'aqua/operations/stock-converts', element: <StockConvertsPage /> },
+      { path: 'aqua/operations/fish-batches', element: <FishBatchesPage /> },
       { path: 'aqua/operations/daily-weathers', element: <DailyWeathersPage /> },
       { path: 'aqua/operations/net-operations', element: <NetOperationsPage /> },
       { path: 'aqua/operations/goods-receipt-lines', element: <GoodsReceiptLinesPage /> },
@@ -113,7 +117,7 @@ export const router = createBrowserRouter([
       { path: 'aqua/operations/transfer-lines', element: <TransferLinesPage /> },
       { path: 'aqua/operations/shipment-lines', element: <ShipmentLinesPage /> },
       { path: 'aqua/operations/mortality-lines', element: <MortalityLinesPage /> },
-      { path: 'aqua/operations/weighing-lines', element: <Navigate to="/aqua/operations/stock-convert-lines" replace /> },
+      { path: 'aqua/operations/weighing-lines', element: <WeighingLinesPage /> },
       { path: 'aqua/operations/stock-convert-lines', element: <StockConvertLinesPage /> },
       { path: 'aqua/operations/net-operation-lines', element: <NetOperationLinesPage /> },
       { path: 'aqua/reports/batch-movements', element: <BatchMovementsPage /> },

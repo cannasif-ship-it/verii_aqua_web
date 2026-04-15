@@ -24,6 +24,12 @@ import type {
   CreateTransferLinePayload,
   CreateStockConvertPayload,
   CreateStockConvertLinePayload,
+  CreateShipmentLineWithAutoHeaderPayload,
+  CreateTransferLineWithAutoHeaderPayload,
+  CreateStockConvertLineWithAutoHeaderPayload,
+  CreateFeedingLineWithAutoHeaderPayload,
+  CreateMortalityLineWithAutoHeaderPayload,
+  CreateNetOperationLineWithAutoHeaderPayload,
 } from '../types/quick-daily-entry-types';
 
 interface PagedResultRaw<T> {
@@ -55,6 +61,7 @@ interface ProjectCageListResponseItem {
 }
 
 interface BatchCageBalanceListResponseItem {
+  projectCageId?: number;
   fishBatchId?: number;
   liveCount?: number;
   averageGram?: number;
@@ -120,7 +127,8 @@ function buildPagedQuery(
   pageNumber: number,
   pageSize: number,
   filters?: Array<{ column: string; operator: string; value: string }>,
-  sortDirection: 'asc' | 'desc' = 'asc'
+  sortDirection: 'asc' | 'desc' = 'asc',
+  filterLogic: 'and' | 'or' = 'and'
 ): string {
   const query = new URLSearchParams({
     pageNumber: String(pageNumber),
@@ -131,7 +139,7 @@ function buildPagedQuery(
 
   if (filters && filters.length > 0) {
     query.append('filters', JSON.stringify(filters));
-    query.append('filterLogic', 'and');
+    query.append('filterLogic', filterLogic);
   }
 
   return query.toString();
@@ -258,7 +266,59 @@ export const aquaQuickDailyApi = {
       liveCount: Number(active?.liveCount ?? 0),
       averageGram: Number(active?.averageGram ?? 0),
       biomassGram: Number(active?.biomassGram ?? 0),
+      batchCode: getStringField(active as unknown as Record<string, unknown>, 'batchCode', 'BatchCode') ?? undefined,
     };
+  },
+
+  getActiveFishBatchSnapshotsByProjectCageIds: async (
+    projectCageIds: number[]
+  ): Promise<Record<number, ActiveCageBatchSnapshot | null>> => {
+    const normalizedIds = Array.from(new Set(projectCageIds.map((id) => Number(id)).filter((id) => Number.isFinite(id) && id > 0)));
+    if (normalizedIds.length === 0) return {};
+
+    const chunkSize = 25;
+    const balanceRows: BatchCageBalanceListResponseItem[] = [];
+
+    for (let index = 0; index < normalizedIds.length; index += chunkSize) {
+      const idChunk = normalizedIds.slice(index, index + chunkSize);
+      const query = buildPagedQuery(
+        1,
+        Math.max(idChunk.length * 20, 100),
+        idChunk.map((id) => ({ column: 'ProjectCageId', operator: 'eq', value: String(id) })),
+        'desc',
+        'or'
+      );
+      const response = await api.get<ApiResponse<PagedResultRaw<BatchCageBalanceListResponseItem>>>(
+        `/api/aqua/BatchCageBalance?${query}`
+      );
+      const raw = ensureSuccess(response, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
+      balanceRows.push(...extractPagedItems(raw));
+    }
+
+    const rowsByProjectCageId = new Map<number, BatchCageBalanceListResponseItem[]>();
+    balanceRows.forEach((row) => {
+      const projectCageId = getNumberField(row as unknown as Record<string, unknown>, 'projectCageId', 'ProjectCageId');
+      if (projectCageId <= 0) return;
+      const current = rowsByProjectCageId.get(projectCageId) ?? [];
+      current.push(row);
+      rowsByProjectCageId.set(projectCageId, current);
+    });
+
+    return normalizedIds.reduce<Record<number, ActiveCageBatchSnapshot | null>>((acc, projectCageId) => {
+      const rows = rowsByProjectCageId.get(projectCageId) ?? [];
+      const active = rows.find((item) => Number(item.liveCount ?? 0) > 0);
+      const fishBatchId = Number(active?.fishBatchId ?? 0);
+          acc[projectCageId] = fishBatchId > 0
+        ? {
+            fishBatchId,
+            liveCount: Number(active?.liveCount ?? 0),
+            averageGram: Number(active?.averageGram ?? 0),
+            biomassGram: Number(active?.biomassGram ?? 0),
+            batchCode: getStringField(active as unknown as Record<string, unknown>, 'batchCode', 'BatchCode') ?? undefined,
+          }
+        : null;
+      return acc;
+    }, {});
   },
 
   getWeatherSeverities: async (): Promise<WeatherSeverityDto[]> => {
@@ -344,6 +404,16 @@ export const aquaQuickDailyApi = {
     return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
+  createFeedingLineWithAutoHeader: async (
+    payload: CreateFeedingLineWithAutoHeaderPayload
+  ): Promise<{ id: number; feedingId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; feedingId: number }>>(
+      '/api/aqua/FeedingLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
   createMortality: async (
     payload: CreateMortalityPayload
   ): Promise<{ id: number }> => {
@@ -359,6 +429,16 @@ export const aquaQuickDailyApi = {
   ): Promise<{ id: number }> => {
     const response = await api.post<ApiResponse<{ id: number }>>(
       '/api/aqua/MortalityLine',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  createMortalityLineWithAutoHeader: async (
+    payload: CreateMortalityLineWithAutoHeaderPayload
+  ): Promise<{ id: number; mortalityId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; mortalityId: number }>>(
+      '/api/aqua/MortalityLine/auto-header',
       payload
     );
     return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
@@ -394,6 +474,16 @@ export const aquaQuickDailyApi = {
     return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
   },
 
+  createNetOperationLineWithAutoHeader: async (
+    payload: CreateNetOperationLineWithAutoHeaderPayload
+  ): Promise<{ id: number; netOperationId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; netOperationId: number }>>(
+      '/api/aqua/NetOperationLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
   createTransfer: async (
     payload: CreateTransferPayload
   ): Promise<{ id: number }> => {
@@ -409,6 +499,16 @@ export const aquaQuickDailyApi = {
   ): Promise<{ id: number }> => {
     const response = await api.post<ApiResponse<{ id: number }>>(
       '/api/aqua/TransferLine',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  createTransferLineWithAutoHeader: async (
+    payload: CreateTransferLineWithAutoHeaderPayload
+  ): Promise<{ id: number; transferId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; transferId: number }>>(
+      '/api/aqua/TransferLine/auto-header',
       payload
     );
     return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
@@ -442,6 +542,23 @@ export const aquaQuickDailyApi = {
     return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
   },
 
+  createShipmentLineWithAutoHeader: async (
+    payload: CreateShipmentLineWithAutoHeaderPayload
+  ): Promise<{ id: number; shipmentId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; shipmentId: number }>>(
+      '/api/aqua/ShipmentLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  postShipment: async (shipmentId: number): Promise<boolean> => {
+    const response = await api.post<ApiResponse<boolean>>(
+      `/api/aqua/posting/shipment/${shipmentId}`
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
+  },
+
   createStockConvert: async (
     payload: CreateStockConvertPayload
   ): Promise<{ id: number }> => {
@@ -457,6 +574,16 @@ export const aquaQuickDailyApi = {
   ): Promise<{ id: number }> => {
     const response = await api.post<ApiResponse<{ id: number }>>(
       '/api/aqua/StockConvertLine',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  createStockConvertLineWithAutoHeader: async (
+    payload: CreateStockConvertLineWithAutoHeaderPayload
+  ): Promise<{ id: number; stockConvertId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; stockConvertId: number }>>(
+      '/api/aqua/StockConvertLine/auto-header',
       payload
     );
     return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));

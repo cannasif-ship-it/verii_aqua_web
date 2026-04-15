@@ -16,6 +16,13 @@ export interface AquaFieldLookupConfig {
   staleTimeMs: number;
   dependsOnFieldKey?: string;
   filterColumn?: string;
+  clientFilterColumn?: string;
+  includeNullClientFilterMatch?: boolean;
+  contextFilters?: Array<{
+    sourceKey: string;
+    column: string;
+    operator?: string;
+  }>;
 }
 
 export interface AquaFieldConfig {
@@ -24,12 +31,17 @@ export interface AquaFieldConfig {
   type: AquaFieldType;
   required?: boolean;
   hideInForm?: boolean;
+  hideOnEdit?: boolean;
   placeholder?: string;
   numberStep?: string;
   numberMin?: number;
   numberMax?: number;
   options?: AquaFieldOption[];
   lookup?: AquaFieldLookupConfig;
+  visibleWhen?: {
+    fieldKey: string;
+    values: Array<string | number | boolean>;
+  };
 }
 
 export interface AquaColumnConfig {
@@ -42,11 +54,18 @@ export interface AquaCrudConfig {
   title: string;
   description: string;
   endpoint: string;
+  createEndpoint?: string;
   listStaleTimeMs: number;
   fields: AquaFieldConfig[];
   columns?: AquaColumnConfig[];
   defaultValues?: Record<string, unknown>;
   readOnly?: boolean;
+  prepareSubmitPayload?: (args: {
+    payload: Record<string, unknown>;
+    formValues: Record<string, unknown>;
+    editingRow: Record<string, unknown> | null;
+    mode: 'create' | 'update';
+  }) => Promise<Record<string, unknown>> | Record<string, unknown>;
   postingSlug?: 'goods-receipt' | 'transfer' | 'shipment' | 'mortality' | 'weighing' | 'stock-convert' | 'net-operation';
   autoPostOnSave?: boolean;
 }

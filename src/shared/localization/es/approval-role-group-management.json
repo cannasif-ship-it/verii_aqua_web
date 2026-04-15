@@ -1,37 +1,37 @@
 {
-  "menu": "Gestión de Grupos de Roles de Aprobación",
-  "description": "Gestionar y organizar grupos de roles de aprobación",
-  "addButton": "Añadir Nuevo Grupo",
+  "menu": "Gestión de grupos de roles de aprobación",
+  "description": "Administrar y editar grupos de roles de aprobación",
+  "addButton": "Agregar nuevo grupo",
   "refresh": "Actualizar",
   "searchPlaceholder": "Buscar...",
   "loading": "Cargando...",
   "noData": "No se encontraron datos",
-  "noDataDescription": "No se encontraron registros que coincidan con su búsqueda o no hay registros aún.",
+  "noDataDescription": "No se encontraron registros que coincidan con sus criterios de búsqueda o aún no se han agregado registros.",
   "table": {
-    "id": "IDENTIFICACIÓN",
-    "name": "Nombre del Grupo",
-    "createdDate": "Fecha Creación",
-    "createdBy": "Creado Por",
-    "actions": "Acciones",
-    "showing": "Mostrando {{from}}-{{to}} de {{total}} registros"
+    "id": "ID",
+    "name": "Nombre del grupo",
+    "createdDate": "Fecha de creación",
+    "createdBy": "Creado por el usuario",
+    "actions": "Transacciones",
+    "showing": "Total {{total}} del registro que muestra {{from}}-{{to}}"
   },
   "delete": {
-    "confirmTitle": "Confirmación de Eliminación",
-    "confirmMessage": "Esta acción no se puede deshacer. ¿Desea continuar?"
+    "confirmTitle": "Confirmación de eliminación",
+    "confirmMessage": "Esta acción no se puede deshacer. ¿Quieres continuar?"
   },
   "cancel": "Cancelar",
   "save": "Guardar",
-  "saving": "Guardando...",
+  "saving": "Grabando...",
   "deleteButton": "Eliminar",
   "form": {
-    "editTitle": "Editar Grupo de Roles",
-    "addTitle": "Añadir Nuevo Grupo de Roles",
-    "editDescription": "Editar información del grupo de roles",
-    "addDescription": "Ingrese información del nuevo grupo",
-    "name": "Nombre del Grupo",
-    "namePlaceholder": "Ingrese nombre del grupo",
-    "nameRequired": "El nombre del grupo es obligatorio",
-    "nameMaxLength": "El nombre puede tener máx. 100 caracteres"
+    "editTitle": "Editar grupo de roles de aprobación",
+    "addTitle": "Agregar nuevo grupo de roles de aprobación",
+    "editDescription": "Editar información del grupo de roles de aprobación",
+    "addDescription": "Ingrese la información del nuevo grupo de roles de aprobación",
+    "name": "Nombre del grupo",
+    "namePlaceholder": "Introduzca el nombre del grupo",
+    "nameRequired": "El nombre del grupo es obligatorio.",
+    "nameMaxLength": "El nombre del grupo puede tener hasta 100 caracteres."
   },
   "advancedFilter": {
     "columnName": "Nombre del grupo",

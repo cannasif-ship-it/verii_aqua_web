@@ -1,29 +1,29 @@
 {
-  "menu": "Surveillance Hangfire",
-  "title": "Surveillance Hangfire",
-  "description": "Surveillez la sante des jobs, les echecs et la file dead-letter.",
-  "refresh": "Rafraichir",
+  "menu": "Surveillance du feu suspendu",
+  "title": "Surveillance du feu suspendu",
+  "description": "Surveillez l’état des tâches, les tâches ayant échoué et la file d’attente de lettres mortes.",
+  "refresh": "Actualiser",
   "stats": {
-    "enqueued": "En file",
-    "processing": "En cours",
-    "succeeded": "Reussis",
-    "failed": "Echoues"
+    "enqueued": "dans la file d'attente",
+    "processing": "Traitement",
+    "succeeded": "réussi",
+    "failed": "échouer"
   },
   "table": {
-    "jobId": "ID de travail",
-    "jobName": "emploi",
-    "state": "Etat",
-    "time": "Heure",
-    "reason": "Raison"
+    "jobId": "Emploi ID",
+    "jobName": "travail",
+    "state": "Statut",
+    "time": "temps",
+    "reason": "Pourquoi"
   },
   "failed": {
-    "title": "Jobs en echec",
-    "empty": "Aucun job en echec.",
+    "title": "Travaux échoués",
+    "empty": "Aucune tâche ayant échoué trouvée.",
     "total": "Total"
   },
   "deadLetter": {
-    "title": "File Dead-Letter",
-    "empty": "La file dead-letter est vide.",
-    "enqueued": "En file"
+    "title": "Queue de lettre morte",
+    "empty": "La file d’attente des lettres mortes est vide.",
+    "enqueued": "dans la file d'attente"
   }
 }

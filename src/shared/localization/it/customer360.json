@@ -1,74 +1,74 @@
 {
-  "title": "Customer 360",
-  "notFound": "Customer not found",
-  "error": "An error occurred",
-  "retry": "Retry",
+  "title": "Cliente 360",
+  "notFound": "Cliente non trovato",
+  "error": "Si è verificato un errore",
+  "retry": "Riprova",
   "currencyFilter": {
-    "label": "Currency",
-    "all": "All"
+    "label": "valuta",
+    "all": "Tutto"
   },
   "tabs": {
-    "overview": "Overview",
-    "analytics": "Analytics"
+    "overview": "Riepilogo",
+    "analytics": "analitica"
   },
   "kpi": {
-    "totalDemands": "Total Demands",
-    "totalQuotations": "Total Quotations",
-    "totalOrders": "Total Orders",
-    "openQuotations": "Open Quotations",
-    "openOrders": "Pending Orders"
+    "totalDemands": "Offerta totale",
+    "totalQuotations": "Offerta totale",
+    "totalOrders": "Ordine totale",
+    "openQuotations": "Offerta aperta",
+    "openOrders": "Ordine in sospeso"
   },
   "sections": {
-    "contacts": "Contacts",
-    "shippingAddresses": "Shipping Addresses",
-    "recentDemands": "Recent Demands",
-    "recentQuotations": "Recent Quotations",
-    "recentOrders": "Recent Orders",
-    "recentActivities": "Recent Activities",
-    "timeline": "Timeline"
+    "contacts": "Comunicazioni",
+    "shippingAddresses": "Indirizzi di spedizione",
+    "recentDemands": "Ultime offerte",
+    "recentQuotations": "Ultime offerte",
+    "recentOrders": "Ultimi ordini",
+    "recentActivities": "Ultime attività",
+    "timeline": "Cronologia"
   },
   "analytics": {
-    "error": "Could not load analytics data",
-    "last12MonthsOrderAmount": "Last 12 Months Order Amount",
-    "openQuotationAmount": "Open Quotation Amount",
-    "openOrderAmount": "Open Order Amount",
-    "activityCount": "Activity Count",
-    "lastActivityDate": "Last Activity Date"
+    "error": "Impossibile caricare i dati di analisi",
+    "last12MonthsOrderAmount": "Importo dell'ordine degli ultimi 12 mesi",
+    "openQuotationAmount": "Importo dell'offerta aperta",
+    "openOrderAmount": "Importo dell'ordine aperto",
+    "activityCount": "Numero di attività",
+    "lastActivityDate": "Data dell'ultima attività"
   },
   "analyticsCharts": {
-    "demand": "Demand",
-    "quotation": "Quotation",
-    "order": "Order",
-    "last12MonthsOrderAmount": "Last 12 Months Order",
-    "openQuotationAmount": "Open Quotation",
-    "openOrderAmount": "Open Order",
-    "distributionTitle": "Distribution",
-    "monthlyTrendTitle": "Monthly Trend",
-    "amountComparisonTitle": "Amount Comparison"
+    "demand": "Offerta",
+    "quotation": "Offerta",
+    "order": "Ordine",
+    "last12MonthsOrderAmount": "Ordine degli ultimi 12 mesi",
+    "openQuotationAmount": "Offerta aperta",
+    "openOrderAmount": "Ordine aperto",
+    "distributionTitle": "distribuzione",
+    "monthlyTrendTitle": "Tendenza mensile",
+    "amountComparisonTitle": "Confronto importi"
   },
   "currencyTotals": {
-    "currency": "Currency",
-    "demandAmount": "Demand Amount",
-    "quotationAmount": "Quotation Amount",
-    "orderAmount": "Order Amount"
+    "currency": "Valuta",
+    "demandAmount": "Importo dell'offerta",
+    "quotationAmount": "Importo dell'offerta",
+    "orderAmount": "Importo dell'ordine"
   },
   "revenueQuality": {
-    "title": "Revenue Quality",
-    "churnRisk": "Churn Risk",
-    "upsell": "Upsell Propensity",
-    "payment": "Payment Behavior",
-    "segment": "RFM Segment",
+    "title": "Qualità dei ricavi",
+    "churnRisk": "Rischio di perdita",
+    "upsell": "Tendenza all'upselling",
+    "payment": "Comportamento nei pagamenti",
+    "segment": "Segmento RFM",
     "ltv": "LTV"
   },
   "cohort": {
-    "title": "Cohort Retention",
-    "empty": "No cohort data",
-    "cohortKey": "Cohort"
+    "title": "Mantenere una coorte",
+    "empty": "Nessun dato di coorte",
+    "cohortKey": "coorte"
   },
   "actions": {
-    "title": "Recommended Actions",
-    "empty": "No recommended actions",
-    "execute": "Execute"
+    "title": "Azioni consigliate",
+    "empty": "Nessuna azione consigliata",
+    "execute": "Applicare"
   },
   "status": {}
 }

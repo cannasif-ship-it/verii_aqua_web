@@ -3,57 +3,57 @@
   "description": "Manage and edit activity types",
   "addButton": "Add New Activity Type",
   "loading": "Loading...",
-  "noData": "No data found",
-  "actions": "Actions",
+  "noData": "No data",
+  "actions": "Transactions",
   "edit": "Edit",
   "deleteButton": "Delete",
   "cancel": "Cancel",
   "save": "Save",
-  "saving": "Saving...",
+  "saving": "Recording...",
   "previous": "Previous",
   "next": "Next",
   "advancedFilter": {
     "columnName": "Activity Type Name",
     "columnDescription": "Description",
-    "columnCreatedBy": "Created By"
+    "columnCreatedBy": "Created by"
   },
   "form": {
     "addTitle": "Add New Activity Type",
-    "editTitle": "Edit Activity Type",
+    "editTitle": "Activity Type Edit",
     "addDescription": "Enter new activity type information",
     "editDescription": "Edit activity type information",
     "name": "Activity Type Name",
     "namePlaceholder": "Enter activity type name",
     "nameRequired": "Activity type name is required",
-    "nameMaxLength": "Activity type name can be at most 100 characters",
+    "nameMaxLength": "Activity type name can be up to 100 characters",
     "description": "Description",
-    "descriptionPlaceholder": "Enter description (optional)",
-    "descriptionMaxLength": "Description can be at most 500 characters"
+    "descriptionPlaceholder": "Enter a description (optional)",
+    "descriptionMaxLength": "Description can be up to 500 characters"
   },
   "table": {
     "id": "ID",
     "name": "Activity Type Name",
     "description": "Description",
-    "createdDate": "Created Date",
-    "createdBy": "Created By",
+    "createdDate": "Creation Date",
+    "createdBy": "Created by User",
     "showing": "Showing {{from}}-{{to}} / {{total}}",
     "page": "Page {{current}} / {{total}}"
   },
   "stats": {
-    "totalActivityTypes": "Total Activity Types",
-    "activeActivityTypes": "Active Activity Types",
+    "totalActivityTypes": "Total Activity Type",
+    "activeActivityTypes": "Active Activity Type",
     "newThisMonth": "New This Month"
   },
   "messages": {
     "createSuccess": "Activity type created successfully",
-    "createError": "Failed to create activity type",
+    "createError": "Activity type could not be created",
     "updateSuccess": "Activity type updated successfully",
-    "updateError": "Failed to update activity type",
+    "updateError": "Activity type could not be updated",
     "deleteSuccess": "Activity type deleted successfully",
-    "deleteError": "Failed to delete activity type"
+    "deleteError": "Activity type could not be deleted"
   },
   "deleteConfirm": {
     "confirmTitle": "Delete Activity Type",
-    "confirmMessage": "Are you sure you want to delete {{name}} activity type?"
+    "confirmMessage": "Are you sure you want to delete activity type {{name}}?"
   }
 }

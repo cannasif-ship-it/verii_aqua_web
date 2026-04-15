@@ -4,7 +4,7 @@
   "addButton": "Add New Customer Type",
   "loading": "Loading...",
   "noData": "No data found",
-  "actions": "Actions",
+  "actions": "Transactions",
   "previous": "Previous",
   "next": "Next",
   "advancedFilter": {
@@ -12,49 +12,49 @@
     "columnDescription": "Description"
   },
   "stats": {
-    "totalCustomerTypes": "Total Customer Types",
-    "activeCustomerTypes": "Active Customer Types",
+    "totalCustomerTypes": "Total Customer Type",
+    "activeCustomerTypes": "Active Customer Type",
     "newThisMonth": "New This Month"
   },
   "table": {
     "id": "ID",
     "name": "Customer Type Name",
     "description": "Description",
-    "createdDate": "Created Date",
-    "createdBy": "Created By",
+    "createdDate": "Creation Date",
+    "createdBy": "Created by",
     "updatedDate": "Updated Date",
-    "updatedBy": "Updated By",
+    "updatedBy": "Updated by",
     "showing": "Showing {{from}}-{{to}} / {{total}}",
     "page": "Page {{current}} / {{total}}"
   },
   "form": {
     "addCustomerType": "Add New Customer Type",
-    "editCustomerType": "Edit Customer Type",
+    "editCustomerType": "Customer Type Edit",
     "addDescription": "Enter new customer type information",
     "editDescription": "Edit customer type information",
     "name": "Customer Type Name",
     "namePlaceholder": "Enter customer type name",
     "nameRequired": "Customer type name is required",
-    "nameMaxLength": "Customer type name must be at most 100 characters",
+    "nameMaxLength": "Customer type name can be up to 100 characters",
     "description": "Description",
-    "descriptionPlaceholder": "Enter description (optional)",
-    "descriptionMaxLength": "Description must be at most 500 characters",
+    "descriptionPlaceholder": "Enter a description (optional)",
+    "descriptionMaxLength": "Description can be up to 500 characters",
     "cancel": "Cancel",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Recording..."
   },
   "delete": {
     "confirmTitle": "Delete Customer Type",
-    "confirmMessage": "Are you sure you want to delete {{name}} customer type?",
+    "confirmMessage": "Are you sure you want to delete customer type {{name}}?",
     "confirmButton": "Delete",
     "deleting": "Deleting..."
   },
   "messages": {
     "createSuccess": "Customer type created successfully",
-    "createError": "Customer type could not be created",
+    "createError": "Could not create customer type",
     "updateSuccess": "Customer type updated successfully",
-    "updateError": "Customer type could not be updated",
+    "updateError": "Failed to update customer type",
     "deleteSuccess": "Customer type deleted successfully",
-    "deleteError": "Customer type could not be deleted"
+    "deleteError": "Could not delete customer type"
   }
 }

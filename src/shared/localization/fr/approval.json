@@ -1,84 +1,84 @@
 {
   "list": {
     "title": "Approbations en attente",
-    "description": "Voir et approuver ou rejeter les devis qui vous sont assignés",
-    "empty": "Aucune approbation en attente",
-    "error": "Une erreur est survenue lors du chargement des approbations"
+    "description": "Vous pouvez afficher et approuver ou rejeter les offres qui vous sont assignées",
+    "empty": "Il n'y a aucune approbation en attente",
+    "error": "Une erreur s'est produite lors du chargement des confirmations"
   },
   "yes": "Oui",
-  "no": "Non",
+  "no": "non",
   "processing": "Traitement...",
   "detail": {
-    "title": "Détail du devis",
-    "description": "Description",
+    "title": "Détail de l'offre",
+    "description": "Descriptif",
     "tabs": {
       "detail": "Détail",
-      "history": "Historique",
-      "action": "Action"
+      "history": "passé",
+      "action": "opération"
     },
-    "notFound": "Devis non trouvé",
-    "quotationInfo": "Informations sur le devis",
-    "offerNo": "N° de devis",
-    "customer": "Client",
-    "representative": "Représentant",
+    "notFound": "Aucune offre trouvée",
+    "quotationInfo": "Informations sur l'offre",
+    "offerNo": "Offre No",
+    "customer": "client",
+    "representative": "représentant",
     "currency": "Devise",
-    "offerDate": "Date du devis",
+    "offerDate": "Date de l'offre",
     "deliveryDate": "Date de livraison",
     "total": "Total",
     "grandTotal": "Total général",
-    "lines": "Lignes du devis",
+    "lines": "Lignes de devis",
     "productCode": "Code produit",
     "productName": "Nom du produit",
-    "quantity": "Quantité",
+    "quantity": "quantité",
     "unitPrice": "Prix unitaire",
     "lineTotal": "Total de la ligne",
     "lineGrandTotal": "Total général de la ligne",
     "exchangeRates": "Taux de change",
-    "exchangeRate": "Taux",
-    "exchangeRateDate": "Date du taux",
-    "isOfficial": "Taux officiel",
-    "subtitle": "View quotation details and perform actions"
+    "exchangeRate": "Installer",
+    "exchangeRateDate": "Date du taux de change",
+    "isOfficial": "Installer officiel",
+    "subtitle": "Afficher les détails de l'offre et agir"
   },
   "actions": {
     "view": "Voir",
-    "approve": "Approuver",
-    "reject": "Rejeter"
+    "approve": "Confirmer",
+    "reject": "rejeter"
   },
   "status": {
     "notRequired": "Non requis",
-    "waiting": "En attente",
+    "waiting": "en attente",
     "approved": "Approuvé",
-    "rejected": "Rejeté",
+    "rejected": "rejeté",
     "closed": "Fermé"
   },
-  "closedReason": "Cet enregistrement a été fermé car un autre enregistrement avec le même numéro d'offre a été approuvé.",
+  "closedReason": "Ce dossier a été fermé car un autre dossier portant le même numéro d'offre a été approuvé.",
   "statusFilterLabel": "Statut d'approbation",
   "level": {
     "salesManager": "Directeur des ventes",
     "regionalManager": "Directeur régional",
-    "finance": "Finance",
+    "finance": "Finances",
     "generalManager": "Directeur général",
-    "unknown": "Inconnu"
+    "unknown": "inconnu"
   },
   "note": {
-    "label": "Note",
-    "placeholder": "Vous pouvez ajouter une note d'approbation/rejet (optionnel)",
-    "maxLength": "La note peut contenir au plus 500 caractères"
+    "label": "remarque",
+    "placeholder": "Vous pouvez ajouter une note d'approbation/rejet (facultatif)",
+    "maxLength": "La note peut contenir jusqu'à 500 caractères"
   },
   "approve": {
     "success": "Approuvé",
-    "successMessage": "Devis approuvé avec succès",
-    "error": "Erreur d'approbation",
-    "errorMessage": "Une erreur est survenue lors de l'approbation du devis"
+    "successMessage": "Offre approuvée avec succès",
+    "error": "Erreur d'assertion",
+    "errorMessage": "Une erreur s'est produite lors de l'approbation de l'offre"
   },
   "reject": {
-    "success": "Rejeté",
-    "successMessage": "Devis rejeté",
+    "success": "rejeté",
+    "successMessage": "offre rejetée",
     "error": "Erreur de rejet",
-    "errorMessage": "Une erreur est survenue lors du rejet du devis"
+    "errorMessage": "Une erreur s'est produite lors du rejet de l'offre"
   },
   "history": {
-    "empty": "Aucun historique d'approbation",
+    "empty": "Il n'y a pas d'historique d'approbation",
     "approvedBy": "Approuvé par"
   },
   "assignedTo": "Utilisateur assigné"

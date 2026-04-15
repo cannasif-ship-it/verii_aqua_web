@@ -1,40 +1,40 @@
 {
   "auth": {
     "login": {
-      "title": "Inicio de Sesión",
-      "subtitle": "Inicie sesión para continuar",
-      "branch": "Sucursal",
+      "title": "Iniciar sesión en el sistema",
+      "subtitle": "WMS DE DATOS",
+      "branch": "rama",
       "selectBranch": "Seleccionar sucursal",
       "branchNotFound": "Sucursal no encontrada",
       "email": "Correo electrónico",
-      "emailPlaceholder": "Ingrese su correo electrónico",
-      "password": "Contraseña",
-      "passwordPlaceholder": "Ingrese su contraseña",
-      "loginButton": "Iniciar Sesión",
+      "emailPlaceholder": "Introduzca su dirección de correo electrónico",
+      "password": "contraseña",
+      "passwordPlaceholder": "••••••••",
+      "loginButton": "Iniciar sesión",
       "loggingIn": "Iniciando sesión...",
-      "wrongPassword": "El correo o la contraseña son incorrectos",
+      "wrongPassword": "El correo electrónico o la contraseña son incorrectos",
       "loginError": "Ocurrió un error al iniciar sesión",
-      "sessionExpired": "Su sesión ha caducado. Por favor, inicie sesión nuevamente.",
-      "copyright": "© 2025 VERII. Todos los derechos reservados.",
+      "sessionExpired": "Tu sesión ha caducado. Por favor inicia sesión nuevamente.",
+      "copyright": "© 2025 VERII. Reservados todos los derechos.",
       "branchPlaceholder": "Seleccionar Sucursal",
       "rememberMe": "Recuérdame",
-      "forgotPassword": "¿Olvidaste tu contraseña?",
-      "processing": "Procesando...",
-      "submitButton": "Iniciar Sesión",
-      "slogan": "Potenciando tu negocio con <1>VERII AQUA</1>",
-      "capsLockOn": "Bloq. Mayús está activado",
-      "animationOff": "Desactivar animación",
-      "animationOn": "Activar animación"
+      "forgotPassword": "¿Olvidé mi contraseña?",
+      "processing": "Iniciando sesión...",
+      "submitButton": "Iniciar sesión",
+      "slogan": "Información con <1>V3RII</1>, Gestión con <2>AQUA</2>;<br/>Experiencia Digital en Acuicultura.",
+      "capsLockOn": "El bloqueo de mayúsculas está activado",
+      "animationOff": "Cerrar animación",
+      "animationOn": "Animación abierta"
     },
-    "logout": "Cerrar Sesión",
+    "logout": "salir",
     "changePassword": {
       "error": "No se pudo cambiar la contraseña",
-      "success": "Éxito"
+      "success": "exitoso"
     },
     "resetPassword": {
-      "successRedirect": "Su contraseña se ha restablecido correctamente. Se le redirige a la página de inicio de sesión...",
+      "successRedirect": "Su contraseña se ha restablecido correctamente. Se le dirigirá a la página de inicio de sesión...",
       "failed": "Error al restablecer la contraseña",
-      "error": "Se produjo un error durante el proceso de restablecimiento de la contraseña"
+      "error": "Se produjo un error durante el proceso de restablecimiento de contraseña."
     }
   }
 }

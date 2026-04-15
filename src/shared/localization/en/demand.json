@@ -1,11 +1,11 @@
 {
   "loading": "Loading...",
-  "saving": "Saving...",
+  "saving": "Recording...",
   "error": "Error",
   "noData": "No data found",
   "previous": "Previous",
   "next": "Next",
-  "actions": "Actions",
+  "actions": "Transactions",
   "edit": "Edit",
   "delete": "Delete",
   "back": "Back",
@@ -13,72 +13,72 @@
   "select": "Select",
   "yes": "Yes",
   "add": "Add",
-  "backToQuotations": "Back to Demands",
+  "backToQuotations": "Return to Requests",
   "cancel": "Cancel",
   "save": "Save",
   "confirm": "Confirm",
   "saveAndApply": "Save and Apply",
   "list": {
     "revise": "Revise",
-    "showing": "Showing {{from}}-{{to}} / {{total}}",
-    "title": "Demand List",
-    "description": "View and manage all demands",
-    "createNew": "Create New Demand",
-    "searchPlaceholder": "Search by demand no or customer name..."
+    "showing": "{{total}} from record shows {{from}}-{{to}}",
+    "title": "Request List",
+    "description": "View and manage all requests",
+    "createNew": "Create New Request",
+    "searchPlaceholder": "Search by request number or customer name..."
   },
   "detail": {
-    "title": "Demand Detail"
+    "title": "Request Details"
   },
   "create": {
-    "title": "Create New Demand",
-    "submit": "Save Demand and Send for Approval",
-    "success": "Demand Created Successfully",
-    "successMessage": "Demand has been sent to the approval process.",
-    "error": "Demand Could Not Be Created",
-    "errorMessage": "An error occurred while creating the demand."
+    "title": "Create New Request",
+    "submit": "Save Request and Send for Approval",
+    "success": "Request Created Successfully",
+    "successMessage": "The request has been sent to the approval process.",
+    "error": "Request Could Not Be Created",
+    "errorMessage": "An error occurred while creating the request."
   },
   "header": {
-    "title": "Demand Information",
-    "customer": "Customer",
+    "title": "Request Information",
+    "customer": "customer",
     "selectCustomer": "Select customer",
-    "shippingAddress": "Shipping Address",
-    "selectShippingAddress": "Select shipping address",
+    "shippingAddress": "Delivery Address",
+    "selectShippingAddress": "Choose delivery address",
     "representative": "Sales Representative",
-    "selectRepresentative": "Select representative",
-    "offerType": "Demand Type",
-    "selectOfferType": "Select demand type",
+    "selectRepresentative": "Select a representative",
+    "offerType": "Request Type",
+    "selectOfferType": "Select request type",
     "currency": "Currency",
     "selectCurrency": "Please select currency",
     "showExchangeRates": "Show Exchange Rates",
-    "offerDate": "Demand Date",
+    "offerDate": "Request Date",
     "deliveryDate": "Delivery Date",
     "paymentType": "Payment Type",
     "selectPaymentType": "Select payment type",
     "description": "Description",
     "descriptionPlaceholder": "Enter description",
-    "offerNo": "Demand No",
-    "offerNoPlaceholder": "Demand number",
+    "offerNo": "Request No",
+    "offerNoPlaceholder": "Request number",
     "currencyChange": {
       "title": "Currency Change",
-      "message": "When the currency changes, all existing lines will be recalculated according to the new currency. Do you approve this operation?"
+      "message": "When the currency changes, all existing rows will be recalculated according to the new currency. Do you approve this transaction?"
     }
   },
   "lines": {
-    "title": "Demand Lines",
-    "add": "Add Line",
-    "empty": "No lines added yet",
-    "emptyDescription": "Use \"Select Stock\" or \"Add Line\" button to add demand lines",
+    "title": "Request Lines",
+    "add": "Add Row",
+    "empty": "No rows added yet",
+    "emptyDescription": "Use the \"Select Stock\" or \"Add Line\" button to add requisition lines",
     "itemCount": "line",
-    "editLine": "Edit Line",
+    "editLine": "Edit Row",
     "selectStock": "Select Stock",
     "selectProduct": "Select Product",
     "selectStockFirst": "Stock not selected",
-    "stock": "Stock",
+    "stock": "stock",
     "productCode": "Stock Code",
-    "enterProductCode": "Enter product code or search",
+    "enterProductCode": "Enter or search product code",
     "productName": "Stock Name",
     "enterProductName": "Enter product name",
-    "quantity": "Quantity",
+    "quantity": "quantity",
     "unitPrice": "Unit Price",
     "discount1": "Discount 1 %",
     "discount2": "Discount 2 %",
@@ -87,28 +87,28 @@
     "discountAmount": "Discount Amount",
     "netPrice": "Net Price",
     "vatRate": "VAT Rate %",
-    "lineTotal": "Line Total (VAT Included)",
+    "lineTotal": "Line Total (VAT included)",
     "calculations": "Calculations",
     "required": "At least 1 line must be added",
-    "noProductsFound": "No products found",
+    "noProductsFound": "Product not found",
     "delete": {
-      "confirmTitle": "Delete Line",
-      "confirmMessage": "Are you sure you want to delete this line?"
+      "confirmTitle": "Delete Row",
+      "confirmMessage": "Are you sure you want to delete this row?"
     }
   },
   "exchangeRates": {
     "title": "Exchange Rates",
     "currency": "Currency",
-    "rate": "Rate",
-    "date": "Rate Date",
-    "isOfficial": "Official Rate",
-    "official": "Official",
-    "custom": "Custom",
-    "empty": "No exchange rates found",
+    "rate": "Install",
+    "date": "Exchange Rate Date",
+    "isOfficial": "Install Official",
+    "official": "official",
+    "custom": "private",
+    "empty": "Exchange rate not found",
     "status": "Status",
     "dialog": {
       "title": "Exchange Rates",
-      "description": "View and edit exchange rate values if needed. Modified rates will not be marked as official rates."
+      "description": "View and edit exchange rates if necessary. Changed rates will not be marked as official rates."
     }
   },
   "summary": {
@@ -118,21 +118,21 @@
     "grandTotal": "Grand Total"
   },
   "offerType": {
-    "domestic": "Domestic",
-    "export": "Export"
+    "domestic": "domestic",
+    "export": "export"
   },
   "wizard": {
-    "title": "Create New Demand",
+    "title": "Create New Request",
     "step1": {
-      "title": "Step 1: Demand Information",
-      "description": "Enter demand header information and exchange rates",
+      "title": "Step 1: Request Information",
+      "description": "Enter request header information and exchange rates",
       "validation": {
-        "offerType": "Demand Type",
+        "offerType": "Request Type",
         "currency": "Currency",
         "exchangeRate": "Exchange Rate"
       },
       "exchangeRate": {
-        "required": "At least one exchange rate must be added for non-TRY currencies"
+        "required": "For currencies that are not TRY, at least one exchange rate must be added"
       },
       "currency": {
         "try": {
@@ -141,29 +141,29 @@
       }
     },
     "step2": {
-      "title": "Step 2: Demand Lines",
+      "title": "Step 2: Request Lines",
       "description": "Add product and price information",
       "info": "You must add at least one line",
       "validation": {
         "noLines": "At least one line must be added",
         "invalidLines": "All lines must have valid information",
-        "allValid": "{{count}} lines successfully added"
+        "allValid": "{{count}} row added successfully"
       }
     },
     "step3": {
       "title": "Step 3: Summary and Approval",
-      "description": "Review information and save demand",
+      "description": "Review the information and save the request",
       "header": {
-        "title": "Demand Information"
+        "title": "Request Information"
       },
       "lines": {
-        "title": "Demand Lines"
+        "title": "Request Lines"
       },
       "summary": {
         "title": "Final Summary"
       },
       "approval": {
-        "info": "The demand will be automatically sent to the approval process after saving"
+        "info": "Once the request is saved it will automatically be sent to the approval process"
       }
     }
   }

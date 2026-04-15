@@ -1,60 +1,60 @@
 {
-  "menu": "Gestion des Types de Clients",
-  "description": "Gérer et éditer les types de clients",
-  "addButton": "Ajouter un Nouveau Type de Client",
+  "menu": "Gestion des types de clients",
+  "description": "Gérer et modifier les types de clients",
+  "addButton": "Ajouter un nouveau type de client",
   "loading": "Chargement...",
   "noData": "Aucune donnée trouvée",
-  "actions": "Actions",
+  "actions": "Opérations",
   "previous": "Précédent",
   "next": "Suivant",
   "stats": {
-    "totalCustomerTypes": "Total Types de Clients",
-    "activeCustomerTypes": "Types de Clients Actifs",
-    "newThisMonth": "Nouveaux ce Mois"
+    "totalCustomerTypes": "Type de client total",
+    "activeCustomerTypes": "Type de client actif",
+    "newThisMonth": "Nouveau ce mois-ci"
   },
   "table": {
-    "id": "IDENTIFIANT",
-    "name": "Nom du Type de Client",
-    "description": "Description",
-    "createdDate": "Date de Création",
-    "createdBy": "Créé Par",
-    "updatedDate": "Date de Mise à Jour",
-    "updatedBy": "Mis à Jour Par",
+    "id": "ID",
+    "name": "Nom du type de client",
+    "description": "Descriptif",
+    "createdDate": "Date de création",
+    "createdBy": "Créé par",
+    "updatedDate": "Date de mise à jour",
+    "updatedBy": "Mis à jour par",
     "showing": "Affichage de {{from}}-{{to}} / {{total}}",
-    "page": "Page {{current}} / {{total}}"
+    "page": "Pages {{current}} / {{total}}"
   },
   "form": {
-    "addCustomerType": "Ajouter un Nouveau Type de Client",
-    "editCustomerType": "Modifier le Type de Client",
-    "addDescription": "Entrez les informations du nouveau type de client",
-    "editDescription": "Modifier les informations du type de client",
-    "name": "Nom du Type de Client",
-    "namePlaceholder": "Entrer le nom du type de client",
+    "addCustomerType": "Ajouter un nouveau type de client",
+    "editCustomerType": "Type de client Modifier",
+    "addDescription": "Saisir les informations du nouveau type de client",
+    "editDescription": "Modifier les informations sur le type de client",
+    "name": "Nom du type de client",
+    "namePlaceholder": "Entrez le nom du type de client",
     "nameRequired": "Le nom du type de client est requis",
-    "nameMaxLength": "Le nom du type de client ne peut pas dépasser 100 caractères",
-    "description": "Description",
-    "descriptionPlaceholder": "Entrer une description (optionnel)",
-    "descriptionMaxLength": "La description ne peut pas dépasser 500 caractères",
+    "nameMaxLength": "Le nom du type de client peut contenir jusqu'à 100 caractères",
+    "description": "Descriptif",
+    "descriptionPlaceholder": "Entrez une description (facultatif)",
+    "descriptionMaxLength": "La description peut contenir jusqu'à 500 caractères",
     "cancel": "Annuler",
     "save": "Enregistrer",
     "saving": "Enregistrement..."
   },
   "delete": {
-    "confirmTitle": "Supprimer le Type de Client",
-    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type de client {{name}} ?",
+    "confirmTitle": "Supprimer le type de client",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer le type de client {{name}} ?",
     "confirmButton": "Supprimer",
     "deleting": "Suppression..."
   },
   "messages": {
     "createSuccess": "Type de client créé avec succès",
-    "createError": "Échec de la création du type de client",
+    "createError": "Impossible de créer le type de client",
     "updateSuccess": "Type de client mis à jour avec succès",
     "updateError": "Échec de la mise à jour du type de client",
     "deleteSuccess": "Type de client supprimé avec succès",
-    "deleteError": "Échec de la suppression du type de client"
+    "deleteError": "Impossible de supprimer le type de client"
   },
   "advancedFilter": {
     "columnName": "Nom du type de client",
-    "columnDescription": "Description"
+    "columnDescription": "Descriptif"
   }
 }

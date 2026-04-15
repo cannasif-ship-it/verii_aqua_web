@@ -16,9 +16,9 @@
     "showing": "Mostrando {{from}}-{{to}} / {{total}}",
     "page": "Página {{current}} / {{total}}",
     "rowsPerPage": "Filas por página",
-    "id": "IDENTIFICACIÓN",
+    "id": "ID",
     "createdDate": "Fecha de creación",
-    "createdBy": "Creado por"
+    "createdBy": "Creado por el usuario"
   },
   "form": {
     "addTitle": "Agregar nuevo título",
@@ -35,12 +35,12 @@
     "successAdd": "Título añadido con éxito",
     "successUpdate": "Título actualizado con éxito",
     "addDescription": "Ingrese la información del nuevo título",
-    "editDescription": "Edite la información del título",
+    "editDescription": "Editar información del título",
     "titleName": "Nombre del título",
-    "titleNamePlaceholder": "Ingrese el nombre del título",
-    "titleCode": "Código del título",
-    "codePlaceholder": "Ingrese código (opcional)",
-    "saving": "Guardando..."
+    "titleNamePlaceholder": "Introduzca el nombre del título",
+    "titleCode": "Código de título",
+    "codePlaceholder": "Introduce el código (opcional)",
+    "saving": "Grabando..."
   },
   "loading": "Cargando...",
   "noData": "No se encontraron datos",
@@ -50,21 +50,21 @@
   "next": "Siguiente",
   "cancel": "Cancelar",
   "save": "Guardar",
-  "saving": "Guardando...",
+  "saving": "Grabando...",
   "delete": {
     "confirmTitle": "Eliminar título",
-    "confirmMessage": "¿Seguro que desea eliminar el título {{name}}?",
+    "confirmMessage": "¿Está seguro de que desea eliminar el título {{titleName}}?",
     "button": "Eliminar"
   },
   "deleting": "Eliminando...",
-  "actions": "Acciones",
+  "actions": "Transacciones",
   "edit": "Editar",
   "header": {
     "title": "Gestión de títulos",
     "description": "Puede gestionar las definiciones de títulos aquí."
   },
   "advancedFilter": {
-    "columnTitleName": "Ünvan Adı",
-    "columnCode": "Kod"
+    "columnTitleName": "Nombre del título",
+    "columnCode": "Código"
   }
 }

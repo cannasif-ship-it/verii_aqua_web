@@ -1,55 +1,55 @@
 {
-  "title": "Zahlungsart-Verwaltung",
+  "title": "Zahlungsartenverwaltung",
   "description": "Beschreibung",
   "create": "Neue Zahlungsart",
   "edit": "Zahlungsart bearbeiten",
-  "editDescription": "Zahlungsart-Informationen bearbeiten",
-  "createDescription": "Enter new payment type information",
-  "delete": "Delete",
-  "deleteTitle": "Delete Payment Type",
+  "editDescription": "Informationen zur Zahlungsart bearbeiten",
+  "createDescription": "Geben Sie neue Informationen zur Zahlungsart ein",
+  "delete": "Löschen",
+  "deleteTitle": "Zahlungsart löschen",
   "name": "Name",
-  "namePlaceholder": "Namen der Zahlungsart eingeben",
-  "descriptionPlaceholder": "Beschreibung eingeben (optional)",
+  "namePlaceholder": "Geben Sie den Namen der Zahlungsart ein",
+  "descriptionPlaceholder": "Geben Sie eine Beschreibung ein (optional)",
   "createdDate": "Erstellungsdatum",
-  "updatedDate": "Aktualisierungsdatum",
-  "actions": "Aktionen",
+  "updatedDate": "Aktualisiertes Datum",
+  "actions": "Transaktionen",
   "search": "Suchen",
   "refresh": "Aktualisieren",
-  "loading": "Wird geladen...",
-  "previous": "Previous",
-  "next": "Weiter",
+  "loading": "Laden...",
+  "previous": "Zurück",
+  "next": "Als nächstes",
   "cancel": "Abbrechen",
   "save": "Speichern",
-  "saving": "Wird gespeichert...",
+  "saving": "Aufnahme...",
   "noData": "Keine Daten gefunden",
-  "confirmDelete": "Are you sure you want to delete this payment type?",
+  "confirmDelete": "Möchten Sie diese Zahlungsart wirklich löschen?",
   "createSuccess": "Zahlungsart erfolgreich erstellt",
   "updateSuccess": "Zahlungsart erfolgreich aktualisiert",
-  "deleteSuccess": "Payment type deleted successfully",
-  "createError": "Fehler beim Erstellen der Zahlungsart",
-  "updateError": "Fehler beim Aktualisieren der Zahlungsart",
-  "deleteError": "An error occurred while deleting payment type",
+  "deleteSuccess": "Zahlungsart erfolgreich gelöscht",
+  "createError": "Beim Erstellen der Zahlungsart ist ein Fehler aufgetreten",
+  "updateError": "Beim Aktualisieren der Zahlungsart ist ein Fehler aufgetreten",
+  "deleteError": "Beim Löschen der Zahlungsart ist ein Fehler aufgetreten",
   "table": {
-    "id": "AUSWEIS",
+    "id": "ID",
     "name": "Name",
     "description": "Beschreibung",
     "createdDate": "Erstellungsdatum",
-    "updatedDate": "Aktualisierungsdatum",
-    "showing": "Zeige {{from}}-{{to}} von {{total}}",
-    "page": "Seite {{current}} von {{total}}"
+    "updatedDate": "Aktualisiertes Datum",
+    "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}",
+    "page": "Seite {{current}} / {{total}}"
   },
   "form": {
     "name": {
       "required": "Name ist erforderlich",
-      "maxLength": "Name darf maximal 100 Zeichen lang sein"
+      "maxLength": "Der Name kann bis zu 100 Zeichen lang sein"
     },
     "description": {
-      "maxLength": "Beschreibung darf maximal 500 Zeichen lang sein"
+      "maxLength": "Die Beschreibung kann bis zu 500 Zeichen lang sein"
     }
   },
-  "headerDescription": "Zahlungstypen verwalten und bearbeiten",
+  "headerDescription": "Zahlungsarten verwalten und bearbeiten",
   "advancedFilter": {
-    "columnName": "Ad",
-    "columnDescription": "Açıklama"
+    "columnName": "Name",
+    "columnDescription": "Beschreibung"
   }
 }

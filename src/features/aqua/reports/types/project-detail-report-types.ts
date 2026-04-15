@@ -85,6 +85,7 @@ export interface GoodsReceiptLineDto {
 
 export interface FishBatchDto {
   id: number;
+  projectId: number;
   batchCode?: string;
   currentAverageGram?: number;
 }
@@ -95,8 +96,11 @@ export interface DailyWeatherDto {
   weatherDate: string;
   weatherTypeName?: string;
   weatherSeverityName?: string;
+  weatherSeverityScore?: number;
   temperatureC?: number;
   windKnot?: number;
+  operationalRiskScore?: number;
+  operationalRiskLevel?: string;
 }
 
 export interface NetOperationDto {

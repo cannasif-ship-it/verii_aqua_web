@@ -242,13 +242,13 @@ export function PermissionDefinitionMultiSelect({
                   </div>
 
                   <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-cyan-800/30 bg-white dark:bg-blue-950/30">
-                    <div className="min-w-[760px]">
-                      <div className="grid grid-cols-[minmax(240px,2fr)_repeat(4,minmax(110px,1fr))] border-b border-slate-200 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/20">
+                    <div className="min-w-[680px]">
+                      <div className="grid grid-cols-[minmax(220px,2fr)_repeat(4,minmax(88px,1fr))] border-b border-slate-200 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/20">
                         <div className="px-4 py-3 text-[10px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
                           {t('permissionGroups.matrix.resource')}
                         </div>
                         {ACTION_ORDER.map((action) => (
-                          <div key={action} className="px-3 py-3 text-center text-[10px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
+                          <div key={action} className="px-2 py-3 text-center text-[10px] font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 whitespace-nowrap">
                             {actionLabels[action]}
                           </div>
                         ))}
@@ -257,7 +257,7 @@ export function PermissionDefinitionMultiSelect({
                       {rows.map((row) => (
                         <div
                           key={row.baseCode}
-                          className="grid grid-cols-[minmax(240px,2fr)_repeat(4,minmax(110px,1fr))] border-b border-slate-100 last:border-b-0 dark:border-cyan-800/10"
+                          className="grid grid-cols-[minmax(220px,2fr)_repeat(4,minmax(88px,1fr))] border-b border-slate-100 last:border-b-0 dark:border-cyan-800/10"
                         >
                           <div className="px-4 py-4">
                             <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{row.title}</div>
@@ -273,7 +273,7 @@ export function PermissionDefinitionMultiSelect({
                                 {permission ? (
                                   <label
                                     className={cn(
-                                      "flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition-all",
+                                      "flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border transition-all",
                                       disabled
                                         ? "cursor-not-allowed opacity-60"
                                         : "hover:border-cyan-400 hover:bg-cyan-50 dark:hover:border-cyan-700 dark:hover:bg-cyan-900/20",
@@ -281,6 +281,7 @@ export function PermissionDefinitionMultiSelect({
                                         ? "border-cyan-500 bg-cyan-50 text-cyan-700 dark:border-cyan-500 dark:bg-cyan-900/30 dark:text-cyan-300"
                                         : "border-slate-200 bg-white text-slate-500 dark:border-cyan-800/30 dark:bg-blue-950/40 dark:text-slate-300"
                                     )}
+                                    title={actionLabels[action]}
                                   >
                                     <Checkbox
                                       checked={isSelected}
@@ -288,7 +289,7 @@ export function PermissionDefinitionMultiSelect({
                                       disabled={disabled}
                                       className="border-slate-300 dark:border-cyan-700 data-[state=checked]:bg-cyan-600"
                                     />
-                                    <span>{actionLabels[action]}</span>
+                                    <span className="sr-only">{actionLabels[action]}</span>
                                   </label>
                                 ) : (
                                   <span className="text-xs font-semibold text-slate-300 dark:text-slate-600">-</span>

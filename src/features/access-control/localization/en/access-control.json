@@ -1,126 +1,126 @@
 {
   "help": {
     "permissionDefinition": {
-      "code": "Unique key used by route and page guards. Prefer stable snake_case or dot naming.",
-      "name": "Display name shown to admins when managing permissions.",
-      "description": "Optional internal explanation for this permission.",
-      "isActive": "Inactive permissions are not considered when calculating user access.",
-      "save": "Changes affect role and group authorization flows."
+      "code": "Unique key used by route and page maintainers. Prefer stable snake_case or dot notation.",
+      "name": "The display name shown to administrators when managing permissions.",
+      "description": "Optional internal description for this permission.",
+      "isActive": "Passive permissions are not taken into account when calculating user access.",
+      "save": "The changes affect role and group authorization flows."
     },
     "permissionGroup": {
       "name": "Group name for identification when assigning to users.",
       "isSystemAdmin": "Members of this group can access all pages and actions without individual permission checks.",
-      "isActive": "Inactive groups should not be assigned for new access decisions.",
-      "permissions": "Selected permissions define what members of this group can access.",
-      "save": "Updates effective access for all users assigned to this group."
+      "isActive": "Passive groups should not be assigned for new access decisions.",
+      "permissions": "The permissions chosen determine what members of this group can access.",
+      "save": "Updates the current access for all users assigned to this group."
     },
     "userAssignment": {
-      "user": "Choose the user whose access scope you want to manage.",
-      "groups": "User receives combined permissions from all selected groups.",
-      "save": "Assignments apply immediately for the next authorization checks. Users may need to refresh their session.",
-      "systemAdminNote": "If the user has a system-admin group, detailed permissions are bypassed."
+      "user": "Select the user whose access scope you want to manage.",
+      "groups": "The user gets combined permissions from all selected groups.",
+      "save": "Assignments are applied immediately for the next authorization checks. Users can renew their sessions.",
+      "systemAdminNote": "If the user has a system administrator group, detailed permissions are skipped."
     }
   },
   "permissionDefinitions": {
     "title": "Permission Definitions",
     "description": "Manage permission codes used in the system",
-    "add": "Add Definition",
+    "add": "Add Description",
     "form": {
       "editTitle": "Edit Permission Definition",
       "addTitle": "Add Permission Definition",
-      "editDescription": "Update permission definition details",
+      "editDescription": "Update permission definition information",
       "addDescription": "Create a new permission definition",
       "code": "Code",
-      "codePlaceholder": "Select a code",
+      "codePlaceholder": "Choose code",
       "affectedRoutes": "Affected pages",
-      "affectedRoutesNone": "No matching routes found for this code",
+      "affectedRoutesNone": "No matching route found for this code",
       "name": "Name",
-      "namePlaceholder": "Display name",
+      "namePlaceholder": "display name",
       "description": "Description",
-      "descriptionPlaceholder": "Optional description",
-      "isActive": "Active",
+      "descriptionPlaceholder": "optional description",
+      "isActive": "active",
       "codeSearchPlaceholder": "Search...",
       "codeEmpty": "No results found"
     },
     "table": {
       "code": "Code",
       "name": "Name",
-      "isActive": "Active",
+      "isActive": "active",
       "updatedDate": "Updated",
-      "showing": "{{from}}-{{to}} of {{total}}"
+      "showing": "{{from}}-{{to}} / {{total}}"
     },
     "delete": {
       "confirmTitle": "Delete Permission Definition",
       "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
     },
     "syncFromRoutes": "Sync from routes",
-    "missingCodes": "{{count}} missing permission codes found. CRUD definitions are being synced automatically."
+    "missingCodes": "{{count}} missing permission code found. CRUD records are automatically synchronized."
   },
   "permissionGroups": {
     "title": "Permission Groups",
-    "description": "Manage permission groups and their assignments",
+    "description": "Manage permission groups and assignments",
     "add": "Add Group",
-    "selectAll": "Select all",
+    "selectAll": "select all",
     "noDefinitions": "No permission definitions available",
-    "matrixDescription": "Each row represents a page or resource. Assign View, Create, Update, and Delete permissions separately for tighter access control.",
+    "matrixDescription": "Each row represents a screen or resource. Define more controlled access by selecting View, Create, Update and Delete privileges separately.",
     "sections": {
       "aquaDefinitions": "Aqua Definitions",
-      "aquaOperations": "Aqua Operations",
+      "aquaOperations": "Aqua Transactions",
       "aquaReports": "Aqua Reports",
       "accessControl": "Access Control",
       "stock": "Stock Management",
-      "users": "Users and Profile",
+      "users": "User and Profile",
       "dashboard": "Dashboard",
       "other": "Other"
     },
     "matrix": {
-      "resource": "Page / Resource"
+      "resource": "Screen / Source"
     },
     "form": {
       "editTitle": "Edit Permission Group",
       "addTitle": "Add Permission Group",
-      "editDescription": "Update permission group details",
+      "editDescription": "Update permission group information",
       "addDescription": "Create a new permission group",
       "name": "Name",
       "namePlaceholder": "Group name",
       "description": "Description",
-      "descriptionPlaceholder": "Optional description",
-      "isSystemAdmin": "System Admin",
-      "isActive": "Active",
+      "descriptionPlaceholder": "optional description",
+      "isSystemAdmin": "System Administrator",
+      "isActive": "active",
       "permissions": "Permissions"
     },
     "table": {
       "name": "Name",
-      "isSystemAdmin": "System Admin",
-      "isActive": "Active",
+      "isSystemAdmin": "System Administrator",
+      "isActive": "active",
       "permissionCount": "Permissions",
-      "showing": "{{from}}-{{to}} of {{total}}"
+      "showing": "{{from}}-{{to}} / {{total}}"
     },
     "managePermissions": "Manage permissions",
     "permissionsPanel": {
       "title": "Edit Group Permissions",
       "description": "Select permissions for this group",
-      "currentCodes": "Current permission codes"
+      "currentCodes": "Available permission codes"
     },
     "delete": {
       "confirmTitle": "Delete Permission Group",
       "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
     },
     "search": "Search...",
-    "moduleTitle": "AQUA MODÜLÜ",
-    "systemAdminLocked": "System Admin grubu yetkileri kilitlidir ve değiştirilemez."
+    "moduleTitle": "AQUA MODULE",
+    "systemAdminLocked": "System Admin group privileges are locked and cannot be changed."
   },
   "userGroupAssignments": {
     "title": "User Group Assignments",
     "description": "Assign permission groups to users",
     "selectUser": "Select User",
     "selectUserPlaceholder": "Search and select user...",
-    "selectUserHint": "Select a user to manage their permission group assignments",
+    "selectUserHint": "Select a user to manage permission group assignments",
     "assignedGroups": "Assigned Permission Groups",
-    "noUsers": "No users found",
+    "noUsers": "User not found",
     "noGroups": "No permission groups available",
-    "selectAll": "Select all",
-    "unsavedChanges": "Changes are not saved"
+    "selectAll": "select all",
+    "unsavedChanges": "Changes not saved"
   },
   "common": {
     "cancel": "Cancel",
@@ -131,10 +131,10 @@
     "noData": "No data",
     "actions": "Transactions",
     "yes": "Yes",
-    "no": "No",
+    "no": "no",
     "edit": "Edit",
     "delete": "Delete",
-    "previous": "Former",
+    "previous": "Previous",
     "next": "Next",
     "processing": "Processing..."
   },
@@ -145,6 +145,6 @@
     "userGroupAssignments": "User Group Assignments"
   },
   "assignments": {
-    "userListLoadFailed": "User list could not be loaded"
+    "userListLoadFailed": "Failed to load user list"
   }
 }

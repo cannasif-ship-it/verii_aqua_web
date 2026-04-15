@@ -1,8 +1,8 @@
 {
   "title": "Benachrichtigungen",
-  "loading": "Wird geladen",
-  "noNotifications": "Keine Benachrichtigungen gefunden",
+  "loading": "Laden",
+  "noNotifications": "Benachrichtigung nicht gefunden",
   "markAllAsRead": "Alle als gelesen markieren",
   "close": "Schließen",
-  "unread": "Ungelesen"
+  "unread": "Nicht gelesen"
 }

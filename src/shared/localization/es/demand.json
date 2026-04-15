@@ -1,169 +1,169 @@
 {
   "loading": "Cargando...",
-  "saving": "Guardando...",
-  "error": "Error",
+  "saving": "Grabando...",
+  "error": "error",
   "noData": "No se encontraron datos",
   "previous": "Anterior",
   "next": "Siguiente",
-  "actions": "Acciones",
+  "actions": "Transacciones",
   "edit": "Editar",
   "delete": "Eliminar",
   "back": "Atrás",
   "refresh": "Actualizar",
   "select": "Seleccionar",
-  "yes": "Sí",
+  "yes": "si",
   "add": "Añadir",
   "backToQuotations": "Volver a Solicitudes",
   "cancel": "Cancelar",
   "save": "Guardar",
   "confirm": "Confirmar",
-  "saveAndApply": "Guardar y Aplicar",
+  "saveAndApply": "Guardar y aplicar",
   "list": {
     "revise": "Revisar",
-    "showing": "Mostrando {{from}}-{{to}} / {{total}}",
-    "title": "Lista de Solicitudes",
+    "showing": "{{total}} del registro muestra {{from}}-{{to}}",
+    "title": "Lista de solicitudes",
     "description": "Ver y gestionar todas las solicitudes",
-    "createNew": "Crear Nueva Solicitud",
-    "searchPlaceholder": "Buscar por n.º de solicitud o nombre del cliente..."
+    "createNew": "Crear nueva solicitud",
+    "searchPlaceholder": "Buscar por número de solicitud o nombre de cliente..."
   },
   "detail": {
-    "title": "Detalle de la Solicitud"
+    "title": "Detalles de la solicitud"
   },
   "create": {
-    "title": "Crear Nueva Solicitud",
-    "submit": "Guardar Solicitud y Enviar a Aprobación",
-    "success": "Solicitud Creada con Éxito",
+    "title": "Crear nueva solicitud",
+    "submit": "Guardar solicitud y enviar para aprobación",
+    "success": "Solicitud creada con éxito",
     "successMessage": "La solicitud ha sido enviada al proceso de aprobación.",
-    "error": "No se Pudo Crear la Solicitud",
-    "errorMessage": "Ocurrió un error al crear la solicitud."
+    "error": "No se pudo crear la solicitud",
+    "errorMessage": "Se produjo un error al crear la solicitud."
   },
   "header": {
-    "title": "Información de la Solicitud",
-    "customer": "Cliente",
+    "title": "Solicitar información",
+    "customer": "cliente",
     "selectCustomer": "Seleccionar cliente",
-    "shippingAddress": "Dirección de Envío",
-    "selectShippingAddress": "Seleccionar dirección de envío",
-    "representative": "Representante de Ventas",
-    "selectRepresentative": "Seleccionar representante",
-    "offerType": "Tipo de Solicitud",
-    "selectOfferType": "Seleccionar tipo de solicitud",
+    "shippingAddress": "Dirección de entrega",
+    "selectShippingAddress": "Elige la dirección de entrega",
+    "representative": "Representante de ventas",
+    "selectRepresentative": "Seleccione un representante",
+    "offerType": "Tipo de solicitud",
+    "selectOfferType": "Seleccione el tipo de solicitud",
     "currency": "Moneda",
-    "selectCurrency": "Por favor, seleccione moneda",
-    "showExchangeRates": "Mostrar Tipos de Cambio",
-    "offerDate": "Fecha de Solicitud",
-    "deliveryDate": "Fecha de Entrega",
-    "paymentType": "Tipo de Pago",
-    "selectPaymentType": "Seleccionar tipo de pago",
+    "selectCurrency": "Por favor seleccione moneda",
+    "showExchangeRates": "Mostrar tipos de cambio",
+    "offerDate": "Fecha de solicitud",
+    "deliveryDate": "Fecha de entrega",
+    "paymentType": "Tipo de pago",
+    "selectPaymentType": "Seleccione tipo de pago",
     "description": "Descripción",
-    "descriptionPlaceholder": "Introducir descripción",
-    "offerNo": "N.º de Solicitud",
+    "descriptionPlaceholder": "Introduce la descripción",
+    "offerNo": "Solicitud No",
     "offerNoPlaceholder": "Número de solicitud",
     "currencyChange": {
-      "title": "Cambio de Moneda",
-      "message": "Cuando cambie la moneda, todas las líneas existentes se recalcularán según la nueva moneda. ¿Aprueba esta operación?"
+      "title": "Cambio de moneda",
+      "message": "Cuando cambie la moneda, todas las filas existentes se volverán a calcular según la nueva moneda. ¿Aprueba esta transacción?"
     }
   },
   "lines": {
-    "title": "Líneas de Solicitud",
-    "add": "Añadir Línea",
-    "empty": "No hay líneas añadidas todavía",
-    "emptyDescription": "Use el botón \"Seleccionar Stock\" o \"Añadir Línea\" para agregar líneas",
-    "itemCount": "línea",
-    "editLine": "Editar Línea",
-    "selectStock": "Seleccionar Stock",
+    "title": "Líneas de solicitud",
+    "add": "Agregar fila",
+    "empty": "Aún no se han agregado filas",
+    "emptyDescription": "Utilice el botón \"Seleccionar stock\" o \"Agregar línea\" para agregar líneas de solicitud",
+    "itemCount": "linea",
+    "editLine": "Editar fila",
+    "selectStock": "Seleccionar acción",
     "selectProduct": "Seleccionar Producto",
-    "selectStockFirst": "Stock no seleccionado",
-    "stock": "Stock",
-    "productCode": "Código de Stock",
-    "enterProductCode": "Introducir código de producto o buscar",
-    "productName": "Nombre del Stock",
-    "enterProductName": "Introducir nombre del producto",
-    "quantity": "Cantidad",
-    "unitPrice": "Precio Unitario",
+    "selectStockFirst": "Acción no seleccionada",
+    "stock": "acciones",
+    "productCode": "Código de acciones",
+    "enterProductCode": "Ingrese o busque el código del producto",
+    "productName": "Nombre de la acción",
+    "enterProductName": "Introduzca el nombre del producto",
+    "quantity": "cantidad",
+    "unitPrice": "Precio unitario",
     "discount1": "Descuento 1 %",
     "discount2": "Descuento 2 %",
     "discount3": "Descuento 3 %",
     "discounts": "Descuentos",
-    "discountAmount": "Importe de Descuento",
+    "discountAmount": "Cantidad de descuento",
     "netPrice": "Precio Neto",
-    "vatRate": "Tasa IVA %",
-    "lineTotal": "Total Línea (IVA Incluido)",
+    "vatRate": "Tasa de IVA %",
+    "lineTotal": "Total Línea (IVA incluido)",
     "calculations": "Cálculos",
-    "required": "Se debe añadir al menos 1 línea",
-    "noProductsFound": "No se encontraron productos",
+    "required": "Se debe agregar al menos 1 línea",
+    "noProductsFound": "Producto no encontrado",
     "delete": {
-      "confirmTitle": "Eliminar Línea",
-      "confirmMessage": "¿Está seguro de que desea eliminar esta línea?"
+      "confirmTitle": "Eliminar fila",
+      "confirmMessage": "¿Está seguro de que desea eliminar esta fila?"
     }
   },
   "exchangeRates": {
-    "title": "Tipos de Cambio",
+    "title": "Tipos de cambio",
     "currency": "Moneda",
-    "rate": "Tasa",
-    "date": "Fecha de Tasa",
-    "isOfficial": "Tasa Oficial",
-    "official": "Oficial",
-    "custom": "Personalizado",
-    "empty": "No se encontraron tipos de cambio",
+    "rate": "Instalar",
+    "date": "Fecha del tipo de cambio",
+    "isOfficial": "Instalar oficial",
+    "official": "oficial",
+    "custom": "privado",
+    "empty": "Tipo de cambio no encontrado",
     "status": "Estado",
     "dialog": {
-      "title": "Tipos de Cambio",
-      "description": "Ver y editar valores de tipos de cambio si es necesario. Las tasas modificadas no se marcarán como tasas oficiales."
+      "title": "Tipos de cambio",
+      "description": "Ver y editar tipos de cambio si es necesario. Las tarifas modificadas no se marcarán como tarifas oficiales."
     }
   },
   "summary": {
     "title": "Resumen",
     "subtotal": "Subtotal",
-    "totalVat": "Total IVA",
-    "grandTotal": "Total General"
+    "totalVat": "IVA total",
+    "grandTotal": "Total general"
   },
   "offerType": {
-    "domestic": "Nacional",
-    "export": "Exportación"
+    "domestic": "domestico",
+    "export": "exportar"
   },
   "wizard": {
-    "title": "Crear Nueva Solicitud",
+    "title": "Crear nueva solicitud",
     "step1": {
-      "title": "Paso 1: Información de la Solicitud",
-      "description": "Introducir información de cabecera de la solicitud y tipos de cambio",
+      "title": "Paso 1: Solicitar información",
+      "description": "Ingrese la información del encabezado de la solicitud y los tipos de cambio",
       "validation": {
-        "offerType": "Tipo de Solicitud",
+        "offerType": "Tipo de solicitud",
         "currency": "Moneda",
-        "exchangeRate": "Tipo de Cambio"
+        "exchangeRate": "Tipo de cambio"
       },
       "exchangeRate": {
-        "required": "Se debe añadir al menos un tipo de cambio para monedas distintas a TRY"
+        "required": "Para monedas que no son TRY, se debe agregar al menos un tipo de cambio"
       },
       "currency": {
         "try": {
-          "info": "El tipo de cambio no es necesario cuando se selecciona TRY"
+          "info": "El tipo de cambio no es obligatorio cuando se selecciona TRY"
         }
       }
     },
     "step2": {
-      "title": "Paso 2: Líneas de Solicitud",
-      "description": "Añadir información de producto y precio",
-      "info": "Debe añadir al menos una línea",
+      "title": "Paso 2: Solicitar líneas",
+      "description": "Agregar información de producto y precio",
+      "info": "Debes agregar al menos una línea.",
       "validation": {
-        "noLines": "Se debe añadir al menos una línea",
-        "invalidLines": "Todas las líneas deben tener información válida",
-        "allValid": "{{count}} líneas añadidas con éxito"
+        "noLines": "Se debe agregar al menos una línea.",
+        "invalidLines": "Todas las líneas deben tener información válida.",
+        "allValid": "{{count}} fila agregada exitosamente"
       }
     },
     "step3": {
-      "title": "Paso 3: Resumen y Aprobación",
-      "description": "Revisar información y guardar solicitud",
+      "title": "Paso 3: Resumen y aprobación",
+      "description": "Revisar la información y guardar la solicitud.",
       "header": {
-        "title": "Información de la Solicitud"
+        "title": "Solicitar información"
       },
       "lines": {
-        "title": "Líneas de Solicitud"
+        "title": "Líneas de solicitud"
       },
       "summary": {
-        "title": "Resumen Final"
+        "title": "Resumen final"
       },
       "approval": {
-        "info": "La solicitud se enviará automáticamente al proceso de aprobación después de guardar"
+        "info": "Una vez guardada la solicitud, se enviará automáticamente al proceso de aprobación."
       }
     }
   }

@@ -38,10 +38,14 @@ export const cagesConfig: AquaCrudConfig = {
   fields: [
     { key: 'cageCode', label: 'aqua.fields.cageCode', type: 'text', required: true },
     { key: 'cageName', label: 'aqua.fields.cageName', type: 'text', required: true },
+    { key: 'capacityCount', label: 'aqua.fields.capacityCount', type: 'number' },
+    { key: 'capacityGram', label: 'aqua.fields.capacityGram', type: 'number' },
   ],
   columns: [
     { key: 'cageCode', label: 'aqua.fields.cageCode' },
     { key: 'cageName', label: 'aqua.fields.cageName' },
+    { key: 'capacityCount', label: 'aqua.fields.capacityCount' },
+    { key: 'capacityGram', label: 'aqua.fields.capacityGram' },
   ],
 };
 
@@ -79,7 +83,7 @@ export const projectCageAssignmentsConfig: AquaCrudConfig = {
       },
     },
     { key: 'assignedDate', label: 'aqua.fields.assignedDate', type: 'date', required: true },
-    { key: 'releasedDate', label: 'aqua.fields.releasedDate', type: 'date', hideInForm: true },
+    { key: 'releasedDate', label: 'aqua.fields.releasedDate', type: 'date' },
   ],
   columns: [
     { key: 'projectCode', label: 'aqua.fields.projectCode' },
@@ -103,7 +107,7 @@ export const weatherSeveritiesConfig: AquaCrudConfig = {
       key: 'weatherTypeId',
       label: 'aqua.fields.weatherTypeId',
       type: 'select',
-      required: true,
+      required: false,
       lookup: {
         endpoint: 'WeatherType',
         labelKeys: ['code', 'name'],

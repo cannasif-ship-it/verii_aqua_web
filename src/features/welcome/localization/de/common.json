@@ -2,7 +2,7 @@
   "welcome": {
     "title": "Willkommen",
     "greeting": "Hallo, {{name}}",
-    "subtitle": "Sie können über das linke Menü fortfahren.",
+    "subtitle": "Über das linke Menü können Sie auf Transaktionen und Berichte zugreifen.",
     "userFallback": "Benutzer"
   }
 }

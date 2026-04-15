@@ -1,28 +1,28 @@
 {
-  "menu": "Satış Tipi Yönetimi",
-  "description": "Satış tiplerini yönetin ve düzenleyin",
-  "addButton": "Yeni Satış Tipi Ekle",
-  "searchPlaceholder": "Satış tipi ara...",
+  "menu": "Gestione della tipologia di vendita",
+  "description": "Gestisci e modifica i tipi di vendita",
+  "addButton": "Aggiungi nuovo tipo di vendita",
+  "searchPlaceholder": "Cerca tipo di vendita...",
   "advancedFilter": {
-    "columnName": "Ad",
-    "columnSalesType": "Teklif Tipi"
+    "columnName": "Nome",
+    "columnSalesType": "Tipo di offerta"
   },
   "table": {
-    "salesType": "Teklif Tipi",
-    "name": "Ad",
-    "createdDate": "Oluşturulma Tarihi"
+    "salesType": "Tipo di offerta",
+    "name": "Nome",
+    "createdDate": "Data di creazione"
   },
   "form": {
-    "addTitle": "Yeni Satış Tipi Ekle",
-    "editTitle": "Satış Tipini Düzenle",
-    "addDescription": "Yeni bir satış tipi tanımı oluşturun.",
-    "editDescription": "Mevcut satış tipi tanımını güncelleyin.",
-    "salesType": "Teklif Tipi",
-    "name": "Ad",
-    "namePlaceholder": "Satış tipi adını girin",
+    "addTitle": "Aggiungi nuovo tipo di vendita",
+    "editTitle": "Modifica tipo di vendita",
+    "addDescription": "Creare una nuova definizione del tipo di vendita.",
+    "editDescription": "Aggiorna la definizione del tipo di vendita esistente.",
+    "salesType": "Tipo di offerta",
+    "name": "Nome",
+    "namePlaceholder": "Inserisci il nome del tipo di vendita",
     "validation": {
-      "required": "Ad zorunludur",
-      "whitespace": "Ad boş veya sadece boşluk olamaz"
+      "required": "Il nome è obbligatorio",
+      "whitespace": "Il nome non può essere vuoto o composto solo da spazi"
     }
   }
 }

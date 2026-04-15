@@ -22,5 +22,5 @@ export function getFilteredWeatherSeverities(
   const ranked = getRankedSeverities(severities);
   if (weatherTypeId <= 0) return [];
 
-  return ranked.filter((item) => Number(item.weatherTypeId ?? 0) === Number(weatherTypeId));
+  return ranked.filter((item) => item.weatherTypeId == null || Number(item.weatherTypeId) === Number(weatherTypeId));
 }

@@ -1,59 +1,59 @@
 {
-  "menu": "Aktivitätsartverwaltung",
-  "description": "Aktivitätsarten verwalten und bearbeiten",
-  "addButton": "Add New Activity Type",
+  "menu": "Aktivitätstypverwaltung",
+  "description": "Aktivitätstypen verwalten und bearbeiten",
+  "addButton": "Neuen Aktivitätstyp hinzufügen",
   "loading": "Laden...",
-  "noData": "Keine Daten gefunden",
-  "actions": "Aktionen",
+  "noData": "Keine Daten",
+  "actions": "Transaktionen",
   "edit": "Bearbeiten",
-  "deleteButton": "Delete",
+  "deleteButton": "Löschen",
   "cancel": "Abbrechen",
   "save": "Speichern",
-  "saving": "Speichern...",
-  "previous": "Previous",
-  "next": "Weiter",
+  "saving": "Aufnahme...",
+  "previous": "Zurück",
+  "next": "Als nächstes",
   "form": {
-    "addTitle": "Add New Activity Type",
-    "editTitle": "Aktivitätsart bearbeiten",
-    "addDescription": "Geben Sie die neuen Aktivitätsartinformationen ein",
-    "editDescription": "Bearbeiten Sie die Aktivitätsartinformationen",
-    "name": "Name der Aktivitätsart",
-    "namePlaceholder": "Geben Sie den Namen der Aktivitätsart ein",
-    "nameRequired": "Name der Aktivitätsart ist erforderlich",
-    "nameMaxLength": "Name der Aktivitätsart darf maximal 100 Zeichen lang sein",
+    "addTitle": "Neuen Aktivitätstyp hinzufügen",
+    "editTitle": "Aktivitätstyp bearbeiten",
+    "addDescription": "Geben Sie neue Informationen zum Aktivitätstyp ein",
+    "editDescription": "Informationen zum Aktivitätstyp bearbeiten",
+    "name": "Name des Aktivitätstyps",
+    "namePlaceholder": "Geben Sie den Namen des Aktivitätstyps ein",
+    "nameRequired": "Der Name des Aktivitätstyps ist erforderlich",
+    "nameMaxLength": "Der Name des Aktivitätstyps kann bis zu 100 Zeichen lang sein",
     "description": "Beschreibung",
-    "descriptionPlaceholder": "Beschreibung eingeben (optional)",
-    "descriptionMaxLength": "Beschreibung darf maximal 500 Zeichen lang sein"
+    "descriptionPlaceholder": "Geben Sie eine Beschreibung ein (optional)",
+    "descriptionMaxLength": "Die Beschreibung kann bis zu 500 Zeichen lang sein"
   },
   "table": {
-    "id": "AUSWEIS",
-    "name": "Name der Aktivitätsart",
+    "id": "ID",
+    "name": "Name des Aktivitätstyps",
     "description": "Beschreibung",
     "createdDate": "Erstellungsdatum",
-    "createdBy": "Erstellt von",
-    "showing": "Zeige {{from}}-{{to}} von {{total}}",
+    "createdBy": "Erstellt vom Benutzer",
+    "showing": "Angezeigt werden {{from}}-{{to}} / {{total}}",
     "page": "Seite {{current}} / {{total}}"
   },
   "stats": {
-    "totalActivityTypes": "Gesamtanzahl Aktivitätsarten",
-    "activeActivityTypes": "Aktive Aktivitätsarten",
-    "newThisMonth": "Diesen Monat neu"
+    "totalActivityTypes": "Gesamtaktivitätstyp",
+    "activeActivityTypes": "Aktiver Aktivitätstyp",
+    "newThisMonth": "Neu in diesem Monat"
   },
   "messages": {
-    "createSuccess": "Aktivitätsart erfolgreich erstellt",
-    "createError": "Fehler beim Erstellen der Aktivitätsart",
-    "updateSuccess": "Aktivitätsart erfolgreich aktualisiert",
-    "updateError": "Fehler beim Aktualisieren der Aktivitätsart",
-    "deleteSuccess": "Activity type deleted successfully",
-    "deleteError": "Failed to delete activity type"
+    "createSuccess": "Aktivitätstyp erfolgreich erstellt",
+    "createError": "Der Aktivitätstyp konnte nicht erstellt werden",
+    "updateSuccess": "Aktivitätstyp erfolgreich aktualisiert",
+    "updateError": "Der Aktivitätstyp konnte nicht aktualisiert werden",
+    "deleteSuccess": "Aktivitätstyp erfolgreich gelöscht",
+    "deleteError": "Der Aktivitätstyp konnte nicht gelöscht werden"
   },
   "deleteConfirm": {
-    "confirmTitle": "Delete Activity Type",
-    "confirmMessage": "Are you sure you want to delete {{name}} activity type?"
+    "confirmTitle": "Aktivitätstyp löschen",
+    "confirmMessage": "Sind Sie sicher, dass Sie den Aktivitätstyp {{name}} löschen möchten?"
   },
   "advancedFilter": {
-    "columnName": "Aktivite Tipi Adı",
-    "columnDescription": "Açıklama",
-    "columnCreatedBy": "Oluşturan"
+    "columnName": "Name des Aktivitätstyps",
+    "columnDescription": "Beschreibung",
+    "columnCreatedBy": "Erstellt von"
   }
 }

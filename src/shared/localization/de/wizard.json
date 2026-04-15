@@ -1,13 +1,13 @@
 {
   "buttons": {
-    "back": "Back",
-    "next": "Weiter",
+    "back": "Zurück",
+    "next": "Als nächstes",
     "complete": "Speichern und zur Genehmigung senden"
   },
   "validation": {
     "error": "Validierungsfehler"
   },
   "step": {
-    "unknown": "Unbekannter Schritt"
+    "unknown": "unbekannter Schritt"
   }
 }

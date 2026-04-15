@@ -1,5 +1,5 @@
 {
-  "title": "Gestione tipi di pagamento",
+  "title": "Gestione delle tipologie di pagamento",
   "description": "Descrizione",
   "create": "Nuovo tipo di pagamento",
   "edit": "Modifica tipo di pagamento",
@@ -12,18 +12,18 @@
     "isActive": "Attivo",
     "actions": "Azioni",
     "createdDate": "Data di creazione",
-    "updatedDate": "Data di aggiornamento",
+    "updatedDate": "Data aggiornata",
     "showing": "Mostrando {{from}}-{{to}} / {{total}}",
     "page": "Pagina {{current}} / {{total}}"
   },
   "form": {
     "name": {
       "required": "Il nome è obbligatorio",
-      "maxLength": "Il nome può avere al massimo 100 caratteri"
+      "maxLength": "Il nome può contenere fino a 100 caratteri"
     },
     "code": "Codice",
     "description": {
-      "maxLength": "La descrizione può avere al massimo 500 caratteri"
+      "maxLength": "La descrizione può contenere fino a 500 caratteri"
     },
     "isActive": "Attivo",
     "nameRequired": "Il nome è obbligatorio",
@@ -36,33 +36,33 @@
     "confirmDelete": "Sei sicuro di voler eliminare questo tipo di pagamento?"
   },
   "headerDescription": "Gestisci e modifica i tipi di pagamento",
-  "editDescription": "Modifica le informazioni del tipo di pagamento",
-  "createDescription": "Inserisci le informazioni del nuovo tipo di pagamento",
+  "editDescription": "Modifica le informazioni sul tipo di pagamento",
+  "createDescription": "Inserisci le informazioni sul nuovo tipo di pagamento",
   "deleteTitle": "Elimina tipo di pagamento",
   "name": "Nome",
   "namePlaceholder": "Inserisci il nome del tipo di pagamento",
-  "descriptionPlaceholder": "Inserisci una descrizione (opzionale)",
+  "descriptionPlaceholder": "Inserisci una descrizione (facoltativo)",
   "createdDate": "Data di creazione",
-  "updatedDate": "Data di aggiornamento",
-  "actions": "Azioni",
+  "updatedDate": "Data aggiornata",
+  "actions": "Transazioni",
   "search": "Cerca",
   "refresh": "Aggiorna",
   "loading": "Caricamento...",
   "previous": "Precedente",
-  "next": "Successivo",
+  "next": "Avanti",
   "cancel": "Annulla",
   "save": "Salva",
-  "saving": "Salvataggio...",
+  "saving": "Registrazione...",
   "noData": "Nessun dato trovato",
   "confirmDelete": "Sei sicuro di voler eliminare questo tipo di pagamento?",
   "createSuccess": "Tipo di pagamento creato correttamente",
   "updateSuccess": "Tipo di pagamento aggiornato correttamente",
-  "deleteSuccess": "Tipo di pagamento eliminato correttamente",
-  "createError": "Errore durante la creazione del tipo di pagamento",
-  "updateError": "Errore durante l'aggiornamento del tipo di pagamento",
-  "deleteError": "Errore durante l'eliminazione del tipo di pagamento",
+  "deleteSuccess": "Tipo di pagamento eliminato con successo",
+  "createError": "Si è verificato un errore durante la creazione del tipo di pagamento",
+  "updateError": "Si è verificato un errore durante l'aggiornamento del tipo di pagamento",
+  "deleteError": "Si è verificato un errore durante l'eliminazione del tipo di pagamento",
   "advancedFilter": {
-    "columnName": "Ad",
-    "columnDescription": "Açıklama"
+    "columnName": "Nome",
+    "columnDescription": "Descrizione"
   }
 }

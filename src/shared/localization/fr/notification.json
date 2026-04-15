@@ -1,8 +1,8 @@
 {
   "title": "Notifications",
-  "loading": "Chargement",
-  "noNotifications": "Aucune notification trouvée",
-  "markAllAsRead": "Tout marquer comme lu",
+  "loading": "chargement",
+  "noNotifications": "Notification introuvable",
+  "markAllAsRead": "Marquer tout comme lu",
   "close": "Fermer",
-  "unread": "Non lu"
+  "unread": "Pas lu"
 }

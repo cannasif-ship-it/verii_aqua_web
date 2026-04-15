@@ -1,39 +1,39 @@
 {
   "auth": {
     "login": {
-      "title": "Accesso al Sistema",
-      "subtitle": "Accedi per continuare",
-      "branch": "Filiale",
+      "title": "Accesso al sistema",
+      "subtitle": "DATI WMS",
+      "branch": "ramo",
       "selectBranch": "Seleziona filiale",
-      "branchNotFound": "Filiale non trovata",
-      "email": "Email",
+      "branchNotFound": "Ramo non trovato",
+      "email": "E-mail",
       "emailPlaceholder": "Inserisci il tuo indirizzo email",
-      "password": "Password",
-      "passwordPlaceholder": "Inserisci la tua password",
+      "password": "parola d'ordine",
+      "passwordPlaceholder": "••••••••",
       "loginButton": "Accedi",
-      "loggingIn": "Accesso in corso...",
-      "wrongPassword": "Email o password non corretti",
+      "loggingIn": "Accesso...",
+      "wrongPassword": "L'e-mail o la password non sono corrette",
       "loginError": "Si è verificato un errore durante l'accesso",
-      "sessionExpired": "La sessione è scaduta. Effettua nuovamente l'accesso.",
+      "sessionExpired": "La tua sessione è scaduta. Effettua nuovamente l'accesso.",
       "copyright": "© 2025 VERII. Tutti i diritti riservati.",
-      "branchPlaceholder": "Seleziona Filiale",
+      "branchPlaceholder": "Seleziona Ramo",
       "rememberMe": "Ricordami",
-      "forgotPassword": "Password dimenticata?",
-      "processing": "Elaborazione...",
+      "forgotPassword": "Ho dimenticato la mia password?",
+      "processing": "Accesso...",
       "submitButton": "Accedi",
-      "slogan": "Potenzia la tua attività con <1>VERII AQUA</1>",
-      "capsLockOn": "Bloc Maiusc attivo",
-      "animationOff": "Disattiva animazione",
-      "animationOn": "Attiva animazione"
+      "slogan": "Informazioni con <1>V3RII</1>, gestione con <2>AQUA</2>;<br/>Esperienza digitale nell'acquacoltura.",
+      "capsLockOn": "Il blocco maiuscole è attivo",
+      "animationOff": "Chiudi Animazione",
+      "animationOn": "Apri Animazione"
     },
-    "logout": "Disconnetti",
+    "logout": "uscire",
     "changePassword": {
       "error": "Impossibile modificare la password",
-      "success": "Successo"
+      "success": "successo"
     },
     "resetPassword": {
-      "successRedirect": "La password è stata reimpostata correttamente. Stai per essere reindirizzato alla pagina di accesso...",
-      "failed": "Reimpostazione password non riuscita",
+      "successRedirect": "La tua password è stata reimpostata con successo. Verrai indirizzato alla pagina di accesso...",
+      "failed": "La reimpostazione della password non è riuscita",
       "error": "Si è verificato un errore durante il processo di reimpostazione della password"
     }
   }

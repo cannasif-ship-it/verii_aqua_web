@@ -6,8 +6,7 @@ export function useProjectCageListByProjectQuery(projectId: number | null) {
     queryKey: ['aqua', 'quick-daily-entry', 'project-cages', projectId] as const,
     queryFn: () => aquaQuickDailyApi.getProjectCages(projectId!),
     enabled: projectId != null && projectId > 0,
-    staleTime: 0,
-    refetchOnMount: 'always',
-    refetchOnWindowFocus: true,
+    staleTime: 30_000,
+    refetchOnWindowFocus: false,
   });
 }

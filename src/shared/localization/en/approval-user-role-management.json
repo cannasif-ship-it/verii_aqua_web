@@ -1,7 +1,7 @@
 {
   "approvalUserRole": {
     "menu": "Approval User Role Management",
-    "description": "Manage and organize approval user roles",
+    "description": "Manage and edit approval user roles",
     "addButton": "Add New Role",
     "searchPlaceholder": "Search...",
     "refresh": "Refresh",
@@ -11,9 +11,9 @@
       "id": "ID",
       "userFullName": "User",
       "approvalRoleName": "Approval Role",
-      "createdDate": "Created Date",
-      "createdBy": "Created By",
-      "actions": "Actions",
+      "createdDate": "Creation Date",
+      "createdBy": "Created by User",
+      "actions": "Transactions",
       "showing": "Showing {{from}}-{{to}} / {{total}}",
       "page": "Page {{current}} / {{total}}",
       "previous": "Previous",
@@ -32,20 +32,20 @@
       "addDescription": "Enter new approval user role information",
       "userId": "User",
       "selectUser": "Select User",
-      "noUserSelected": "No user selected",
+      "noUserSelected": "User not selected",
       "approvalRoleId": "Approval Role",
       "selectApprovalRole": "Select Approval Role",
-      "noApprovalRoleSelected": "No approval role selected",
+      "noApprovalRoleSelected": "Approval role not selected",
       "userIdRequired": "User selection is required",
       "approvalRoleIdRequired": "Approval role selection is required",
       "save": "Save",
-      "saving": "Saving...",
+      "saving": "Recording...",
       "cancel": "Cancel"
     },
     "advancedFilter": {
       "columnUserFullName": "User",
       "columnApprovalRoleName": "Approval Role",
-      "columnCreatedBy": "Created By"
+      "columnCreatedBy": "Created by"
     }
   }
 }
