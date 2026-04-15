@@ -497,6 +497,7 @@
       "requireFullTransfer": "Require Full Transfer",
       "allowProjectMerge": "Allow Project Merge",
       "partialTransferOccupiedCageMode": "Partial Transfer Rule For Occupied Cage",
+      "feedCostFallbackStrategy": "Feed Cost Fallback Strategy",
       "selectMode": "Select a rule"
     },
     "options": {
@@ -512,6 +513,11 @@
         "0": "Forbidden",
         "1": "Same batch only",
         "2": "Allowed"
+      },
+      "feedCostFallbackStrategy": {
+        "0": "Weighted Average",
+        "1": "FIFO",
+        "2": "Last Purchase Price"
       }
     },
     "optionDescriptions": {
@@ -528,6 +534,11 @@
         "1": "If the target cage is occupied, partial transfer is allowed only when it contains the same batch.",
         "2": "Partial transfer is allowed even when the target cage is occupied.",
         "disabledByFullTransfer": "This rule is currently inactive because full transfer is required."
+      },
+      "feedCostFallbackStrategy": {
+        "0": "If feeding cannot be matched to an actual goods receipt cost, weighted average cost is used.",
+        "1": "If feeding cannot be matched to an actual goods receipt cost, FIFO costing is used.",
+        "2": "If feeding cannot be matched to an actual goods receipt cost, the last purchase price is used."
       }
     },
     "toast": {
@@ -773,9 +784,15 @@
       "goodsReceiptLineId": "Goods Receipt Line ID",
       "itemType": "Item Type",
       "stockId": "Stock ID",
+      "currencyCode": "Currency",
+      "exchangeRate": "Exchange Rate",
       "qtyUnit": "Qty (Unit)",
       "gramPerUnit": "Gram per Unit",
       "totalGram": "Total Gram",
+      "unitPrice": "Unit Price",
+      "localUnitPrice": "Local Unit Price",
+      "lineAmount": "Line Amount",
+      "localLineAmount": "Local Line Amount",
       "fishCount": "Fish Count",
       "fishAverageGram": "Fish Average Gram",
       "fishTotalGram": "Fish Total Gram",
@@ -1147,9 +1164,9 @@
       "tableTitle": "Cage Level Business KPI",
       "tableDescription": "Decision-support metrics and assumption-based economics are listed per active cage.",
       "dictionaryTitle": "Business KPI Dictionary",
-      "dictionaryDescription": "These fields are derived from current operational data plus business rules. If no price exists in the system, cost and revenue fields are intentionally shown as 0.",
+      "dictionaryDescription": "These fields are derived from current operational data plus business rules. When priced goods receipts and shipment lines exist, the system uses them; missing price history is never replaced with fabricated values.",
       "assumptionTitle": "Assumptions",
-      "assumptionDescription": "Real cost and sales prices are not available from the backend yet. Because of that, the system shows 0 instead of inventing financial values when price data is missing.",
+      "assumptionDescription": "Feed cost is derived from goods receipt lines and sales price from shipment lines. When price history is missing, only the uncovered portion stays at 0 and the system does not invent commercial values.",
       "assumptions": {
         "targetHarvestGram": "Target harvest gram",
         "forecastDays": "Forecast days",
@@ -1157,7 +1174,7 @@
         "salePricePerKg": "Sale price"
       },
       "metrics": {
-        "estimatedFeedCost": "Estimated Feed Cost",
+        "estimatedFeedCost": "Feed Cost",
         "feedCostPerCurrentKg": "Feed Cost Per Live Kg",
         "projectedHarvestBiomassKg": "Projected Harvest Biomass",
         "projectedRevenue": "Projected Revenue",
@@ -1180,24 +1197,67 @@
         "estimatedHarvestDate": "Estimated Date"
       },
       "descriptions": {
-        "estimatedFeedCost": "Calculated as total feed multiplied by feed cost per kg. If the system has no feed price, this field is shown as 0 instead of using an artificial estimate.",
-        "feedCostPerCurrentKg": "Estimated feed cost distributed across current live biomass. If price is missing, total feed cost stays 0, so this metric also becomes 0 or empty when division is not possible.",
+        "estimatedFeedCost": "Calculated as total feed multiplied by feed cost per kg derived from priced goods receipts. If a stock has no price history, only that uncovered portion remains at 0.",
+        "feedCostPerCurrentKg": "Calculated feed cost distributed across current live biomass. This shows the current feed cost burden per live kg.",
         "projectedHarvestBiomassKg": "Business layer reuses the raw growth and biomass trend. It shows expected harvest biomass at the end of the forecast window if current growth continues.",
-        "projectedRevenue": "Projected harvest biomass multiplied by sales price per kg. If no sales price exists, projected revenue is shown as 0.",
-        "projectedGrossMargin": "Projected revenue minus estimated feed cost. If price inputs are missing, the result remains 0 because the system does not fabricate profitability.",
+        "projectedRevenue": "Projected harvest biomass multiplied by the sales price per kg derived from shipment history. If there is no shipment price history yet, revenue stays conservative.",
+        "projectedGrossMargin": "Projected revenue minus feed cost. The result is only as strong as the real price coverage available in the system.",
         "daysToTarget": "Current average gram is compared with target harvest gram and divided by ADG. If ADG is missing or zero, the field cannot be computed reliably.",
         "harvestReadinessPct": "This is a decision-support score, not a direct financial metric. Weight progress, survival, and FCR quality are blended into a 0-100 readiness value.",
         "forecastConfidencePct": "Shows how trustworthy the forecast is. The score increases when weighings are recent, feeding activity is consistent, and the data set is more mature."
       },
       "formulas": {
-        "estimatedFeedCost": "Estimated feed cost = total feed (kg) * feed cost. If price is missing, feed cost is treated as 0.",
+        "estimatedFeedCost": "Feed cost = total feed (kg) * feed cost per kg. The cost is derived from goods receipt history and the selected fallback method.",
         "feedCostPerCurrentKg": "Feed cost per live kg = estimated feed cost / current biomass (kg)",
         "projectedHarvestBiomassKg": "Projected harvest biomass = current biomass + daily biomass gain * {{forecastDays}} days",
-        "projectedRevenue": "Projected revenue = projected harvest biomass * sale price. If price is missing, result is 0.",
-        "projectedGrossMargin": "Projected gross margin = projected revenue - estimated feed cost. If pricing is missing, margin stays 0.",
+        "projectedRevenue": "Projected revenue = projected harvest biomass * sale price. The sales price is derived from shipment history.",
+        "projectedGrossMargin": "Projected gross margin = projected revenue - feed cost. The result is bounded by the real price history available.",
         "daysToTarget": "Days left = (target gram {{targetHarvestGram}} - current gram) / ADG",
         "harvestReadinessPct": "Readiness % = weight progress score * 0.55 + survival * 0.25 + FCR score * 0.20",
         "forecastConfidencePct": "Forecast confidence = weighing recency + feeding continuity + data maturity score"
+      }
+    },
+    "devirFcrReport": {
+      "pageTitle": "Turnover / FCR Report",
+      "description": "Shows opening stock, sales, mortality, ending stock, and FCR by project for the selected date range.",
+      "loading": "Loading turnover / FCR report...",
+      "loadFailed": "Turnover / FCR report could not be loaded.",
+      "emptyState": "Select at least one project to display the report.",
+      "filters": {
+        "fromDate": "From Date",
+        "toDate": "To Date",
+        "projects": "Projects",
+        "searchProject": "Search project...",
+        "selectFiltered": "Select Filtered",
+        "clearFiltered": "Clear Filtered"
+      },
+      "summary": {
+        "openingFish": "Opening Qty",
+        "openingFishDescription": "Live stock at the start of the period.",
+        "shipmentFish": "Sales Qty",
+        "shipmentFishDescription": "Total quantity shipped during the period.",
+        "endingFish": "Ending Stock",
+        "endingFishDescription": "Live stock at the end of the period.",
+        "fcr": "Period FCR",
+        "fcrDescription": "Total feed / produced biomass."
+      },
+      "tableTitle": "Project Turnover Summary",
+      "tableDescription": "Project summary for {{fromDate}} - {{toDate}}.",
+      "totals": "Total",
+      "columns": {
+        "projectName": "Project Name",
+        "projectCode": "Project Code",
+        "openingFishCount": "Opening Qty",
+        "shipmentFishCount": "Sales Qty",
+        "mortalityFishCount": "Mortality Qty",
+        "mortalityPct": "Mortality %",
+        "endingFishCount": "Ending Stock",
+        "endingAverageGram": "Average Gram",
+        "endingBiomassKg": "Stock KG",
+        "shippedBiomassKg": "Sales KG",
+        "mortalityBiomassKg": "Mortality KG",
+        "totalFeedKg": "Feed KG",
+        "fcr": "FCR"
       }
     },
     "crud": {

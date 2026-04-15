@@ -370,6 +370,22 @@ function computeReport(
   }
 
   const dailyDeadByCage = new Map<number, Map<string, number>>();
+  const dailyDeadBiomassByCage = new Map<number, Map<string, number>>();
+  for (const movement of batchMovements) {
+    if (movement.movementType !== 1) continue;
+    const cageId = movement.projectCageId;
+    if (!cageId || !cageIds.has(cageId)) continue;
+    const date = toDateOnly(movement.movementDate);
+    if (!date) continue;
+
+    const deadBiomassGram = Math.max(0, -Number(movement.signedBiomassGram ?? 0));
+    if (deadBiomassGram <= 0) continue;
+
+    const byDate = dailyDeadBiomassByCage.get(cageId) ?? new Map<string, number>();
+    byDate.set(date, (byDate.get(date) ?? 0) + deadBiomassGram);
+    dailyDeadBiomassByCage.set(cageId, byDate);
+  }
+
   for (const row of mortalityLines) {
     if (!cageIds.has(row.projectCageId)) continue;
     const date = mortalityIdToDate.get(row.mortalityId);
@@ -643,6 +659,7 @@ function computeReport(
     const feedDetailsByDate = feedDetailsByCageDate.get(cageId) ?? new Map<string, string[]>();
     const feedStocksByDate = feedStocksByCageDate.get(cageId) ?? new Map<string, Set<number>>();
     const deadByDate = dailyDeadByCage.get(cageId) ?? new Map<string, number>();
+    const deadBiomassByDate = dailyDeadBiomassByCage.get(cageId) ?? new Map<string, number>();
     const countDeltaByDate = movementCountDeltaByCageDate.get(cageId) ?? new Map<string, number>();
     const biomassDeltaByDate = movementBiomassDeltaByCageDate.get(cageId) ?? new Map<string, number>();
     const netOpByDate = netOpsByCageDate.get(cageId) ?? new Map<string, number>();
@@ -679,6 +696,7 @@ function computeReport(
         feedStockCount: feedStocksByDate.get(date)?.size ?? 0,
         feedDetails: feedDetailsByDate.get(date) ?? [],
         deadCount: deadByDate.get(date) ?? 0,
+        deadBiomassGram: deadBiomassByDate.get(date) ?? 0,
         countDelta: countDeltaByDate.get(date) ?? 0,
         biomassDelta: biomassDeltaByDate.get(date) ?? 0,
         weather: weatherByDate.get(date) ?? '-',

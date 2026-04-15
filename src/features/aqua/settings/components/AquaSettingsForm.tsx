@@ -2,7 +2,7 @@ import { type ReactElement, useEffect } from 'react';
 import { type Resolver, type SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { ArrowRightLeft, GitMerge, Waves, Save, Settings2 } from 'lucide-react';
+import { ArrowRightLeft, Coins, GitMerge, Waves, Save, Settings2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -51,6 +51,7 @@ export function AquaSettingsForm({
       requireFullTransfer: true,
       allowProjectMerge: false,
       partialTransferOccupiedCageMode: 0,
+      feedCostFallbackStrategy: 0,
     },
   });
 
@@ -60,6 +61,7 @@ export function AquaSettingsForm({
       requireFullTransfer: data.requireFullTransfer,
       allowProjectMerge: data.allowProjectMerge,
       partialTransferOccupiedCageMode: data.partialTransferOccupiedCageMode,
+      feedCostFallbackStrategy: data.feedCostFallbackStrategy,
     });
   }, [data, form]);
 
@@ -152,6 +154,35 @@ export function AquaSettingsForm({
                     {requireFullTransfer
                       ? t('aquaSettings.optionDescriptions.partialTransferOccupiedCageMode.disabledByFullTransfer')
                       : t(`aquaSettings.optionDescriptions.partialTransferOccupiedCageMode.${field.value}`)}
+                  </p>
+                  <FormMessage className="text-xs text-red-500" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="feedCostFallbackStrategy"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel className={labelStyle}>
+                    <Coins className="size-4 text-cyan-500" />
+                    {t('aquaSettings.fields.feedCostFallbackStrategy')}
+                  </FormLabel>
+                  <FormControl>
+                    <Select value={String(field.value)} onValueChange={(value) => field.onChange(Number(value))}>
+                      <SelectTrigger className={inputStyle}>
+                        <SelectValue placeholder={t('aquaSettings.fields.selectMode')} />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white dark:bg-blue-950 border-slate-200 dark:border-cyan-800/30">
+                        <SelectItem value="0">{t('aquaSettings.options.feedCostFallbackStrategy.0')}</SelectItem>
+                        <SelectItem value="1">{t('aquaSettings.options.feedCostFallbackStrategy.1')}</SelectItem>
+                        <SelectItem value="2">{t('aquaSettings.options.feedCostFallbackStrategy.2')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    {t(`aquaSettings.optionDescriptions.feedCostFallbackStrategy.${field.value}`)}
                   </p>
                   <FormMessage className="text-xs text-red-500" />
                 </FormItem>

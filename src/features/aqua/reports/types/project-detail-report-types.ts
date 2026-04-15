@@ -217,6 +217,7 @@ export interface CageDailyRow {
   feedStockCount: number;
   feedDetails: string[];
   deadCount: number;
+  deadBiomassGram: number;
   countDelta: number;
   biomassDelta: number;
   weather: string;

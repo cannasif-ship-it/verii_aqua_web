@@ -31,3 +31,4 @@ export { ProjectDetailReportPage } from './reports/components/ProjectDetailRepor
 export { AquaDashboardPage } from './reports/components/AquaDashboardPage';
 export { RawKpiReportPage } from './reports/components/RawKpiReportPage';
 export { BusinessKpiReportPage } from './reports/components/BusinessKpiReportPage';
+export { DevirFcrReportPage } from './reports/components/DevirFcrReportPage';

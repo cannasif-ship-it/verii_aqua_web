@@ -171,6 +171,41 @@ function normalizeInputValue(field: AquaFieldConfig, value: unknown): string {
   return raw;
 }
 
+function toNumericValue(rawValue: unknown): number | null {
+  if (rawValue == null) return null;
+  const normalized = typeof rawValue === 'string' ? rawValue.trim().replace(',', '.') : rawValue;
+  if (normalized === '') return null;
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function formatCalculatedNumber(value: number | null): string {
+  if (value == null || !Number.isFinite(value)) return '';
+  return String(Number(value.toFixed(6)));
+}
+
+function getGoodsReceiptPricingQuantity(values: Record<string, unknown>): number | null {
+  const itemType = Number(values.itemType ?? 0);
+  if (itemType === 0) {
+    const qtyUnit = toNumericValue(values.qtyUnit);
+    return qtyUnit != null && qtyUnit > 0 ? qtyUnit : null;
+  }
+
+  const fishTotalGram = toNumericValue(values.fishTotalGram);
+  if (fishTotalGram != null && fishTotalGram > 0) return fishTotalGram / 1000;
+
+  const totalGram = toNumericValue(values.totalGram);
+  if (totalGram != null && totalGram > 0) return totalGram / 1000;
+
+  return null;
+}
+
+function getShipmentPricingQuantity(values: Record<string, unknown>): number | null {
+  const biomassGram = toNumericValue(values.biomassGram);
+  if (biomassGram == null || biomassGram <= 0) return null;
+  return biomassGram / 1000;
+}
+
 function resolveLookupLabel(item: Record<string, unknown>, field: AquaFieldConfig): string | null {
   if (!field.lookup) return null;
   const labelKeys = field.lookup.labelKeys?.length ? field.lookup.labelKeys : field.lookup.labelKey ? [field.lookup.labelKey] : [];
@@ -545,6 +580,61 @@ export function AquaCrudPage({
     });
   }, [formOpen, isTransferLineConfig, requireFullTransfer, transferLineSourceBalanceQuery.data]);
 
+  useEffect(() => {
+    if (!formOpen) return;
+    if (config.key !== 'goodsReceiptLines' && config.key !== 'shipmentLines') return;
+
+    setFormValues((previous) => {
+      const next = { ...previous };
+      let hasChanged = false;
+
+      const currentCurrency = String(previous.currencyCode ?? '').trim().toUpperCase() || 'TRY';
+      if (String(previous.currencyCode ?? '') !== currentCurrency) {
+        next.currencyCode = currentCurrency;
+        hasChanged = true;
+      }
+
+      const manualRate = toNumericValue(previous.exchangeRate);
+      const effectiveRate = currentCurrency === 'TRY' ? 1 : manualRate;
+      const unitPrice = toNumericValue(previous.unitPrice);
+      const quantity =
+        config.key === 'goodsReceiptLines'
+          ? getGoodsReceiptPricingQuantity(previous)
+          : getShipmentPricingQuantity(previous);
+
+      const localUnitPrice =
+        unitPrice != null && effectiveRate != null ? unitPrice * effectiveRate : null;
+      const lineAmount =
+        unitPrice != null && quantity != null ? unitPrice * quantity : null;
+      const localLineAmount =
+        lineAmount != null && effectiveRate != null ? lineAmount * effectiveRate : null;
+
+      const normalizedRate = currentCurrency === 'TRY' ? '1' : formatCalculatedNumber(effectiveRate);
+      const normalizedLocalUnitPrice = formatCalculatedNumber(localUnitPrice);
+      const normalizedLineAmount = formatCalculatedNumber(lineAmount);
+      const normalizedLocalLineAmount = formatCalculatedNumber(localLineAmount);
+
+      if (String(previous.exchangeRate ?? '') !== normalizedRate) {
+        next.exchangeRate = normalizedRate;
+        hasChanged = true;
+      }
+      if (String(previous.localUnitPrice ?? '') !== normalizedLocalUnitPrice) {
+        next.localUnitPrice = normalizedLocalUnitPrice;
+        hasChanged = true;
+      }
+      if (String(previous.lineAmount ?? '') !== normalizedLineAmount) {
+        next.lineAmount = normalizedLineAmount;
+        hasChanged = true;
+      }
+      if (String(previous.localLineAmount ?? '') !== normalizedLocalLineAmount) {
+        next.localLineAmount = normalizedLocalLineAmount;
+        hasChanged = true;
+      }
+
+      return hasChanged ? next : previous;
+    });
+  }, [config.key, formOpen, formValues]);
+
   const lookupLabelsByFieldAndValue = useMemo((): Record<string, Record<string, string>> => {
     const result: Record<string, Record<string, string>> = {};
     Object.entries(lookupOptionsByField).forEach(([fieldKey, options]) => { result[fieldKey] = options.reduce<Record<string, string>>((acc, option) => { acc[option.value] = option.label; return acc; }, {}); });
@@ -677,6 +767,7 @@ export function AquaCrudPage({
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
   const isDeleting = deleteMutation.isPending;
+  const isPricingLineConfig = config.key === 'goodsReceiptLines' || config.key === 'shipmentLines';
   
   let rows = canQueryList ? listQuery.data?.data ?? [] : [];
   if (searchTerm && rows.length > 0) {
@@ -1070,7 +1161,28 @@ export function AquaCrudPage({
                         />
                       )}
                       {(field.type === 'text' || field.type === 'number' || field.type === 'date' || field.type === 'datetime') && (
-                        <Input id={field.key} type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'} step={field.type === 'number' ? resolveNumberInputStep(field) : undefined} min={field.type === 'number' ? field.numberMin : undefined} max={field.type === 'number' ? field.numberMax : undefined} inputMode={field.type === 'number' ? 'decimal' : undefined} placeholder={field.placeholder} value={normalizeInputValue(field, formValues[field.key])} onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))} className={INPUT_STYLE} readOnly={isTransferLineConfig && requireFullTransfer && field.key === 'fishCount'} />
+                        <Input
+                          id={field.key}
+                          type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'datetime' ? 'datetime-local' : 'text'}
+                          step={field.type === 'number' ? resolveNumberInputStep(field) : undefined}
+                          min={field.type === 'number' ? field.numberMin : undefined}
+                          max={field.type === 'number' ? field.numberMax : undefined}
+                          inputMode={field.type === 'number' ? 'decimal' : undefined}
+                          placeholder={field.placeholder}
+                          value={normalizeInputValue(field, formValues[field.key])}
+                          onChange={(e) => setFormValues((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                          className={INPUT_STYLE}
+                          readOnly={
+                            (isTransferLineConfig && requireFullTransfer && field.key === 'fishCount') ||
+                            (isPricingLineConfig &&
+                              (
+                                field.key === 'localUnitPrice' ||
+                                field.key === 'lineAmount' ||
+                                field.key === 'localLineAmount' ||
+                                (field.key === 'exchangeRate' && String(formValues.currencyCode ?? 'TRY').toUpperCase() === 'TRY')
+                              ))
+                          }
+                        />
                       )}
                       {isTransferLineConfig && requireFullTransfer && field.key === 'fishCount' && Number(transferLineSourceBalanceQuery.data ?? 0) > 0 && (
                         <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">

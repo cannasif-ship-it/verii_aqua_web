@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "audit:responsive:aqua": "python3 scripts/aqua-responsive-audit.py",
     "test:batch": "node --test tests/batch-math.test.mjs",
+    "test:scenario:aqua": "node --test tests/batch-math.test.mjs tests/aqua-report-scenarios.test.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

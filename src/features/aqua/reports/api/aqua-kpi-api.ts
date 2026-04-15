@@ -3,6 +3,7 @@ import i18n from '@/lib/i18n';
 import type { ApiResponse } from '@/types/api';
 import { projectDetailReportApi } from './project-detail-report-api';
 import type { ProjectDetailReport, ProjectDto } from '../types/project-detail-report-types';
+import { aquaSettingsApi } from '@/features/aqua/settings/api/aquaSettingsApi';
 
 interface PagedResultRaw<T> {
   items?: T[];
@@ -28,6 +29,70 @@ interface CageDto {
   cageName?: string;
   capacityCount?: number | null;
   capacityGram?: number | null;
+}
+
+interface GoodsReceiptRawDto {
+  id: number;
+  projectId?: number | null;
+  receiptDate?: string;
+  status: number;
+}
+
+interface GoodsReceiptLineRawDto {
+  id: number;
+  goodsReceiptId: number;
+  itemType: number;
+  stockId: number;
+  qtyUnit?: number | null;
+  totalGram?: number | null;
+  currencyCode?: string | null;
+  exchangeRate?: number | null;
+  unitPrice?: number | null;
+  localUnitPrice?: number | null;
+  lineAmount?: number | null;
+  localLineAmount?: number | null;
+}
+
+interface FeedingRawDto {
+  id: number;
+  projectId: number;
+  feedingDate?: string;
+  status: number;
+}
+
+interface FeedingLineRawDto {
+  id: number;
+  feedingId: number;
+  stockId: number;
+  qtyUnit: number;
+  gramPerUnit: number;
+  totalGram: number;
+}
+
+interface FeedingDistributionRawDto {
+  id: number;
+  feedingLineId: number;
+  projectCageId: number;
+  feedGram: number;
+}
+
+interface ShipmentRawDto {
+  id: number;
+  projectId: number;
+  shipmentDate?: string;
+  status: number;
+}
+
+interface ShipmentLineRawDto {
+  id: number;
+  shipmentId: number;
+  fromProjectCageId: number;
+  biomassGram: number;
+  unitPrice?: number | null;
+  localUnitPrice?: number | null;
+  exchangeRate?: number | null;
+  lineAmount?: number | null;
+  localLineAmount?: number | null;
 }
 
 export interface KpiMetricDefinition {
@@ -127,8 +192,10 @@ const PAGE_SIZE = 500;
 const MAX_PAGE_GUARD = 100;
 const FORECAST_DAYS = 30;
 const DEFAULT_TARGET_HARVEST_GRAM = 400;
-const DEFAULT_FEED_COST_PER_KG = 0;
-const DEFAULT_SALE_PRICE_PER_KG = 0;
+const DOCUMENT_STATUS_POSTED = 1;
+const GOODS_RECEIPT_ITEM_TYPE_FEED = 0;
+const FEED_COST_FALLBACK_FIFO = 1;
+const FEED_COST_FALLBACK_LAST_PURCHASE = 2;
 
 function ensureSuccess<T>(response: ApiResponse<T>, fallback: string): T {
   if (!response.success || response.data == null) {
@@ -186,6 +253,11 @@ function round(value: number): number {
   return Number(value.toFixed(3));
 }
 
+function toNumber(value: unknown): number {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
 function safePercent(numerator: number, denominator: number): number | null {
   if (denominator <= 0) return null;
   return round((numerator / denominator) * 100);
@@ -207,6 +279,203 @@ function toIsoDate(input: Date): string {
 function weightedAverage(totalBiomassKg: number, fishCount: number, fallback: number): number {
   if (fishCount <= 0) return fallback;
   return round((totalBiomassKg * 1000) / fishCount);
+}
+
+function getLocalMonetaryValue(input: {
+  localUnitPrice?: number | null;
+  unitPrice?: number | null;
+  exchangeRate?: number | null;
+  localLineAmount?: number | null;
+  lineAmount?: number | null;
+}): { localUnitPrice: number; localLineAmount: number } {
+  const exchangeRate = toNumber(input.exchangeRate) > 0 ? toNumber(input.exchangeRate) : 1;
+  const localUnitPrice = toNumber(input.localUnitPrice) > 0
+    ? toNumber(input.localUnitPrice)
+    : toNumber(input.unitPrice) * exchangeRate;
+  const localLineAmount = toNumber(input.localLineAmount) > 0
+    ? toNumber(input.localLineAmount)
+    : toNumber(input.lineAmount) > 0
+      ? toNumber(input.lineAmount) * exchangeRate
+      : 0;
+
+  return { localUnitPrice, localLineAmount };
+}
+
+function getGoodsReceiptLineKg(line: GoodsReceiptLineRawDto): number {
+  const totalGram = toNumber(line.totalGram);
+  if (totalGram > 0) return totalGram / 1000;
+  return Math.max(0, toNumber(line.qtyUnit));
+}
+
+function getShipmentLineKg(line: ShipmentLineRawDto): number {
+  return Math.max(0, toNumber(line.biomassGram) / 1000);
+}
+
+function isPosted(status: number): boolean {
+  return status === DOCUMENT_STATUS_POSTED;
+}
+
+function getLineCostPerKg(line: GoodsReceiptLineRawDto): number | null {
+  const quantityKg = getGoodsReceiptLineKg(line);
+  if (quantityKg <= 0) return null;
+
+  const { localLineAmount, localUnitPrice } = getLocalMonetaryValue(line);
+  if (localLineAmount > 0) return localLineAmount / quantityKg;
+  if (localUnitPrice > 0) return localUnitPrice;
+  return null;
+}
+
+function computeFallbackFeedCostPerKg(lines: GoodsReceiptLineRawDto[], strategy: number): number {
+  const pricedLines = lines
+    .map((line) => {
+      const quantityKg = getGoodsReceiptLineKg(line);
+      const { localLineAmount } = getLocalMonetaryValue(line);
+      const unitCost = getLineCostPerKg(line);
+
+      return {
+        line,
+        quantityKg,
+        localLineAmount,
+        unitCost,
+      };
+    })
+    .filter((item) => item.quantityKg > 0 && (item.localLineAmount > 0 || (item.unitCost ?? 0) > 0));
+
+  if (pricedLines.length === 0) return 0;
+
+  if (strategy === FEED_COST_FALLBACK_LAST_PURCHASE) {
+    const latest = [...pricedLines].sort((a, b) => b.line.id - a.line.id)[0];
+    return round(latest.unitCost ?? 0);
+  }
+
+  if (strategy === FEED_COST_FALLBACK_FIFO) {
+    const earliest = [...pricedLines].sort((a, b) => a.line.id - b.line.id)[0];
+    return round(earliest.unitCost ?? 0);
+  }
+
+  const totalQuantityKg = pricedLines.reduce((sum, item) => sum + item.quantityKg, 0);
+  const totalAmount = pricedLines.reduce((sum, item) => {
+    if (item.localLineAmount > 0) return sum + item.localLineAmount;
+    return sum + (item.unitCost ?? 0) * item.quantityKg;
+  }, 0);
+
+  return totalQuantityKg > 0 ? round(totalAmount / totalQuantityKg) : 0;
+}
+
+function mapFeedCostPerKgByStock(
+  lines: GoodsReceiptLineRawDto[],
+  strategy: number
+): { stockCostPerKg: Map<number, number>; globalFallbackCostPerKg: number } {
+  const linesByStock = new Map<number, GoodsReceiptLineRawDto[]>();
+
+  lines.forEach((line) => {
+    const group = linesByStock.get(line.stockId) ?? [];
+    group.push(line);
+    linesByStock.set(line.stockId, group);
+  });
+
+  const stockCostPerKg = new Map<number, number>();
+  linesByStock.forEach((stockLines, stockId) => {
+    stockCostPerKg.set(stockId, computeFallbackFeedCostPerKg(stockLines, strategy));
+  });
+
+  return {
+    stockCostPerKg,
+    globalFallbackCostPerKg: computeFallbackFeedCostPerKg(lines, strategy),
+  };
+}
+
+async function getFeedCostInputs(projectId: number, strategy: number): Promise<{
+  feedCostByProjectCage: Map<number, number>;
+  projectAverageFeedCostPerKg: number;
+}> {
+  const [feedings, feedingLines, feedingDistributions, goodsReceipts, goodsReceiptLines] = await Promise.all([
+    getAllPagedItems<FeedingRawDto>('Feeding', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
+    getAllPagedItems<FeedingLineRawDto>('FeedingLine'),
+    getAllPagedItems<FeedingDistributionRawDto>('FeedingDistribution'),
+    getAllPagedItems<GoodsReceiptRawDto>('GoodsReceipt'),
+    getAllPagedItems<GoodsReceiptLineRawDto>('GoodsReceiptLine'),
+  ]);
+
+  const postedFeedingIds = new Set(feedings.filter((item) => isPosted(item.status)).map((item) => item.id));
+  const activeFeedingLines = feedingLines.filter((item) => postedFeedingIds.has(item.feedingId));
+  const feedingLineById = new Map(activeFeedingLines.map((item) => [item.id, item]));
+
+  const postedGoodsReceiptIds = new Set(goodsReceipts.filter((item) => isPosted(item.status)).map((item) => item.id));
+  const pricedFeedReceiptLines = goodsReceiptLines.filter(
+    (item) => postedGoodsReceiptIds.has(item.goodsReceiptId) && item.itemType === GOODS_RECEIPT_ITEM_TYPE_FEED
+  );
+
+  const { stockCostPerKg, globalFallbackCostPerKg } = mapFeedCostPerKgByStock(pricedFeedReceiptLines, strategy);
+  const feedCostByProjectCage = new Map<number, number>();
+
+  feedingDistributions.forEach((distribution) => {
+    const feedingLine = feedingLineById.get(distribution.feedingLineId);
+    if (!feedingLine) return;
+
+    const feedKg = Math.max(0, toNumber(distribution.feedGram) / 1000);
+    if (feedKg <= 0) return;
+
+    const stockCostPerKgValue = stockCostPerKg.get(feedingLine.stockId) ?? globalFallbackCostPerKg;
+    const current = feedCostByProjectCage.get(distribution.projectCageId) ?? 0;
+    feedCostByProjectCage.set(distribution.projectCageId, current + feedKg * stockCostPerKgValue);
+  });
+
+  const totalFeedCost = Array.from(feedCostByProjectCage.values()).reduce((sum, value) => sum + value, 0);
+  const totalFeedKg = feedingDistributions.reduce((sum, item) => sum + Math.max(0, toNumber(item.feedGram) / 1000), 0);
+
+  return {
+    feedCostByProjectCage,
+    projectAverageFeedCostPerKg: totalFeedKg > 0 ? round(totalFeedCost / totalFeedKg) : round(globalFallbackCostPerKg),
+  };
+}
+
+async function getSalePriceInputs(projectId: number): Promise<{
+  salePriceByProjectCage: Map<number, number>;
+  projectAverageSalePricePerKg: number;
+}> {
+  const [shipments, shipmentLines] = await Promise.all([
+    getAllPagedItems<ShipmentRawDto>('Shipment', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
+    getAllPagedItems<ShipmentLineRawDto>('ShipmentLine'),
+  ]);
+
+  const postedShipmentIds = new Set(shipments.filter((item) => isPosted(item.status)).map((item) => item.id));
+  const activeLines = shipmentLines.filter((item) => postedShipmentIds.has(item.shipmentId));
+
+  const saleTotalsByProjectCage = new Map<number, { kg: number; amount: number }>();
+
+  activeLines.forEach((line) => {
+    const kg = getShipmentLineKg(line);
+    if (kg <= 0) return;
+
+    const { localLineAmount, localUnitPrice } = getLocalMonetaryValue(line);
+    const amount = localLineAmount > 0 ? localLineAmount : localUnitPrice * kg;
+    if (amount <= 0) return;
+
+    const existing = saleTotalsByProjectCage.get(line.fromProjectCageId) ?? { kg: 0, amount: 0 };
+    existing.kg += kg;
+    existing.amount += amount;
+    saleTotalsByProjectCage.set(line.fromProjectCageId, existing);
+  });
+
+  const salePriceByProjectCage = new Map<number, number>();
+  saleTotalsByProjectCage.forEach((totals, projectCageId) => {
+    salePriceByProjectCage.set(projectCageId, totals.kg > 0 ? round(totals.amount / totals.kg) : 0);
+  });
+
+  const grandTotals = Array.from(saleTotalsByProjectCage.values()).reduce(
+    (sum, item) => {
+      sum.kg += item.kg;
+      sum.amount += item.amount;
+      return sum;
+    },
+    { kg: 0, amount: 0 }
+  );
+
+  return {
+    salePriceByProjectCage,
+    projectAverageSalePricePerKg: grandTotals.kg > 0 ? round(grandTotals.amount / grandTotals.kg) : 0,
+  };
 }
 
 function toRawRow(
@@ -296,7 +565,12 @@ function getRecentWeighingDays(row: ProjectDetailReport['cages'][number]): numbe
   return daysBetween(dates[0]);
 }
 
-function toBusinessRow(raw: RawKpiRow, source: ProjectDetailReport['cages'][number]): BusinessKpiRow {
+function toBusinessRow(
+  raw: RawKpiRow,
+  source: ProjectDetailReport['cages'][number],
+  feedCostPerKg: number,
+  salePricePerKg: number
+): BusinessKpiRow {
   const targetWeightProgressPct = Math.max(0, Math.min(999, round((raw.currentAverageGram / DEFAULT_TARGET_HARVEST_GRAM) * 100)));
   const daysToTarget =
     raw.adgGramPerDay != null && raw.adgGramPerDay > 0 && raw.currentAverageGram < DEFAULT_TARGET_HARVEST_GRAM
@@ -331,10 +605,10 @@ function toBusinessRow(raw: RawKpiRow, source: ProjectDetailReport['cages'][numb
       round(targetWeightProgressPct * 0.55 + (raw.survivalPct ?? 0) * 0.25 + fcrScore * 0.2)
     )
   );
-  const estimatedFeedCost = round(raw.totalFeedKg * DEFAULT_FEED_COST_PER_KG);
+  const estimatedFeedCost = round(raw.totalFeedKg * Math.max(0, feedCostPerKg));
   const feedCostPerCurrentKg = raw.currentBiomassKg > 0 ? round(estimatedFeedCost / raw.currentBiomassKg) : null;
   const projectedHarvestBiomassKg = raw.forecastBiomassKg30d;
-  const projectedRevenue = round(projectedHarvestBiomassKg * DEFAULT_SALE_PRICE_PER_KG);
+  const projectedRevenue = round(projectedHarvestBiomassKg * Math.max(0, salePricePerKg));
   const projectedGrossMargin = round(projectedRevenue - estimatedFeedCost);
   const projectedMarginPct = projectedRevenue > 0 ? round((projectedGrossMargin / projectedRevenue) * 100) : null;
 
@@ -451,11 +725,30 @@ export const aquaKpiApi = {
   },
 
   getBusinessKpiReport: async (projectId: number): Promise<BusinessKpiReport> => {
-    const rawReport = await aquaKpiApi.getRawKpiReport(projectId);
-    const detail = await projectDetailReportApi.getProjectDetailReport(projectId);
+    const aquaSettings = await aquaSettingsApi.get();
+    const [rawReport, detail, feedCostInputs, salePriceInputs] = await Promise.all([
+      aquaKpiApi.getRawKpiReport(projectId),
+      projectDetailReportApi.getProjectDetailReport(projectId),
+      getFeedCostInputs(projectId, aquaSettings.feedCostFallbackStrategy),
+      getSalePriceInputs(projectId),
+    ]);
+
     const businessRows = rawReport.rows.map((row) => {
       const source = detail.cages.find((item) => item.projectCageId === row.projectCageId);
-      return toBusinessRow(row, source ?? buildFallbackCage(row.projectCageId, row.cageLabel));
+      const feedCost = feedCostInputs.feedCostByProjectCage.get(row.projectCageId);
+      const feedCostPerKg =
+        rawReport.totalFeedKg > 0 && feedCost != null && row.totalFeedKg > 0
+          ? feedCost / row.totalFeedKg
+          : feedCostInputs.projectAverageFeedCostPerKg;
+      const salePricePerKg =
+        salePriceInputs.salePriceByProjectCage.get(row.projectCageId) ?? salePriceInputs.projectAverageSalePricePerKg;
+
+      return toBusinessRow(
+        row,
+        source ?? buildFallbackCage(row.projectCageId, row.cageLabel),
+        feedCostPerKg,
+        salePricePerKg
+      );
     });
 
     const estimatedFeedCost = round(businessRows.reduce((sum, row) => sum + row.estimatedFeedCost, 0));
@@ -504,8 +797,8 @@ export const aquaKpiApi = {
       assumptions: {
         forecastDays: FORECAST_DAYS,
         targetHarvestGram: DEFAULT_TARGET_HARVEST_GRAM,
-        feedCostPerKg: DEFAULT_FEED_COST_PER_KG,
-        salePricePerKg: DEFAULT_SALE_PRICE_PER_KG,
+        feedCostPerKg: feedCostInputs.projectAverageFeedCostPerKg,
+        salePricePerKg: salePriceInputs.projectAverageSalePricePerKg,
       },
       rows: businessRows.sort((a, b) => a.cageLabel.localeCompare(b.cageLabel)),
       metricDefinitions: getBusinessMetricDefinitions(),

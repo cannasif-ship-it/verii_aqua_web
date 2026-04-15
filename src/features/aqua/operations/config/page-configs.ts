@@ -11,6 +11,13 @@ const goodsReceiptItemTypeOptions = [
   { label: 'aqua.goodsReceiptItemType.fish', value: 1 },
 ];
 
+const currencyCodeOptions = [
+  { label: 'TRY', value: 'TRY' },
+  { label: 'USD', value: 'USD' },
+  { label: 'EUR', value: 'EUR' },
+  { label: 'GBP', value: 'GBP' },
+];
+
 export const goodsReceiptsConfig: AquaCrudConfig = {
   key: 'goodsReceipts',
   title: 'aqua.pages.goodsReceipts.title',
@@ -434,6 +441,12 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
     { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number' },
     { key: 'fishAverageGram', label: 'aqua.fields.fishAverageGram', type: 'number' },
     { key: 'fishTotalGram', label: 'aqua.fields.fishTotalGram', type: 'number' },
+    { key: 'currencyCode', label: 'aqua.fields.currencyCode', type: 'select', options: currencyCodeOptions },
+    { key: 'exchangeRate', label: 'aqua.fields.exchangeRate', type: 'number' },
+    { key: 'unitPrice', label: 'aqua.fields.unitPrice', type: 'number' },
+    { key: 'localUnitPrice', label: 'aqua.fields.localUnitPrice', type: 'number' },
+    { key: 'lineAmount', label: 'aqua.fields.lineAmount', type: 'number' },
+    { key: 'localLineAmount', label: 'aqua.fields.localLineAmount', type: 'number' },
     {
       key: 'fishBatchId',
       label: 'aqua.fields.fishBatchId',
@@ -452,7 +465,11 @@ export const goodsReceiptLinesConfig: AquaCrudConfig = {
     { key: 'stockId', label: 'aqua.fields.stockId' },
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'totalGram', label: 'aqua.fields.totalGram' },
+    { key: 'currencyCode', label: 'aqua.fields.currencyCode' },
+    { key: 'unitPrice', label: 'aqua.fields.unitPrice' },
+    { key: 'localLineAmount', label: 'aqua.fields.localLineAmount' },
   ],
+  defaultValues: { currencyCode: 'TRY', exchangeRate: 1 },
 };
 
 export const goodsReceiptFishDistributionsConfig: AquaCrudConfig = {
@@ -724,6 +741,12 @@ export const shipmentLinesConfig: AquaCrudConfig = {
     { key: 'fishCount', label: 'aqua.fields.fishCount', type: 'number', required: true },
     { key: 'averageGram', label: 'aqua.fields.averageGram', type: 'number', required: true },
     { key: 'biomassGram', label: 'aqua.fields.biomassGram', type: 'number', required: true },
+    { key: 'currencyCode', label: 'aqua.fields.currencyCode', type: 'select', options: currencyCodeOptions },
+    { key: 'exchangeRate', label: 'aqua.fields.exchangeRate', type: 'number' },
+    { key: 'unitPrice', label: 'aqua.fields.unitPrice', type: 'number' },
+    { key: 'localUnitPrice', label: 'aqua.fields.localUnitPrice', type: 'number' },
+    { key: 'lineAmount', label: 'aqua.fields.lineAmount', type: 'number' },
+    { key: 'localLineAmount', label: 'aqua.fields.localLineAmount', type: 'number' },
   ],
   columns: [
     { key: 'shipmentId', label: 'aqua.fields.shipmentId' },
@@ -731,7 +754,11 @@ export const shipmentLinesConfig: AquaCrudConfig = {
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'averageGram', label: 'aqua.fields.averageGram' },
     { key: 'biomassGram', label: 'aqua.fields.biomassGram' },
+    { key: 'currencyCode', label: 'aqua.fields.currencyCode' },
+    { key: 'unitPrice', label: 'aqua.fields.unitPrice' },
+    { key: 'localLineAmount', label: 'aqua.fields.localLineAmount' },
   ],
+  defaultValues: { currencyCode: 'TRY', exchangeRate: 1 },
 };
 
 export const mortalityLinesConfig: AquaCrudConfig = {

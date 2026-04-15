@@ -271,6 +271,14 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     display: { key: 'permissions.aqua.operations.net-operation-lines', fallback: 'Ağ İşlem Satırları' },
   },
   {
+    codeBase: 'aqua.reports.devir-fcr',
+    routePermission: 'aqua.reports.devir-fcr.view',
+    routePaths: ['/aqua/reports/devir-fcr'],
+    routePatterns: [/^\/aqua\/reports\/devir-fcr(\/|$)/],
+    actions: ['view'],
+    display: { key: 'sidebar.aquaDevirFcrReport', fallback: 'Devir / FCR Raporu' },
+  },
+  {
     codeBase: 'aqua.reports.project-detail',
     routePermission: 'aqua.reports.project-detail.view',
     routePaths: ['/aqua/reports/project-detail'],
@@ -492,6 +500,9 @@ export const AQUA_CONFIG_PERMISSION_CODES: Record<string, Partial<Record<AquaCru
   batchMovements: {
     view: 'aqua.reports.batch-movements.view',
   },
+  devirFcr: {
+    view: 'aqua.reports.devir-fcr.view',
+  },
   cageBalances: {
     view: 'aqua.reports.cage-balances.view',
   },
@@ -563,6 +574,7 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
   '/aqua/operations/net-operation-lines': 'aqua.operations.net-operation-lines.view',
 
   '/aqua/reports/project-detail': 'aqua.reports.project-detail.view',
+  '/aqua/reports/devir-fcr': 'aqua.reports.devir-fcr.view',
   '/aqua/reports/batch-movements': 'aqua.reports.batch-movements.view',
   '/aqua/reports/cage-balances': 'aqua.reports.cage-balances.view',
   '/aqua/dashboard': 'dashboard.view',

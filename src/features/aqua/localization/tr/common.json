@@ -203,9 +203,15 @@
       "goodsReceiptLineId": "Mal Kabul Satır ID",
       "itemType": "Ürün Tipi",
       "stockId": "Stok ID",
+      "currencyCode": "Para Birimi",
+      "exchangeRate": "Kur",
       "qtyUnit": "Miktar (Birim)",
       "gramPerUnit": "Birim Gram",
       "totalGram": "Toplam Gram",
+      "unitPrice": "Birim Fiyat",
+      "localUnitPrice": "Yerel Birim Fiyat",
+      "lineAmount": "Satır Tutarı",
+      "localLineAmount": "Yerel Satır Tutarı",
       "fishCount": "Balık Adet",
       "fishAverageGram": "Balık Ortalama Gram",
       "fishTotalGram": "Balık Toplam Gram",
@@ -577,9 +583,9 @@
       "tableTitle": "Kafes Bazlı Business KPI",
       "tableDescription": "Karar destek metrikleri ve varsayıma dayalı ekonomik göstergeler aktif kafes bazında listelenir.",
       "dictionaryTitle": "Business KPI Sözlüğü",
-      "dictionaryDescription": "Bu alanlar mevcut operasyon verisinden ve business yorum kurallarından türetilir. Backend’de gerçek fiyat tanımı yoksa maliyet ve gelir alanları bilinçli olarak 0 gösterilir.",
+      "dictionaryDescription": "Bu alanlar mevcut operasyon verisinden ve business yorum kurallarından türetilir. Fiyatlı mal kabul ve sevkiyat satırları varsa sistem bunları kullanır; fiyat verisi bulunmayan alanlar zorla tahmin edilmez.",
       "assumptionTitle": "Varsayımlar",
-      "assumptionDescription": "Maliyet ve gelir alanları için gerçek fiyat verisi henüz backend’den gelmiyor. Bu nedenle fiyat olmayan alanlarda sistem tahmini rakam uydurmak yerine 0 gösterir.",
+      "assumptionDescription": "Yem maliyeti mal kabul satırlarından, satış fiyatı sevkiyat satırlarından türetilir. Uygun fiyat geçmişi yoksa sistem yalnızca eksik kalan bölümleri 0 kabul eder ve hayali rakam üretmez.",
       "assumptions": {
         "targetHarvestGram": "Hedef hasat gramı",
         "forecastDays": "Forecast günü",
@@ -587,7 +593,7 @@
         "salePricePerKg": "Satış fiyatı"
       },
       "metrics": {
-        "estimatedFeedCost": "Tahmini Yem Maliyeti",
+        "estimatedFeedCost": "Yem Maliyeti",
         "feedCostPerCurrentKg": "Canlı Kg Başına Yem Maliyeti",
         "projectedHarvestBiomassKg": "Tahmini Hasat Biyokütlesi",
         "projectedRevenue": "Tahmini Ciro",
@@ -610,24 +616,67 @@
         "estimatedHarvestDate": "Tahmini Tarih"
       },
       "descriptions": {
-        "estimatedFeedCost": "Toplam yem miktarı ile kg başı yem maliyeti çarpılarak bulunur. Ancak sistemde gerçek yem maliyet fiyatı yoksa bu alan 0 gösterilir; tahmini bir rakam yazılmaz.",
-        "feedCostPerCurrentKg": "Bulunan toplam yem maliyeti mevcut canlı biyokütleye bölünür. Fiyat bilgisi yoksa toplam maliyet 0 olacağından bu alan da 0 veya bölünemiyorsa boş görünür.",
+        "estimatedFeedCost": "Toplam yem miktarı, mal kabul geçmişinden türetilen kg başı yem maliyeti ile çarpılarak bulunur. İlgili stok için fiyat geçmişi yoksa yalnızca eksik kalan bölüm 0 kabul edilir.",
+        "feedCostPerCurrentKg": "Bulunan yem maliyeti mevcut canlı biyokütleye bölünür. Böylece proje bugün hangi maliyet seviyesinde canlı kg taşıyor sorusuna cevap verir.",
         "projectedHarvestBiomassKg": "Raw KPI içindeki büyüme ve biyokütle trendi business katmanına taşınır. Mevcut büyüme temposu korunursa forecast periyodu sonundaki beklenen hasat biyokütlesi gösterilir.",
-        "projectedRevenue": "Tahmini hasat biyokütlesi ile kg başı satış fiyatı çarpılır. Satış fiyatı tanımlı değilse sistem ciroyu 0 gösterir.",
-        "projectedGrossMargin": "Tahmini cirodan tahmini yem maliyeti düşülür. Her iki fiyat alanı eksikse sonuç 0 görünür; çünkü sistem veri yokken hayali karlılık üretmez.",
+        "projectedRevenue": "Tahmini hasat biyokütlesi, sevkiyat geçmişinden türetilen kg başı satış fiyatı ile çarpılır. Satış geçmişi yoksa sistem ciroyu veri geldikçe yükseltecek şekilde temkinli hesaplar.",
+        "projectedGrossMargin": "Tahmini cirodan yem maliyeti düşülür. Sistem veri bulunmayan fiyat alanlarını zorla tahmin etmez; bu nedenle marj hesabı mevcut gerçek fiyat kapsamı kadar güçlüdür.",
         "daysToTarget": "Mevcut ortalama gram ile hedef hasat gramı arasındaki fark alınır ve ADG değerine bölünür. ADG yoksa veya büyüme hızı sıfırsa alan hesaplanamaz.",
         "harvestReadinessPct": "Bu alan tek bir finansal veri değil, karar destek skorudur. Ağırlık ilerlemesi, survival performansı ve FCR kalitesi birleşerek 0-100 arası bir hazırlık puanı üretir.",
         "forecastConfidencePct": "Tahmine ne kadar güvenilebileceğini gösterir. Yakın tarihli tartım varsa, son günlerde düzenli yemleme yapılmışsa ve veri seti yeterince olgunsa skor yükselir."
       },
       "formulas": {
-        "estimatedFeedCost": "Tahmini yem maliyeti = toplam yem (kg) * yem maliyeti. Fiyat yoksa yem maliyeti 0 kabul edilir.",
+        "estimatedFeedCost": "Yem maliyeti = toplam yem (kg) * kg başı yem maliyeti. Maliyet, mal kabul geçmişinden ve fallback yönteminden türetilir.",
         "feedCostPerCurrentKg": "Canlı kg başına maliyet = tahmini yem maliyeti / mevcut biyokütle (kg)",
         "projectedHarvestBiomassKg": "Tahmini hasat biyokütlesi = mevcut biyokütle + günlük biyokütle artışı * {{forecastDays}} gün",
-        "projectedRevenue": "Tahmini ciro = tahmini hasat biyokütlesi * satış fiyatı. Fiyat yoksa sonuç 0 olur.",
-        "projectedGrossMargin": "Tahmini brüt marj = tahmini ciro - tahmini yem maliyeti. Fiyat verisi yoksa marj 0 olur.",
+        "projectedRevenue": "Tahmini ciro = tahmini hasat biyokütlesi * satış fiyatı. Satış fiyatı sevkiyat geçmişinden türetilir.",
+        "projectedGrossMargin": "Tahmini brüt marj = tahmini ciro - yem maliyeti. Hesap yalnızca mevcut gerçek fiyat kapsamı kadar güçlüdür.",
         "daysToTarget": "Kalan gün = (hedef gram {{targetHarvestGram}} - mevcut gram) / ADG",
         "harvestReadinessPct": "Hazırlık % = ağırlık ilerleme skoru * 0.55 + survival * 0.25 + FCR skoru * 0.20",
         "forecastConfidencePct": "Forecast confidence = tartım yakınlığı + yemleme sürekliliği + veri olgunluğu skoru"
+      }
+    },
+    "devirFcrReport": {
+      "pageTitle": "Devir / FCR Raporu",
+      "description": "Seçilen tarih aralığında proje bazlı başlangıç, satış, fire, kalan stok ve FCR özetini gösterir.",
+      "loading": "Devir / FCR raporu yükleniyor...",
+      "loadFailed": "Devir / FCR raporu yüklenemedi.",
+      "emptyState": "Raporu görmek için en az bir proje seçin.",
+      "filters": {
+        "fromDate": "Başlangıç Tarihi",
+        "toDate": "Bitiş Tarihi",
+        "projects": "Projeler",
+        "searchProject": "Proje ara...",
+        "selectFiltered": "Filtreleneni Seç",
+        "clearFiltered": "Filtreleneni Kaldır"
+      },
+      "summary": {
+        "openingFish": "Başlangıç Adet",
+        "openingFishDescription": "Dönemin açılışındaki canlı stok.",
+        "shipmentFish": "Satış Adet",
+        "shipmentFishDescription": "Dönem içinde sevk edilen toplam adet.",
+        "endingFish": "Kalan Stok",
+        "endingFishDescription": "Dönem sonundaki canlı stok.",
+        "fcr": "Dönem FCR",
+        "fcrDescription": "Toplam yem / üretilen biyokütle."
+      },
+      "tableTitle": "Proje Bazlı Devir Özeti",
+      "tableDescription": "{{fromDate}} - {{toDate}} aralığındaki proje özeti.",
+      "totals": "Toplam",
+      "columns": {
+        "projectName": "Proje Adı",
+        "projectCode": "Proje Kodu",
+        "openingFishCount": "Başlangıç Adet",
+        "shipmentFishCount": "Satış Adet",
+        "mortalityFishCount": "Fire Adet",
+        "mortalityPct": "Fire Oranı",
+        "endingFishCount": "Kalan Stok",
+        "endingAverageGram": "Gramaj",
+        "endingBiomassKg": "Stok KG",
+        "shippedBiomassKg": "Satış KG",
+        "mortalityBiomassKg": "Fire KG",
+        "totalFeedKg": "Yem KG",
+        "fcr": "FCR"
       }
     },
     "crud": {
@@ -1168,6 +1217,7 @@
       "requireFullTransfer": "Transfer Tamamı Zorunlu",
       "allowProjectMerge": "Proje Birleştirmeye İzin Ver",
       "partialTransferOccupiedCageMode": "Dolu Kafese Kısmi Transfer Kuralı",
+      "feedCostFallbackStrategy": "Yem Maliyeti Fallback Yöntemi",
       "selectMode": "Kural seçin"
     },
     "options": {
@@ -1183,6 +1233,11 @@
         "0": "Yasak",
         "1": "Sadece aynı batch",
         "2": "Serbest"
+      },
+      "feedCostFallbackStrategy": {
+        "0": "Ağırlıklı Ortalama",
+        "1": "FIFO",
+        "2": "Son Alış Fiyatı"
       }
     },
     "optionDescriptions": {
@@ -1199,6 +1254,11 @@
         "1": "Kısmi transferde hedef kafes doluysa sadece ayni batch mevcutsa izin verilir.",
         "2": "Kısmi transferde hedef kafes dolu olsa bile isleme izin verilir.",
         "disabledByFullTransfer": "Transfer tamami zorunlu acik oldugu icin bu kural su anda devre disidir."
+      },
+      "feedCostFallbackStrategy": {
+        "0": "Yemleme gerçek mal kabul maliyetine bağlanamıyorsa ağırlıklı ortalama maliyet kullanılır.",
+        "1": "Yemleme gerçek mal kabul maliyetine bağlanamıyorsa FIFO maliyet mantığı baz alınır.",
+        "2": "Yemleme gerçek mal kabul maliyetine bağlanamıyorsa son alış fiyatı kullanılır."
       }
     },
     "toast": {

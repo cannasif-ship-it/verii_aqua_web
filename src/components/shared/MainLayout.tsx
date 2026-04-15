@@ -63,6 +63,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
         icon: <BarChart3 size={iconSize} className="text-indigo-500" />,
         children: [
           { title: sidebarT('aquaProjectDetailReport'), href: '/aqua/reports/project-detail' },
+          { title: sidebarT('aquaDevirFcrReport'), href: '/aqua/reports/devir-fcr' },
           { title: sidebarT('aquaRawKpiReport'), href: '/aqua/reports/raw-kpi' },
           { title: sidebarT('aquaBusinessKpiReport'), href: '/aqua/reports/business-kpi' },
           { title: sidebarT('aquaBatchMovements'), href: '/aqua/reports/batch-movements' },

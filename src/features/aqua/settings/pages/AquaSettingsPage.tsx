@@ -31,6 +31,7 @@ export function AquaSettingsPage(): ReactElement {
       requireFullTransfer: values.requireFullTransfer,
       allowProjectMerge: values.allowProjectMerge,
       partialTransferOccupiedCageMode: values.partialTransferOccupiedCageMode,
+      feedCostFallbackStrategy: values.feedCostFallbackStrategy,
     });
   };
 
