@@ -7,6 +7,7 @@ import { FishDistributionStepCard } from './components/FishDistributionStepCard'
 import { aquaQuickApi } from './api/aqua-quick-api';
 import { useProjectListQuery } from './hooks/useProjectListQuery';
 import { useStockListQuery } from './hooks/useStockListQuery';
+import { useWarehouseListQuery } from './hooks/useWarehouseListQuery';
 import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByProjectQuery';
 import { useQuickSetupMutations } from './hooks/useQuickSetupMutations';
 import type { ProjectFormSchema } from './schema/quick-setup-schema';
@@ -42,6 +43,7 @@ export function QuickSetupPage(): ReactElement {
 
   const { data: projects, isLoading: isLoadingProjects } = useProjectListQuery();
   const { data: stocks, isLoading: isLoadingStocks } = useStockListQuery();
+  const { data: warehouses, isLoading: isLoadingWarehouses } = useWarehouseListQuery();
   const {
     data: projectCages,
     refetch: refetchProjectCages,
@@ -180,7 +182,12 @@ export function QuickSetupPage(): ReactElement {
     if (projectId == null) return;
     try {
       const existingDraft = existingReceipt?.status === 0 ? existingReceipt : null;
-      const headerPayload = { projectId, receiptNo: data.receipt.receiptNo, receiptDate: data.receipt.receiptDate };
+      const headerPayload = {
+        projectId,
+        receiptNo: data.receipt.receiptNo,
+        receiptDate: data.receipt.receiptDate,
+        warehouseId: data.receipt.warehouseId,
+      };
       const fishLinePayload = {
         stockId: data.fishLine.stockId,
         itemType: GOODS_RECEIPT_ITEM_TYPE_FISH,
@@ -316,13 +323,15 @@ export function QuickSetupPage(): ReactElement {
         canCreate={canCreateQuickSetup}
       />
       
-      <GoodsReceiptStepCard
-        projectId={projectId}
-        stocks={stocks}
-        isLoadingStocks={isLoadingStocks}
-        existingReceipt={existingReceipt}
-        isCheckingExistingReceipt={isCheckingExistingReceipt}
-        onSubmitReceipt={handleReceiptSubmit}
+        <GoodsReceiptStepCard
+          projectId={projectId}
+          stocks={stocks}
+          isLoadingStocks={isLoadingStocks}
+          warehouses={warehouses}
+          isLoadingWarehouses={isLoadingWarehouses}
+          existingReceipt={existingReceipt}
+          isCheckingExistingReceipt={isCheckingExistingReceipt}
+          onSubmitReceipt={handleReceiptSubmit}
         isSubmitting={mutations.createGoodsReceipt.isPending || mutations.createGoodsReceiptLine.isPending || mutations.createFishBatch.isPending}
         canCreate={canCreateQuickSetup}
       />

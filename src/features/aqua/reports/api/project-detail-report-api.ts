@@ -55,6 +55,7 @@ interface StockListItem {
 const PAGE_SIZE = 500;
 const MAX_PAGE_GUARD = 100;
 const POSTED_STATUS = 1;
+const HTTP_NOT_FOUND = 404;
 
 function ensureSuccess<T>(response: ApiResponse<T>, fallback: string): T {
   if (!response.success) {
@@ -114,6 +115,27 @@ async function getAllPagedItems<T>(
   }
 
   return result;
+}
+
+function isNotFoundError(error: unknown): boolean {
+  if (typeof error !== 'object' || error === null) return false;
+  const maybeResponse = (error as { response?: { status?: number } }).response;
+  return maybeResponse?.status === HTTP_NOT_FOUND;
+}
+
+async function getAllPagedItemsOrEmptyOn404<T>(
+  endpoint: string,
+  filters?: FilterDescriptor[],
+  filterLogic: 'and' | 'or' = 'and'
+): Promise<T[]> {
+  try {
+    return await getAllPagedItems<T>(endpoint, filters, filterLogic);
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return [];
+    }
+    throw error;
+  }
 }
 
 async function getAllPagedItemsByPath<T>(
@@ -862,7 +884,7 @@ export const projectDetailReportApi = {
       getAllPagedItems<MortalityDto>('Mortality', projectIdFilters, 'or'),
       getAllPagedItems<MortalityLineDto>('MortalityLine'),
       getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
-      getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
+      getAllPagedItemsOrEmptyOn404<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
       getAllPagedItems<DailyWeatherDto>('DailyWeather', projectIdFilters, 'or'),
       getAllPagedItems<NetOperationDto>('NetOperation', projectIdFilters, 'or'),
       getAllPagedItems<NetOperationLineDto>('NetOperationLine'),
@@ -1001,7 +1023,7 @@ export const projectDetailReportApi = {
         getAllPagedItems<MortalityDto>('Mortality', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<MortalityLineDto>('MortalityLine'),
         getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
-        getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
+        getAllPagedItemsOrEmptyOn404<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
         getAllPagedItems<DailyWeatherDto>('DailyWeather', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<NetOperationDto>('NetOperation', [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }]),
         getAllPagedItems<NetOperationLineDto>('NetOperationLine'),

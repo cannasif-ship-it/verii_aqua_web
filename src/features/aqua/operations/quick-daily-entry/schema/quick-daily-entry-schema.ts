@@ -45,6 +45,27 @@ export const stockChangeQuickFormSchema = z.object({
   description: z.string().optional(),
 });
 
+export const cageWarehouseTransferQuickFormSchema = z.object({
+  toWarehouseId: z.coerce.number().int().positive('common.required'),
+  fishCount: z.coerce.number().int().positive('common.required'),
+  description: z.string().optional(),
+});
+
+export const warehouseTransferQuickFormSchema = z.object({
+  fromWarehouseId: z.coerce.number().int().positive('common.required'),
+  toWarehouseId: z.coerce.number().int().positive('common.required'),
+  fishBatchId: z.coerce.number().int().positive('common.required'),
+  fishCount: z.coerce.number().int().positive('common.required'),
+  description: z.string().optional(),
+});
+
+export const warehouseCageTransferQuickFormSchema = z.object({
+  fromWarehouseId: z.coerce.number().int().positive('common.required'),
+  fishBatchId: z.coerce.number().int().positive('common.required'),
+  fishCount: z.coerce.number().int().positive('common.required'),
+  description: z.string().optional(),
+});
+
 export type FeedingQuickFormSchema = z.infer<typeof feedingQuickFormSchema>;
 export type MortalityQuickFormSchema = z.infer<typeof mortalityQuickFormSchema>;
 export type WeatherQuickFormSchema = z.infer<typeof weatherQuickFormSchema>;
@@ -52,3 +73,6 @@ export type NetOperationQuickFormSchema = z.infer<typeof netOperationQuickFormSc
 export type TransferQuickFormSchema = z.infer<typeof transferQuickFormSchema>;
 export type ShipmentQuickFormSchema = z.infer<typeof shipmentQuickFormSchema>;
 export type StockChangeQuickFormSchema = z.infer<typeof stockChangeQuickFormSchema>;
+export type CageWarehouseTransferQuickFormSchema = z.infer<typeof cageWarehouseTransferQuickFormSchema>;
+export type WarehouseTransferQuickFormSchema = z.infer<typeof warehouseTransferQuickFormSchema>;
+export type WarehouseCageTransferQuickFormSchema = z.infer<typeof warehouseCageTransferQuickFormSchema>;

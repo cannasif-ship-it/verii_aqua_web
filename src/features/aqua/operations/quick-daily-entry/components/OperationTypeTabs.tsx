@@ -8,6 +8,9 @@ interface OperationTypeTabsProps {
   weatherTab: ReactElement;
   netOperationTab: ReactElement;
   transferTab: ReactElement;
+  cageWarehouseTransferTab: ReactElement;
+  warehouseTransferTab: ReactElement;
+  warehouseCageTransferTab: ReactElement;
   shipmentTab: ReactElement;
   stockChangeTab: ReactElement;
   projectMergeTab: ReactElement;
@@ -19,6 +22,9 @@ export function OperationTypeTabs({
   weatherTab,
   netOperationTab,
   transferTab,
+  cageWarehouseTransferTab,
+  warehouseTransferTab,
+  warehouseCageTransferTab,
   shipmentTab,
   stockChangeTab,
   projectMergeTab,
@@ -45,6 +51,15 @@ export function OperationTypeTabs({
           <TabsTrigger className={tabTriggerStyle} value="transfer">
             {t('aqua.quickDailyEntry.tabTransfer')}
           </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="cageWarehouseTransfer">
+            {t('aqua.quickDailyEntry.tabCageWarehouseTransfer')}
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="warehouseTransfer">
+            {t('aqua.quickDailyEntry.tabWarehouseTransfer')}
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="warehouseCageTransfer">
+            {t('aqua.quickDailyEntry.tabWarehouseCageTransfer')}
+          </TabsTrigger>
           <TabsTrigger className={tabTriggerStyle} value="shipment">
             {t('aqua.quickDailyEntry.tabShipment')}
           </TabsTrigger>
@@ -63,6 +78,9 @@ export function OperationTypeTabs({
         <TabsContent value="weather" className="m-0 focus-visible:ring-0">{weatherTab}</TabsContent>
         <TabsContent value="net" className="m-0 focus-visible:ring-0">{netOperationTab}</TabsContent>
         <TabsContent value="transfer" className="m-0 focus-visible:ring-0">{transferTab}</TabsContent>
+        <TabsContent value="cageWarehouseTransfer" className="m-0 focus-visible:ring-0">{cageWarehouseTransferTab}</TabsContent>
+        <TabsContent value="warehouseTransfer" className="m-0 focus-visible:ring-0">{warehouseTransferTab}</TabsContent>
+        <TabsContent value="warehouseCageTransfer" className="m-0 focus-visible:ring-0">{warehouseCageTransferTab}</TabsContent>
         <TabsContent value="shipment" className="m-0 focus-visible:ring-0">{shipmentTab}</TabsContent>
         <TabsContent value="stockChange" className="m-0 focus-visible:ring-0">{stockChangeTab}</TabsContent>
         <TabsContent value="projectMerge" className="m-0 focus-visible:ring-0">{projectMergeTab}</TabsContent>

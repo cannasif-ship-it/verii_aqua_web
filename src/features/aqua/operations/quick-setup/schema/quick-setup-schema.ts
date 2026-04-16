@@ -9,6 +9,7 @@ export const projectFormSchema = z.object({
 export const goodsReceiptFormSchema = z.object({
   receiptNo: z.string().min(1, 'common.required'),
   receiptDate: z.string().min(1, 'common.required'),
+  warehouseId: z.coerce.number().int().positive('common.required'),
 });
 
 export const fishLineFormSchema = z.object({

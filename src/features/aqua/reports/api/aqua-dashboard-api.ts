@@ -50,6 +50,7 @@ export interface DashboardProjectSummary {
 const PAGE_SIZE = 500;
 const MAX_PAGE_GUARD = 100;
 const POSTED_STATUS = 1;
+const HTTP_NOT_FOUND = 404;
 
 function ensureSuccess<T>(response: ApiResponse<T>, fallback: string): T {
   if (!response.success || response.data == null) {
@@ -97,6 +98,23 @@ async function getAllPagedItems<T>(endpoint: string): Promise<T[]> {
   }
 
   return result;
+}
+
+function isNotFoundError(error: unknown): boolean {
+  if (typeof error !== 'object' || error === null) return false;
+  const maybeResponse = (error as { response?: { status?: number } }).response;
+  return maybeResponse?.status === HTTP_NOT_FOUND;
+}
+
+async function getAllPagedItemsOrEmptyOn404<T>(endpoint: string): Promise<T[]> {
+  try {
+    return await getAllPagedItems<T>(endpoint);
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return [];
+    }
+    throw error;
+  }
 }
 
 function isProjectEndDateInThePast(endDate?: string | null): boolean {
@@ -175,7 +193,7 @@ export const aquaDashboardApi = {
         getAllPagedItems<ProjectDto>('Project'),
         getAllPagedItems<ProjectCageDto>('ProjectCage'),
         getAllPagedItems<BatchCageBalanceDto>('BatchCageBalance'),
-        getAllPagedItems<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
+        getAllPagedItemsOrEmptyOn404<BatchWarehouseBalanceDto>('BatchWarehouseBalance'),
         getAllPagedItems<FeedingDto>('Feeding'),
         getAllPagedItems<FeedingLineDto>('FeedingLine'),
         getAllPagedItems<FeedingDistributionDto>('FeedingDistribution'),

@@ -941,6 +941,8 @@
       "selectProjectFirst": "First select or create a project.",
       "receiptNo": "Plug No",
       "date": "date",
+      "warehouse": "Warehouse",
+      "selectWarehouse": "Select warehouse",
       "fishLine": "fish line",
       "stock": "stock",
       "selectStock": "select stock",
@@ -999,6 +1001,9 @@
       "tabWeather": "Weather",
       "tabNetOperation": "Network Operation",
       "tabTransfer": "Cage Replacement",
+      "tabCageWarehouseTransfer": "Cage to Warehouse",
+      "tabWarehouseTransfer": "Warehouse to Warehouse",
+      "tabWarehouseCageTransfer": "Warehouse to Cage",
       "tabShipment": "Shipment",
       "tabStockChange": "Stock Change",
       "tabProjectMerge": "Project Merge",
@@ -1082,6 +1087,33 @@
         "description": "Description",
         "save": "Save"
       },
+      "cageWarehouseTransfer": {
+        "title": "Cage to Warehouse Transfer",
+        "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
+        "targetWarehouse": "Target Warehouse",
+        "fishCount": "quantity",
+        "description": "Description",
+        "save": "Save"
+      },
+      "warehouseTransfer": {
+        "title": "Warehouse Transfer",
+        "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
+        "sourceWarehouse": "Source Warehouse",
+        "targetWarehouse": "Target Warehouse",
+        "sourceBatch": "Source Batch",
+        "fishCount": "quantity",
+        "description": "Description",
+        "save": "Save"
+      },
+      "warehouseCageTransfer": {
+        "title": "Warehouse to Cage Transfer",
+        "sourceInfo": "Source batch #{{fishBatchId}} - Live: {{liveCount}}",
+        "sourceWarehouse": "Source Warehouse",
+        "sourceBatch": "Source Batch",
+        "fishCount": "quantity",
+        "description": "Description",
+        "save": "Save"
+      },
       "projectMerge": {
         "title": "Project Merge"
       },
@@ -1106,7 +1138,15 @@
         "stockChangeCountTooHigh": "The number of stock changes cannot exceed the number of creatures in the cage.",
         "stockChangeSaved": "Stock change recorded.",
         "shipmentCountTooHigh": "The number of shipments cannot exceed the number of creatures in the cage.",
-        "shipmentSaved": "Shipment recorded."
+        "shipmentSaved": "Shipment recorded.",
+        "cageWarehouseTransferCountTooHigh": "The quantity moved from cage to warehouse cannot exceed the live quantity in the cage.",
+        "cageWarehouseTransferSaved": "Cage to warehouse transfer recorded.",
+        "sameWarehouseTransferNotAllowed": "Source and target warehouses cannot be the same.",
+        "noActiveBatchForWarehouse": "No active batch was found for the selected warehouse.",
+        "warehouseTransferCountTooHigh": "The warehouse transfer quantity cannot exceed the selected batch stock quantity.",
+        "warehouseTransferSaved": "Warehouse transfer recorded.",
+        "warehouseCageTransferCountTooHigh": "The quantity moved from warehouse to cage cannot exceed the selected batch stock quantity.",
+        "warehouseCageTransferSaved": "Warehouse to cage transfer recorded."
       },
       "pageDescription": "Make your daily operation entries quickly from a single screen.",
       "transferSuccessDialog": {

@@ -14,6 +14,7 @@ import type {
   MortalityHeaderDto,
   NetOperationHeaderDto,
   ActiveCageBatchSnapshot,
+  ActiveWarehouseBatchSnapshot,
   CreateFeedingPayload,
   CreateFeedingLinePayload,
   CreateMortalityPayload,
@@ -26,6 +27,9 @@ import type {
   CreateStockConvertPayload,
   CreateStockConvertLinePayload,
   CreateShipmentLineWithAutoHeaderPayload,
+  CreateCageWarehouseTransferLineWithAutoHeaderPayload,
+  CreateWarehouseTransferLineWithAutoHeaderPayload,
+  CreateWarehouseCageTransferLineWithAutoHeaderPayload,
   CreateTransferLineWithAutoHeaderPayload,
   CreateStockConvertLineWithAutoHeaderPayload,
   CreateFeedingLineWithAutoHeaderPayload,
@@ -74,6 +78,18 @@ interface BatchCageBalanceListResponseItem {
   liveCount?: number;
   averageGram?: number;
   biomassGram?: number;
+}
+
+interface BatchWarehouseBalanceListResponseItem {
+  projectId?: number;
+  warehouseId?: number;
+  fishBatchId?: number;
+  liveCount?: number;
+  averageGram?: number;
+  biomassGram?: number;
+  batchCode?: string;
+  warehouseCode?: number;
+  warehouseName?: string;
 }
 
 function isActiveProjectCage(releasedDate?: string | null): boolean {
@@ -345,6 +361,46 @@ export const aquaQuickDailyApi = {
     }, {});
   },
 
+  getActiveFishBatchSnapshotsByWarehouseIds: async (
+    projectId: number,
+    warehouseIds: number[]
+  ): Promise<Record<number, ActiveWarehouseBatchSnapshot[]>> => {
+    const normalizedIds = Array.from(new Set(warehouseIds.map((id) => Number(id)).filter((id) => Number.isFinite(id) && id > 0)));
+    if (normalizedIds.length === 0 || !Number.isFinite(projectId) || projectId <= 0) return {};
+    const query = buildPagedQuery(
+      1,
+      Math.max(normalizedIds.length * 20, 200),
+      [{ column: 'ProjectId', operator: 'eq', value: String(projectId) }],
+      'desc',
+      'and'
+    );
+    const response = await api.get<ApiResponse<PagedResultRaw<BatchWarehouseBalanceListResponseItem>>>(
+      `/api/aqua/BatchWarehouseBalance?${query}`
+    );
+    const raw = ensureSuccess(response, i18n.t('aqua.api.queryFailed', { ns: 'common' }));
+    const balanceRows = extractPagedItems(raw);
+
+    return normalizedIds.reduce<Record<number, ActiveWarehouseBatchSnapshot[]>>((acc, warehouseId) => {
+      const items = balanceRows
+        .filter((row) => Number(row.projectId ?? 0) === projectId && Number(row.warehouseId ?? 0) === warehouseId)
+        .filter((row) => Number(row.liveCount ?? 0) > 0)
+        .map((row) => ({
+          warehouseId,
+          fishBatchId: Number(row.fishBatchId ?? 0),
+          liveCount: Number(row.liveCount ?? 0),
+          averageGram: Number(row.averageGram ?? 0),
+          biomassGram: Number(row.biomassGram ?? 0),
+          batchCode: row.batchCode,
+          warehouseCode: row.warehouseCode,
+          warehouseName: row.warehouseName,
+        }))
+        .filter((row) => row.fishBatchId > 0);
+
+      acc[warehouseId] = items;
+      return acc;
+    }, {});
+  },
+
   getWeatherSeverities: async (): Promise<WeatherSeverityDto[]> => {
     const query = buildPagedQuery(1, 500);
     const response = await api.get<ApiResponse<PagedResultRaw<WeatherSeverityDto>>>(`/api/aqua/WeatherSeverity?${query}`);
@@ -579,6 +635,57 @@ export const aquaQuickDailyApi = {
   postShipment: async (shipmentId: number): Promise<boolean> => {
     const response = await api.post<ApiResponse<boolean>>(
       `/api/aqua/posting/shipment/${shipmentId}`
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
+  },
+
+  createCageWarehouseTransferLineWithAutoHeader: async (
+    payload: CreateCageWarehouseTransferLineWithAutoHeaderPayload
+  ): Promise<{ id: number; cageWarehouseTransferId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; cageWarehouseTransferId: number }>>(
+      '/api/aqua/CageWarehouseTransferLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  createWarehouseTransferLineWithAutoHeader: async (
+    payload: CreateWarehouseTransferLineWithAutoHeaderPayload
+  ): Promise<{ id: number; warehouseTransferId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; warehouseTransferId: number }>>(
+      '/api/aqua/WarehouseTransferLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  createWarehouseCageTransferLineWithAutoHeader: async (
+    payload: CreateWarehouseCageTransferLineWithAutoHeaderPayload
+  ): Promise<{ id: number; warehouseCageTransferId: number }> => {
+    const response = await api.post<ApiResponse<{ id: number; warehouseCageTransferId: number }>>(
+      '/api/aqua/WarehouseCageTransferLine/auto-header',
+      payload
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.createFailed', { ns: 'common' }));
+  },
+
+  postWarehouseTransfer: async (warehouseTransferId: number): Promise<boolean> => {
+    const response = await api.post<ApiResponse<boolean>>(
+      `/api/aqua/posting/warehouse-transfer/${warehouseTransferId}`
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
+  },
+
+  postCageWarehouseTransfer: async (cageWarehouseTransferId: number): Promise<boolean> => {
+    const response = await api.post<ApiResponse<boolean>>(
+      `/api/aqua/posting/cage-warehouse-transfer/${cageWarehouseTransferId}`
+    );
+    return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
+  },
+
+  postWarehouseCageTransfer: async (warehouseCageTransferId: number): Promise<boolean> => {
+    const response = await api.post<ApiResponse<boolean>>(
+      `/api/aqua/posting/warehouse-cage-transfer/${warehouseCageTransferId}`
     );
     return ensureSuccess(response, i18n.t('aqua.api.postFailed', { ns: 'common' }));
   },

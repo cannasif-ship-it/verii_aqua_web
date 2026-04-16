@@ -361,6 +361,8 @@
       "selectProjectFirst": "Önce bir proje seçin veya oluşturun.",
       "receiptNo": "Fiş No",
       "date": "Tarih",
+      "warehouse": "Depo",
+      "selectWarehouse": "Depo seçin",
       "fishLine": "Balık satırı",
       "stock": "Stok",
       "selectStock": "Stok seçin",
@@ -419,6 +421,9 @@
       "tabWeather": "Hava Durumu",
       "tabNetOperation": "Ağ İşlemi",
       "tabTransfer": "Kafes Değişimi",
+      "tabCageWarehouseTransfer": "Kafesten Depoya",
+      "tabWarehouseTransfer": "Depodan Depoya",
+      "tabWarehouseCageTransfer": "Depodan Kafese",
       "tabShipment": "Sevkiyat",
       "tabStockChange": "Stok Değişimi",
       "tabProjectMerge": "Proje Birleştirme",
@@ -501,6 +506,33 @@
         "description": "Açıklama",
         "save": "Kaydet"
       },
+      "cageWarehouseTransfer": {
+        "title": "Kafesten Depoya Transfer",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "targetWarehouse": "Hedef Depo",
+        "fishCount": "Adet",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
+      "warehouseTransfer": {
+        "title": "Depo Transferi",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "sourceWarehouse": "Kaynak Depo",
+        "targetWarehouse": "Hedef Depo",
+        "sourceBatch": "Kaynak Batch",
+        "fishCount": "Adet",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
+      "warehouseCageTransfer": {
+        "title": "Depodan Kafese Transfer",
+        "sourceInfo": "Kaynak batch #{{fishBatchId}} - Canlı: {{liveCount}}",
+        "sourceWarehouse": "Kaynak Depo",
+        "sourceBatch": "Kaynak Batch",
+        "fishCount": "Adet",
+        "description": "Açıklama",
+        "save": "Kaydet"
+      },
       "projectMerge": {
         "title": "Proje Birleştirme"
       },
@@ -525,6 +557,14 @@
         "stockChangeSaved": "Stok değişimi kaydedildi.",
         "shipmentCountTooHigh": "Sevk adedi, kafesteki canlı adedini aşamaz.",
         "shipmentSaved": "Sevkiyat kaydedildi.",
+        "cageWarehouseTransferCountTooHigh": "Kafesten depoya aktarım adedi, kafesteki canlı adedini aşamaz.",
+        "cageWarehouseTransferSaved": "Kafesten depoya transfer kaydedildi.",
+        "sameWarehouseTransferNotAllowed": "Kaynak ve hedef depo aynı olamaz.",
+        "noActiveBatchForWarehouse": "Seçili depo için aktif batch bulunamadı.",
+        "warehouseTransferCountTooHigh": "Depo transfer adedi, seçili batch stok adedini aşamaz.",
+        "warehouseTransferSaved": "Depo transferi kaydedildi.",
+        "warehouseCageTransferCountTooHigh": "Depodan kafese aktarım adedi, seçili batch stok adedini aşamaz.",
+        "warehouseCageTransferSaved": "Depodan kafese transfer kaydedildi.",
         "saveFailed": "Kayıt başarısız"
       },
       "transferSuccessDialog": {

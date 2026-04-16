@@ -13,6 +13,9 @@ import type {
   CreateStockConvertPayload,
   CreateStockConvertLinePayload,
   CreateShipmentLineWithAutoHeaderPayload,
+  CreateCageWarehouseTransferLineWithAutoHeaderPayload,
+  CreateWarehouseTransferLineWithAutoHeaderPayload,
+  CreateWarehouseCageTransferLineWithAutoHeaderPayload,
   CreateTransferLineWithAutoHeaderPayload,
   CreateStockConvertLineWithAutoHeaderPayload,
   CreateFeedingLineWithAutoHeaderPayload,
@@ -27,6 +30,9 @@ const NET_OPERATIONS_KEY = ['aqua', 'netOperations'];
 const TRANSFERS_KEY = ['aqua', 'transfers'];
 const SHIPMENTS_KEY = ['aqua', 'shipments'];
 const STOCK_CONVERTS_KEY = ['aqua', 'stockConverts'];
+const WAREHOUSE_TRANSFERS_KEY = ['aqua', 'warehouseTransfers'];
+const CAGE_WAREHOUSE_TRANSFERS_KEY = ['aqua', 'cageWarehouseTransfers'];
+const WAREHOUSE_CAGE_TRANSFERS_KEY = ['aqua', 'warehouseCageTransfers'];
 
 export function useCreateFeedingMutation() {
   const queryClient = useQueryClient();
@@ -148,6 +154,39 @@ export function useCreateShipmentLineWithAutoHeaderMutation() {
       aquaQuickDailyApi.createShipmentLineWithAutoHeader(payload),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: SHIPMENTS_KEY });
+    },
+  });
+}
+
+export function useCreateCageWarehouseTransferLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateCageWarehouseTransferLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createCageWarehouseTransferLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: CAGE_WAREHOUSE_TRANSFERS_KEY });
+    },
+  });
+}
+
+export function useCreateWarehouseTransferLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateWarehouseTransferLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createWarehouseTransferLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: WAREHOUSE_TRANSFERS_KEY });
+    },
+  });
+}
+
+export function useCreateWarehouseCageTransferLineWithAutoHeaderMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateWarehouseCageTransferLineWithAutoHeaderPayload) =>
+      aquaQuickDailyApi.createWarehouseCageTransferLineWithAutoHeader(payload),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: WAREHOUSE_CAGE_TRANSFERS_KEY });
     },
   });
 }

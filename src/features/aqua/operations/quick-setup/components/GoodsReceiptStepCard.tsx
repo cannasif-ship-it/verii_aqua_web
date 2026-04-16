@@ -24,13 +24,15 @@ import {
   type FishLineFormSchema,
   type FeedLineFormSchema,
 } from '../schema/quick-setup-schema';
-import type { ExistingGoodsReceiptContext, StockDto } from '../types/quick-setup-types';
+import type { ExistingGoodsReceiptContext, StockDto, WarehouseDto } from '../types/quick-setup-types';
 import { Check, Loader2 } from 'lucide-react';
 
 interface GoodsReceiptStepCardProps {
   projectId: number | null;
   stocks: StockDto[] | undefined;
   isLoadingStocks: boolean;
+  warehouses: WarehouseDto[] | undefined;
+  isLoadingWarehouses: boolean;
   existingReceipt: ExistingGoodsReceiptContext | null;
   isCheckingExistingReceipt: boolean;
   onSubmitReceipt: (data: {
@@ -46,6 +48,8 @@ export function GoodsReceiptStepCard({
   projectId,
   stocks,
   isLoadingStocks,
+  warehouses,
+  isLoadingWarehouses,
   existingReceipt,
   isCheckingExistingReceipt,
   onSubmitReceipt,
@@ -59,6 +63,7 @@ export function GoodsReceiptStepCard({
     defaultValues: {
       receiptNo: '',
       receiptDate: new Date().toISOString().slice(0, 10),
+      warehouseId: 0,
     },
   });
 
@@ -78,6 +83,7 @@ export function GoodsReceiptStepCard({
       receiptForm.reset({
         receiptNo: '',
         receiptDate: new Date().toISOString().slice(0, 10),
+        warehouseId: 0,
       });
       fishForm.reset({ stockId: 0, fishCount: 0, currentAverageGram: 0 });
       feedForm.reset({ stockId: 0, qtyUnit: 0 });
@@ -88,6 +94,7 @@ export function GoodsReceiptStepCard({
       receiptForm.reset({
         receiptNo: existingReceipt.receiptNo,
         receiptDate: existingReceipt.receiptDate || new Date().toISOString().slice(0, 10),
+        warehouseId: existingReceipt.warehouseId ?? 0,
       });
       fishForm.reset({
         stockId: existingReceipt.fishStockId ?? 0,
@@ -99,6 +106,7 @@ export function GoodsReceiptStepCard({
       receiptForm.reset({
         receiptNo: '',
         receiptDate: new Date().toISOString().slice(0, 10),
+        warehouseId: 0,
       });
       fishForm.reset({ stockId: 0, fishCount: 0, currentAverageGram: 0 });
       feedForm.reset({ stockId: 0, qtyUnit: 0 });
@@ -122,8 +130,13 @@ export function GoodsReceiptStepCard({
   };
 
   const fishStocks = Array.isArray(stocks) ? stocks.filter((s) => s.id) : [];
-  const feedStocks = fishStocks;
-  const fishStockOptions = fishStocks.map((s) => ({
+  const feedStocks = fishStocks.filter((s) => (s.code ?? '').startsWith('Y0'));
+  const fishLineStocks = fishStocks.filter((s) => !(s.code ?? '').startsWith('Y0'));
+  const warehouseOptions = (Array.isArray(warehouses) ? warehouses : []).map((warehouse) => ({
+    value: String(warehouse.id),
+    label: `${warehouse.erpWarehouseCode} - ${warehouse.warehouseName}`,
+  }));
+  const fishStockOptions = fishLineStocks.map((s) => ({
     value: String(s.id),
     label: formatCodeAndKeyLabel(s.code, s.id, s.name),
   }));
@@ -177,6 +190,7 @@ export function GoodsReceiptStepCard({
             <div className="grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2">
                 <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.receiptNo')}:</span> {existingReceipt.receiptNo}</p>
                 <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.date')}:</span> {existingReceipt.receiptDate}</p>
+                <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.warehouse')}:</span> {existingReceipt.warehouseCode != null ? `${existingReceipt.warehouseCode} - ${existingReceipt.warehouseName ?? ''}`.trim() : '-'}</p>
                 <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.stock')}:</span> {fishStockLabel}</p>
                 <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.count')}:</span> {existingReceipt.fishCount}</p>
                 <p className="text-slate-700 dark:text-slate-300"><span className="text-muted-foreground">{t('aqua.quickSetup.currentAverageGram')}:</span> {existingReceipt.fishAverageGram ?? 0}</p>
@@ -194,7 +208,7 @@ export function GoodsReceiptStepCard({
                 </div>
               )}
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <FormField
                     control={receiptForm.control}
                     name="receiptNo"
@@ -204,6 +218,28 @@ export function GoodsReceiptStepCard({
                         <FormControl>
                           {/* Mor zemin `#0b0713` silindi */}
                           <Input className="bg-background dark:bg-blue-950 border-border dark:border-cyan-800/50 text-foreground focus-visible:ring-pink-500/20 focus-visible:border-pink-500 h-11 rounded-xl placeholder:text-slate-500" {...field} />
+                        </FormControl>
+                        <FormMessage className="text-xs text-rose-500 dark:text-rose-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={receiptForm.control}
+                    name="warehouseId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel required className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('aqua.quickSetup.warehouse')}</FormLabel>
+                        <FormControl>
+                          <Combobox
+                            options={warehouseOptions}
+                            value={field.value ? String(field.value) : ''}
+                            onValueChange={(v) => field.onChange(v ? Number(v) : 0)}
+                            placeholder={t('aqua.quickSetup.selectWarehouse')}
+                            searchPlaceholder={t('common.search')}
+                            emptyText={t('common.noResults')}
+                            disabled={isLoadingWarehouses}
+                            className="w-full bg-background dark:bg-blue-950 border-border dark:border-cyan-800/50 h-11 rounded-xl text-foreground"
+                          />
                         </FormControl>
                         <FormMessage className="text-xs text-rose-500 dark:text-rose-400" />
                       </FormItem>

@@ -11,6 +11,13 @@ export interface StockDto {
   name?: string;
 }
 
+export interface WarehouseDto {
+  id: number;
+  erpWarehouseCode: number;
+  warehouseName: string;
+  branchCode?: number;
+}
+
 export interface ProjectCageDto {
   id: number;
   cageId: number;
@@ -36,6 +43,9 @@ export interface ExistingGoodsReceiptContext {
   receiptNo: string;
   receiptDate: string;
   status: number;
+  warehouseId: number | null;
+  warehouseCode: number | null;
+  warehouseName: string | null;
   fishStockId: number | null;
   fishAverageGram: number | null;
   fishLineId: number | null;
@@ -62,6 +72,7 @@ export interface CreateGoodsReceiptPayload {
   projectId: number;
   receiptNo: string;
   receiptDate: string;
+  warehouseId: number;
 }
 
 export const GOODS_RECEIPT_ITEM_TYPE_FISH = 1;

@@ -84,6 +84,17 @@ export interface ActiveCageBatchSnapshot {
   batchCode?: string;
 }
 
+export interface ActiveWarehouseBatchSnapshot {
+  warehouseId: number;
+  fishBatchId: number;
+  liveCount: number;
+  averageGram: number;
+  biomassGram: number;
+  batchCode?: string;
+  warehouseCode?: number;
+  warehouseName?: string;
+}
+
 export interface CreateFeedingPayload {
   projectId: number;
   feedingNo: string;
@@ -196,6 +207,39 @@ export interface CreateShipmentLineWithAutoHeaderPayload {
   currencyCode?: string;
   unitPrice?: number;
   description?: string;
+}
+
+export interface CreateCageWarehouseTransferLineWithAutoHeaderPayload {
+  projectId: number;
+  transferDate: string;
+  fishBatchId: number;
+  fromProjectCageId: number;
+  toWarehouseId: number;
+  fishCount: number;
+  averageGram: number;
+  biomassGram: number;
+}
+
+export interface CreateWarehouseTransferLineWithAutoHeaderPayload {
+  projectId: number;
+  transferDate: string;
+  fishBatchId: number;
+  fromWarehouseId: number;
+  toWarehouseId: number;
+  fishCount: number;
+  averageGram: number;
+  biomassGram: number;
+}
+
+export interface CreateWarehouseCageTransferLineWithAutoHeaderPayload {
+  projectId: number;
+  transferDate: string;
+  fishBatchId: number;
+  fromWarehouseId: number;
+  toProjectCageId: number;
+  fishCount: number;
+  averageGram: number;
+  biomassGram: number;
 }
 
 export interface CreateTransferLineWithAutoHeaderPayload {
