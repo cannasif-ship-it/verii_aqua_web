@@ -7,6 +7,7 @@ export { NetOperationTypesPage } from './definitions/components/NetOperationType
 export { AquaSettingsPage } from './settings';
 export { QuickSetupPage } from './operations/quick-setup';
 export { QuickDailyEntryPage } from './operations/quick-daily-entry';
+export { OpeningImportPage } from './operations/opening-import';
 export { ProjectMergesPage } from './operations/project-merges';
 export { GoodsReceiptsPage } from './operations/components/GoodsReceiptsPage';
 export { FeedingsPage } from './operations/components/FeedingsPage';

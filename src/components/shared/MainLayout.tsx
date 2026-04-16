@@ -47,6 +47,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
         children: [
           { title: sidebarT('aquaQuickSetup'), href: '/aqua/operations/quick-setup' },
           { title: sidebarT('aquaQuickDailyEntry'), href: '/aqua/operations/quick-daily-entry' },
+          { title: sidebarT('aquaOpeningImport'), href: '/aqua/operations/opening-import' },
           { title: sidebarT('aquaGoodsReceipts'), href: '/aqua/operations/goods-receipts' },
           { title: sidebarT('aquaFeedings'), href: '/aqua/operations/feedings' },
           { title: sidebarT('aquaMortalities'), href: '/aqua/operations/mortalities' },

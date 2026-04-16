@@ -70,6 +70,7 @@ const BusinessKpiReportPage = lazyImport(() => import('@/features/aqua'), 'Busin
 const DevirFcrReportPage = lazyImport(() => import('@/features/aqua'), 'DevirFcrReportPage');
 const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup'), 'QuickSetupPage');
 const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry'), 'QuickDailyEntryPage');
+const OpeningImportPage = lazyImport(() => import('@/features/aqua/operations/opening-import'), 'OpeningImportPage');
 const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges'), 'ProjectMergesPage');
 const WelcomePage = lazyImport(() => import('@/features/welcome'), 'WelcomePage');
 
@@ -105,6 +106,7 @@ export const router = createBrowserRouter([
       { path: 'aqua/definitions/settings', element: <AquaSettingsPage /> },
       { path: 'aqua/operations/quick-setup', element: <QuickSetupPage /> },
       { path: 'aqua/operations/quick-daily-entry', element: <QuickDailyEntryPage /> },
+      { path: 'aqua/operations/opening-import', element: <OpeningImportPage /> },
       { path: 'aqua/operations/project-merges', element: <ProjectMergesPage /> },
       { path: 'aqua/operations/goods-receipts', element: <GoodsReceiptsPage /> },
       { path: 'aqua/operations/feedings', element: <FeedingsPage /> },

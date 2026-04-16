@@ -117,6 +117,14 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     display: { key: 'sidebar.aquaQuickDailyEntry', fallback: 'Günlük Giriş' },
   },
   {
+    codeBase: 'aqua.operations.opening-import',
+    routePermission: 'aqua.operations.opening-import.view',
+    routePaths: ['/aqua/operations/opening-import'],
+    routePatterns: [/^\/aqua\/operations\/opening-import(\/|$)/],
+    actions: ['view', 'create'],
+    display: { key: 'sidebar.aquaOpeningImport', fallback: 'İlk Geçiş' },
+  },
+  {
     codeBase: 'aqua.operations.project-merges',
     routePermission: 'aqua.operations.project-merges.view',
     routePaths: ['/aqua/operations/project-merges'],
@@ -605,6 +613,10 @@ export const AQUA_SPECIAL_PERMISSION_CODES = {
     view: 'aqua.operations.quick-daily-entry.view',
     create: 'aqua.operations.quick-daily-entry.create',
   },
+  openingImport: {
+    view: 'aqua.operations.opening-import.view',
+    create: 'aqua.operations.opening-import.create',
+  },
   projectMerges: {
     view: 'aqua.operations.project-merges.view',
     create: 'aqua.operations.project-merges.create',
@@ -637,6 +649,7 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
 
   '/aqua/operations/quick-setup': 'aqua.operations.quick-setup.view',
   '/aqua/operations/quick-daily-entry': 'aqua.operations.quick-daily-entry.view',
+  '/aqua/operations/opening-import': 'aqua.operations.opening-import.view',
   '/aqua/operations/project-merges': 'aqua.operations.project-merges.view',
   '/aqua/operations/goods-receipts': 'aqua.operations.goods-receipts.view',
   '/aqua/operations/feedings': 'aqua.operations.feedings.view',
