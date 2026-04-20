@@ -819,7 +819,7 @@ export function QuickDailyEntryPage(): ReactElement {
       />
 
       {/* Transfer Başarılı Dialog */}
-      <AlertDialog open={isTransferSuccessDialogOpen}>
+      <AlertDialog open={isTransferSuccessDialogOpen} onOpenChange={setIsTransferSuccessDialogOpen}>
         <AlertDialogContent className="bg-white dark:bg-blue-950 border border-slate-200 dark:border-cyan-800/30 shadow-2xl rounded-3xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-slate-900 dark:text-white flex items-center gap-3 text-xl">

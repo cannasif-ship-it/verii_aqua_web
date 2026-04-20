@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { aquaQuickApi } from '../api/aqua-quick-api';
 import type {
@@ -76,12 +77,22 @@ export function useQuickSetupMutations(): {
   const createFishBatch = useCreateFishBatchMutation();
   const createFishDistribution = useCreateGoodsReceiptFishDistributionMutation();
   const postGoodsReceipt = usePostGoodsReceiptMutation();
-  return {
-    createProject,
-    createGoodsReceipt,
-    createGoodsReceiptLine,
-    createFishBatch,
-    createFishDistribution,
-    postGoodsReceipt,
-  };
+  return useMemo(
+    () => ({
+      createProject,
+      createGoodsReceipt,
+      createGoodsReceiptLine,
+      createFishBatch,
+      createFishDistribution,
+      postGoodsReceipt,
+    }),
+    [
+      createProject,
+      createGoodsReceipt,
+      createGoodsReceiptLine,
+      createFishBatch,
+      createFishDistribution,
+      postGoodsReceipt,
+    ]
+  );
 }

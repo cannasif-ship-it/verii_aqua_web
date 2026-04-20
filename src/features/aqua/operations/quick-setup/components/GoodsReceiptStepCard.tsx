@@ -111,7 +111,8 @@ export function GoodsReceiptStepCard({
       fishForm.reset({ stockId: 0, fishCount: 0, currentAverageGram: 0 });
       feedForm.reset({ stockId: 0, qtyUnit: 0 });
     }
-  }, [projectId, existingReceipt, receiptForm, fishForm, feedForm]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- RHF method bags are unstable deps; including them caused reset ↔ render loops.
+  }, [projectId, existingReceipt]);
 
   const handleSubmit: SubmitHandler<GoodsReceiptFormSchema> = async (receiptData) => {
     const fishValid = await fishForm.trigger();

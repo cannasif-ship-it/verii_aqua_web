@@ -1,4 +1,4 @@
-import { type ReactElement, useState, useMemo, useEffect } from 'react';
+import { type ReactElement, useState, useMemo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { ProjectStepCard } from './components/ProjectStepCard';
@@ -21,6 +21,7 @@ import {
 import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
 import { hasPermission } from '@/features/access-control/utils/hasPermission';
 import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
+import { releaseRadixBodyPointerAndScrollLock } from '@/lib/radix-body-unlock';
 
 export function QuickSetupPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -50,6 +51,8 @@ export function QuickSetupPage(): ReactElement {
     error: projectCageError,
   } = useProjectCageListByProjectQuery(projectId);
   const mutations = useQuickSetupMutations();
+  const createFishBatchMutateAsyncRef = useRef(mutations.createFishBatch.mutateAsync);
+  createFishBatchMutateAsyncRef.current = mutations.createFishBatch.mutateAsync;
 
   useEffect(() => {
     setGoodsReceiptId(null);
@@ -86,7 +89,7 @@ export function QuickSetupPage(): ReactElement {
               const averageGram = averageFromLine > 0 ? averageFromLine : averageFromFishTotal > 0 ? averageFromFishTotal : averageFromUnit;
               
               if (averageGram > 0) {
-                const fishBatch = await mutations.createFishBatch.mutateAsync({
+                const fishBatch = await createFishBatchMutateAsyncRef.current({
                   projectId,
                   batchCode: context.receiptNo || 'GR',
                   fishStockId: line.stockId,
@@ -131,7 +134,7 @@ export function QuickSetupPage(): ReactElement {
     })();
 
     return () => { isActive = false; };
-  }, [mutations.createFishBatch, projectId, t]);
+  }, [projectId, t]);
 
   useEffect(() => {
     if (projectId == null) {
@@ -156,10 +159,9 @@ export function QuickSetupPage(): ReactElement {
   }, [projectId]);
 
   useEffect(() => {
+    releaseRadixBodyPointerAndScrollLock();
     return () => {
-      document.body.style.pointerEvents = '';
-      document.body.style.overflow = '';
-      document.body.removeAttribute('data-scroll-locked');
+      releaseRadixBodyPointerAndScrollLock();
     };
   }, []);
 
