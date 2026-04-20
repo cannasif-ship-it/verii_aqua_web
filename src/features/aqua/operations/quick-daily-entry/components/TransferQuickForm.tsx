@@ -5,12 +5,37 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { Resolver, SubmitHandler } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { ComboboxOption } from '@/components/ui/combobox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { transferQuickFormSchema, type TransferQuickFormSchema } from '../schema/quick-daily-entry-schema';
+import type { ActiveCageBatchSnapshot, ProjectCageDto, ProjectDto } from '../types/quick-daily-entry-types';
 import { ChevronRight, Save, Info, Lock } from 'lucide-react';
+
+interface QuickOption {
+  value: string;
+  label: string;
+}
+
+function isQuickOption(value: ProjectDto | ProjectCageDto | QuickOption): value is QuickOption {
+  return 'value' in value && 'label' in value;
+}
+
+interface TransferQuickFormProps {
+  projectId: number | null;
+  projectCageId: number | null;
+  targetProjectId: number | null;
+  projects?: ProjectDto[] | QuickOption[];
+  projectCages?: ProjectCageDto[] | QuickOption[];
+  sourceBatch: ActiveCageBatchSnapshot | null;
+  onSubmit: (data: TransferQuickFormSchema) => Promise<void>;
+  onTargetProjectChange?: (projectId: number) => void;
+  isSubmitting: boolean;
+  requireFullTransfer: boolean;
+  canSubmit: boolean;
+}
 
 export function TransferQuickForm({
   projectId,
@@ -24,7 +49,7 @@ export function TransferQuickForm({
   isSubmitting,
   requireFullTransfer,
   canSubmit,
-}: any): ReactElement {
+}: TransferQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<TransferQuickFormSchema>({
     resolver: zodResolver(transferQuickFormSchema) as Resolver<TransferQuickFormSchema>,
@@ -57,15 +82,15 @@ export function TransferQuickForm({
     });
   };
 
-  const projectOptions = (projects || []).map((p: any) => {
-    if (typeof p.value === 'string' && typeof p.label === 'string') {
+  const projectOptions: ComboboxOption[] = (projects || []).map((p) => {
+    if (isQuickOption(p)) {
       return p;
     }
     return { value: String(p.id), label: formatLabelWithKey(`${p.projectCode ?? p.projectName ?? p.id}`, p.id) };
   });
 
-  const cageOptions = (projectCages || []).map((c: any) => {
-    if (typeof c.value === 'string' && typeof c.label === 'string') {
+  const cageOptions: ComboboxOption[] = (projectCages || []).map((c) => {
+    if (isQuickOption(c)) {
       return c;
     }
     return { value: String(c.id), label: formatLabelWithKey(c.cageCode, c.id) };

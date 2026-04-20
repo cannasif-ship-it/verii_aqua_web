@@ -1132,7 +1132,7 @@ export const cageWarehouseTransferLinesConfig: AquaCrudConfig = {
   ],
   columns: [
     { key: 'cageWarehouseTransferId', label: 'aqua.fields.cageWarehouseTransferId' },
-    { key: 'fishBatchId', label: 'aqua.fields.fishBatchId' },
+    { key: 'batchCode', label: 'aqua.fields.batchCode' },
     { key: 'fromProjectCode', label: 'aqua.fields.projectCode' },
     { key: 'fromCageCode', label: 'aqua.fields.fromProjectCageId' },
     { key: 'toWarehouseCode', label: 'aqua.fields.toWarehouseCode' },
@@ -1225,7 +1225,7 @@ export const warehouseCageTransferLinesConfig: AquaCrudConfig = {
   ],
   columns: [
     { key: 'warehouseCageTransferId', label: 'aqua.fields.warehouseCageTransferId' },
-    { key: 'fishBatchId', label: 'aqua.fields.fishBatchId' },
+    { key: 'batchCode', label: 'aqua.fields.batchCode' },
     { key: 'fromWarehouseCode', label: 'aqua.fields.fromWarehouseCode' },
     { key: 'fromWarehouseName', label: 'aqua.fields.fromWarehouseId' },
     { key: 'toProjectCode', label: 'aqua.fields.projectCode' },
@@ -1310,8 +1310,12 @@ export const shipmentLinesConfig: AquaCrudConfig = {
     { key: 'localLineAmount', label: 'aqua.fields.localLineAmount', type: 'number' },
   ],
   columns: [
-    { key: 'shipmentId', label: 'aqua.fields.shipmentId' },
-    { key: 'fishBatchId', label: 'aqua.fields.fishBatchId' },
+    { key: 'shipmentNo', label: 'aqua.fields.shipmentId' },
+    { key: 'batchCode', label: 'aqua.fields.batchCode' },
+    { key: 'projectCode', label: 'aqua.fields.projectCode' },
+    { key: 'projectName', label: 'aqua.fields.projectName' },
+    { key: 'fromCageCode', label: 'aqua.fields.fromProjectCageId' },
+    { key: 'targetWarehouseName', label: 'aqua.common.warehouse' },
     { key: 'fishCount', label: 'aqua.fields.fishCount' },
     { key: 'averageGram', label: 'aqua.fields.averageGram' },
     { key: 'biomassGram', label: 'aqua.fields.biomassGram' },
@@ -1319,7 +1323,7 @@ export const shipmentLinesConfig: AquaCrudConfig = {
     { key: 'unitPrice', label: 'aqua.fields.unitPrice' },
     { key: 'localLineAmount', label: 'aqua.fields.localLineAmount' },
   ],
-  defaultValues: { currencyCode: 'TRY', exchangeRate: 1, shipmentDate: localDateString() },
+  defaultValues: { currencyCode: 'TRY', exchangeRate: 1, unitPrice: 0, shipmentDate: localDateString() },
 };
 
 export const mortalityLinesConfig: AquaCrudConfig = {

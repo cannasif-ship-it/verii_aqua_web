@@ -28,6 +28,7 @@ export interface WarehouseDto {
 
 export interface FishBatchDto {
   id: number;
+  batchCode?: string;
   fishStockId?: number;
   currentAverageGram?: number;
 }

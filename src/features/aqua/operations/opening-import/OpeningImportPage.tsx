@@ -50,7 +50,7 @@ const SHEET_DEFINITIONS: OpeningImportSheetDefinition[] = [
       { field: 'projectCode', label: 'ProjectCode', required: true },
       { field: 'cageCode', label: 'CageCode' },
       { field: 'warehouseCode', label: 'WarehouseCode' },
-      { field: 'batchCode', label: 'BatchCode', required: true },
+      { field: 'batchCode', label: 'BatchCode' },
       { field: 'fishStockCode', label: 'FishStockCode', required: true },
       { field: 'fishCount', label: 'FishCount', required: true },
       { field: 'averageGram', label: 'AverageGram', required: true },
@@ -66,7 +66,7 @@ const SHEET_DEFINITIONS: OpeningImportSheetDefinition[] = [
       { field: 'warehouseCode', label: 'WarehouseCode' },
       { field: 'receiptNo', label: 'ReceiptNo' },
       { field: 'receiptDate', label: 'ReceiptDate', required: true },
-      { field: 'batchCode', label: 'BatchCode', required: true },
+      { field: 'batchCode', label: 'BatchCode' },
       { field: 'fishStockCode', label: 'FishStockCode', required: true },
       { field: 'fishCount', label: 'FishCount', required: true },
       { field: 'averageGram', label: 'AverageGram', required: true },
@@ -78,10 +78,41 @@ const SHEET_DEFINITIONS: OpeningImportSheetDefinition[] = [
     targets: [
       { field: 'projectCode', label: 'ProjectCode', required: true },
       { field: 'cageCode', label: 'CageCode', required: true },
-      { field: 'batchCode', label: 'BatchCode', required: true },
+      { field: 'batchCode', label: 'BatchCode' },
       { field: 'fishStockCode', label: 'FishStockCode', required: true },
       { field: 'deadCount', label: 'DeadCount', required: true },
       { field: 'mortalityDate', label: 'MortalityDate', required: true },
+    ],
+  },
+  {
+    sheetName: 'OpeningFeedings',
+    titleKey: 'OpeningFeedings',
+    targets: [
+      { field: 'projectCode', label: 'ProjectCode', required: true },
+      { field: 'cageCode', label: 'CageCode', required: true },
+      { field: 'batchCode', label: 'BatchCode', required: true },
+      { field: 'fishStockCode', label: 'FishStockCode', required: true },
+      { field: 'feedStockCode', label: 'FeedStockCode', required: true },
+      { field: 'feedingDate', label: 'FeedingDate', required: true },
+      { field: 'feedingSlot', label: 'FeedingSlot' },
+      { field: 'feedGram', label: 'FeedGram', required: true },
+    ],
+  },
+  {
+    sheetName: 'OpeningShipments',
+    titleKey: 'OpeningShipments',
+    targets: [
+      { field: 'projectCode', label: 'ProjectCode', required: true },
+      { field: 'cageCode', label: 'CageCode', required: true },
+      { field: 'batchCode', label: 'BatchCode', required: true },
+      { field: 'fishStockCode', label: 'FishStockCode', required: true },
+      { field: 'shipmentDate', label: 'ShipmentDate', required: true },
+      { field: 'fishCount', label: 'FishCount', required: true },
+      { field: 'averageGram', label: 'AverageGram', required: true },
+      { field: 'currencyCode', label: 'CurrencyCode' },
+      { field: 'exchangeRate', label: 'ExchangeRate' },
+      { field: 'unitPrice', label: 'UnitPrice' },
+      { field: 'targetWarehouseCode', label: 'TargetWarehouseCode' },
     ],
   },
 ];
@@ -139,7 +170,110 @@ const TEMPLATE_ROWS: Record<string, Record<string, string | number | null>[]> = 
       MortalityDate: '2026-04-15',
     },
   ],
+  OpeningFeedings: [
+    {
+      ProjectCode: 'PRJ-001',
+      CageCode: 'A1',
+      BatchCode: 'BATCH-001',
+      FishStockCode: 'F001',
+      FeedStockCode: 'YEM-001',
+      FeedingDate: '2026-04-15',
+      FeedingSlot: 'Morning',
+      FeedGram: 85000,
+    },
+  ],
+  OpeningShipments: [
+    {
+      ProjectCode: 'PRJ-001',
+      CageCode: 'A1',
+      BatchCode: 'BATCH-001',
+      FishStockCode: 'F001',
+      ShipmentDate: '2026-04-18',
+      FishCount: 500,
+      AverageGram: 420,
+      CurrencyCode: 'TRY',
+      ExchangeRate: 1,
+      UnitPrice: 185,
+      TargetWarehouseCode: 1,
+    },
+    {
+      ProjectCode: 'PRJ-001',
+      CageCode: 'A1',
+      BatchCode: 'BATCH-001',
+      FishStockCode: 'F001',
+      ShipmentDate: '2026-04-18',
+      FishCount: 300,
+      AverageGram: 415,
+      CurrencyCode: 'TRY',
+      ExchangeRate: 1,
+      UnitPrice: 192,
+      TargetWarehouseCode: 1,
+    },
+  ],
 };
+
+const SHEET_NAME_ALIASES: Record<string, string[]> = {
+  Projects: ['Projects', 'Projeler'],
+  Cages: ['Cages', 'Kafesler'],
+  OpeningStock: ['OpeningStock', 'Opening Stock', 'Açılış Stoku'],
+  OpeningGoodsReceipts: ['OpeningGoodsReceipts', 'Opening Goods Receipts', 'Açılış Mal Kabulleri'],
+  OpeningMortality: ['OpeningMortality', 'Opening Mortality', 'Açılış Ölüm', 'Açılış Mortalite'],
+  OpeningFeedings: ['OpeningFeedings', 'Opening Feedings', 'Açılış Yemleme'],
+  OpeningShipments: ['OpeningShipments', 'Opening Shipments', 'Açılış Sevkiyat'],
+};
+
+const FIELD_LABEL_ALIASES: Record<string, string[]> = {
+  ProjectCode: ['ProjectCode', 'Project Code', 'Proje Kodu'],
+  ProjectName: ['ProjectName', 'Project Name', 'Proje Adı'],
+  StartDate: ['StartDate', 'Start Date', 'Başlangıç Tarihi'],
+  Status: ['Status', 'Durum'],
+  Note: ['Note', 'Not'],
+  CageCode: ['CageCode', 'Cage Code', 'Kafes Kodu'],
+  CageName: ['CageName', 'Cage Name', 'Kafes Adı'],
+  AssignedDate: ['AssignedDate', 'Assignment Date', 'Atama Tarihi'],
+  WarehouseCode: ['WarehouseCode', 'Warehouse Code', 'Depo Kodu'],
+  BatchCode: ['BatchCode', 'Batch Code', 'Batch Kodu'],
+  FishStockCode: ['FishStockCode', 'Fish Stock Code', 'Balık Stok Kodu'],
+  FishCount: ['FishCount', 'Fish Count', 'Balık Adedi'],
+  AverageGram: ['AverageGram', 'Average Gram', 'Ortalama Gram'],
+  AsOfDate: ['AsOfDate', 'Balance Date', 'Bakiye Tarihi'],
+  ReceiptNo: ['ReceiptNo', 'Receipt No', 'Mal Kabul No'],
+  ReceiptDate: ['ReceiptDate', 'Receipt Date', 'Mal Kabul Tarihi'],
+  DeadCount: ['DeadCount', 'Dead Count', 'Ölü Adedi', 'Mortalite Adedi'],
+  MortalityDate: ['MortalityDate', 'Mortality Date', 'Ölüm Tarihi', 'Mortalite Tarihi'],
+  FeedStockCode: ['FeedStockCode', 'Feed Stock Code', 'Yem Stok Kodu'],
+  FeedingDate: ['FeedingDate', 'Feeding Date', 'Yemleme Tarihi'],
+  FeedingSlot: ['FeedingSlot', 'Feeding Slot', 'Yemleme Turu'],
+  FeedGram: ['FeedGram', 'Feed Gram', 'Yem Gramı'],
+  ShipmentDate: ['ShipmentDate', 'Shipment Date', 'Sevkiyat Tarihi'],
+  CurrencyCode: ['CurrencyCode', 'Currency Code', 'Para Birimi'],
+  ExchangeRate: ['ExchangeRate', 'Exchange Rate', 'Kur'],
+  UnitPrice: ['UnitPrice', 'Unit Price', 'Birim Fiyat'],
+  TargetWarehouseCode: ['TargetWarehouseCode', 'Target Warehouse Code', 'Hedef Depo Kodu'],
+};
+
+function getSheetTitle(t: (key: string, options?: Record<string, unknown>) => string, sheetName: string): string {
+  return t(`aqua.openingImport.sheets.${sheetName}`, { defaultValue: sheetName });
+}
+
+function getFieldLabel(t: (key: string, options?: Record<string, unknown>) => string, label: string): string {
+  return t(`aqua.openingImport.fields.${label}`, { defaultValue: label });
+}
+
+function getPreviewStatusLabel(t: (key: string, options?: Record<string, unknown>) => string, status: string): string {
+  return t(`aqua.openingImport.statusValues.${status}`, { defaultValue: status });
+}
+
+function findWorkbookSheetName(workbook: XLSX.WorkBook, canonicalSheetName: string): string | null {
+  const aliases = SHEET_NAME_ALIASES[canonicalSheetName] ?? [canonicalSheetName];
+  const aliasSet = new Set(aliases.map((item) => normalizeHeader(item)));
+
+  return workbook.SheetNames.find((sheetName) => aliasSet.has(normalizeHeader(sheetName))) ?? null;
+}
+
+function getFieldAliases(label: string, field: string): string[] {
+  return Array.from(new Set([label, field, ...(FIELD_LABEL_ALIASES[label] ?? [])]));
+}
 
 function normalizeHeader(value: string): string {
   return value
@@ -158,10 +292,30 @@ function autoMapHeader(sheetName: string, header: string): OpeningImportTargetFi
   const definition = SHEET_DEFINITIONS.find((item) => item.sheetName === sheetName);
   if (!definition) return '';
 
-  const match = definition.targets.find(
-    (target) => normalizeHeader(target.label) === normalized || normalizeHeader(target.field) === normalized
+  const match = definition.targets.find((target) =>
+    getFieldAliases(target.label, target.field).some((alias) => normalizeHeader(alias) === normalized)
   );
   return match?.field ?? '';
+}
+
+function localizeSheetRows(
+  t: (key: string, options?: Record<string, unknown>) => string,
+  sheetName: string,
+  rows: Array<Record<string, string | number | null>>
+): Array<Record<string, string | number | null>> {
+  const definition = SHEET_DEFINITIONS.find((item) => item.sheetName === sheetName);
+  if (!definition) return rows;
+
+  const labelByField = new Map(definition.targets.map((target) => [target.field, getFieldLabel(t, target.label)]));
+
+  return rows.map((row) =>
+    Object.fromEntries(
+      Object.entries(row).map(([key, value]) => [
+        labelByField.get(key as OpeningImportTargetField) ?? getFieldLabel(t, key),
+        value,
+      ])
+    )
+  );
 }
 
 function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
@@ -171,7 +325,8 @@ function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
       try {
         const workbook = XLSX.read(reader.result, { type: 'array' });
         const parsed = SHEET_DEFINITIONS.map<ParsedImportSheet>((definition) => {
-          const sheet = workbook.Sheets[definition.sheetName];
+          const resolvedSheetName = findWorkbookSheetName(workbook, definition.sheetName);
+          const sheet = resolvedSheetName ? workbook.Sheets[resolvedSheetName] : undefined;
           if (!sheet) {
             return { sheetName: definition.sheetName, headers: [], rows: [], mappings: {} };
           }
@@ -199,7 +354,12 @@ function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
   });
 }
 
-function downloadWorkbook(fileName: string, sheets: ParsedImportSheet[] | null, preview?: OpeningImportPreviewResponseDto | null): void {
+function downloadWorkbook(
+  t: (key: string, options?: Record<string, unknown>) => string,
+  fileName: string,
+  sheets: ParsedImportSheet[] | null,
+  preview?: OpeningImportPreviewResponseDto | null
+): void {
   const workbook = XLSX.utils.book_new();
 
   if (preview && preview.rows.length > 0) {
@@ -211,28 +371,49 @@ function downloadWorkbook(fileName: string, sheets: ParsedImportSheet[] | null, 
 
       acc[row.sheetName] ??= [];
       acc[row.sheetName].push({
-        RowNumber: row.rowNumber,
-        Status: row.status,
-        Messages: row.messages.join(' | '),
+        [ttExport(t, 'aqua.openingImport.previewRowNumber', 'Satır')]: row.rowNumber,
+        [ttExport(t, 'aqua.openingImport.status', 'Durum')]: getPreviewStatusLabel(t, row.status),
+        [ttExport(t, 'aqua.openingImport.messages', 'Mesajlar')]: row.messages.join(' | '),
         ...normalizedEntries,
       });
       return acc;
     }, {});
 
     Object.entries(groupedRows).forEach(([sheetName, rows]) => {
-      XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(rows), sheetName);
+      XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.json_to_sheet(localizeSheetRows(t, sheetName, rows)),
+        getSheetTitle(t, sheetName)
+      );
     });
   } else if (sheets) {
     sheets.forEach((sheet) => {
-      XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(sheet.rows), sheet.sheetName);
+      XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.json_to_sheet(localizeSheetRows(t, sheet.sheetName, sheet.rows)),
+        getSheetTitle(t, sheet.sheetName)
+      );
     });
   } else {
     SHEET_DEFINITIONS.forEach((definition) => {
-      XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(TEMPLATE_ROWS[definition.sheetName]), definition.sheetName);
+      XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.json_to_sheet(localizeSheetRows(t, definition.sheetName, TEMPLATE_ROWS[definition.sheetName])),
+        getSheetTitle(t, definition.sheetName)
+      );
     });
   }
 
   XLSX.writeFile(workbook, fileName);
+}
+
+function ttExport(
+  t: (key: string, options?: Record<string, unknown>) => string,
+  key: string,
+  defaultValue: string,
+  options?: Record<string, unknown>
+): string {
+  return t(key, { defaultValue, ...options });
 }
 
 export function OpeningImportPage(): ReactElement {
@@ -368,17 +549,17 @@ export function OpeningImportPage(): ReactElement {
             <div className="max-w-4xl rounded-2xl border border-cyan-200/70 bg-cyan-50/80 px-4 py-3 text-xs leading-6 text-slate-700">
               {tt(
                 'aqua.openingImport.cutoverModeHint',
-                'Eğer sadece bugünkü net stokla başlayacaksan OpeningStock yeterlidir. Geçmiş toplu mal kabul ve ölüm özetini de sisteme almak istersen OpeningGoodsReceipts ve OpeningMortality sheetlerini doldurabilirsin. OpeningStock boşsa sistem net açılış bakiyesini bu özet satırlardan türetir.'
+                'Eğer sadece bugünkü net stokla başlayacaksan OpeningStock yeterlidir. Geçmiş özet mal kabul, mortalite, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. OpeningStock boşsa sistem net açılış bakiyesini mal kabul ve mortalite özetlerinden türetir.'
               )}
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button type="button" variant="outline" onClick={() => downloadWorkbook('aqua-opening-import-template.xlsx', null)}>
+            <Button type="button" variant="outline" onClick={() => downloadWorkbook(t, 'aqua-opening-import-template.xlsx', null)}>
               <Download className="mr-2 h-4 w-4" />
               {tt('aqua.openingImport.downloadTemplate', 'Şablon İndir')}
             </Button>
             {preview?.summary.errorRows ? (
-              <Button type="button" variant="outline" onClick={() => downloadWorkbook('aqua-opening-import-errors.xlsx', null, preview)}>
+              <Button type="button" variant="outline" onClick={() => downloadWorkbook(t, 'aqua-opening-import-errors.xlsx', null, preview)}>
                 <FileSpreadsheet className="mr-2 h-4 w-4" />
                 {tt('aqua.openingImport.downloadErrors', "Hata Excel'i İndir")}
               </Button>
@@ -473,12 +654,12 @@ export function OpeningImportPage(): ReactElement {
               <div key={definition.sheetName} className="rounded-2xl border border-slate-200 bg-white/80 p-4">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">{definition.titleKey}</h3>
+                    <h3 className="text-base font-semibold text-slate-900">{getSheetTitle(t, definition.titleKey)}</h3>
                     <p className="text-sm text-slate-500">
                       {tt('aqua.openingImport.sheetStats', '{{headers}} kolon, {{rows}} satır', { headers: sheet?.headers.length ?? 0, rows: sheet?.rows.length ?? 0 })}
                     </p>
                   </div>
-                  <Badge variant="outline">{definition.sheetName}</Badge>
+                  <Badge variant="outline">{getSheetTitle(t, definition.sheetName)}</Badge>
                 </div>
 
                 {sheet?.headers.length ? (
@@ -505,7 +686,7 @@ export function OpeningImportPage(): ReactElement {
                                 <SelectItem value="__none__">{tt('aqua.openingImport.ignoreColumn', 'Bu kolonu yoksay')}</SelectItem>
                                 {definition.targets.map((target) => (
                                   <SelectItem key={target.field} value={target.field}>
-                                    {target.label}{target.required ? ' *' : ''}
+                                    {getFieldLabel(t, target.label)}{target.required ? ' *' : ''}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -540,7 +721,7 @@ export function OpeningImportPage(): ReactElement {
               return (
                 <div key={`preview-${definition.sheetName}`} className="space-y-3">
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-base font-semibold text-slate-900">{definition.titleKey}</h3>
+                    <h3 className="text-base font-semibold text-slate-900">{getSheetTitle(t, definition.titleKey)}</h3>
                     <Badge variant="outline">{rows.length}</Badge>
                   </div>
                   <Table>
@@ -567,7 +748,7 @@ export function OpeningImportPage(): ReactElement {
                                     : 'border-rose-300 bg-rose-50 text-rose-700'
                               }
                             >
-                              {row.status}
+                              {getPreviewStatusLabel(t, row.status)}
                             </Badge>
                           </TableCell>
                           <TableCell className="max-w-[360px] whitespace-normal text-sm text-slate-600">
@@ -603,9 +784,14 @@ export function OpeningImportPage(): ReactElement {
               ['createdProjectCages', commitResult.createdProjectCages, 'Oluşturulan Proje-Kafes'],
               ['createdFishBatches', commitResult.createdFishBatches, 'Oluşturulan Batch'],
               ['createdGoodsReceipts', commitResult.createdGoodsReceipts, 'Oluşturulan Özet Mal Kabul'],
+              ['createdFeedingHeaders', commitResult.createdFeedingHeaders, 'Oluşturulan Özet Yemleme'],
               ['createdGoodsReceiptLines', commitResult.createdGoodsReceiptLines, 'Oluşturulan Mal Kabul Satırı'],
-              ['createdMortalityHeaders', commitResult.createdMortalityHeaders, 'Oluşturulan Özet Ölüm Belgesi'],
-              ['createdMortalityLines', commitResult.createdMortalityLines, 'Oluşturulan Ölüm Satırı'],
+              ['createdFeedingLines', commitResult.createdFeedingLines, 'Oluşturulan Yemleme Satırı'],
+              ['createdFeedingDistributions', commitResult.createdFeedingDistributions, 'Oluşturulan Yemleme Dağılımı'],
+              ['createdMortalityHeaders', commitResult.createdMortalityHeaders, 'Oluşturulan Özet Mortalite Belgesi'],
+              ['createdMortalityLines', commitResult.createdMortalityLines, 'Oluşturulan Mortalite Satırı'],
+              ['createdShipmentHeaders', commitResult.createdShipmentHeaders, 'Oluşturulan Özet Sevkiyat Belgesi'],
+              ['createdShipmentLines', commitResult.createdShipmentLines, 'Oluşturulan Sevkiyat Satırı'],
               ['appliedCageRows', commitResult.appliedCageRows, 'Kafese Yazılan Satır'],
               ['appliedWarehouseRows', commitResult.appliedWarehouseRows, 'Depoya Yazılan Satır'],
               ['skippedRows', commitResult.skippedRows, 'Atlanan Satır'],

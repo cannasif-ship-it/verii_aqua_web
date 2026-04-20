@@ -12,11 +12,20 @@ export type OpeningImportTargetField =
   | 'fishCount'
   | 'averageGram'
   | 'warehouseCode'
+  | 'targetWarehouseCode'
   | 'asOfDate'
   | 'receiptNo'
   | 'receiptDate'
   | 'deadCount'
-  | 'mortalityDate';
+  | 'mortalityDate'
+  | 'feedStockCode'
+  | 'feedingDate'
+  | 'feedingSlot'
+  | 'feedGram'
+  | 'shipmentDate'
+  | 'currencyCode'
+  | 'exchangeRate'
+  | 'unitPrice';
 
 export interface OpeningImportTargetDefinition {
   field: OpeningImportTargetField;
@@ -25,7 +34,7 @@ export interface OpeningImportTargetDefinition {
 }
 
 export interface OpeningImportSheetDefinition {
-  sheetName: 'Projects' | 'Cages' | 'OpeningStock' | 'OpeningGoodsReceipts' | 'OpeningMortality';
+  sheetName: 'Projects' | 'Cages' | 'OpeningStock' | 'OpeningGoodsReceipts' | 'OpeningMortality' | 'OpeningFeedings' | 'OpeningShipments';
   titleKey: string;
   targets: OpeningImportTargetDefinition[];
 }
@@ -85,9 +94,14 @@ export interface OpeningImportCommitResultDto {
   createdProjectCages: number;
   createdFishBatches: number;
   createdGoodsReceipts: number;
+  createdFeedingHeaders: number;
   createdMortalityHeaders: number;
   createdGoodsReceiptLines: number;
+  createdFeedingLines: number;
+  createdFeedingDistributions: number;
   createdMortalityLines: number;
+  createdShipmentHeaders: number;
+  createdShipmentLines: number;
   appliedCageRows: number;
   appliedWarehouseRows: number;
   skippedRows: number;

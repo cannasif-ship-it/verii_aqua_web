@@ -77,6 +77,6 @@ export interface AquaCrudContextFilter {
   hideFieldInForm?: boolean;
 }
 
-export interface AquaListParams extends PagedParams {}
+export type AquaListParams = PagedParams;
 
 export type AquaListResponse = PagedResponse<Record<string, unknown>>;

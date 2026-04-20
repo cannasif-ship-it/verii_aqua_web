@@ -131,7 +131,7 @@ export function QuickSetupPage(): ReactElement {
     })();
 
     return () => { isActive = false; };
-  }, [projectId, t]);
+  }, [mutations.createFishBatch, projectId, t]);
 
   useEffect(() => {
     if (projectId == null) {
@@ -153,7 +153,7 @@ export function QuickSetupPage(): ReactElement {
     })();
 
     return () => { isActive = false; };
-  }, [projectId, projectCages]);
+  }, [projectId]);
 
   const allocationRows = useMemo((): CageAllocationRow[] => {
     const cages = Array.isArray(projectCages) ? projectCages : [];
@@ -247,7 +247,9 @@ export function QuickSetupPage(): ReactElement {
             toast.info(t('aqua.quickSetup.toast.existingGoodsReceiptFound'));
             return;
           }
-        } catch {}
+        } catch {
+          // Ignore fallback refresh failure and preserve the original create error.
+        }
       }
       toast.error(e instanceof Error ? e.message : t('aqua.quickSetup.toast.goodsReceiptCreateFailed'));
       throw e;

@@ -10,9 +10,25 @@ import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { stockChangeQuickFormSchema, type StockChangeQuickFormSchema } from '../schema/quick-daily-entry-schema';
+import type { ActiveCageBatchSnapshot } from '../types/quick-daily-entry-types';
 import { ChevronRight, Save } from 'lucide-react';
 
-export function StockChangeQuickForm({ projectId, projectCageId, fishBatches, sourceBatch, onSubmit, isSubmitting, canSubmit }: any): ReactElement {
+interface StockChangeBatchOption {
+  id: number;
+  batchCode?: string;
+}
+
+interface StockChangeQuickFormProps {
+  projectId: number | null;
+  projectCageId: number | null;
+  fishBatches?: StockChangeBatchOption[];
+  sourceBatch: ActiveCageBatchSnapshot | null;
+  onSubmit: (data: StockChangeQuickFormSchema) => Promise<void>;
+  isSubmitting: boolean;
+  canSubmit: boolean;
+}
+
+export function StockChangeQuickForm({ projectId, projectCageId, fishBatches, sourceBatch, onSubmit, isSubmitting, canSubmit }: StockChangeQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<StockChangeQuickFormSchema>({
     resolver: zodResolver(stockChangeQuickFormSchema) as Resolver<StockChangeQuickFormSchema>,
@@ -26,8 +42,8 @@ export function StockChangeQuickForm({ projectId, projectCageId, fishBatches, so
   };
 
   const batchOptions = (fishBatches || [])
-    .filter((b: any) => b.id !== sourceBatch?.fishBatchId)
-    .map((b: any) => ({ value: String(b.id), label: formatLabelWithKey(b.batchCode, b.id) }));
+    .filter((b) => b.id !== sourceBatch?.fishBatchId)
+    .map((b) => ({ value: String(b.id), label: formatLabelWithKey(b.batchCode, b.id) }));
 
   // AQUA KONSEPT STİLLERİ
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 flex items-center gap-1.5";

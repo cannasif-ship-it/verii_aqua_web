@@ -473,7 +473,7 @@ export function AquaDashboardPage(): ReactElement {
     staleTime: 60_000,
   });
 
-  const summaries = summariesQuery.data ?? [];
+  const summaries = useMemo(() => summariesQuery.data ?? [], [summariesQuery.data]);
 
   useEffect(() => {
     if (summaries.length > 0 && !hasInitialized.current) {
@@ -534,7 +534,7 @@ export function AquaDashboardPage(): ReactElement {
     staleTime: 60_000,
   });
 
-  const detailCages = detailQuery.data?.cages ?? [];
+  const detailCages = useMemo(() => detailQuery.data?.cages ?? [], [detailQuery.data?.cages]);
 
   const selectedCageFromDetail = useMemo(() => {
     if (!selectedCageId) return null;

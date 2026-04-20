@@ -400,7 +400,9 @@ export function QuickDailyEntryPage(): ReactElement {
         deadCount: data.deadCount,
       });
       if (Number(mortalityLine.mortalityId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postMortality(Number(mortalityLine.mortalityId)); } catch {}
+        try { await aquaQuickDailyApi.postMortality(Number(mortalityLine.mortalityId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
       toast.success(t('aqua.quickDailyEntry.toast.mortalitySaved'));
     } catch (e) {
@@ -432,7 +434,9 @@ export function QuickDailyEntryPage(): ReactElement {
         note: data.description,
       });
       if (Number(netOperationLine.netOperationId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postNetOperation(Number(netOperationLine.netOperationId)); } catch {}
+        try { await aquaQuickDailyApi.postNetOperation(Number(netOperationLine.netOperationId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
       toast.success(t('aqua.quickDailyEntry.toast.netOperationSaved'));
     } catch (e) {
@@ -479,7 +483,9 @@ export function QuickDailyEntryPage(): ReactElement {
         biomassGram,
       });
       if (Number(transferLine.transferId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postTransfer(Number(transferLine.transferId)); } catch {}
+        try { await aquaQuickDailyApi.postTransfer(Number(transferLine.transferId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
       const [sourceProjectCagesResponse, targetProjectCagesResponse] = await Promise.all([
         refetchProjectCages(),
@@ -521,7 +527,9 @@ export function QuickDailyEntryPage(): ReactElement {
       });
 
       if (Number(line.cageWarehouseTransferId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postCageWarehouseTransfer(Number(line.cageWarehouseTransferId)); } catch {}
+        try { await aquaQuickDailyApi.postCageWarehouseTransfer(Number(line.cageWarehouseTransferId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
 
       const refreshedSourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
@@ -567,7 +575,9 @@ export function QuickDailyEntryPage(): ReactElement {
       });
 
       if (Number(line.warehouseTransferId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postWarehouseTransfer(Number(line.warehouseTransferId)); } catch {}
+        try { await aquaQuickDailyApi.postWarehouseTransfer(Number(line.warehouseTransferId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
 
       if (Array.isArray(warehouses) && warehouses.length > 0) {
@@ -606,7 +616,9 @@ export function QuickDailyEntryPage(): ReactElement {
       });
 
       if (Number(line.warehouseCageTransferId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postWarehouseCageTransfer(Number(line.warehouseCageTransferId)); } catch {}
+        try { await aquaQuickDailyApi.postWarehouseCageTransfer(Number(line.warehouseCageTransferId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
 
       const refreshedSourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);
@@ -649,7 +661,9 @@ export function QuickDailyEntryPage(): ReactElement {
         biomassGram,
       });
       if (Number(stockConvertLine.stockConvertId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postStockConvert(Number(stockConvertLine.stockConvertId)); } catch {}
+        try { await aquaQuickDailyApi.postStockConvert(Number(stockConvertLine.stockConvertId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
       toast.success(t('aqua.quickDailyEntry.toast.stockChangeSaved'));
     } catch (e) {
@@ -684,7 +698,9 @@ export function QuickDailyEntryPage(): ReactElement {
       });
 
       if (Number(shipmentLine.shipmentId ?? 0) > 0) {
-        try { await aquaQuickDailyApi.postShipment(Number(shipmentLine.shipmentId)); } catch {}
+        try { await aquaQuickDailyApi.postShipment(Number(shipmentLine.shipmentId)); } catch {
+          // Posting is a non-blocking follow-up after line save.
+        }
       }
 
       const refreshedSourceBatch = await aquaQuickDailyApi.findActiveFishBatchByProjectCage(projectCageId);

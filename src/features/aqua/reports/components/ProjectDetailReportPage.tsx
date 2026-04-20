@@ -47,6 +47,49 @@ interface DetailDialogState {
   items: string[];
 }
 
+interface ProjectSummaryCardsProps {
+  activeCageCount: number;
+  inactiveCageCount: number;
+  totalInitialFish: number;
+  cageFishCount: number;
+  warehouseFishCount: number;
+  totalSystemFishCount: number;
+  totalDead: number;
+  totalFeedGram: number;
+  cageBiomassGram: number;
+  warehouseBiomassGram: number;
+  totalSystemBiomassGram: number;
+  avgCurrentGram: number;
+  activeWarehouseCount: number;
+  totalShipmentFish: number;
+  totalShipmentBiomass: number;
+  lastShipmentDate: string;
+  t: (key: string) => string;
+}
+
+interface ProjectCurrentSnapshotCardsProps {
+  projectCode: string;
+  projectName: string;
+  snapshotDate: string;
+  liveRatePercent: number;
+  cageFishCount: number;
+  warehouseFishCount: number;
+  totalSystemFishCount: number;
+  missingFeedCageCountToday: number;
+  activeCageCount: number;
+  cageBiomassGram: number;
+  warehouseBiomassGram: number;
+  totalSystemBiomassGram: number;
+  totalShipmentFish: number;
+  totalShipmentBiomass: number;
+  lastShipmentDate: string;
+  consistency: {
+    expectedCurrentFish: number;
+    isConsistent: boolean;
+  };
+  t: (key: string) => string;
+}
+
 function formatNumber(value: number): string {
   return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 2 }).format(value);
 }
@@ -210,7 +253,7 @@ function ProjectSummaryCards({
   totalShipmentBiomass,
   lastShipmentDate,
   t,
-}: any): ReactElement {
+}: ProjectSummaryCardsProps): ReactElement {
   const stockRatio = totalInitialFish > 0 ? clampPercent((cageFishCount / totalInitialFish) * 100) : 0;
 
   return (
@@ -313,7 +356,7 @@ function ProjectSummaryCards({
   );
 }
 
-function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, liveRatePercent, cageFishCount, warehouseFishCount, totalSystemFishCount, missingFeedCageCountToday, activeCageCount, cageBiomassGram, warehouseBiomassGram, totalSystemBiomassGram, totalShipmentFish, totalShipmentBiomass, lastShipmentDate, consistency, t }: any): ReactElement {
+function ProjectCurrentSnapshotCards({ projectCode, projectName, snapshotDate, liveRatePercent, cageFishCount, warehouseFishCount, totalSystemFishCount, missingFeedCageCountToday, activeCageCount, cageBiomassGram, warehouseBiomassGram, totalSystemBiomassGram, totalShipmentFish, totalShipmentBiomass, lastShipmentDate, consistency, t }: ProjectCurrentSnapshotCardsProps): ReactElement {
   const safeRate = clampPercent(liveRatePercent);
   const hasSnapshotDate = snapshotDate !== '-';
   const activeWithFeedCount = hasSnapshotDate ? Math.max(0, activeCageCount - missingFeedCageCountToday) : 0;

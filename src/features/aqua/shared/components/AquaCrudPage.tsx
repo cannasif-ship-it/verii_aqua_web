@@ -563,7 +563,7 @@ export function AquaCrudPage({
       toast.success(t('aqua.common.bulkDeleteSuccess', { count: selectedIds.length }));
       setSelectedIds([]);
       void queryClient.invalidateQueries({ queryKey: ['aqua', config.key] });
-    } catch (e) {
+    } catch {
       toast.error(t('aqua.common.bulkDeleteError'));
     } finally {
       setIsBulkDeleting(false);
@@ -597,7 +597,7 @@ export function AquaCrudPage({
       }).filter((item): item is { label: string; value: string } => item !== null);
     });
     return result;
-  }, [lookupFields, lookupQueries]);
+  }, [formValues, lookupFields, lookupQueries]);
 
   useEffect(() => {
     const dependentFields = config.fields.filter((field) => {
@@ -939,7 +939,7 @@ export function AquaCrudPage({
       const ws = XLSX.utils.json_to_sheet(dataToExport); const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Export'); XLSX.writeFile(wb, `${config.key}-export.xlsx`);
       toast.success(t('aqua.common.exportSuccess'));
-    } catch (error) { toast.error(t('aqua.common.exportErrorExcel')); }
+    } catch { toast.error(t('aqua.common.exportErrorExcel')); }
   };
 
   const handleExportPDF = async () => {
@@ -957,8 +957,7 @@ export function AquaCrudPage({
       autoTable(doc, { head: [tableColumn], body: tableRows });
       doc.save(`${config.key}-export.pdf`);
       toast.success(t('aqua.common.exportSuccess'));
-    } catch (error) {
-      console.error(error);
+    } catch {
       toast.error(t('aqua.common.exportErrorPdf'));
     }
   };
@@ -981,8 +980,7 @@ export function AquaCrudPage({
       slide.addTable(tableData, { x: 0.5, y: 1.5, w: '90%' });
       pptx.writeFile({ fileName: `${config.key}-export.pptx` });
       toast.success(t('aqua.common.exportSuccess'));
-    } catch (error) {
-      console.error(error);
+    } catch {
       toast.error(t('aqua.common.exportErrorPpt'));
     }
   };

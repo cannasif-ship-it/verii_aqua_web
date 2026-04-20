@@ -10,9 +10,20 @@ import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { netOperationQuickFormSchema, type NetOperationQuickFormSchema } from '../schema/quick-daily-entry-schema';
+import type { FishBatchDto, NetOperationTypeDto } from '../types/quick-daily-entry-types';
 import { ChevronRight, Save } from 'lucide-react'; // İkonlar eklendi
 
-export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, netOperationTypes, onSubmit, isSubmitting, canSubmit }: any): ReactElement {
+interface NetOperationQuickFormProps {
+  projectId: number | null;
+  projectCageId: number | null;
+  fishBatches?: FishBatchDto[];
+  netOperationTypes?: NetOperationTypeDto[];
+  onSubmit: (data: NetOperationQuickFormSchema) => Promise<void>;
+  isSubmitting: boolean;
+  canSubmit: boolean;
+}
+
+export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, netOperationTypes, onSubmit, isSubmitting, canSubmit }: NetOperationQuickFormProps): ReactElement {
   const { t } = useTranslation('common');
   const form = useForm<NetOperationQuickFormSchema>({
     resolver: zodResolver(netOperationQuickFormSchema) as Resolver<NetOperationQuickFormSchema>,
@@ -25,8 +36,8 @@ export function NetOperationQuickForm({ projectId, projectCageId, fishBatches, n
     form.reset();
   };
 
-  const typeOptions = (netOperationTypes || []).map((t: any) => ({ value: String(t.id), label: formatLabelWithKey(t.name, t.id) }));
-  const batchOptions = (fishBatches || []).map((b: any) => ({ value: String(b.id), label: formatLabelWithKey(b.batchCode, b.id) }));
+  const typeOptions = (netOperationTypes || []).map((item) => ({ value: String(item.id), label: formatLabelWithKey(item.name, item.id) }));
+  const batchOptions = (fishBatches || []).map((item) => ({ value: String(item.id), label: formatLabelWithKey(item.batchCode, item.id) }));
 
   // AQUA KONSEPT STİLLERİ
   const labelStyle = "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1 flex items-center gap-1.5";
