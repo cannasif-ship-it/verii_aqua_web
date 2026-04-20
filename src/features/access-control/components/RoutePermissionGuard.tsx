@@ -1,9 +1,20 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import type { AxiosError } from 'axios';
+import { PageLoader } from '@/components/shared/PageLoader';
 import { useMyPermissionsQuery } from '../hooks/useMyPermissionsQuery';
 import { canAccessPath } from '../utils/hasPermission';
 import { UnauthorizedPage } from './UnauthorizedPage';
+
+/** Lazy route geçişlerinde RR7 + Suspense birleşiminde Outlet’in takılmasını önlemek için doğrudan sarılı Outlet. */
+function LazyRouteOutlet(): ReactElement {
+  const location = useLocation();
+  return (
+    <Suspense key={location.key} fallback={<PageLoader />}>
+      <Outlet key={location.key} />
+    </Suspense>
+  );
+}
 
 export function RoutePermissionGuard(): ReactElement {
   const location = useLocation();
@@ -22,7 +33,7 @@ export function RoutePermissionGuard(): ReactElement {
     if (statusCode === 403) {
       return <UnauthorizedPage />;
     }
-    return <Outlet />;
+    return <LazyRouteOutlet />;
   }
 
   if (!permissions) {
@@ -30,7 +41,7 @@ export function RoutePermissionGuard(): ReactElement {
   }
 
   if (canAccessPath(permissions, location.pathname)) {
-    return <Outlet />;
+    return <LazyRouteOutlet />;
   }
 
   return <UnauthorizedPage />;

@@ -1,6 +1,7 @@
-import { type ReactElement, Suspense, useCallback, useMemo } from 'react';
+import { type ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { PageLoader } from './PageLoader';
+import { releaseRadixBodyPointerAndScrollLock } from '@/lib/radix-body-unlock';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
 import { Footer } from './Footer';
@@ -28,8 +29,13 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
+  const location = useLocation();
   const { t } = useTranslation(['common', 'hangfire-monitoring', 'user-detail-management']);
   const { data: permissions, isLoading, isError } = useMyPermissionsQuery();
+
+  useEffect(() => {
+    releaseRadixBodyPointerAndScrollLock();
+  }, [location.pathname, location.search]);
   const sidebarT = useCallback((key: string): string => t(`sidebar.${key}`, { ns: 'common' }), [t]);
 
   const defaultNavItems: NavItem[] = useMemo(() => {
@@ -148,9 +154,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
         <TooltipProvider delayDuration={200}>
           <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-5 text-foreground scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800 scrollbar-track-transparent">
             <div className="w-full min-h-full">
-              <Suspense fallback={<PageLoader />}>
-                <RoutePermissionGuard />
-              </Suspense>
+              <RoutePermissionGuard />
             </div>
           </main>
         </TooltipProvider>

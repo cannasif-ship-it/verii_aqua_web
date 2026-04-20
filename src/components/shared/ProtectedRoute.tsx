@@ -58,7 +58,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
     return children;
   }
 
-  if (myPermissionsQuery.isLoading || myPermissionsQuery.isFetching) {
+  if (myPermissionsQuery.isLoading) {
     return (
       <div className="min-h-[60vh] w-full flex items-center justify-center">
         <div className="text-slate-500 dark:text-slate-400">
