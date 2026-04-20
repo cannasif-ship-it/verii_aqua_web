@@ -58,7 +58,7 @@ export function LoginPage(): React.JSX.Element {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [capsLockActive, setCapsLockActive] = useState(false);
   
-  const [showAnimation, setShowAnimation] = useState(true);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const form = useForm<z.input<typeof loginRequestSchema>>({
     resolver: zodResolver(loginRequestSchema),

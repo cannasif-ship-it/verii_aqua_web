@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Dialog,
   DialogContent,
@@ -62,6 +63,8 @@ export function UserDetailDialog({
   onOpenChange,
 }: UserDetailDialogProps): ReactElement {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuthStore();
   const userId = user?.id || 0;
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -99,13 +102,13 @@ export function UserDetailDialog({
   const isFormValid = form.formState.isValid;
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    if (url.searchParams.has('currentPassword') || url.searchParams.has('newPassword')) {
-      url.searchParams.delete('currentPassword');
-      url.searchParams.delete('newPassword');
-      window.history.replaceState({}, '', url.pathname + url.search);
-    }
-  }, []);
+    const params = new URLSearchParams(location.search);
+    if (!params.has('currentPassword') && !params.has('newPassword')) return;
+    params.delete('currentPassword');
+    params.delete('newPassword');
+    const next = params.toString();
+    navigate({ pathname: location.pathname, search: next ? `?${next}` : '' }, { replace: true });
+  }, [location.pathname, location.search, navigate]);
 
   useEffect(() => {
     if (userDetail) {
@@ -206,11 +209,12 @@ export function UserDetailDialog({
     try {
       await changePassword.mutateAsync(data);
       changePasswordForm.reset();
-      const url = new URL(window.location.href);
-      if (url.searchParams.has('currentPassword') || url.searchParams.has('newPassword')) {
-        url.searchParams.delete('currentPassword');
-        url.searchParams.delete('newPassword');
-        window.history.replaceState({}, '', url.pathname + url.search);
+      const params = new URLSearchParams(location.search);
+      if (params.has('currentPassword') || params.has('newPassword')) {
+        params.delete('currentPassword');
+        params.delete('newPassword');
+        const next = params.toString();
+        navigate({ pathname: location.pathname, search: next ? `?${next}` : '' }, { replace: true });
       }
     } catch (error) {
       console.error('Password change error:', error);
