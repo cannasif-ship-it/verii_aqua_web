@@ -47,6 +47,10 @@ export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps)
       options={languageOptions}
       value={currentLanguage.code}
       onValueChange={handleLanguageChange}
+      triggerValue={variant === 'icon' ? currentLanguage.code.toUpperCase() : undefined}
+      hideTriggerChevron={variant === 'icon'}
+      popoverContentClassName={variant === 'icon' ? 'w-auto min-w-[220px]' : undefined}
+      title={variant === 'icon' ? currentLanguage.name : undefined}
       placeholder={`${currentLanguage.flag} ${currentLanguage.name}`}
       searchPlaceholder={t('common.search')}
       emptyText={t('common.noResults')}
