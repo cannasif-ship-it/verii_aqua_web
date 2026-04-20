@@ -1,29 +1,55 @@
 {
-  "menu": "Monitoraggio degli incendi",
-  "title": "Monitoraggio degli incendi",
-  "description": "Monitora lo stato dei lavori, i lavori non riusciti e la coda dei messaggi non recapitati.",
-  "refresh": "Aggiorna",
+  "menu": "Hangfire Monitoring",
+  "title": "Hangfire Monitoring",
+  "description": "Monitor job health, successful and failed job flows, recurring jobs, and the dead-letter queue.",
+  "refresh": "Refresh",
   "stats": {
-    "enqueued": "in coda",
-    "processing": "Elaborazione",
-    "succeeded": "successo",
-    "failed": "fallire"
+    "enqueued": "Queued",
+    "processing": "Processing",
+    "succeeded": "Succeeded",
+    "failed": "Failed"
   },
   "table": {
-    "jobId": "Lavoro ID",
-    "jobName": "lavoro",
-    "state": "Stato",
-    "time": "tempo",
-    "reason": "Perché"
+    "jobId": "Job ID",
+    "jobName": "Job",
+    "state": "State",
+    "time": "Time",
+    "reason": "Reason",
+    "queue": "Queue",
+    "duration": "Duration",
+    "retryCount": "Retry",
+    "recurringJobId": "Recurring Job"
+  },
+  "succeeded": {
+    "title": "Succeeded Jobs",
+    "empty": "No succeeded jobs found."
   },
   "failed": {
-    "title": "Lavori non riusciti",
-    "empty": "Nessun lavoro non riuscito trovato.",
-    "total": "Totale"
+    "title": "Failed Jobs",
+    "empty": "No failed jobs found.",
+    "total": "Total"
   },
   "deadLetter": {
-    "title": "Coda di lettere morte",
-    "empty": "La coda dei messaggi non recapitabili è vuota.",
-    "enqueued": "in coda"
+    "title": "Dead-Letter Queue",
+    "empty": "Dead-letter queue is empty.",
+    "enqueued": "Queued"
+  },
+  "recurring": {
+    "title": "Recurring Jobs",
+    "description": "View registered Hangfire jobs and trigger the selected job immediately.",
+    "selectLabel": "Job to run",
+    "selectPlaceholder": "Select a job",
+    "triggerButton": "Run now",
+    "triggerSuccess": "{{jobName}} has been triggered.",
+    "triggerError": "An error occurred while triggering the job.",
+    "empty": "No recurring jobs found yet.",
+    "table": {
+      "id": "Job ID",
+      "job": "Job",
+      "cron": "Schedule",
+      "nextExecution": "Next run",
+      "lastExecution": "Last run",
+      "queue": "Queue"
+    }
   }
 }

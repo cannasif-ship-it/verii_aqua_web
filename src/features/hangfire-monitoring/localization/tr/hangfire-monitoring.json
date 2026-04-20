@@ -1,7 +1,7 @@
 {
   "menu": "Hangfire İzleme",
   "title": "Hangfire İzleme",
-  "description": "Job sağlık durumunu, başarısız işleri ve dead-letter kuyruğunu izleyin.",
+  "description": "İş sağlık durumunu, başarılı ve başarısız job akışını, zamanlanmış işleri ve teslim edilemeyen kuyruğunu izleyin.",
   "refresh": "Yenile",
   "stats": {
     "enqueued": "Kuyrukta",
@@ -10,20 +10,46 @@
     "failed": "Başarısız"
   },
   "table": {
-    "jobId": "Job ID",
-    "jobName": "Job",
+    "jobId": "İş Kimliği",
+    "jobName": "İş",
     "state": "Durum",
     "time": "Zaman",
-    "reason": "Neden"
+    "reason": "Neden",
+    "queue": "Kuyruk",
+    "duration": "Süre",
+    "retryCount": "Tekrar",
+    "recurringJobId": "Zamanlanmış İş"
+  },
+  "succeeded": {
+    "title": "Başarılı İşler",
+    "empty": "Başarılı iş bulunamadı."
   },
   "failed": {
     "title": "Başarısız İşler",
-    "empty": "Başarısız job bulunamadı.",
+    "empty": "Başarısız iş bulunamadı.",
     "total": "Toplam"
   },
   "deadLetter": {
-    "title": "Dead-Letter Kuyruğu",
-    "empty": "Dead-letter kuyruğu boş.",
+    "title": "Teslim Edilemeyen Kuyruğu",
+    "empty": "Teslim edilemeyen kuyruğu boş.",
     "enqueued": "Kuyruktaki"
+  },
+  "recurring": {
+    "title": "Zamanlanmış İşler",
+    "description": "Buradan kayıtlı Hangfire işlerini görebilir ve seçtiğin işi hemen tetikleyebilirsin.",
+    "selectLabel": "Çalıştırılacak iş",
+    "selectPlaceholder": "Bir job seç",
+    "triggerButton": "Şimdi çalıştır",
+    "triggerSuccess": "{{jobName}} işi tetiklendi.",
+    "triggerError": "Job tetiklenirken bir hata oluştu.",
+    "empty": "Henüz kayıtlı recurring job bulunamadı.",
+    "table": {
+      "id": "Job Kimliği",
+      "job": "İş",
+      "cron": "Zamanlama",
+      "nextExecution": "Sonraki çalışma",
+      "lastExecution": "Son çalışma",
+      "queue": "Kuyruk"
+    }
   }
 }

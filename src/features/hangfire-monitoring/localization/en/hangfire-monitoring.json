@@ -1,20 +1,28 @@
 {
   "menu": "Hangfire Monitoring",
   "title": "Hangfire Monitoring",
-  "description": "Monitor job health, failed jobs, and dead-letter queue.",
+  "description": "Monitor job health, successful and failed job flows, recurring jobs, and the dead-letter queue.",
   "refresh": "Refresh",
   "stats": {
-    "enqueued": "in the queue",
+    "enqueued": "Queued",
     "processing": "Processing",
-    "succeeded": "successful",
-    "failed": "fail"
+    "succeeded": "Succeeded",
+    "failed": "Failed"
   },
   "table": {
     "jobId": "Job ID",
-    "jobName": "job",
-    "state": "Status",
-    "time": "time",
-    "reason": "Why"
+    "jobName": "Job",
+    "state": "State",
+    "time": "Time",
+    "reason": "Reason",
+    "queue": "Queue",
+    "duration": "Duration",
+    "retryCount": "Retry",
+    "recurringJobId": "Recurring Job"
+  },
+  "succeeded": {
+    "title": "Succeeded Jobs",
+    "empty": "No succeeded jobs found."
   },
   "failed": {
     "title": "Failed Jobs",
@@ -22,8 +30,26 @@
     "total": "Total"
   },
   "deadLetter": {
-    "title": "Dead-Letter Tail",
+    "title": "Dead-Letter Queue",
     "empty": "Dead-letter queue is empty.",
-    "enqueued": "in the queue"
+    "enqueued": "Queued"
+  },
+  "recurring": {
+    "title": "Recurring Jobs",
+    "description": "View registered Hangfire jobs and trigger the selected job immediately.",
+    "selectLabel": "Job to run",
+    "selectPlaceholder": "Select a job",
+    "triggerButton": "Run now",
+    "triggerSuccess": "{{jobName}} has been triggered.",
+    "triggerError": "An error occurred while triggering the job.",
+    "empty": "No recurring jobs found yet.",
+    "table": {
+      "id": "Job ID",
+      "job": "Job",
+      "cron": "Schedule",
+      "nextExecution": "Next run",
+      "lastExecution": "Last run",
+      "queue": "Queue"
+    }
   }
 }

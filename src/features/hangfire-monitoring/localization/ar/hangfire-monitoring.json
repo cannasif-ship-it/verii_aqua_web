@@ -1,29 +1,55 @@
 {
-  "menu": "مراقبة هانجفاير",
-  "title": "مراقبة هانجفاير",
-  "description": "مراقبة صحة الوظيفة، والوظائف الفاشلة، وقائمة انتظار الرسائل الميتة.",
-  "refresh": "ينعش",
+  "menu": "Hangfire Monitoring",
+  "title": "Hangfire Monitoring",
+  "description": "Monitor job health, successful and failed job flows, recurring jobs, and the dead-letter queue.",
+  "refresh": "Refresh",
   "stats": {
-    "enqueued": "في قائمة الانتظار",
-    "processing": "يعالج",
-    "succeeded": "ناجح",
-    "failed": "غير ناجح"
+    "enqueued": "Queued",
+    "processing": "Processing",
+    "succeeded": "Succeeded",
+    "failed": "Failed"
   },
   "table": {
-    "jobId": "الوظيفة ID",
-    "jobName": "وظيفة",
-    "state": "الموقف",
-    "time": "وقت",
-    "reason": "من أين"
+    "jobId": "Job ID",
+    "jobName": "Job",
+    "state": "State",
+    "time": "Time",
+    "reason": "Reason",
+    "queue": "Queue",
+    "duration": "Duration",
+    "retryCount": "Retry",
+    "recurringJobId": "Recurring Job"
+  },
+  "succeeded": {
+    "title": "Succeeded Jobs",
+    "empty": "No succeeded jobs found."
   },
   "failed": {
-    "title": "وظائف فاشلة",
-    "empty": "لم يتم العثور على وظائف فاشلة.",
-    "total": "المجموع"
+    "title": "Failed Jobs",
+    "empty": "No failed jobs found.",
+    "total": "Total"
   },
   "deadLetter": {
-    "title": "ذيل الرسالة الميتة",
-    "empty": "قائمة انتظار الرسائل الميتة فارغة.",
-    "enqueued": "في قائمة الانتظار"
+    "title": "Dead-Letter Queue",
+    "empty": "Dead-letter queue is empty.",
+    "enqueued": "Queued"
+  },
+  "recurring": {
+    "title": "Recurring Jobs",
+    "description": "View registered Hangfire jobs and trigger the selected job immediately.",
+    "selectLabel": "Job to run",
+    "selectPlaceholder": "Select a job",
+    "triggerButton": "Run now",
+    "triggerSuccess": "{{jobName}} has been triggered.",
+    "triggerError": "An error occurred while triggering the job.",
+    "empty": "No recurring jobs found yet.",
+    "table": {
+      "id": "Job ID",
+      "job": "Job",
+      "cron": "Schedule",
+      "nextExecution": "Next run",
+      "lastExecution": "Last run",
+      "queue": "Queue"
+    }
   }
 }
