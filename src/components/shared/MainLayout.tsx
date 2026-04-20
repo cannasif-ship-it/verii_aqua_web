@@ -1,4 +1,4 @@
-import { type ReactElement, Suspense, useMemo } from 'react';
+import { type ReactElement, Suspense, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PageLoader } from './PageLoader';
 import { Navbar } from './Navbar';
@@ -30,7 +30,7 @@ interface MainLayoutProps {
 export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
   const { t } = useTranslation(['common', 'hangfire-monitoring', 'user-detail-management']);
   const { data: permissions, isLoading, isError } = useMyPermissionsQuery();
-  const sidebarT = (key: string): string => t(`sidebar.${key}`, { ns: 'common' });
+  const sidebarT = useCallback((key: string): string => t(`sidebar.${key}`, { ns: 'common' }), [t]);
 
   const defaultNavItems: NavItem[] = useMemo(() => {
     const iconSize = 22;
@@ -115,7 +115,7 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
     ];
 
     return logicalMenuStructure;
-  }, [t]);
+  }, [sidebarT, t]);
 
   const items = useMemo(() => {
     const raw = navItems ?? defaultNavItems;
