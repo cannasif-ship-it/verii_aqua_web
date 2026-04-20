@@ -11,6 +11,7 @@ import {
   ListFilter,
   Copy
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { StockGetDto } from '../types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -100,7 +101,15 @@ export function StockBasicInfo({ stock }: StockBasicInfoProps): ReactElement {
   );
 }
 
-function InfoItem({ label, value, icon: Icon, copyable, featured }: any) {
+interface InfoItemProps {
+  label: string;
+  value?: string | null;
+  icon?: LucideIcon;
+  copyable?: boolean;
+  featured?: boolean;
+}
+
+function InfoItem({ label, value, icon: Icon, copyable, featured }: InfoItemProps) {
     const { t } = useTranslation();
     const handleCopy = () => {
         if (value) {

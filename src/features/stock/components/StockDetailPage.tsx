@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Box, Image as ImageIcon, Layers, Info, PackageOpen, ShieldCheck } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useStockDetail } from '../hooks/useStockDetail';
 import { StockBasicInfo } from './StockBasicInfo';
@@ -142,7 +143,14 @@ export function StockDetailPage(): ReactElement {
   );
 }
 
-function TabItem({ value, icon: Icon, label, active }: any) {
+interface TabItemProps {
+  value: string;
+  icon: LucideIcon;
+  label: string;
+  active: boolean;
+}
+
+function TabItem({ value, icon: Icon, label, active }: TabItemProps) {
   return (
     <TabsTrigger value={value} className={cn(
       "relative pb-4 rounded-none bg-transparent shadow-none border-b-2 border-transparent transition-all duration-300",

@@ -30,6 +30,15 @@ interface StockTableProps {
   onRowClick: (stockId: number) => void;
 }
 
+function normalizeFilters(filters: PagedFilter[] | Record<string, unknown>): PagedFilter[] {
+  if (Array.isArray(filters)) return filters;
+
+  return Object.entries(filters).flatMap(([column, value]) => {
+    if (value == null || value === '') return [];
+    return [{ column, operator: 'contains', value: String(value) }];
+  });
+}
+
 export function StockTable({
   pageNumber,
   pageSize,
@@ -49,7 +58,7 @@ export function StockTable({
     pageSize,
     sortBy,
     sortDirection,
-    filters: filters as any,
+    filters: normalizeFilters(filters),
   });
 
   const handleSort = (column: string): void => {
