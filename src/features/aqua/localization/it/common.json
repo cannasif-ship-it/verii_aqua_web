@@ -588,8 +588,8 @@
         "description": "Registrazioni della testa di alimentazione."
       },
       "mortalities": {
-        "title": "Fuoco di pesce",
-        "description": "Record del titolo Fish Fire."
+        "title": "Mortalità",
+        "description": "Record di intestazione della mortalità."
       },
       "transfers": {
         "title": "Trasferimento",
@@ -632,7 +632,7 @@
         "description": "Distribuzione dei pesci in gabbie sulle linee di ricevimento delle merci."
       },
       "feedingLines": {
-        "title": "Linee per esche",
+        "title": "Linee di alimentazione",
         "description": "Record della linea di alimentazione."
       },
       "feedingDistributions": {
@@ -648,8 +648,8 @@
         "description": "Registri delle linee di spedizione."
       },
       "mortalityLines": {
-        "title": "Linee fuoco pesce",
-        "description": "Record di righe Fish Fire."
+        "title": "Linee di mortalità",
+        "description": "Record delle righe di mortalità."
       },
       "weighingLines": {
         "title": "Linee di pesatura",
@@ -664,8 +664,8 @@
         "description": "Record delle righe di transazione di rete."
       },
       "fishBatches": {
-        "title": "Feste di pesce",
-        "description": "Record sulla biologia dei lotti di pesce, sull'origine e sui target di raccolta."
+        "title": "Lotti di pesce",
+        "description": "Record su biologia, origine e obiettivi di raccolta dei lotti di pesce."
       }
     },
     "fields": {
@@ -694,7 +694,7 @@
       "feedingDate": "Data di alimentazione",
       "feedingSlot": "Tour dell'alimentazione",
       "sourceType": "Tipo di origine",
-      "mortalityDate": "Storia del fuoco di pesce",
+      "mortalityDate": "Data mortalità",
       "transferNo": "Trasferimento No",
       "transferDate": "Data di trasferimento",
       "weighingNo": "Pesatura No",
@@ -709,7 +709,7 @@
       "operationTypeId": "Tipo di transazione ID",
       "operationNo": "Transazione No",
       "operationDate": "Data della transazione",
-      "fishBatchId": "Festa del Pesce ID",
+      "fishBatchId": "Lotto di pesce ID",
       "projectCageId": "Gabbia del progetto ID",
       "movementType": "Tipo di movimento",
       "signedCount": "Differenza di quantità",
@@ -732,8 +732,8 @@
       "feedingId": "Alimentazione ID",
       "feedingLineId": "Linea di alimentazione ID",
       "feedGram": "Dai da mangiare al grammo",
-      "mortalityId": "Pesci Fuoco ID",
-      "deadCount": "Quantità di fuoco di pesce",
+      "mortalityId": "Mortalità ID",
+      "deadCount": "Quantità mortalità",
       "transferId": "Trasferimento ID",
       "shipmentNo": "Spedizione No",
       "shipmentId": "Spedizione ID",
@@ -869,7 +869,7 @@
       "cage": "gabbia",
       "selectCage": "Scegli la gabbia",
       "tabFeeding": "alimentazione",
-      "tabMortality": "Fuoco di pesce",
+      "tabMortality": "Mortalità",
       "tabWeather": "Meteo",
       "tabNetOperation": "Funzionamento della rete",
       "feeding": {
@@ -884,10 +884,10 @@
         "gramPerUnit": "Grammi per unità"
       },
       "mortality": {
-        "title": "Fuoco di pesce",
+        "title": "Mortalità",
         "batch": "Lotto",
         "selectBatch": "Seleziona lotto",
-        "deadCount": "Quantità di fuoco di pesce",
+        "deadCount": "Quantità mortalità",
         "save": "Salva",
         "exampleCount": "Esempio: 15"
       },
@@ -944,7 +944,7 @@
       },
       "toast": {
         "feedingSaved": "Alimentazione registrata",
-        "mortalitySaved": "Creato il record Fish Fire",
+        "mortalitySaved": "Record di mortalità creato",
         "weatherSaved": "Meteo registrato",
         "netOperationSaved": "Transazione di rete registrata",
         "saveFailed": "La registrazione non è riuscita",
@@ -995,7 +995,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Rapporto dettagliato del progetto",
-      "description": "Mostra le prestazioni della gabbia in base al progetto, con dettagli sull'alimentazione e sul fuoco dei pesci.",
+      "description": "Mostra le prestazioni della gabbia per progetto, con dettagli su alimentazione e mortalità.",
       "selectProject": "Seleziona progetto",
       "pickProjectFirst": "Seleziona un progetto per visualizzare i dettagli del rapporto.",
       "totalCages": "gabbia totale",
@@ -1006,11 +1006,11 @@
       "currentAverageGram": "Media attuale grammo",
       "initialBiomassGram": "Biomassa iniziale (g)",
       "currentBiomassGram": "Biomassa disponibile (g)",
-      "totalDead": "Fuoco totale dei pesci",
+      "totalDead": "Mortalità totale",
       "totalFeedGram": "Alimentazione totale (g)",
       "totalCountDelta": "Delta quantità totale",
       "totalBiomassDelta": "Delta biomassa totale (g)",
-      "dead": "Fuoco di pesce",
+      "dead": "Mortalità",
       "missingFeedDays": "Nessun giorno di alimentazione",
       "missingFeedingDates": "Giorni senza alimentazione",
       "noMissingFeedDay": "Non è stato trovato alcun giorno di alimentazione mancante nell'intervallo di date selezionato.",
@@ -1018,7 +1018,7 @@
       "dailyDetailsHint": "Le righe di transazione più recenti sono elencate per data.",
       "date": "data",
       "feedGram": "Mangime (grammi)",
-      "deadCount": "Quantità di pesce fuoco",
+      "deadCount": "Quantità mortalità",
       "countDelta": "Delta pezzo",
       "biomassDelta": "Delta biomassa (g)",
       "weather": "tempo",
@@ -1055,7 +1055,7 @@
       "readGuideShipment": "Quantità spedizione: a sinistra la quantità, a destra il totale in grammi di biomassa.",
       "readGuideDelta": "Le colonne delta mostrano la variazione intraday netta (+/-).",
       "readGuideButtons": "Cliccando sul pulsante Trasferimento/Spedizione/Conversione si apriranno le righe di dettaglio relative a quel giorno.",
-      "consistencyFormula": "Controllo dell'account: Inizio - Fish Fire - Spedizione = Disponibile",
+      "consistencyFormula": "Controllo: Inizio - Mortalità - Spedizione = Disponibile",
       "consistent": "coerente",
       "inconsistent": "incoerente",
       "activeCages": "Gabbia attiva",
@@ -1196,7 +1196,7 @@
       }
     },
     "devirFcrReport": {
-      "pageTitle": "Fatturato / FCR Rapporto",
+      "pageTitle": "Report Turnover / FCR",
       "description": "Mostra un riepilogo basato sul progetto di inizio, vendite, sprechi, scorte rimanenti e FCR nell'intervallo di date selezionato.",
       "loading": "Caricamento fatturato/report FCR...",
       "loadFailed": "Impossibile caricare il rapporto ciclo/FCR.",

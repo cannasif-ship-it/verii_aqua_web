@@ -101,8 +101,8 @@
         "description": "Yemleme başlık kayıtları."
       },
       "mortalities": {
-        "title": "Balık Fire",
-        "description": "Balık Fire başlık kayıtları."
+        "title": "Mortalite",
+        "description": "Mortalite başlık kayıtları."
       },
       "transfers": {
         "title": "Kafes Transferi",
@@ -181,8 +181,8 @@
         "description": "Sevkiyat satır kayıtları."
       },
       "mortalityLines": {
-        "title": "Balık Fire Satırları",
-        "description": "Balık Fire satır kayıtları."
+        "title": "Mortalite Satırları",
+        "description": "Mortalite satır kayıtları."
       },
       "weighingLines": {
         "title": "Tartım Satırları",
@@ -256,9 +256,9 @@
       "feedingDate": "Yemleme Tarihi",
       "feedingSlot": "Yemleme Turu",
       "sourceType": "Kaynak Tipi",
-      "mortalityDate": "Balık Fire Tarihi",
-      "mortalityId": "Balık Fire ID",
-      "deadCount": "Balık Fire Adet",
+      "mortalityDate": "Mortalite Tarihi",
+      "mortalityId": "Mortalite ID",
+      "deadCount": "Mortalite Adedi",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
       "warehouseTransferId": "Depo Transfer ID",
@@ -417,7 +417,7 @@
       "cage": "Kafes",
       "selectCage": "Kafes seçin",
       "tabFeeding": "Yemleme",
-      "tabMortality": "Balık Fire",
+      "tabMortality": "Mortalite",
       "tabWeather": "Hava Durumu",
       "tabNetOperation": "Ağ İşlemi",
       "tabTransfer": "Kafes Değişimi",
@@ -438,10 +438,10 @@
         "save": "Kaydet"
       },
       "mortality": {
-        "title": "Balık Fire",
+        "title": "Mortalite",
         "batch": "Batch",
         "selectBatch": "Batch seçin",
-        "deadCount": "Balık Fire Adet",
+        "deadCount": "Mortalite Adedi",
         "save": "Kaydet",
         "exampleCount": "Örn: 15"
       },
@@ -542,7 +542,7 @@
       },
       "toast": {
         "feedingSaved": "Yemleme kaydedildi",
-        "mortalitySaved": "Balık Fire kaydı oluşturuldu",
+        "mortalitySaved": "Mortalite kaydı oluşturuldu",
         "weatherSaved": "Hava durumu kaydedildi",
         "netOperationSaved": "Ağ işlemi kaydedildi",
         "noActiveBatchForCage": "Seçili kafes için aktif batch bulunamadı.",
@@ -574,7 +574,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Proje Detay Raporu",
-      "description": "Proje bazında kafes performansını, besleme ve Balık Fire detaylarıyla gösterir.",
+      "description": "Proje bazında kafes performansını, besleme ve mortalite detaylarıyla gösterir.",
       "selectProject": "Proje seçin",
       "pickProjectFirst": "Rapor detaylarını görmek için proje seçin.",
       "totalCages": "Toplam kafes",
@@ -597,14 +597,14 @@
       "warehouseBiomassTotal": "Depo Biyokütlesi (g)",
       "currentBiomassTotal": "Mevcut Biyokütle (g)",
       "currentAvgGramTotal": "Mevcut Ort. Gram",
-      "totalDead": "Toplam Balık Fire",
+      "totalDead": "Toplam Mortalite",
       "totalFeedGram": "Toplam Yemleme (g)",
       "totalCountDelta": "Toplam Adet Delta",
       "totalBiomassDelta": "Toplam Biyokütle Delta (g)",
       "totalShipmentFish": "Toplam Sevk Balık",
       "totalShipmentBiomass": "Toplam Sevk Biyokütle (Gram)",
       "lastShipmentDate": "Son Sevk Tarihi",
-      "dead": "Balık Fire",
+      "dead": "Mortalite",
       "missingFeedDays": "Yemleme yapılmayan gün",
       "missingFeedingDates": "Yemleme Yapılmayan Günler",
       "noMissingFeedDay": "Seçili tarih aralığında yemleme eksik günü bulunmadı.",
@@ -612,7 +612,7 @@
       "dailyDetailsHint": "En güncel hareket satırları tarihe göre listelenir.",
       "date": "Tarih",
       "feedGram": "Yem (gram)",
-      "deadCount": "Balık Fire adet",
+      "deadCount": "Mortalite adedi",
       "countDelta": "Adet delta",
       "biomassDelta": "Biyokütle delta (g)",
       "weather": "Hava",
@@ -647,11 +647,11 @@
       "cagesFedToday": "Bugün Beslenen Aktif Kafes",
       "readGuideTitle": "Raporu Nasıl Okurum?",
       "readGuideDescription": "Kartlar proje toplamını, alt açılır satırlar kafes bazlı günlük hareketleri gösterir.",
-      "readGuideCurrentFish": "Mevcut Balık: Başlangıçtan Balık Fire ve sevkiyatlar düşülmüş canlı adettir.",
+      "readGuideCurrentFish": "Mevcut Balık: Başlangıçtan mortalite ve sevkiyatlar düşülmüş canlı adettir.",
       "readGuideShipment": "Sevk Miktarı: solda adet, sağda gram biyokütle toplamıdır.",
       "readGuideDelta": "Delta kolonları gün içi net değişimi gösterir (+/-).",
       "readGuideButtons": "Transfer/Sevkiyat/Dönüşüm butonuna tıklayınca o günün detay satırları açılır.",
-      "consistencyFormula": "Hesap kontrolü: Başlangıç - Balık Fire - Sevk = Mevcut",
+      "consistencyFormula": "Hesap kontrolü: Başlangıç - Mortalite - Sevk = Mevcut",
       "consistent": "Tutarlı",
       "inconsistent": "Tutarsız"
     },
@@ -1352,6 +1352,118 @@
       "saved": "Proje birleştirme tamamlandı.",
       "saveFailed": "Proje birleştirme tamamlanamadı."
     }
+  },
+  "openingImport": {
+    "badge": "İlk Geçiş",
+    "title": "İlk Geçiş / Veri Aktarımı",
+    "description": "Eski sistemdeki aktif proje, kafes ve açılış stok durumunu kontrollü şekilde içeri alın. Excel şablonunu indirip doldurun, kolonları eşleyin, önizleyin ve hatasız ise tek adımda sisteme aktarın.",
+    "cutoverModeHint": "Eğer sadece bugünkü net stokla başlayacaksan Açılış Stoku yeterlidir. Geçmiş özet mal kabul, mortalite, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. Açılış Stoku boşsa sistem net açılış bakiyesini mal kabul ve mortalite özetlerinden türetir.",
+    "downloadTemplate": "Şablon İndir",
+    "downloadErrors": "Hata Excel'ini İndir",
+    "sourceSystem": "Kaynak Sistem",
+    "file": "Excel Dosyası",
+    "noFile": "Henüz dosya seçilmedi.",
+    "preview": "Önizle ve Doğrula",
+    "commit": "İçe Aktar",
+    "summaryTitle": "İş Özeti",
+    "summaryDescription": "Önizleme sonrası satır bazlı doğrulama sonuçları burada görünür.",
+    "mappingTitle": "Kolon Eşleme",
+    "mappingDescription": "Excel kolonlarını sistem alanlarına eşleyin. Zorunlu alanlar boş bırakılmamalıdır.",
+    "sheetStats": "{{headers}} kolon, {{rows}} satır",
+    "sourceColumn": "Excel Kolonu",
+    "targetField": "Sistem Alanı",
+    "ignoreColumn": "Bu kolonu yoksay",
+    "sheetMissing": "Bu sheet dosyada bulunamadı ya da boş.",
+    "previewTitle": "Önizleme Sonuçları",
+    "previewDescription": "İş #{{jobId}} için durum: {{status}}",
+    "previewRowNumber": "Satır",
+    "status": "Durum",
+    "messages": "Mesajlar",
+    "normalizedData": "Normalize Veri",
+    "noIssues": "Sorun yok",
+    "commitResultTitle": "İçe Aktarım Sonucu",
+    "commitResultDescription": "İlk geçiş başarıyla işlendi. Oluşan kayıt özetini aşağıda görebilirsiniz.",
+    "steps": {
+      "uploadTitle": "Dosya ve Kaynak Bilgisi",
+      "uploadDescription": "Şablonu indirip doldurduktan sonra Excel dosyasını seçin ve önizleme başlatın."
+    },
+    "summary": {
+      "totalRows": "Toplam Satır",
+      "validRows": "Geçerli Satır",
+      "warningRows": "Uyarılı Satır",
+      "errorRows": "Hatalı Satır"
+    },
+    "sheets": {
+      "Projects": "Projeler",
+      "Cages": "Kafesler",
+      "OpeningStock": "Açılış Stoku",
+      "OpeningGoodsReceipts": "Açılış Mal Kabulleri",
+      "OpeningMortality": "Açılış Mortalite",
+      "OpeningFeedings": "Açılış Yemleme",
+      "OpeningShipments": "Açılış Sevkiyat"
+    },
+    "fields": {
+      "ProjectCode": "Proje Kodu",
+      "ProjectName": "Proje Adı",
+      "StartDate": "Başlangıç Tarihi",
+      "Status": "Durum",
+      "Note": "Not",
+      "CageCode": "Kafes Kodu",
+      "CageName": "Kafes Adı",
+      "AssignedDate": "Atama Tarihi",
+      "WarehouseCode": "Depo Kodu",
+      "TargetWarehouseCode": "Hedef Depo Kodu",
+      "BatchCode": "Batch Kodu",
+      "FishStockCode": "Balık Stok Kodu",
+      "FishCount": "Balık Adedi",
+      "AverageGram": "Ortalama Gram",
+      "AsOfDate": "Bakiye Tarihi",
+      "ReceiptNo": "Mal Kabul No",
+      "ReceiptDate": "Mal Kabul Tarihi",
+      "DeadCount": "Mortalite Adedi",
+      "MortalityDate": "Mortalite Tarihi",
+      "FeedStockCode": "Yem Stok Kodu",
+      "FeedingDate": "Yemleme Tarihi",
+      "FeedingSlot": "Yemleme Turu",
+      "FeedGram": "Yem Gramı",
+      "ShipmentDate": "Sevkiyat Tarihi",
+      "CurrencyCode": "Para Birimi",
+      "ExchangeRate": "Kur",
+      "UnitPrice": "Birim Fiyat"
+    },
+    "statusValues": {
+      "Valid": "Geçerli",
+      "Applied": "Uygulandı",
+      "Error": "Hatalı",
+      "Warning": "Uyarı"
+    },
+    "commitSummary": {
+      "createdProjects": "Oluşturulan Proje",
+      "createdCages": "Oluşturulan Kafes",
+      "createdProjectCages": "Oluşturulan Proje-Kafes",
+      "createdFishBatches": "Oluşturulan Batch",
+      "createdGoodsReceipts": "Oluşturulan Özet Mal Kabul",
+      "createdFeedingHeaders": "Oluşturulan Özet Yemleme",
+      "createdGoodsReceiptLines": "Oluşturulan Mal Kabul Satırı",
+      "createdFeedingLines": "Oluşturulan Yemleme Satırı",
+      "createdFeedingDistributions": "Oluşturulan Yemleme Dağılımı",
+      "createdMortalityHeaders": "Oluşturulan Özet Mortalite Belgesi",
+      "createdMortalityLines": "Oluşturulan Mortalite Satırı",
+      "createdShipmentHeaders": "Oluşturulan Özet Sevkiyat Belgesi",
+      "createdShipmentLines": "Oluşturulan Sevkiyat Satırı",
+      "appliedCageRows": "Kafese Yazılan Satır",
+      "appliedWarehouseRows": "Depoya Yazılan Satır",
+      "skippedRows": "Atlanan Satır"
+    },
+    "toast": {
+      "fileParsed": "Excel dosyası okundu.",
+      "fileParseFailed": "Excel dosyası okunamadı.",
+      "previewReady": "Önizleme hazırlandı.",
+      "previewFailed": "Önizleme alınamadı.",
+      "commitSuccessful": "İlk geçiş başarıyla içe aktarıldı.",
+      "commitFailed": "İçe aktarma işlemi başarısız oldu."
+    },
+    "noPermission": "Bu ekranı görüntüleme yetkiniz yok."
   },
   "aquaSettings": {
     "pageTitle": "Aqua Ayarları",

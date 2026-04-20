@@ -134,7 +134,7 @@
       "date": "date",
       "feedGram": "Feed (g)",
       "stock": "stock",
-      "dead": "Fish Fire",
+      "dead": "Mortality",
       "delta": "delta",
       "biomassDelta": "Bio Delta",
       "weather": "weather",
@@ -156,7 +156,7 @@
     },
     "dailyCards": {
       "feed": "bait",
-      "dead": "Fish Fire",
+      "dead": "Mortality",
       "delta": "delta",
       "biomass": "biomass"
     },
@@ -171,7 +171,7 @@
     },
     "projectDialog": {
       "fish": "Pisces",
-      "dead": "Fish Fire",
+      "dead": "Mortality",
       "feedGram": "Feed (g)",
       "cages": "cage",
       "cagePools": "Cage Pools",
@@ -179,7 +179,7 @@
     },
     "cageCard": {
       "fishUnit": "fish",
-      "totalDead": "Fish Fire",
+      "totalDead": "Mortality",
       "feed": "bait",
       "biomass": "biomass",
       "survivalRate": "Survival Rate",
@@ -199,7 +199,7 @@
     "listTable": {
       "cage": "cage",
       "fish": "Pisces",
-      "dead": "Fish Fire",
+      "dead": "Mortality",
       "feed": "bait",
       "biomass": "biomass",
       "survivalRate": "Survival Rate",

@@ -682,8 +682,8 @@
         "description": "Feed head records."
       },
       "mortalities": {
-        "title": "Fish Fire",
-        "description": "Fish Fire title records."
+        "title": "Mortality",
+        "description": "Mortality header records."
       },
       "transfers": {
         "title": "Cage Transfer",
@@ -714,7 +714,7 @@
         "description": "Stock class conversion header records."
       },
       "fishBatches": {
-        "title": "Fish Parties",
+        "title": "Fish Batches",
         "description": "Fish batch biology, origin and harvest target records."
       },
       "dailyWeathers": {
@@ -734,7 +734,7 @@
         "description": "Cage-based fish distribution of goods receiving lines."
       },
       "feedingLines": {
-        "title": "Bait Lines",
+        "title": "Feeding Lines",
         "description": "Feed line records."
       },
       "feedingDistributions": {
@@ -762,8 +762,8 @@
         "description": "Shipping line records."
       },
       "mortalityLines": {
-        "title": "Fish Fire Lines",
-        "description": "Fish Fire row records."
+        "title": "Mortality Lines",
+        "description": "Mortality line records."
       },
       "weighingLines": {
         "title": "Weighing Lines",
@@ -837,9 +837,9 @@
       "feedingDate": "Feeding Date",
       "feedingSlot": "Feeding Tour",
       "sourceType": "Source Type",
-      "mortalityDate": "History of Fish Fire",
-      "mortalityId": "Pisces Fire ID",
-      "deadCount": "Fish Fire Quantity",
+      "mortalityDate": "Mortality Date",
+      "mortalityId": "Mortality ID",
+      "deadCount": "Mortality Quantity",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
       "warehouseTransferId": "Warehouse Transfer ID",
@@ -997,7 +997,7 @@
       "cage": "cage",
       "selectCage": "Choose cage",
       "tabFeeding": "feeding",
-      "tabMortality": "Fish Fire",
+      "tabMortality": "Mortality",
       "tabWeather": "Weather",
       "tabNetOperation": "Network Operation",
       "tabTransfer": "Cage Replacement",
@@ -1019,10 +1019,10 @@
         "gramPerUnit": "Gram per Unit"
       },
       "mortality": {
-        "title": "Fish Fire",
+        "title": "Mortality",
         "batch": "Batch",
         "selectBatch": "Select batch",
-        "deadCount": "Fish Fire Quantity",
+        "deadCount": "Mortality Quantity",
         "save": "Save",
         "exampleCount": "Ex: 15"
       },
@@ -1123,7 +1123,7 @@
       },
       "toast": {
         "feedingSaved": "Feeding recorded",
-        "mortalitySaved": "Fish Fire record created",
+        "mortalitySaved": "Mortality record created",
         "weatherSaved": "Weather recorded",
         "netOperationSaved": "Network transaction recorded",
         "invalidNewAverageGram": "The gram to be added must be greater than 0.",
@@ -1156,7 +1156,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Project Detail Report",
-      "description": "It shows cage performance on a project basis, with feeding and Fish Fire details.",
+      "description": "Shows cage performance by project together with feeding and mortality details.",
       "selectProject": "Select project",
       "pickProjectFirst": "Select a project to see report details.",
       "totalCages": "total cage",
@@ -1167,11 +1167,11 @@
       "currentAverageGram": "Current Avg. gram",
       "initialBiomassGram": "Initial Biomass (g)",
       "currentBiomassGram": "Available Biomass (g)",
-      "totalDead": "Total Fish Fire",
+      "totalDead": "Total Mortality",
       "totalFeedGram": "Total Feeding (g)",
       "totalCountDelta": "Total Quantity Delta",
       "totalBiomassDelta": "Total Biomass Delta (g)",
-      "dead": "Fish Fire",
+      "dead": "Mortality",
       "missingFeedDays": "No feeding day",
       "missingFeedingDates": "Non-Feeding Days",
       "noMissingFeedDay": "No missing feeding days were found in the selected date range.",
@@ -1179,7 +1179,7 @@
       "dailyDetailsHint": "The most recent transaction lines are listed by date.",
       "date": "date",
       "feedGram": "Feed (grams)",
-      "deadCount": "Fish Fire quantity",
+      "deadCount": "Mortality quantity",
       "countDelta": "Piece delta",
       "biomassDelta": "Biomass delta (g)",
       "weather": "weather",
@@ -1216,7 +1216,7 @@
       "readGuideShipment": "Shipment Quantity: on the left is the quantity, on the right is the total of grams of biomass.",
       "readGuideDelta": "Delta columns show net intraday change (+/-).",
       "readGuideButtons": "When you click on the Transfer/Shipment/Conversion button, the detail lines for that day will open.",
-      "consistencyFormula": "Account check: Start - Fish Fire - Shipment = Available",
+      "consistencyFormula": "Consistency check: Start - Mortality - Shipment = Available",
       "consistent": "consistent",
       "inconsistent": "inconsistent",
       "activeCages": "Active Cage",
@@ -1408,6 +1408,118 @@
         "totalFeedKg": "Feed KG",
         "fcr": "FCR"
       }
+    },
+    "openingImport": {
+      "badge": "Initial Load",
+      "title": "Initial Load / Data Migration",
+      "description": "Bring active projects, cages, and opening stock from the legacy system into Aqua in a controlled way. Download the Excel template, fill it in, map the columns, preview the data, and import it in one step when it is clean.",
+      "cutoverModeHint": "If you only want to start with today's net stock, Opening Stock is enough. If you also want to bring summarized historic goods receipt, mortality, feeding, and shipment data, fill in the related opening sheets as well. If Opening Stock is empty, the system derives the net opening balance from the goods receipt and mortality summaries.",
+      "downloadTemplate": "Download Template",
+      "downloadErrors": "Download Error Excel",
+      "sourceSystem": "Source System",
+      "file": "Excel File",
+      "noFile": "No file selected yet.",
+      "preview": "Preview and Validate",
+      "commit": "Import",
+      "summaryTitle": "Job Summary",
+      "summaryDescription": "Row-level validation results appear here after preview.",
+      "mappingTitle": "Column Mapping",
+      "mappingDescription": "Match Excel columns to system fields. Required fields must not be left empty.",
+      "sheetStats": "{{headers}} columns, {{rows}} rows",
+      "sourceColumn": "Excel Column",
+      "targetField": "System Field",
+      "ignoreColumn": "Ignore this column",
+      "sheetMissing": "This sheet was not found in the file or it is empty.",
+      "previewTitle": "Preview Results",
+      "previewDescription": "Status for job #{{jobId}}: {{status}}",
+      "previewRowNumber": "Row",
+      "status": "Status",
+      "messages": "Messages",
+      "normalizedData": "Normalized Data",
+      "noIssues": "No issues",
+      "commitResultTitle": "Import Result",
+      "commitResultDescription": "The initial load has been processed successfully. You can review the created records below.",
+      "steps": {
+        "uploadTitle": "File and Source Information",
+        "uploadDescription": "After downloading and filling in the template, select the Excel file and start the preview."
+      },
+      "summary": {
+        "totalRows": "Total Rows",
+        "validRows": "Valid Rows",
+        "warningRows": "Warning Rows",
+        "errorRows": "Error Rows"
+      },
+      "sheets": {
+        "Projects": "Projects",
+        "Cages": "Cages",
+        "OpeningStock": "Opening Stock",
+        "OpeningGoodsReceipts": "Opening Goods Receipts",
+        "OpeningMortality": "Opening Mortality",
+        "OpeningFeedings": "Opening Feedings",
+        "OpeningShipments": "Opening Shipments"
+      },
+      "fields": {
+        "ProjectCode": "Project Code",
+        "ProjectName": "Project Name",
+        "StartDate": "Start Date",
+        "Status": "Status",
+        "Note": "Note",
+        "CageCode": "Cage Code",
+        "CageName": "Cage Name",
+        "AssignedDate": "Assignment Date",
+        "WarehouseCode": "Warehouse Code",
+        "TargetWarehouseCode": "Target Warehouse Code",
+        "BatchCode": "Batch Code",
+        "FishStockCode": "Fish Stock Code",
+        "FishCount": "Fish Count",
+        "AverageGram": "Average Gram",
+        "AsOfDate": "Balance Date",
+        "ReceiptNo": "Receipt No",
+        "ReceiptDate": "Receipt Date",
+        "DeadCount": "Dead Count",
+        "MortalityDate": "Mortality Date",
+        "FeedStockCode": "Feed Stock Code",
+        "FeedingDate": "Feeding Date",
+        "FeedingSlot": "Feeding Slot",
+        "FeedGram": "Feed Gram",
+        "ShipmentDate": "Shipment Date",
+        "CurrencyCode": "Currency Code",
+        "ExchangeRate": "Exchange Rate",
+        "UnitPrice": "Unit Price"
+      },
+      "statusValues": {
+        "Valid": "Valid",
+        "Applied": "Applied",
+        "Error": "Error",
+        "Warning": "Warning"
+      },
+      "commitSummary": {
+        "createdProjects": "Created Projects",
+        "createdCages": "Created Cages",
+        "createdProjectCages": "Created Project-Cages",
+        "createdFishBatches": "Created Batches",
+        "createdGoodsReceipts": "Created Summary Goods Receipts",
+        "createdFeedingHeaders": "Created Summary Feedings",
+        "createdGoodsReceiptLines": "Created Goods Receipt Lines",
+        "createdFeedingLines": "Created Feeding Lines",
+        "createdFeedingDistributions": "Created Feeding Distributions",
+        "createdMortalityHeaders": "Created Summary Mortality Headers",
+        "createdMortalityLines": "Created Mortality Lines",
+        "createdShipmentHeaders": "Created Summary Shipment Headers",
+        "createdShipmentLines": "Created Shipment Lines",
+        "appliedCageRows": "Rows Applied to Cages",
+        "appliedWarehouseRows": "Rows Applied to Warehouses",
+        "skippedRows": "Skipped Rows"
+      },
+      "toast": {
+        "fileParsed": "Excel file parsed successfully.",
+        "fileParseFailed": "Excel file could not be parsed.",
+        "previewReady": "Preview is ready.",
+        "previewFailed": "Preview could not be generated.",
+        "commitSuccessful": "Initial load imported successfully.",
+        "commitFailed": "Import failed."
+      },
+      "noPermission": "You do not have permission to view this screen."
     },
     "crud": {
       "reorderTitle": "Change order with drag and drop",

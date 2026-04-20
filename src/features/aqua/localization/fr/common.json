@@ -583,8 +583,8 @@
         "description": "Enregistrements de la tête d'alimentation."
       },
       "mortalities": {
-        "title": "Feu de poisson",
-        "description": "Records de titres Fish Fire."
+        "title": "Mortalité",
+        "description": "Enregistrements d'en-tête de mortalité."
       },
       "transfers": {
         "title": "Transfert",
@@ -627,7 +627,7 @@
         "description": "Distribution de poissons en cage sur lignes de réception de marchandises."
       },
       "feedingLines": {
-        "title": "Lignes d'appât",
+        "title": "Lignes d'alimentation",
         "description": "Enregistrements de ligne d'alimentation."
       },
       "feedingDistributions": {
@@ -643,8 +643,8 @@
         "description": "Registres des lignes maritimes."
       },
       "mortalityLines": {
-        "title": "Lignes de feu de poisson",
-        "description": "Enregistrements de lignes de Fish Fire."
+        "title": "Lignes de mortalité",
+        "description": "Enregistrements de lignes de mortalité."
       },
       "weighingLines": {
         "title": "Lignes de pesée",
@@ -659,8 +659,8 @@
         "description": "Enregistrements de lignes de transactions réseau."
       },
       "fishBatches": {
-        "title": "Fêtes de poisson",
-        "description": "Biologie des lots de poissons, origine et enregistrements des cibles de récolte."
+        "title": "Lots de poissons",
+        "description": "Enregistrements sur la biologie, l'origine et les objectifs de récolte des lots de poissons."
       }
     },
     "fields": {
@@ -689,7 +689,7 @@
       "feedingDate": "Date d'alimentation",
       "feedingSlot": "Visite d'alimentation",
       "sourceType": "Type de source",
-      "mortalityDate": "Histoire du feu de poisson",
+      "mortalityDate": "Date de mortalité",
       "transferNo": "Transfert No",
       "transferDate": "Date de transfert",
       "weighingNo": "Pesant No",
@@ -704,7 +704,7 @@
       "operationTypeId": "Type de transaction ID",
       "operationNo": "Opération No",
       "operationDate": "Date de transaction",
-      "fishBatchId": "Fête du poisson ID",
+      "fishBatchId": "Lot de poissons ID",
       "projectCageId": "Projet Cage ID",
       "movementType": "Type de mouvement",
       "signedCount": "Différence de quantité",
@@ -727,8 +727,8 @@
       "feedingId": "Nourrir ID",
       "feedingLineId": "Ligne d'alimentation ID",
       "feedGram": "Gramme alimentaire",
-      "mortalityId": "Poissons Feu ID",
-      "deadCount": "Quantité de feu de poisson",
+      "mortalityId": "Mortalité ID",
+      "deadCount": "Quantité de mortalité",
       "transferId": "Transfert ID",
       "shipmentNo": "Expédition No",
       "shipmentId": "Expédition ID",
@@ -864,7 +864,7 @@
       "cage": "cage",
       "selectCage": "Choisissez une cage",
       "tabFeeding": "alimentation",
-      "tabMortality": "Feu de poisson",
+      "tabMortality": "Mortalité",
       "tabWeather": "Météo",
       "tabNetOperation": "Fonctionnement du réseau",
       "feeding": {
@@ -879,10 +879,10 @@
         "gramPerUnit": "Gramme par unité"
       },
       "mortality": {
-        "title": "Feu de poisson",
+        "title": "Mortalité",
         "batch": "Lot",
         "selectBatch": "Sélectionnez un lot",
-        "deadCount": "Quantité de feu de poisson",
+        "deadCount": "Quantité de mortalité",
         "save": "Enregistrer",
         "exampleCount": "Ex : 15"
       },
@@ -939,7 +939,7 @@
       },
       "toast": {
         "feedingSaved": "Alimentation enregistrée",
-        "mortalitySaved": "Enregistrement Fish Fire créé",
+        "mortalitySaved": "Enregistrement de mortalité créé",
         "weatherSaved": "Météo enregistrée",
         "netOperationSaved": "Transaction réseau enregistrée",
         "saveFailed": "L'inscription a échoué",
@@ -990,7 +990,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Rapport détaillé du projet",
-      "description": "Il montre les performances de la cage sur la base d'un projet, avec des détails sur l'alimentation et le feu des poissons.",
+      "description": "Affiche les performances de la cage par projet, avec des détails sur l'alimentation et la mortalité.",
       "selectProject": "Sélectionnez un projet",
       "pickProjectFirst": "Sélectionnez un projet pour voir les détails du rapport.",
       "totalCages": "cage totale",
@@ -1001,11 +1001,11 @@
       "currentAverageGram": "Moy. actuelle. gramme",
       "initialBiomassGram": "Biomasse initiale (g)",
       "currentBiomassGram": "Biomasse disponible (g)",
-      "totalDead": "Feu total de poisson",
+      "totalDead": "Mortalité totale",
       "totalFeedGram": "Alimentation totale (g)",
       "totalCountDelta": "Delta de la quantité totale",
       "totalBiomassDelta": "Delta de la biomasse totale (g)",
-      "dead": "Feu de poisson",
+      "dead": "Mortalité",
       "missingFeedDays": "Pas de jour de nourrissage",
       "missingFeedingDates": "Jours sans alimentation",
       "noMissingFeedDay": "Aucun jour d'alimentation manquant n'a été trouvé dans la plage de dates sélectionnée.",
@@ -1013,7 +1013,7 @@
       "dailyDetailsHint": "Les lignes de transactions les plus récentes sont répertoriées par date.",
       "date": "rendez-vous",
       "feedGram": "Aliment (grammes)",
-      "deadCount": "quantité de Feu de poisson",
+      "deadCount": "Quantité de mortalité",
       "countDelta": "Delta des pièces",
       "biomassDelta": "Delta de la biomasse (g)",
       "weather": "météo",
@@ -1050,7 +1050,7 @@
       "readGuideShipment": "Quantité expédiée : à gauche se trouve la quantité, à droite le total en grammes de biomasse.",
       "readGuideDelta": "Les colonnes Delta affichent la variation intrajournalière nette (+/-).",
       "readGuideButtons": "Lorsque vous cliquez sur le bouton Transfert/Expédition/Conversion, les lignes de détail de ce jour s'ouvriront.",
-      "consistencyFormula": "Vérification du compte : Démarrer - Fish Fire - Expédition = Disponible",
+      "consistencyFormula": "Vérification du compte : Démarrage - Mortalité - Expédition = Disponible",
       "consistent": "cohérent",
       "inconsistent": "incohérent",
       "activeCages": "Cage active",
@@ -1191,7 +1191,7 @@
       }
     },
     "devirFcrReport": {
-      "pageTitle": "Chiffre d'affaires / Rapport FCR",
+      "pageTitle": "Rapport Turnover / FCR",
       "description": "Affiche un résumé basé sur le projet du démarrage, des ventes, du gaspillage, du stock restant et du FCR dans la plage de dates sélectionnée.",
       "loading": "Chargement du rapport CA / FCR...",
       "loadFailed": "Le rapport Cycle / FCR n’a pas pu être chargé.",

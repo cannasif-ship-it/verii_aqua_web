@@ -583,8 +583,8 @@
         "description": "تغذية سجلات الرأس."
       },
       "mortalities": {
-        "title": "نار السمك",
-        "description": "سجلات عنوان Fish Fire."
+        "title": "النفوق",
+        "description": "سجلات رؤوس النفوق."
       },
       "transfers": {
         "title": "تحويل",
@@ -627,7 +627,7 @@
         "description": "توزيع الأسماك على أساس الأقفاص لخطوط استلام البضائع."
       },
       "feedingLines": {
-        "title": "خطوط الطعم",
+        "title": "خطوط التغذية",
         "description": "سجلات خط التغذية."
       },
       "feedingDistributions": {
@@ -643,8 +643,8 @@
         "description": "سجلات خط الشحن."
       },
       "mortalityLines": {
-        "title": "خطوط نار السمك",
-        "description": "سجلات صف النار السمكية."
+        "title": "خطوط النفوق",
+        "description": "سجلات سطور النفوق."
       },
       "weighingLines": {
         "title": "خطوط الوزن",
@@ -659,8 +659,8 @@
         "description": "سجلات خط معاملات الشبكة."
       },
       "fishBatches": {
-        "title": "حفلات السمك",
-        "description": "بيولوجيا دفعة الأسماك، وسجلات المنشأ والحصاد المستهدفة."
+        "title": "دفعات الأسماك",
+        "description": "سجلات بيولوجيا دفعات الأسماك ومنشئها وأهداف الحصاد."
       }
     },
     "fields": {
@@ -689,7 +689,7 @@
       "feedingDate": "تاريخ التغذية",
       "feedingSlot": "جولة التغذية",
       "sourceType": "نوع المصدر",
-      "mortalityDate": "تاريخ حريق الأسماك",
+      "mortalityDate": "تاريخ النفوق",
       "transferNo": "نقل No",
       "transferDate": "تاريخ النقل",
       "weighingNo": "الوزن No",
@@ -704,7 +704,7 @@
       "operationTypeId": "نوع المعاملة ID",
       "operationNo": "المعاملة No",
       "operationDate": "تاريخ المعاملة",
-      "fishBatchId": "حفلة السمك ID",
+      "fishBatchId": "دفعة الأسماك ID",
       "projectCageId": "شعرية المشروع ID",
       "movementType": "نوع الحركة",
       "signedCount": "فرق الكمية",
@@ -727,8 +727,8 @@
       "feedingId": "التغذية ID",
       "feedingLineId": "صف الخلاصة ID",
       "feedGram": "تغذية جرام",
-      "mortalityId": "الحوت الناري ID",
-      "deadCount": "كمية نار السمك",
+      "mortalityId": "النفوق ID",
+      "deadCount": "كمية النفوق",
       "transferId": "نقل ID",
       "shipmentNo": "شحنة No",
       "shipmentId": "شحنة ID",
@@ -864,7 +864,7 @@
       "cage": "قفص",
       "selectCage": "اختر القفص",
       "tabFeeding": "تغذية",
-      "tabMortality": "نار السمك",
+      "tabMortality": "النفوق",
       "tabWeather": "طقس",
       "tabNetOperation": "تشغيل الشبكة",
       "feeding": {
@@ -879,10 +879,10 @@
         "gramPerUnit": "غرام لكل وحدة"
       },
       "mortality": {
-        "title": "نار السمك",
+        "title": "النفوق",
         "batch": "حزمة",
         "selectBatch": "حدد الدفعة",
-        "deadCount": "كمية نار السمك",
+        "deadCount": "كمية النفوق",
         "save": "يحفظ",
         "exampleCount": "مثال: 15"
       },
@@ -939,7 +939,7 @@
       },
       "toast": {
         "feedingSaved": "تم تسجيل التغذية",
-        "mortalitySaved": "تم إنشاء سجل حريق الأسماك",
+        "mortalitySaved": "تم إنشاء سجل النفوق",
         "weatherSaved": "سجلت الطقس",
         "netOperationSaved": "تم تسجيل معاملة الشبكة",
         "saveFailed": "فشل التسجيل",
@@ -990,7 +990,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "تقرير تفاصيل المشروع",
-      "description": "يُظهر أداء القفص على أساس المشروع، مع تفاصيل التغذية وFish Fire.",
+      "description": "يعرض أداء القفص حسب المشروع مع تفاصيل التغذية والنفوق.",
       "selectProject": "حدد المشروع",
       "pickProjectFirst": "حدد مشروعًا لرؤية تفاصيل التقرير.",
       "totalCages": "القفص الكلي",
@@ -1001,11 +1001,11 @@
       "currentAverageGram": "المتوسط ​​الحالي غرام",
       "initialBiomassGram": "الكتلة الحيوية الأولية (ز)",
       "currentBiomassGram": "الكتلة الحيوية المتاحة (ز)",
-      "totalDead": "إجمالي حريق الأسماك",
+      "totalDead": "إجمالي النفوق",
       "totalFeedGram": "إجمالي التغذية (جم)",
       "totalCountDelta": "دلتا الكمية الإجمالية",
       "totalBiomassDelta": "إجمالي دلتا الكتلة الحيوية (ز)",
-      "dead": "نار السمك",
+      "dead": "النفوق",
       "missingFeedDays": "لا يوجد يوم تغذية",
       "missingFeedingDates": "أيام عدم التغذية",
       "noMissingFeedDay": "لم يتم العثور على أيام تغذية مفقودة في النطاق الزمني المحدد.",
@@ -1013,7 +1013,7 @@
       "dailyDetailsHint": "يتم إدراج أحدث بنود المعاملات حسب التاريخ.",
       "date": "تاريخ",
       "feedGram": "تغذية (جرام)",
-      "deadCount": "كمية سمك ناري",
+      "deadCount": "كمية النفوق",
       "countDelta": "دلتا القطعة",
       "biomassDelta": "دلتا الكتلة الحيوية (ز)",
       "weather": "طقس",
@@ -1050,7 +1050,7 @@
       "readGuideShipment": "كمية الشحنة: على اليسار الكمية، وعلى اليمين إجمالي جرامات الكتلة الحيوية.",
       "readGuideDelta": "تُظهر أعمدة دلتا صافي التغير خلال اليوم (+/-).",
       "readGuideButtons": "عند النقر فوق زر النقل/الشحن/التحويل، سيتم فتح سطور التفاصيل لذلك اليوم.",
-      "consistencyFormula": "التحقق من الحساب: البدء - حريق السمك - الشحن = متاح",
+      "consistencyFormula": "التحقق من الرصيد: البداية - النفوق - الشحن = المتاح",
       "consistent": "ثابت",
       "inconsistent": "غير متناسق",
       "activeCages": "قفص نشط",
@@ -1191,7 +1191,7 @@
       }
     },
     "devirFcrReport": {
-      "pageTitle": "التسليم / FCR التقرير",
+      "pageTitle": "تقرير الدوران / FCR",
       "description": "يعرض ملخصًا قائمًا على المشروع للبدء والمبيعات والهدر والمخزون المتبقي وFCR في النطاق الزمني المحدد.",
       "loading": "جارٍ تحميل تقرير حجم الأعمال / FCR...",
       "loadFailed": "تعذر تحميل تقرير الدورة / FCR.",

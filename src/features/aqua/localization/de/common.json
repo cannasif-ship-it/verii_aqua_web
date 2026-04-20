@@ -583,8 +583,8 @@
         "description": "Kopfdatensätze zuführen."
       },
       "mortalities": {
-        "title": "Fischfeuer",
-        "description": "Titelaufzeichnungen von Fish Fire."
+        "title": "Mortalität",
+        "description": "Kopfdatensätze der Mortalität."
       },
       "transfers": {
         "title": "Übertragen",
@@ -627,8 +627,8 @@
         "description": "Käfigbasierte Fischverteilung an Wareneingangslinien."
       },
       "feedingLines": {
-        "title": "Köderschnüre",
-        "description": "Zuleitungsaufzeichnungen."
+        "title": "Fütterungslinien",
+        "description": "Aufzeichnungen der Fütterungslinien."
       },
       "feedingDistributions": {
         "title": "Futterverteilung",
@@ -643,8 +643,8 @@
         "description": "Aufzeichnungen der Reedereien."
       },
       "mortalityLines": {
-        "title": "Fischfeuerlinien",
-        "description": "Rekorde in der Fish Fire-Reihe."
+        "title": "Mortalitätszeilen",
+        "description": "Aufzeichnungen der Mortalitätszeilen."
       },
       "weighingLines": {
         "title": "Wiegelinien",
@@ -659,8 +659,8 @@
         "description": "Datensätze zu Netzwerktransaktionszeilen."
       },
       "fishBatches": {
-        "title": "Fischpartys",
-        "description": "Aufzeichnungen über Biologie, Herkunft und Fangziele der Fischbestände."
+        "title": "Fischchargen",
+        "description": "Aufzeichnungen zu Biologie, Herkunft und Erntezielen der Fischchargen."
       }
     },
     "fields": {
@@ -689,7 +689,7 @@
       "feedingDate": "Fütterungsdatum",
       "feedingSlot": "Fütterungstour",
       "sourceType": "Quelltyp",
-      "mortalityDate": "Geschichte des Fischfeuers",
+      "mortalityDate": "Mortalitätsdatum",
       "transferNo": "Übertragen No",
       "transferDate": "Datum der Übertragung",
       "weighingNo": "Wiegen No",
@@ -704,7 +704,7 @@
       "operationTypeId": "Transaktionstyp ID",
       "operationNo": "Transaktion No",
       "operationDate": "Transaktionsdatum",
-      "fishBatchId": "Fischparty ID",
+      "fishBatchId": "Fischcharge ID",
       "projectCageId": "Projektkäfig ID",
       "movementType": "Bewegungsart",
       "signedCount": "Mengenunterschied",
@@ -727,8 +727,8 @@
       "feedingId": "Fütterung ID",
       "feedingLineId": "Zuführleitung ID",
       "feedGram": "Futtergramm",
-      "mortalityId": "Fische Feuer ID",
-      "deadCount": "Fischfeuermenge",
+      "mortalityId": "Mortalität ID",
+      "deadCount": "Mortalitätsmenge",
       "transferId": "Übertragen ID",
       "shipmentNo": "Sendung No",
       "shipmentId": "Sendung ID",
@@ -864,7 +864,7 @@
       "cage": "Käfig",
       "selectCage": "Wählen Sie einen Käfig",
       "tabFeeding": "Füttern",
-      "tabMortality": "Fischfeuer",
+      "tabMortality": "Mortalität",
       "tabWeather": "Wetter",
       "tabNetOperation": "Netzwerkbetrieb",
       "feeding": {
@@ -879,10 +879,10 @@
         "gramPerUnit": "Gramm pro Einheit"
       },
       "mortality": {
-        "title": "Fischfeuer",
+        "title": "Mortalität",
         "batch": "Charge",
         "selectBatch": "Charge auswählen",
-        "deadCount": "Fischfeuermenge",
+        "deadCount": "Mortalitätsmenge",
         "save": "Speichern",
         "exampleCount": "Beispiel: 15"
       },
@@ -939,7 +939,7 @@
       },
       "toast": {
         "feedingSaved": "Fütterung aufgezeichnet",
-        "mortalitySaved": "Fischfeuer-Datensatz erstellt",
+        "mortalitySaved": "Mortalitätsdatensatz erstellt",
         "weatherSaved": "Wetter aufgezeichnet",
         "netOperationSaved": "Netzwerktransaktion aufgezeichnet",
         "saveFailed": "Die Registrierung ist fehlgeschlagen",
@@ -990,7 +990,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Projektdetailbericht",
-      "description": "Es zeigt die Käfigleistung auf Projektbasis mit Details zu Fütterung und Fischfeuer.",
+      "description": "Zeigt die Käfigleistung projektbasiert mit Details zu Fütterung und Mortalität.",
       "selectProject": "Projekt auswählen",
       "pickProjectFirst": "Wählen Sie ein Projekt aus, um Berichtsdetails anzuzeigen.",
       "totalCages": "totaler Käfig",
@@ -1001,11 +1001,11 @@
       "currentAverageGram": "Aktueller Durchschn. Gramm",
       "initialBiomassGram": "Anfängliche Biomasse (g)",
       "currentBiomassGram": "Verfügbare Biomasse (g)",
-      "totalDead": "Totaler Fischbrand",
+      "totalDead": "Gesamtmortalität",
       "totalFeedGram": "Gesamtfütterung (g)",
       "totalCountDelta": "Gesamtmengendelta",
       "totalBiomassDelta": "Gesamtbiomasse-Delta (g)",
-      "dead": "Fischfeuer",
+      "dead": "Mortalität",
       "missingFeedDays": "Kein Fütterungstag",
       "missingFeedingDates": "Tage ohne Fütterung",
       "noMissingFeedDay": "Im ausgewählten Datumsbereich wurden keine fehlenden Fütterungstage gefunden.",
@@ -1013,7 +1013,7 @@
       "dailyDetailsHint": "Die letzten Transaktionszeilen werden nach Datum aufgelistet.",
       "date": "Datum",
       "feedGram": "Futter (Gramm)",
-      "deadCount": "Fischfeuermenge",
+      "deadCount": "Mortalitätsmenge",
       "countDelta": "Stückdelta",
       "biomassDelta": "Biomasse-Delta (g)",
       "weather": "Wetter",
@@ -1050,7 +1050,7 @@
       "readGuideShipment": "Sendungsmenge: Links ist die Menge, rechts die Gesamtmenge an Biomasse in Gramm.",
       "readGuideDelta": "Delta-Spalten zeigen die Netto-Intraday-Änderung (+/-).",
       "readGuideButtons": "Wenn Sie auf die Schaltfläche „Übertragen/Versand/Umrechnung“ klicken, werden die Detailzeilen für diesen Tag geöffnet.",
-      "consistencyFormula": "Kontoprüfung: Start - Fish Fire - Versand = Verfügbar",
+      "consistencyFormula": "Kontoprüfung: Start - Mortalität - Versand = Verfügbar",
       "consistent": "konsistent",
       "inconsistent": "inkonsistent",
       "activeCages": "Aktiver Käfig",
@@ -1191,7 +1191,7 @@
       }
     },
     "devirFcrReport": {
-      "pageTitle": "Umsatz / FCR Bericht",
+      "pageTitle": "Turnover / FCR Bericht",
       "description": "Zeigt eine projektbasierte Zusammenfassung von Start, Verkäufen, Verschwendung, Restbeständen und FCR im ausgewählten Datumsbereich an.",
       "loading": "Umsatz-/FCR-Bericht wird geladen...",
       "loadFailed": "Zyklus-/FCR-Bericht konnte nicht geladen werden.",
