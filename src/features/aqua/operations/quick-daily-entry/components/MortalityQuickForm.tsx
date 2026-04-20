@@ -52,7 +52,7 @@ export function MortalityQuickForm({
 
   return (
     <Card className="bg-white dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-2xl overflow-hidden transition-all duration-300 relative">
-      {/* Kart içine hafif bir Aqua / Rose (Ölüm/Mortality vurgusu için) parıltı */}
+      {/* Kart içine hafif bir Aqua / Rose (fire vurgusu için) parıltı */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none" />
       
       <CardHeader className="border-b border-slate-200 dark:border-cyan-800/30 px-6 py-5 bg-slate-50/50 dark:bg-blue-900/10 relative z-10">

@@ -217,7 +217,7 @@ const SHEET_NAME_ALIASES: Record<string, string[]> = {
   Cages: ['Cages', 'Kafesler'],
   OpeningStock: ['OpeningStock', 'Opening Stock', 'Açılış Stoku'],
   OpeningGoodsReceipts: ['OpeningGoodsReceipts', 'Opening Goods Receipts', 'Açılış Mal Kabulleri'],
-  OpeningMortality: ['OpeningMortality', 'Opening Mortality', 'Açılış Ölüm', 'Açılış Mortalite'],
+  OpeningMortality: ['OpeningMortality', 'Opening Mortality', 'Açılış Fire', 'Açılış Ölüm'],
   OpeningFeedings: ['OpeningFeedings', 'Opening Feedings', 'Açılış Yemleme'],
   OpeningShipments: ['OpeningShipments', 'Opening Shipments', 'Açılış Sevkiyat'],
 };
@@ -239,8 +239,8 @@ const FIELD_LABEL_ALIASES: Record<string, string[]> = {
   AsOfDate: ['AsOfDate', 'Balance Date', 'Bakiye Tarihi'],
   ReceiptNo: ['ReceiptNo', 'Receipt No', 'Mal Kabul No'],
   ReceiptDate: ['ReceiptDate', 'Receipt Date', 'Mal Kabul Tarihi'],
-  DeadCount: ['DeadCount', 'Dead Count', 'Ölü Adedi', 'Mortalite Adedi'],
-  MortalityDate: ['MortalityDate', 'Mortality Date', 'Ölüm Tarihi', 'Mortalite Tarihi'],
+  DeadCount: ['DeadCount', 'Dead Count', 'Fire Adedi', 'Ölü Adedi'],
+  MortalityDate: ['MortalityDate', 'Mortality Date', 'Fire Tarihi', 'Ölüm Tarihi'],
   FeedStockCode: ['FeedStockCode', 'Feed Stock Code', 'Yem Stok Kodu'],
   FeedingDate: ['FeedingDate', 'Feeding Date', 'Yemleme Tarihi'],
   FeedingSlot: ['FeedingSlot', 'Feeding Slot', 'Yemleme Turu'],
@@ -549,7 +549,7 @@ export function OpeningImportPage(): ReactElement {
             <div className="max-w-4xl rounded-2xl border border-cyan-200/70 bg-cyan-50/80 px-4 py-3 text-xs leading-6 text-slate-700">
               {tt(
                 'aqua.openingImport.cutoverModeHint',
-                'Eğer sadece bugünkü net stokla başlayacaksan OpeningStock yeterlidir. Geçmiş özet mal kabul, mortalite, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. OpeningStock boşsa sistem net açılış bakiyesini mal kabul ve mortalite özetlerinden türetir.'
+                'Eğer sadece bugünkü net stokla başlayacaksan OpeningStock yeterlidir. Geçmiş özet mal kabul, fire, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. OpeningStock boşsa sistem net açılış bakiyesini mal kabul ve fire özetlerinden türetir.'
               )}
             </div>
           </div>
@@ -788,8 +788,8 @@ export function OpeningImportPage(): ReactElement {
               ['createdGoodsReceiptLines', commitResult.createdGoodsReceiptLines, 'Oluşturulan Mal Kabul Satırı'],
               ['createdFeedingLines', commitResult.createdFeedingLines, 'Oluşturulan Yemleme Satırı'],
               ['createdFeedingDistributions', commitResult.createdFeedingDistributions, 'Oluşturulan Yemleme Dağılımı'],
-              ['createdMortalityHeaders', commitResult.createdMortalityHeaders, 'Oluşturulan Özet Mortalite Belgesi'],
-              ['createdMortalityLines', commitResult.createdMortalityLines, 'Oluşturulan Mortalite Satırı'],
+              ['createdMortalityHeaders', commitResult.createdMortalityHeaders, 'Oluşturulan Özet Fire Belgesi'],
+              ['createdMortalityLines', commitResult.createdMortalityLines, 'Oluşturulan Fire Satırı'],
               ['createdShipmentHeaders', commitResult.createdShipmentHeaders, 'Oluşturulan Özet Sevkiyat Belgesi'],
               ['createdShipmentLines', commitResult.createdShipmentLines, 'Oluşturulan Sevkiyat Satırı'],
               ['appliedCageRows', commitResult.appliedCageRows, 'Kafese Yazılan Satır'],

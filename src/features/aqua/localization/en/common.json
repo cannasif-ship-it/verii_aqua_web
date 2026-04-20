@@ -682,8 +682,8 @@
         "description": "Feed head records."
       },
       "mortalities": {
-        "title": "Mortality",
-        "description": "Mortality header records."
+        "title": "Wastage",
+        "description": "Wastage header records."
       },
       "transfers": {
         "title": "Cage Transfer",
@@ -762,8 +762,8 @@
         "description": "Shipping line records."
       },
       "mortalityLines": {
-        "title": "Mortality Lines",
-        "description": "Mortality line records."
+        "title": "Wastage Lines",
+        "description": "Wastage line records."
       },
       "weighingLines": {
         "title": "Weighing Lines",
@@ -837,9 +837,9 @@
       "feedingDate": "Feeding Date",
       "feedingSlot": "Feeding Tour",
       "sourceType": "Source Type",
-      "mortalityDate": "Mortality Date",
-      "mortalityId": "Mortality ID",
-      "deadCount": "Mortality Quantity",
+      "mortalityDate": "Wastage Date",
+      "mortalityId": "Wastage ID",
+      "deadCount": "Wastage quantity",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
       "warehouseTransferId": "Warehouse Transfer ID",
@@ -997,7 +997,7 @@
       "cage": "cage",
       "selectCage": "Choose cage",
       "tabFeeding": "feeding",
-      "tabMortality": "Mortality",
+      "tabMortality": "Wastage",
       "tabWeather": "Weather",
       "tabNetOperation": "Network Operation",
       "tabTransfer": "Cage Replacement",
@@ -1019,10 +1019,10 @@
         "gramPerUnit": "Gram per Unit"
       },
       "mortality": {
-        "title": "Mortality",
+        "title": "Wastage",
         "batch": "Batch",
         "selectBatch": "Select batch",
-        "deadCount": "Mortality Quantity",
+        "deadCount": "Wastage quantity",
         "save": "Save",
         "exampleCount": "Ex: 15"
       },
@@ -1123,7 +1123,7 @@
       },
       "toast": {
         "feedingSaved": "Feeding recorded",
-        "mortalitySaved": "Mortality record created",
+        "mortalitySaved": "Wastage record created",
         "weatherSaved": "Weather recorded",
         "netOperationSaved": "Network transaction recorded",
         "invalidNewAverageGram": "The gram to be added must be greater than 0.",
@@ -1156,7 +1156,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Project Detail Report",
-      "description": "Shows cage performance by project together with feeding and mortality details.",
+      "description": "Shows cage performance by project together with feeding and wastage details.",
       "selectProject": "Select project",
       "pickProjectFirst": "Select a project to see report details.",
       "totalCages": "total cage",
@@ -1167,11 +1167,11 @@
       "currentAverageGram": "Current Avg. gram",
       "initialBiomassGram": "Initial Biomass (g)",
       "currentBiomassGram": "Available Biomass (g)",
-      "totalDead": "Total Mortality",
+      "totalDead": "Total Wastage",
       "totalFeedGram": "Total Feeding (g)",
       "totalCountDelta": "Total Quantity Delta",
       "totalBiomassDelta": "Total Biomass Delta (g)",
-      "dead": "Mortality",
+      "dead": "Wastage",
       "missingFeedDays": "No feeding day",
       "missingFeedingDates": "Non-Feeding Days",
       "noMissingFeedDay": "No missing feeding days were found in the selected date range.",
@@ -1179,7 +1179,7 @@
       "dailyDetailsHint": "The most recent transaction lines are listed by date.",
       "date": "date",
       "feedGram": "Feed (grams)",
-      "deadCount": "Mortality quantity",
+      "deadCount": "Wastage quantity",
       "countDelta": "Piece delta",
       "biomassDelta": "Biomass delta (g)",
       "weather": "weather",
@@ -1216,7 +1216,7 @@
       "readGuideShipment": "Shipment Quantity: on the left is the quantity, on the right is the total of grams of biomass.",
       "readGuideDelta": "Delta columns show net intraday change (+/-).",
       "readGuideButtons": "When you click on the Transfer/Shipment/Conversion button, the detail lines for that day will open.",
-      "consistencyFormula": "Consistency check: Start - Mortality - Shipment = Available",
+      "consistencyFormula": "Consistency check: Start - Wastage - Shipment = Available",
       "consistent": "consistent",
       "inconsistent": "inconsistent",
       "activeCages": "Active Cage",
@@ -1261,7 +1261,7 @@
         "totalSystemBiomassKg": "Total System Biomass",
         "totalFeedKg": "Total Feed",
         "survivalPct": "Survival %",
-        "mortalityPct": "Mortality %",
+        "mortalityPct": "Wastage %",
         "fcr": "FCR",
         "adgGramPerDay": "ADG (g/day)",
         "sgrPctPerDay": "SGR (%/day)",
@@ -1282,7 +1282,7 @@
       },
       "descriptions": {
         "survivalPct": "This area shows how much of the fish originally placed in the cage is still alive. When calculating, the starting number of fish and the number of existing live fish are used; It is read from the remaining population after transfer and shipment.",
-        "mortalityPct": "This field shows the accumulated total mortality relative to the starting stock. The total number of waste in mortality records is calculated by dividing by the starting number of fish.",
+        "mortalityPct": "This field shows the accumulated total wastage relative to the starting stock. The total number of dead fish in wastage records is calculated by dividing by the starting number of fish.",
         "fcr": "It is the Feed Conversion Ratio field. The total amount of feed recorded in the system is divided by the resulting net biomass increase. As the value decreases, it is understood that less feed is used for the same growth.",
         "adgGramPerDay": "Average Daily Gain field. The difference between the initial average grams of fish and the current average grams is divided by the number of days at sea. Returns the daily average growth per fish.",
         "sgrPctPerDay": "It is the Specific Growth Rate field. The natural logarithm of the initial and current gram values ​​is taken and the difference is reduced to a daily basis. It is especially meaningful for comparing groups at different weight levels.",
@@ -1291,7 +1291,7 @@
       },
       "formulas": {
         "survivalPct": "Survival % = current live fish / starting fish * 100",
-        "mortalityPct": "Mortality % = total wastage / starting fish * 100",
+        "mortalityPct": "Wastage % = total wastage / starting fish * 100",
         "fcr": "FCR = total feed (kg) / biomass increase (kg)",
         "adgGramPerDay": "ADG = (current average grams - initial average grams) / days at sea",
         "sgrPctPerDay": "SGR = 100 * (ln(current grams) - ln(starting grams)) / day",
@@ -1413,7 +1413,7 @@
       "badge": "Initial Load",
       "title": "Initial Load / Data Migration",
       "description": "Bring active projects, cages, and opening stock from the legacy system into Aqua in a controlled way. Download the Excel template, fill it in, map the columns, preview the data, and import it in one step when it is clean.",
-      "cutoverModeHint": "If you only want to start with today's net stock, Opening Stock is enough. If you also want to bring summarized historic goods receipt, mortality, feeding, and shipment data, fill in the related opening sheets as well. If Opening Stock is empty, the system derives the net opening balance from the goods receipt and mortality summaries.",
+      "cutoverModeHint": "If you only want to start with today's net stock, Opening Stock is enough. If you also want to bring summarized historic goods receipt, wastage, feeding, and shipment data, fill in the related opening sheets as well. If Opening Stock is empty, the system derives the net opening balance from the goods receipt and wastage summaries.",
       "downloadTemplate": "Download Template",
       "downloadErrors": "Download Error Excel",
       "sourceSystem": "Source System",
@@ -1454,7 +1454,7 @@
         "Cages": "Cages",
         "OpeningStock": "Opening Stock",
         "OpeningGoodsReceipts": "Opening Goods Receipts",
-        "OpeningMortality": "Opening Mortality",
+        "OpeningMortality": "Opening Wastage",
         "OpeningFeedings": "Opening Feedings",
         "OpeningShipments": "Opening Shipments"
       },
@@ -1477,7 +1477,7 @@
         "ReceiptNo": "Receipt No",
         "ReceiptDate": "Receipt Date",
         "DeadCount": "Dead Count",
-        "MortalityDate": "Mortality Date",
+        "MortalityDate": "Wastage Date",
         "FeedStockCode": "Feed Stock Code",
         "FeedingDate": "Feeding Date",
         "FeedingSlot": "Feeding Slot",
@@ -1503,8 +1503,8 @@
         "createdGoodsReceiptLines": "Created Goods Receipt Lines",
         "createdFeedingLines": "Created Feeding Lines",
         "createdFeedingDistributions": "Created Feeding Distributions",
-        "createdMortalityHeaders": "Created Summary Mortality Headers",
-        "createdMortalityLines": "Created Mortality Lines",
+        "createdMortalityHeaders": "Created Summary Wastage Headers",
+        "createdMortalityLines": "Created Wastage Lines",
         "createdShipmentHeaders": "Created Summary Shipment Headers",
         "createdShipmentLines": "Created Shipment Lines",
         "appliedCageRows": "Rows Applied to Cages",

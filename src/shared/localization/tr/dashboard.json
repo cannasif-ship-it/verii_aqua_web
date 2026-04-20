@@ -134,7 +134,7 @@
       "date": "Tarih",
       "feedGram": "Yem (g)",
       "stock": "Stok",
-      "dead": "Mortalite",
+      "dead": "Fire",
       "delta": "Delta",
       "biomassDelta": "Biyo Delta",
       "weather": "Hava",
@@ -156,7 +156,7 @@
     },
     "dailyCards": {
       "feed": "Yem",
-      "dead": "Mortalite",
+      "dead": "Fire",
       "delta": "Delta",
       "biomass": "Biyokütle"
     },
@@ -171,7 +171,7 @@
     },
     "projectDialog": {
       "fish": "Balık",
-      "dead": "Mortalite",
+      "dead": "Fire",
       "feedGram": "Yem (g)",
       "cages": "Kafes",
       "cagePools": "Kafes Havuzları",
@@ -179,7 +179,7 @@
     },
     "cageCard": {
       "fishUnit": "balık",
-      "totalDead": "Mortalite",
+      "totalDead": "Toplam Fire",
       "feed": "Yem",
       "biomass": "Biyokütle",
       "survivalRate": "Yaşam Oranı",
@@ -199,7 +199,7 @@
     "listTable": {
       "cage": "Kafes",
       "fish": "Balık",
-      "dead": "Mortalite",
+      "dead": "Fire",
       "feed": "Yem",
       "biomass": "Biyokütle",
       "survivalRate": "Yaşam Oranı",

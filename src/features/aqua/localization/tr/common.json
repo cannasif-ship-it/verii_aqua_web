@@ -101,8 +101,8 @@
         "description": "Yemleme başlık kayıtları."
       },
       "mortalities": {
-        "title": "Mortalite",
-        "description": "Mortalite başlık kayıtları."
+        "title": "Fire",
+        "description": "Fire başlık kayıtları."
       },
       "transfers": {
         "title": "Kafes Transferi",
@@ -181,8 +181,8 @@
         "description": "Sevkiyat satır kayıtları."
       },
       "mortalityLines": {
-        "title": "Mortalite Satırları",
-        "description": "Mortalite satır kayıtları."
+        "title": "Fire Satırları",
+        "description": "Fire satır kayıtları."
       },
       "weighingLines": {
         "title": "Tartım Satırları",
@@ -256,9 +256,9 @@
       "feedingDate": "Yemleme Tarihi",
       "feedingSlot": "Yemleme Turu",
       "sourceType": "Kaynak Tipi",
-      "mortalityDate": "Mortalite Tarihi",
-      "mortalityId": "Mortalite ID",
-      "deadCount": "Mortalite Adedi",
+      "mortalityDate": "Fire Tarihi",
+      "mortalityId": "Fire ID",
+      "deadCount": "Fire Adedi",
       "transferNo": "Transfer No",
       "transferId": "Transfer ID",
       "warehouseTransferId": "Depo Transfer ID",
@@ -417,7 +417,7 @@
       "cage": "Kafes",
       "selectCage": "Kafes seçin",
       "tabFeeding": "Yemleme",
-      "tabMortality": "Mortalite",
+      "tabMortality": "Fire",
       "tabWeather": "Hava Durumu",
       "tabNetOperation": "Ağ İşlemi",
       "tabTransfer": "Kafes Değişimi",
@@ -438,10 +438,10 @@
         "save": "Kaydet"
       },
       "mortality": {
-        "title": "Mortalite",
+        "title": "Fire",
         "batch": "Batch",
         "selectBatch": "Batch seçin",
-        "deadCount": "Mortalite Adedi",
+        "deadCount": "Fire Adedi",
         "save": "Kaydet",
         "exampleCount": "Örn: 15"
       },
@@ -542,7 +542,7 @@
       },
       "toast": {
         "feedingSaved": "Yemleme kaydedildi",
-        "mortalitySaved": "Mortalite kaydı oluşturuldu",
+        "mortalitySaved": "Fire kaydı oluşturuldu",
         "weatherSaved": "Hava durumu kaydedildi",
         "netOperationSaved": "Ağ işlemi kaydedildi",
         "noActiveBatchForCage": "Seçili kafes için aktif batch bulunamadı.",
@@ -574,7 +574,7 @@
     },
     "projectDetailReport": {
       "pageTitle": "Proje Detay Raporu",
-      "description": "Proje bazında kafes performansını, besleme ve mortalite detaylarıyla gösterir.",
+      "description": "Proje bazında kafes performansını, besleme ve fire detaylarıyla gösterir.",
       "selectProject": "Proje seçin",
       "pickProjectFirst": "Rapor detaylarını görmek için proje seçin.",
       "totalCages": "Toplam kafes",
@@ -597,14 +597,14 @@
       "warehouseBiomassTotal": "Depo Biyokütlesi (g)",
       "currentBiomassTotal": "Mevcut Biyokütle (g)",
       "currentAvgGramTotal": "Mevcut Ort. Gram",
-      "totalDead": "Toplam Mortalite",
+      "totalDead": "Toplam Fire",
       "totalFeedGram": "Toplam Yemleme (g)",
       "totalCountDelta": "Toplam Adet Delta",
       "totalBiomassDelta": "Toplam Biyokütle Delta (g)",
       "totalShipmentFish": "Toplam Sevk Balık",
       "totalShipmentBiomass": "Toplam Sevk Biyokütle (Gram)",
       "lastShipmentDate": "Son Sevk Tarihi",
-      "dead": "Mortalite",
+      "dead": "Fire",
       "missingFeedDays": "Yemleme yapılmayan gün",
       "missingFeedingDates": "Yemleme Yapılmayan Günler",
       "noMissingFeedDay": "Seçili tarih aralığında yemleme eksik günü bulunmadı.",
@@ -612,7 +612,7 @@
       "dailyDetailsHint": "En güncel hareket satırları tarihe göre listelenir.",
       "date": "Tarih",
       "feedGram": "Yem (gram)",
-      "deadCount": "Mortalite adedi",
+      "deadCount": "Fire adedi",
       "countDelta": "Adet delta",
       "biomassDelta": "Biyokütle delta (g)",
       "weather": "Hava",
@@ -647,11 +647,11 @@
       "cagesFedToday": "Bugün Beslenen Aktif Kafes",
       "readGuideTitle": "Raporu Nasıl Okurum?",
       "readGuideDescription": "Kartlar proje toplamını, alt açılır satırlar kafes bazlı günlük hareketleri gösterir.",
-      "readGuideCurrentFish": "Mevcut Balık: Başlangıçtan mortalite ve sevkiyatlar düşülmüş canlı adettir.",
+      "readGuideCurrentFish": "Mevcut Balık: Başlangıçtan fire ve sevkiyatlar düşülmüş canlı adettir.",
       "readGuideShipment": "Sevk Miktarı: solda adet, sağda gram biyokütle toplamıdır.",
       "readGuideDelta": "Delta kolonları gün içi net değişimi gösterir (+/-).",
       "readGuideButtons": "Transfer/Sevkiyat/Dönüşüm butonuna tıklayınca o günün detay satırları açılır.",
-      "consistencyFormula": "Hesap kontrolü: Başlangıç - Mortalite - Sevk = Mevcut",
+      "consistencyFormula": "Hesap kontrolü: Başlangıç - Fire - Sevk = Mevcut",
       "consistent": "Tutarlı",
       "inconsistent": "Tutarsız"
     },
@@ -679,7 +679,7 @@
         "totalSystemBiomassKg": "Toplam Sistem Biyokütlesi",
         "totalFeedKg": "Toplam Yem",
         "survivalPct": "Survival %",
-        "mortalityPct": "Mortality %",
+        "mortalityPct": "Fire %",
         "fcr": "FCR",
         "adgGramPerDay": "ADG (g/gün)",
         "sgrPctPerDay": "SGR (%/gün)",
@@ -700,7 +700,7 @@
       },
       "descriptions": {
         "survivalPct": "Bu alan, başlangıçta kafese yerleştirilen balığın ne kadarının halen canlı olduğunu gösterir. Hesaplama yapılırken başlangıç balık adedi ile mevcut canlı balık adedi kullanılır; transfer ve sevkiyat sonrası kalan popülasyon üzerinden okunur.",
-        "mortalityPct": "Bu alan, başlangıç stoğuna göre biriken toplam ölüm oranını gösterir. Mortality kayıtlarındaki toplam fire adedi başlangıç balık sayısına bölünerek bulunur.",
+        "mortalityPct": "Bu alan, başlangıç stoğuna göre biriken toplam fire oranını gösterir. Fire kayıtlarındaki toplam fire adedi başlangıç balık sayısına bölünerek bulunur.",
         "fcr": "Feed Conversion Ratio alanıdır. Sistemde kaydedilen toplam yem miktarı, oluşan net biyokütle artışına bölünür. Değer küçüldükçe aynı büyüme için daha az yem kullanıldığı anlaşılır.",
         "adgGramPerDay": "Average Daily Gain alanıdır. Balığın başlangıç ortalama gramı ile mevcut ortalama gramı arasındaki fark, denizde geçen gün sayısına bölünür. Balık başına günlük ortalama büyümeyi verir.",
         "sgrPctPerDay": "Specific Growth Rate alanıdır. Başlangıç ve mevcut gram değerlerinin doğal logaritması alınır, fark günlük baza indirilir. Özellikle farklı ağırlık seviyelerindeki grupları kıyaslamak için daha anlamlıdır.",
@@ -709,7 +709,7 @@
       },
       "formulas": {
         "survivalPct": "Survival % = mevcut canlı balık / başlangıç balık * 100",
-        "mortalityPct": "Mortality % = toplam fire / başlangıç balık * 100",
+        "mortalityPct": "Fire % = toplam fire / başlangıç balık * 100",
         "fcr": "FCR = toplam yem (kg) / biyokütle artışı (kg)",
         "adgGramPerDay": "ADG = (mevcut ortalama gram - başlangıç ortalama gram) / denizde geçen gün",
         "sgrPctPerDay": "SGR = 100 * (ln(mevcut gram) - ln(başlangıç gram)) / gün",
@@ -836,7 +836,7 @@
       "badge": "İlk Geçiş",
       "title": "İlk Geçiş / Veri Aktarımı",
       "description": "Eski sistemdeki aktif proje, kafes ve açılış stok durumunu kontrollü şekilde içeri alın. Excel şablonunu indirip doldurun, kolonları eşleyin, önizleyin ve hatasız ise tek adımda sisteme aktarın.",
-      "cutoverModeHint": "Eğer sadece bugünkü net stokla başlayacaksan Açılış Stoku yeterlidir. Geçmiş özet mal kabul, mortalite, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. Açılış Stoku boşsa sistem net açılış bakiyesini mal kabul ve mortalite özetlerinden türetir.",
+      "cutoverModeHint": "Eğer sadece bugünkü net stokla başlayacaksan Açılış Stoku yeterlidir. Geçmiş özet mal kabul, fire, yemleme ve sevkiyat bilgisini de sisteme almak istersen ilgili açılış sheetlerini doldurabilirsin. Açılış Stoku boşsa sistem net açılış bakiyesini mal kabul ve fire özetlerinden türetir.",
       "downloadTemplate": "Şablon İndir",
       "downloadErrors": "Hata Excel'ini İndir",
       "sourceSystem": "Kaynak Sistem",
@@ -877,7 +877,7 @@
         "Cages": "Kafesler",
         "OpeningStock": "Açılış Stoku",
         "OpeningGoodsReceipts": "Açılış Mal Kabulleri",
-        "OpeningMortality": "Açılış Mortalite",
+        "OpeningMortality": "Açılış Fire",
         "OpeningFeedings": "Açılış Yemleme",
         "OpeningShipments": "Açılış Sevkiyat"
       },
@@ -899,8 +899,8 @@
         "AsOfDate": "Bakiye Tarihi",
         "ReceiptNo": "Mal Kabul No",
         "ReceiptDate": "Mal Kabul Tarihi",
-        "DeadCount": "Mortalite Adedi",
-        "MortalityDate": "Mortalite Tarihi",
+        "DeadCount": "Fire Adedi",
+        "MortalityDate": "Fire Tarihi",
         "FeedStockCode": "Yem Stok Kodu",
         "FeedingDate": "Yemleme Tarihi",
         "FeedingSlot": "Yemleme Turu",
@@ -926,8 +926,8 @@
         "createdGoodsReceiptLines": "Oluşturulan Mal Kabul Satırı",
         "createdFeedingLines": "Oluşturulan Yemleme Satırı",
         "createdFeedingDistributions": "Oluşturulan Yemleme Dağılımı",
-        "createdMortalityHeaders": "Oluşturulan Özet Mortalite Belgesi",
-        "createdMortalityLines": "Oluşturulan Mortalite Satırı",
+        "createdMortalityHeaders": "Oluşturulan Özet Fire Belgesi",
+        "createdMortalityLines": "Oluşturulan Fire Satırı",
         "createdShipmentHeaders": "Oluşturulan Özet Sevkiyat Belgesi",
         "createdShipmentLines": "Oluşturulan Sevkiyat Satırı",
         "appliedCageRows": "Kafese Yazılan Satır",
