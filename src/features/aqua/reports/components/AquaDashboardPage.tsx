@@ -1,4 +1,4 @@
-import { type MouseEvent, type ReactElement, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { type MouseEvent, type ReactElement, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
   Activity,
@@ -250,71 +250,149 @@ function getDetailTypeIcon(type: DetailType): ReactElement {
   return <Truck className="size-4" />;
 }
 
+/** Statik kafes braketleri — her CageCard render'ında yeniden üretilmez (GC / diff maliyeti düşer). */
+const CAGE_SVG_BRACKETS = Array.from({ length: 24 }, (_, i) => {
+  const angle = (i * 360) / 24;
+  return (
+    <rect
+      key={i}
+      x="156"
+      y="6"
+      width="8"
+      height="32"
+      rx="3"
+      fill="#0f172a"
+      stroke="#1e293b"
+      strokeWidth="1.5"
+      transform={`rotate(${angle} 160 160)`}
+    />
+  );
+});
+
 function CageSkeleton(): ReactElement {
   return (
-    <div className="border-2 border-slate-100 dark:border-cyan-800/20 rounded-3xl min-h-[210px] animate-pulse bg-slate-50/50 dark:bg-blue-900/10 flex flex-col p-4 gap-4">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2 items-center">
-          <div className="h-9 w-9 bg-slate-200 dark:bg-cyan-800/30 rounded-2xl" />
-          <div className="h-4 w-24 bg-slate-200 dark:bg-cyan-800/30 rounded-md" />
-        </div>
-        <div className="h-7 w-16 bg-slate-200 dark:bg-cyan-800/30 rounded-xl" />
-      </div>
-      <div className="grid grid-cols-2 gap-2 mt-2">
-        <div className="h-16 bg-slate-200 dark:bg-cyan-800/30 rounded-2xl" />
-        <div className="h-16 bg-slate-200 dark:bg-cyan-800/30 rounded-2xl" />
-        <div className="col-span-2 h-16 bg-slate-200 dark:bg-cyan-800/30 rounded-2xl" />
-      </div>
-      <div className="h-2 w-full bg-slate-200 dark:bg-cyan-800/30 rounded-full" />
+    <div className="relative mx-auto aspect-square w-full max-w-[280px] animate-pulse">
+      <div className="absolute inset-0 rounded-full border-2 border-slate-200 bg-slate-100 dark:border-cyan-800/30 dark:bg-blue-900/20" />
+      <div className="absolute inset-[12%] rounded-full bg-slate-200/80 dark:bg-cyan-800/20" />
+      <div className="absolute inset-[28%] rounded-full bg-slate-300/60 dark:bg-cyan-700/15" />
     </div>
   );
 }
 
 function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clickable = false, t }: CageCardProps): ReactElement {
+  const uid = useId().replace(/:/g, '');
+  const waterDepthId = `${uid}-waterDepth`;
+  const nettingId = `${uid}-netting`;
+
   const totalInitial = cage.currentFishCount + cage.totalDeadCount;
   const survivalRate = totalInitial > 0 ? (cage.currentFishCount / totalInitial) * 100 : 100;
   const isCritical = survivalRate < 80;
   const isWarning = survivalRate >= 80 && survivalRate < 95;
 
+  const ringStroke = isCritical ? '#f43f5e' : isWarning ? '#f59e0b' : '#06b6d4';
+  const radius = 142;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (Math.min(Math.max(survivalRate, 0), 100) / 100) * circumference;
+
   return (
-    <Card
+    <div
+      role={clickable ? 'button' : undefined}
+      tabIndex={clickable ? 0 : undefined}
       onClick={(event: MouseEvent<HTMLDivElement>) => {
         if (!onClick) return;
         event.stopPropagation();
         onClick();
       }}
+      onKeyDown={(event) => {
+        if (!clickable || !onClick) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          event.stopPropagation();
+          onClick();
+        }
+      }}
       className={cn(
-        'relative overflow-hidden border-2 transition-all duration-300 min-h-[210px] flex flex-col bg-white shadow-sm dark:bg-blue-950/40 dark:backdrop-blur-xl group',
-        isSelected
-          ? 'border-cyan-500 shadow-[0_0_0_1px_rgba(6,182,212,0.15),0_18px_40px_rgba(6,182,212,0.18)] dark:border-cyan-500/70 scale-[1.02]'
-          : isCritical
-            ? 'border-rose-300 shadow-[0_0_0_1px_rgba(244,63,94,0.08),0_18px_40px_rgba(244,63,94,0.10)] dark:border-rose-500/40'
-            : 'border-slate-200 dark:border-cyan-800/30 hover:border-cyan-400 dark:hover:border-cyan-500/50',
-        clickable && 'cursor-pointer hover:shadow-xl dark:hover:shadow-cyan-900/20 hover:-translate-y-1'
+        'relative mx-auto w-full max-w-[280px] transition-transform duration-200 ease-out xl:max-w-[300px] group [content-visibility:auto] [contain-intrinsic-size:280px_280px]',
+        isSelected && 'scale-[1.02]',
+        clickable && 'cursor-pointer hover:scale-[1.01]'
       )}
     >
-      <div
-        className={cn(
-          'absolute inset-x-0 top-0 h-1.5',
-          isCritical
-            ? 'bg-linear-to-r from-rose-500 via-orange-500 to-amber-400'
-            : isWarning
-              ? 'bg-linear-to-r from-amber-400 via-yellow-400 to-emerald-400'
-              : 'bg-linear-to-r from-cyan-500 via-blue-500 to-pink-500'
-        )}
-      />
+      <div className="relative aspect-square w-full pt-5">
+        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 320" aria-hidden>
+          <defs>
+            <radialGradient id={waterDepthId} cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop
+                offset="0%"
+                className="[stop-color:#67e8f9] [stop-opacity:0.55] dark:[stop-color:#38bdf8] dark:[stop-opacity:0.55]"
+              />
+              <stop
+                offset="55%"
+                className="[stop-color:#0891b2] [stop-opacity:0.7] dark:[stop-color:#0284c7] dark:[stop-opacity:0.7]"
+              />
+              <stop
+                offset="100%"
+                className="[stop-color:#0e4a72] [stop-opacity:0.95] dark:[stop-color:#0b3a6b] dark:[stop-opacity:0.95]"
+              />
+            </radialGradient>
+            <pattern id={nettingId} width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1e293b" strokeWidth="0.5" opacity="0.55" />
+            </pattern>
+          </defs>
 
-      {isCritical && <div className="absolute inset-0 pointer-events-none bg-rose-500/4 dark:bg-rose-500/6" />}
+          <circle cx="160" cy="160" r="130" className="fill-[#0e4a72] dark:fill-[#0b3a6b]" />
+          <circle cx="160" cy="160" r="130" fill={`url(#${waterDepthId})`} />
+          <circle cx="160" cy="160" r="130" fill={`url(#${nettingId})`} />
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#0b1628" strokeWidth="8" opacity="0.35" />
 
-      <div className="flex flex-col h-full z-10 relative">
+          <circle cx="160" cy="160" r="142" fill="none" stroke="#1e293b" strokeWidth="14" />
+          <circle cx="160" cy="160" r="122" fill="none" stroke="#1e293b" strokeWidth="10" />
+
+          {CAGE_SVG_BRACKETS}
+
+          <circle cx="160" cy="160" r="142" fill="none" stroke="#1e293b" strokeWidth="3" />
+          <circle
+            cx="160"
+            cy="160"
+            r="142"
+            fill="none"
+            stroke={ringStroke}
+            strokeWidth="4"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            className="transition-[stroke-dashoffset] duration-500 ease-out"
+            transform="rotate(-90 160 160)"
+          />
+        </svg>
+
+        {isCritical && <div className="pointer-events-none absolute inset-[10%] rounded-full bg-rose-500/15" />}
+
+        {/* Kafes adı tabelası: direk + yatay plaka */}
+        <div className="absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
+          <div
+            title={cage.cageLabel}
+            className={cn(
+              'relative inline-flex max-w-[180px] cursor-default items-center gap-1 rounded-md border-2 px-2.5 py-1 shadow-md',
+              'border-cyan-400/70 bg-slate-900 text-white',
+              'dark:border-cyan-400/80 dark:bg-slate-950'
+            )}
+          >
+            <Waves className={cn('size-3 shrink-0', isSelected ? 'text-cyan-200' : 'text-cyan-300')} />
+            <span className="truncate text-[11px] font-black uppercase tracking-wider leading-none">
+              {cage.cageLabel}
+            </span>
+          </div>
+          <div className="pointer-events-none h-2.5 w-[3px] rounded-b-sm bg-slate-700 shadow-sm dark:bg-slate-600" />
+        </div>
+
         <div
           className={cn(
-            'absolute top-3 right-3 flex items-center justify-center p-1.5 rounded-full border shadow-sm z-20 backdrop-blur-md',
+            'absolute top-2 right-2 z-20 flex size-8 items-center justify-center rounded-full border-2 shadow-md',
             isCritical
-              ? 'bg-rose-100/90 border-rose-300 text-rose-600 dark:bg-rose-500/20 dark:border-rose-500/50 dark:text-rose-400'
+              ? 'border-rose-400/80 bg-rose-950 text-rose-200'
               : isWarning
-                ? 'bg-amber-100/90 border-amber-300 text-amber-600 dark:bg-amber-500/20 dark:border-amber-500/50 dark:text-amber-400'
-                : 'bg-emerald-100/90 border-emerald-300 text-emerald-600 dark:bg-emerald-500/20 dark:border-emerald-500/50 dark:text-emerald-400'
+                ? 'border-amber-400/80 bg-amber-950 text-amber-200'
+                : 'border-emerald-400/70 bg-emerald-950 text-emerald-200'
           )}
         >
           {isCritical ? (
@@ -326,121 +404,92 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
           )}
         </div>
 
-        <div className="flex items-center gap-2 border-b border-slate-100 dark:border-cyan-800/30 bg-slate-50/80 dark:bg-blue-900/20 px-4 py-3 pr-12">
-          <div
-            className={cn(
-              'flex size-9 shrink-0 items-center justify-center rounded-2xl border shadow-sm transition-colors',
-              isSelected
-                ? 'bg-cyan-500 border-cyan-400 text-white'
-                : isCritical
-                  ? 'bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400'
-                  : 'bg-white dark:bg-blue-900 border-slate-200 dark:border-cyan-700/50 text-cyan-600 dark:text-cyan-400 group-hover:border-cyan-400'
-            )}
-          >
-            <Waves className="size-4" />
-          </div>
-
-          <div className="flex flex-col min-w-0">
-            <span className="font-extrabold text-[13px] text-slate-900 dark:text-white tracking-tight truncate">
-              {cage.cageLabel}
-            </span>
-            <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
-              <Fish size={10} /> {formatNumber(cage.currentFishCount)} {t('aquaDashboard.cageCard.fishUnit', { ns: 'dashboard' })}
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 p-3 flex-1">
-          <div
-            className={cn(
-              'flex flex-col justify-center gap-1 rounded-2xl border p-3',
-              isCritical
-                ? 'bg-rose-50/80 border-rose-100 dark:bg-rose-500/10 dark:border-rose-500/20'
-                : 'bg-slate-50 dark:bg-blue-900/10 border-slate-100 dark:border-cyan-800/20'
-            )}
-          >
-            <div className="flex items-center gap-1.5">
-              <Skull className="size-3 text-rose-500 shrink-0" />
-              <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 truncate">
-                {t('aquaDashboard.cageCard.totalDead', { ns: 'dashboard' })}
-              </p>
-            </div>
-            <p className="text-xs font-black text-rose-600 dark:text-rose-400 tabular-nums truncate">
-              {formatNumber(cage.totalDeadCount)}
-            </p>
-          </div>
-
-          <div className="flex flex-col justify-center gap-1 rounded-2xl bg-slate-50 dark:bg-blue-900/10 border border-slate-100 dark:border-cyan-800/20 p-3">
-            <div className="flex items-center gap-1.5">
-              <UtensilsCrossed className="size-3 text-amber-500 shrink-0" />
-              <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 truncate">
-                {t('aquaDashboard.cageCard.feed', { ns: 'dashboard' })}
-              </p>
-            </div>
-            <p className="text-xs font-black text-amber-600 dark:text-amber-400 tabular-nums truncate">
-              {formatNumber(cage.totalFeedGram)}
-              <span className="text-[9px] ml-0.5 font-bold">g</span>
-            </p>
-          </div>
-
-          <div className="col-span-2 flex flex-col justify-center gap-1 rounded-2xl bg-slate-50 dark:bg-blue-900/10 border border-slate-100 dark:border-cyan-800/20 p-3">
-            <div className="flex items-center gap-1.5">
-              <Layers className="size-3 text-blue-500 shrink-0" />
-              <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 truncate">
-                {t('aquaDashboard.cageCard.biomass', { ns: 'dashboard' })}
-              </p>
-            </div>
-            <p className="text-sm font-black text-blue-600 dark:text-blue-400 tabular-nums truncate">
-              {formatNumber(cage.currentBiomassGram)}
-              <span className="text-[10px] ml-1 font-bold">g</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="px-4 pb-4 space-y-3">
-          {onQuickEntryClick && (
-            <Button
-              type="button"
-              size="sm"
-              onClick={(event) => {
-                event.stopPropagation();
-                onQuickEntryClick();
-              }}
-              className="w-full h-9 rounded-xl bg-linear-to-r from-cyan-500 via-blue-500 to-orange-400 text-white font-black text-xs shadow-lg shadow-cyan-500/25 hover:from-cyan-600 hover:via-blue-600 hover:to-orange-500"
-            >
-              {t('aquaDashboard.cageCard.quickDailyEntry', { ns: 'dashboard' })}
-            </Button>
-          )}
-          <div className="flex justify-between items-end mb-1.5">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">
-              {t('aquaDashboard.cageCard.survivalRate', { ns: 'dashboard' })}
-            </span>
-            <span
-              className={cn(
-                'text-[10px] font-black',
-                isCritical ? 'text-rose-500' : isWarning ? 'text-amber-500' : 'text-emerald-500'
-              )}
-            >
-              %{survivalRate.toFixed(1)}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pb-3 pt-12">
+          <div className="mb-1 flex flex-col items-center">
+            <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-400/35 bg-slate-950/80 px-2 py-0.5 text-[10px] font-bold text-emerald-200">
+              <Fish className="size-3 shrink-0" />
+              {formatNumber(cage.currentFishCount)} {t('aquaDashboard.cageCard.fishUnit', { ns: 'dashboard' })}
             </span>
           </div>
 
-          <div className="h-2 w-full bg-slate-100 dark:bg-cyan-950/50 rounded-full overflow-hidden">
+          <div className="mb-1 mt-1 flex w-full max-w-[220px] gap-1.5 px-1">
             <div
               className={cn(
-                'h-full transition-all duration-1000 ease-out rounded-full',
-                isCritical
-                  ? 'bg-linear-to-r from-rose-500 via-orange-500 to-amber-400'
-                  : isWarning
-                    ? 'bg-linear-to-r from-amber-400 via-yellow-400 to-emerald-400'
-                    : 'bg-linear-to-r from-emerald-400 via-cyan-400 to-blue-500'
+                'flex flex-1 flex-col items-center rounded-lg border p-1.5',
+                isCritical ? 'border-rose-500/45 bg-slate-950/85' : 'border-slate-500/60 bg-slate-950/80'
               )}
-              style={{ width: `${Math.min(Math.max(survivalRate, 0), 100)}%` }}
-            />
+            >
+              <div className="mb-0.5 flex items-center gap-0.5">
+                <Skull className="size-2.5 shrink-0 text-rose-300" />
+                <span className="truncate text-[8px] font-bold uppercase tracking-wider text-slate-300">
+                  {t('aquaDashboard.cageCard.totalDead', { ns: 'dashboard' })}
+                </span>
+              </div>
+              <span className="font-black tabular-nums text-xs text-rose-300">{formatNumber(cage.totalDeadCount)}</span>
+            </div>
+            <div className="flex flex-1 flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80 p-1.5">
+              <div className="mb-0.5 flex items-center gap-0.5">
+                <UtensilsCrossed className="size-2.5 shrink-0 text-amber-300" />
+                <span className="truncate text-[8px] font-bold uppercase tracking-wider text-slate-300">
+                  {t('aquaDashboard.cageCard.feed', { ns: 'dashboard' })}
+                </span>
+              </div>
+              <span className="font-black tabular-nums text-xs text-amber-200">
+                {formatNumber(cage.totalFeedGram)}
+                <span className="ml-0.5 text-[9px] font-bold">g</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="mb-2 w-full max-w-[220px] rounded-lg border border-slate-500/60 bg-slate-950/80 px-2 py-1.5 text-center">
+            <div className="mb-0.5 flex items-center justify-center gap-1">
+              <Layers className="size-2.5 shrink-0 text-sky-300" />
+              <span className="text-[8px] font-bold uppercase tracking-wider text-slate-300">
+                {t('aquaDashboard.cageCard.biomass', { ns: 'dashboard' })}
+              </span>
+            </div>
+            <span className="font-black tabular-nums text-sm text-sky-200">
+              {formatNumber(cage.currentBiomassGram)}
+              <span className="ml-0.5 text-[10px] font-bold">g</span>
+            </span>
+          </div>
+
+          <div className="mt-auto flex w-full max-w-[220px] flex-col items-center gap-2">
+            {onQuickEntryClick && (
+              <Button
+                type="button"
+                size="sm"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onQuickEntryClick();
+                }}
+                className={cn(
+                  'h-9 w-full rounded-full border border-white/20 bg-linear-to-r from-cyan-500 via-blue-500 to-orange-400 text-xs font-black uppercase tracking-wider text-white',
+                  'shadow-[0_6px_20px_rgba(6,182,212,0.45),inset_0_1px_0_rgba(255,255,255,0.25)]',
+                  'ring-1 ring-cyan-300/50 hover:from-cyan-400 hover:via-blue-500 hover:to-orange-500 hover:ring-cyan-200/70'
+                )}
+              >
+                {t('aquaDashboard.cageCard.quickDailyEntry', { ns: 'dashboard' })}
+              </Button>
+            )}
+            <div
+              className={cn(
+                'flex w-[90%] items-center justify-between rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm',
+                'border-white/15 bg-slate-950/85 text-slate-200',
+                isCritical && 'border-rose-400/50 bg-rose-950/80',
+                isWarning && 'border-amber-400/50 bg-amber-950/80',
+                !isCritical && !isWarning && 'border-emerald-400/45 bg-emerald-950/80'
+              )}
+            >
+              <span>{t('aquaDashboard.cageCard.survivalRate', { ns: 'dashboard' })}</span>
+              <span className={cn('font-black', isCritical ? 'text-rose-300' : isWarning ? 'text-amber-200' : 'text-emerald-200')}>
+                %{survivalRate.toFixed(1)}
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
 
@@ -1018,7 +1067,7 @@ export function AquaDashboardPage(): ReactElement {
                               )}
                               onClick={() => openDailyFromProjectList(project.projectId, cage.projectCageId)}
                             >
-                              <td className="px-5 py-3 font-extrabold text-slate-900 dark:text-white">
+                              <td className="px-5 py-3 font-extrabold text-slate-900 dark:text-white" title={cage.cageLabel}>
                                 <div className="flex items-center gap-2">
                                   <div
                                     className={cn(
@@ -1028,7 +1077,7 @@ export function AquaDashboardPage(): ReactElement {
                                   >
                                     <Waves size={14} className={cn(isCritical ? 'text-rose-500' : 'text-cyan-600 dark:text-cyan-400')} />
                                   </div>
-                                  {cage.cageLabel}
+                                  <span className="truncate">{cage.cageLabel}</span>
                                 </div>
                               </td>
 
