@@ -2,7 +2,6 @@ export type OpeningImportTargetField =
   | 'projectCode'
   | 'projectName'
   | 'startDate'
-  | 'status'
   | 'note'
   | 'cageCode'
   | 'cageName'
