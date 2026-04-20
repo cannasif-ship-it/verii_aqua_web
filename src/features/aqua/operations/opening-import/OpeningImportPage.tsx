@@ -192,7 +192,7 @@ const TEMPLATE_ROWS: Record<string, Record<string, string | number | null>[]> = 
       CurrencyCode: 'TRY',
       ExchangeRate: 1,
       UnitPrice: 185,
-      TargetWarehouseCode: 1,
+      TargetWarehouseCode: 10,
     },
     {
       ProjectCode: 'PRJ-001',
@@ -205,7 +205,7 @@ const TEMPLATE_ROWS: Record<string, Record<string, string | number | null>[]> = 
       CurrencyCode: 'TRY',
       ExchangeRate: 1,
       UnitPrice: 192,
-      TargetWarehouseCode: 1,
+      TargetWarehouseCode: 10,
     },
   ],
 };
@@ -228,7 +228,7 @@ const FIELD_LABEL_ALIASES: Record<string, string[]> = {
   CageCode: ['CageCode', 'Cage Code', 'Kafes Kodu'],
   CageName: ['CageName', 'Cage Name', 'Kafes Adı'],
   AssignedDate: ['AssignedDate', 'Assignment Date', 'Atama Tarihi'],
-  WarehouseCode: ['WarehouseCode', 'Warehouse Code', 'Depo Kodu'],
+  WarehouseCode: ['WarehouseCode', 'Warehouse Code', 'Depo Kodu', 'ERP Depo Kodu', 'Mirror Depo Kodu', 'ErpWarehouseCode'],
   BatchCode: ['BatchCode', 'Batch Code', 'Batch Kodu'],
   FishStockCode: ['FishStockCode', 'Fish Stock Code', 'Balık Stok Kodu'],
   FishCount: ['FishCount', 'Fish Count', 'Balık Adedi'],
@@ -246,7 +246,7 @@ const FIELD_LABEL_ALIASES: Record<string, string[]> = {
   CurrencyCode: ['CurrencyCode', 'Currency Code', 'Para Birimi'],
   ExchangeRate: ['ExchangeRate', 'Exchange Rate', 'Kur'],
   UnitPrice: ['UnitPrice', 'Unit Price', 'Birim Fiyat'],
-  TargetWarehouseCode: ['TargetWarehouseCode', 'Target Warehouse Code', 'Hedef Depo Kodu'],
+  TargetWarehouseCode: ['TargetWarehouseCode', 'Target Warehouse Code', 'Hedef Depo Kodu', 'Hedef ERP Depo Kodu', 'Hedef Mirror Depo Kodu', 'TargetErpWarehouseCode'],
 };
 
 function getSheetTitle(t: (key: string, options?: Record<string, unknown>) => string, sheetName: string): string {
