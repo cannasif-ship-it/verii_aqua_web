@@ -8,7 +8,8 @@ import { UserForm } from './UserForm';
 import { useCreateUser } from '../hooks/useCreateUser';
 import { useUpdateUser } from '../hooks/useUpdateUser';
 import { UserPlus, Users } from 'lucide-react';
-import type { UserDto } from '../types/user-types';
+import type { CreateUserDto, UpdateUserDto, UserDto } from '../types/user-types';
+import type { UserFormValues } from './UserForm';
 
 export function UserManagementPage(): ReactElement {
   const { t } = useTranslation();
@@ -26,6 +27,28 @@ export function UserManagementPage(): ReactElement {
     setPageTitle(t('userManagement.menu'));
     return () => setPageTitle(null);
   }, [t, setPageTitle]);
+
+  const toCreatePayload = (data: UserFormValues): CreateUserDto => ({
+    username: data.username,
+    email: data.email,
+    password: data.password,
+    firstName: data.firstName || undefined,
+    lastName: data.lastName || undefined,
+    phoneNumber: data.phoneNumber || undefined,
+    roleId: data.roleId,
+    isActive: data.isActive,
+    permissionGroupIds: data.permissionGroupIds,
+  });
+
+  const toUpdatePayload = (data: UserFormValues): UpdateUserDto => ({
+    email: data.email,
+    firstName: data.firstName || undefined,
+    lastName: data.lastName || undefined,
+    phoneNumber: data.phoneNumber || undefined,
+    roleId: data.roleId || undefined,
+    isActive: data.isActive,
+    permissionGroupIds: data.permissionGroupIds,
+  });
 
   return (
     <div className="space-y-8 pb-10">
@@ -72,11 +95,11 @@ export function UserManagementPage(): ReactElement {
       <UserForm
         open={formOpen}
         onOpenChange={setFormOpen}
-        onSubmit={async (data: any) => {
+        onSubmit={async (data: UserFormValues) => {
           if (editingUser) {
-            await updateUser.mutateAsync({ id: editingUser.id, data });
+            await updateUser.mutateAsync({ id: editingUser.id, data: toUpdatePayload(data) });
           } else {
-            await createUser.mutateAsync(data);
+            await createUser.mutateAsync(toCreatePayload(data));
           }
           setFormOpen(false);
         }}

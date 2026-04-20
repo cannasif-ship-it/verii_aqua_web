@@ -1,6 +1,7 @@
 import { type ReactElement, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { Resolver, SubmitHandler } from 'react-hook-form';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,37 +15,67 @@ import { useUserAuthorityOptionsQuery } from '../hooks/useUserAuthorityOptionsQu
 import { useUserPermissionGroupsForForm } from '../hooks/useUserPermissionGroupsForForm';
 import { UserFormPermissionGroupSelect } from './UserFormPermissionGroupSelect';
 import { usePermissionGroupOptionsQuery } from '../hooks/usePermissionGroupOptionsQuery';
+import type { UserDto } from '../types/user-types';
 
-export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any): ReactElement {
+export interface UserFormValues {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  roleId: number;
+  isActive: boolean;
+  permissionGroupIds: number[];
+}
+
+interface UserFormProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSubmit: (data: UserFormValues) => Promise<void>;
+  user: UserDto | null;
+  isLoading: boolean;
+}
+
+export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: UserFormProps): ReactElement {
   const { t } = useTranslation('common');
   const isEditMode = !!user;
   const roleOptionsQuery = useUserAuthorityOptionsQuery();
   const permissionGroups = useUserPermissionGroupsForForm(user?.id ?? null);
   const permissionGroupOptionsQuery = usePermissionGroupOptionsQuery();
 
-  const form = useForm({
-    resolver: zodResolver(isEditMode ? userUpdateFormSchema : userFormSchema),
+  const form = useForm<UserFormValues>({
+    resolver: zodResolver(isEditMode ? userUpdateFormSchema : userFormSchema) as Resolver<UserFormValues>,
     mode: 'onChange',
     defaultValues: { username: '', email: '', password: '', firstName: '', lastName: '', phoneNumber: '', roleId: 0, isActive: true, permissionGroupIds: [] },
   });
+
+  const handleSubmit: SubmitHandler<UserFormValues> = async (data) => {
+    await onSubmit(data);
+  };
 
   useEffect(() => {
     if (open) {
       if (user) {
         form.reset({
-          ...user,
+          username: user.username ?? '',
+          email: user.email ?? '',
           password: '',
+          firstName: user.firstName ?? '',
+          lastName: user.lastName ?? '',
+          phoneNumber: user.phoneNumber ?? '',
           roleId: user.roleId || 0,
+          isActive: user.isActive,
           permissionGroupIds: permissionGroups.data || []
         });
       } else {
         form.reset({ username: '', email: '', password: '', firstName: '', lastName: '', phoneNumber: '', roleId: 0, isActive: true, permissionGroupIds: [] });
       }
     }
-  }, [open, user, permissionGroups.data]);
+  }, [form, open, permissionGroups.data, user]);
 
-  const roleOptions = roleOptionsQuery.data || [];
-  const permissionGroupOptions = permissionGroupOptionsQuery.data || [];
+  const roleOptions = useMemo(() => roleOptionsQuery.data ?? [], [roleOptionsQuery.data]);
+  const permissionGroupOptions = useMemo(() => permissionGroupOptionsQuery.data ?? [], [permissionGroupOptionsQuery.data]);
 
   const adminRoleId = useMemo(
     () => roleOptions.find((option) => option.label.trim().toLowerCase() === 'admin')?.value ?? null,
@@ -132,7 +163,7 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto min-h-0 custom-scrollbar">
+          <form onSubmit={form.handleSubmit(handleSubmit)} noValidate className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto min-h-0 custom-scrollbar">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <FormField name="username" render={({ field }) => (
                 <FormItem>
@@ -144,11 +175,36 @@ export function UserForm({ open, onOpenChange, onSubmit, user, isLoading }: any)
               <FormField name="email" render={({ field }) => (
                 <FormItem>
                   <FormLabel required className={labelStyle}><Mail className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.email')}</FormLabel>
-                  <FormControl><Input {...field} type="email" className={inputStyle} /></FormControl>
+                  <FormControl><Input {...field} type="email" className={inputStyle} disabled={isEditMode} /></FormControl>
                   <FormMessage className="text-[10px] text-red-500" />
                 </FormItem>
               )} />
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <FormField name="firstName" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelStyle}><User className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.firstName')}</FormLabel>
+                  <FormControl><Input {...field} value={field.value ?? ''} className={inputStyle} /></FormControl>
+                  <FormMessage className="text-[10px] text-red-500" />
+                </FormItem>
+              )} />
+              <FormField name="lastName" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelStyle}><User className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.lastName')}</FormLabel>
+                  <FormControl><Input {...field} value={field.value ?? ''} className={inputStyle} /></FormControl>
+                  <FormMessage className="text-[10px] text-red-500" />
+                </FormItem>
+              )} />
+            </div>
+
+            <FormField name="phoneNumber" render={({ field }) => (
+              <FormItem>
+                <FormLabel className={labelStyle}><User className="size-3 text-cyan-600 dark:text-cyan-400" /> {t('userManagement.form.phoneNumber')}</FormLabel>
+                <FormControl><Input {...field} value={field.value ?? ''} className={inputStyle} /></FormControl>
+                <FormMessage className="text-[10px] text-red-500" />
+              </FormItem>
+            )} />
 
             {!isEditMode && (
               <FormField name="password" render={({ field }) => (
