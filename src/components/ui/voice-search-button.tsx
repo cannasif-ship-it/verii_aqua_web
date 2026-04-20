@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useEffect, useRef } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useVoiceSearch } from '@/hooks/useVoiceSearch';
@@ -42,9 +42,16 @@ export function VoiceSearchButton({
     }
   };
 
-  if (error) {
+  const lastToastedError = useRef<string | null>(null);
+  useEffect(() => {
+    if (error == null || error === '') {
+      lastToastedError.current = null;
+      return;
+    }
+    if (lastToastedError.current === error) return;
+    lastToastedError.current = error;
     toast.error(error);
-  }
+  }, [error]);
 
   return (
     <Button

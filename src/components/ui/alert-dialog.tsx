@@ -2,8 +2,22 @@ import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 
 import { cn } from "@/lib/utils"
+import { releaseRadixBodyPointerAndScrollLock } from "@/lib/radix-body-unlock"
 
-const AlertDialog = AlertDialogPrimitive.Root
+function AlertDialog({
+  onOpenChange,
+  ...props
+}: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+  return (
+    <AlertDialogPrimitive.Root
+      {...props}
+      onOpenChange={(open) => {
+        onOpenChange?.(open)
+        if (!open) releaseRadixBodyPointerAndScrollLock()
+      }}
+    />
+  )
+}
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
 

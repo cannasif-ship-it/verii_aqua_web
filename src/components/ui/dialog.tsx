@@ -3,11 +3,22 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { releaseRadixBodyPointerAndScrollLock } from "@/lib/radix-body-unlock"
 
 function Dialog({
+  onOpenChange,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Root>) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+  return (
+    <DialogPrimitive.Root
+      data-slot="dialog"
+      {...props}
+      onOpenChange={(open) => {
+        onOpenChange?.(open)
+        if (!open) releaseRadixBodyPointerAndScrollLock()
+      }}
+    />
+  )
 }
 
 function DialogTrigger({

@@ -3,13 +3,24 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { releaseRadixBodyPointerAndScrollLock } from "@/lib/radix-body-unlock"
 
 function Select({
+  onOpenChange,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root> & {
   modal?: boolean
 }) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+  return (
+    <SelectPrimitive.Root
+      data-slot="select"
+      {...props}
+      onOpenChange={(open) => {
+        onOpenChange?.(open)
+        if (!open) releaseRadixBodyPointerAndScrollLock()
+      }}
+    />
+  )
 }
 
 function SelectGroup({
