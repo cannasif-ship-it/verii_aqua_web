@@ -155,6 +155,14 @@ export function QuickSetupPage(): ReactElement {
     return () => { isActive = false; };
   }, [projectId]);
 
+  useEffect(() => {
+    return () => {
+      document.body.style.pointerEvents = '';
+      document.body.style.overflow = '';
+      document.body.removeAttribute('data-scroll-locked');
+    };
+  }, []);
+
   const allocationRows = useMemo((): CageAllocationRow[] => {
     const cages = Array.isArray(projectCages) ? projectCages : [];
     if (!cages.length) return [];

@@ -91,6 +91,7 @@ export function FishDistributionStepCard({
           <div className="flex items-center gap-3 flex-wrap flex-1 min-w-0">
               <div className="w-full sm:w-auto sm:min-w-[220px]">
                 <Select
+                  modal={false}
                   value={selectedAvailableCageId != null ? String(selectedAvailableCageId) : undefined}
                   onValueChange={(value) => onSelectAvailableCage(value ? Number(value) : null)}
                 >
