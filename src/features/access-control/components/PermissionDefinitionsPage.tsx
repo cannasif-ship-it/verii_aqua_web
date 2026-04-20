@@ -1,4 +1,4 @@
-import { type ReactElement, useState, useMemo, useEffect, useRef } from 'react';
+import { type ReactElement, useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUIStore } from '@/stores/ui-store';
 import { Plus, Search, RefreshCw, X, ShieldAlert, Edit2, Trash2 } from 'lucide-react';
@@ -40,8 +40,10 @@ const EMPTY_PERMISSION_DEFINITIONS: PermissionDefinitionDto[] = [];
 
 export function PermissionDefinitionsPage(): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
-  const getPermissionTitle = (key: string, fallback: string): string =>
-    t(key, { ns: 'common', defaultValue: fallback });
+  const getPermissionTitle = useCallback(
+    (key: string, fallback: string): string => t(key, { ns: 'common', defaultValue: fallback }),
+    [t]
+  );
   const { setPageTitle } = useUIStore();
   const queryClient = useQueryClient();
   const [formOpen, setFormOpen] = useState(false);
@@ -98,7 +100,7 @@ export function PermissionDefinitionsPage(): ReactElement {
         (item.description && item.description.toLowerCase().includes(lower))
       );
     });
-  }, [items, searchTerm, t]);
+  }, [getPermissionTitle, items, searchTerm]);
 
   const missingPermissionCodes = useMemo(() => {
     const existingCodes = new Set((definitionCatalogData?.data ?? []).map((item) => item.code.toLowerCase()));
@@ -122,7 +124,7 @@ export function PermissionDefinitionsPage(): ReactElement {
       updateExistingDescriptions: true,
       updateExistingIsActive: true,
     });
-  }, [canSync, missingPermissionCodes, syncMutation, t]);
+  }, [canSync, getPermissionTitle, missingPermissionCodes, syncMutation]);
 
   const handleRefresh = async (): Promise<void> => {
     await queryClient.invalidateQueries({ queryKey: ['permissions', 'definitions'] });

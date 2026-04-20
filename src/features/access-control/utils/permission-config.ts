@@ -154,7 +154,7 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/mortalities'],
     routePatterns: [/^\/aqua\/operations\/mortalities(\/|$)/],
     actions: ['view', 'create', 'update', 'delete'],
-    display: { key: 'sidebar.aquaMortalities', fallback: 'Balık Fire' },
+    display: { key: 'sidebar.aquaMortalities', fallback: 'Mortalite' },
   },
   {
     codeBase: 'aqua.operations.transfers',
@@ -303,7 +303,7 @@ const AQUA_PERMISSION_RESOURCES: AquaPermissionResource[] = [
     routePaths: ['/aqua/operations/mortality-lines'],
     routePatterns: [/^\/aqua\/operations\/mortality-lines(\/|$)/],
     actions: ['view', 'create', 'update', 'delete'],
-    display: { key: 'permissions.aqua.operations.mortality-lines', fallback: 'Fire Satırları' },
+    display: { key: 'permissions.aqua.operations.mortality-lines', fallback: 'Mortalite Satırları' },
   },
   {
     codeBase: 'aqua.operations.weighing-lines',

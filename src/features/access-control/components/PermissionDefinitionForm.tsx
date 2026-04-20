@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useMemo } from 'react';
+import { type ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -54,8 +54,10 @@ export function PermissionDefinitionForm({
   canSubmit = true,
 }: PermissionDefinitionFormProps): ReactElement {
   const { t } = useTranslation(['access-control', 'common']);
-  const getPermissionTitle = (key: string, fallback: string): string =>
-    t(key, { ns: 'common', defaultValue: fallback });
+  const getPermissionTitle = useCallback(
+    (key: string, fallback: string): string => t(key, { ns: 'common', defaultValue: fallback }),
+    [t]
+  );
 
   const form = useForm<CreatePermissionDefinitionSchema>({
     resolver: zodResolver(createPermissionDefinitionSchema),
@@ -104,7 +106,7 @@ export function PermissionDefinitionForm({
       const title = meta ? getPermissionTitle(meta.key, meta.fallback) : code;
       return { value: code, label: `${title} (${code})` };
     });
-  }, [t, usedCodes, item?.code]);
+  }, [getPermissionTitle, usedCodes, item?.code]);
 
   const handleSubmit = async (data: CreatePermissionDefinitionSchema): Promise<void> => {
     await onSubmit(data);
