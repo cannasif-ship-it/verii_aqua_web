@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "audit:responsive:aqua": "python3 scripts/aqua-responsive-audit.py",
     "test:batch": "node --test tests/batch-math.test.mjs",
-    "test:scenario:aqua": "node --test tests/batch-math.test.mjs tests/aqua-report-scenarios.test.mjs tests/aqua-warehouse-stock-scenarios.test.mjs",
+    "test:scenario:aqua": "node --test tests/batch-math.test.mjs tests/aqua-report-scenarios.test.mjs tests/aqua-warehouse-stock-scenarios.test.mjs tests/aqua-business-kpi-pricing.test.mjs tests/aqua-opening-import-scenarios.test.mjs tests/aqua-quick-daily-entry-scenarios.test.mjs tests/aqua-lifecycle-scenarios.test.mjs tests/aqua-complex-lifecycle-scenario.test.mjs",
+    "test:e2e:aqua": "playwright test",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -76,6 +77,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@playwright/test": "^1.59.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

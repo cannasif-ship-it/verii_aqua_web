@@ -56,3 +56,6 @@ Thumbs.db
 .eslintcache
 .turbo
 .vercel
+
+# Playwright
+test-results/
