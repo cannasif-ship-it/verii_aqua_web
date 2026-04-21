@@ -103,6 +103,7 @@
       "emptySelection": "Henüz proje seçilmedi",
       "activeBadge": "Aktif",
       "noResults": "Aramana uygun proje bulunamadı.",
+      "loadingApply": "Projeler yükleniyor...",
       "apply": "Uygula",
       "openButton": "Proje Seç",
       "closeButton": "Kapat",

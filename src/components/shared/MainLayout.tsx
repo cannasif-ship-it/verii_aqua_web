@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { releaseRadixBodyPointerAndScrollLock } from '@/lib/radix-body-unlock';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
-import { Footer } from './Footer';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { RoutePermissionGuard } from '@/features/access-control/components/RoutePermissionGuard';
 import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
 import { filterNavItemsByPermission } from '@/features/access-control/utils/filterNavItems';
@@ -151,14 +149,11 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
 
       <div className="flex flex-1 flex-col h-full overflow-hidden relative z-10">
         <Navbar />
-        <TooltipProvider delayDuration={200}>
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-5 text-foreground scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800 scrollbar-track-transparent">
-            <div className="w-full min-h-full">
-              <RoutePermissionGuard />
-            </div>
-          </main>
-        </TooltipProvider>
-        <Footer />
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-5 text-foreground scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+          <div className="w-full min-h-full">
+            <RoutePermissionGuard />
+          </div>
+        </main>
       </div>
       
     </div>

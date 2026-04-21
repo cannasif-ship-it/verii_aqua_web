@@ -103,6 +103,7 @@
       "emptySelection": "No project selected yet",
       "activeBadge": "active",
       "noResults": "No project matching your search was found.",
+      "loadingApply": "Loading projects...",
       "apply": "Apply",
       "openButton": "Select Project",
       "closeButton": "Close",

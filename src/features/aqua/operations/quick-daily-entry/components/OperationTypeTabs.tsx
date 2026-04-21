@@ -1,6 +1,6 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface OperationTypeTabsProps {
   feedingTab: ReactElement;
@@ -30,6 +30,7 @@ export function OperationTypeTabs({
   projectMergeTab,
 }: OperationTypeTabsProps): ReactElement {
   const { t } = useTranslation('common');
+  const [activeTab, setActiveTab] = useState<string>('feeding');
   
   // AQUA KONSEPT STİLLERİ: Pembe/Mor yerine Cyan/Mavi tonları
   const tabTriggerStyle = `
@@ -41,7 +42,7 @@ export function OperationTypeTabs({
   `;
 
   return (
-    <Tabs defaultValue="feeding" className="w-full space-y-6">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
       <div className="w-full overflow-x-auto custom-scrollbar pb-2">
         <TabsList className="w-full justify-start bg-white/70 dark:bg-blue-950/60 backdrop-blur-xl border border-slate-200 dark:border-cyan-800/30 p-2 rounded-2xl h-auto gap-2 inline-flex min-w-max shadow-sm dark:shadow-none">
           <TabsTrigger className={tabTriggerStyle} value="feeding">{t('aqua.quickDailyEntry.tabFeeding')}</TabsTrigger>
@@ -72,19 +73,52 @@ export function OperationTypeTabs({
         </TabsList>
       </div>
 
-      <div className="transition-all duration-500 ease-in-out">
-        <TabsContent value="feeding" className="m-0 focus-visible:ring-0">{feedingTab}</TabsContent>
-        <TabsContent value="mortality" className="m-0 focus-visible:ring-0">{mortalityTab}</TabsContent>
-        <TabsContent value="weather" className="m-0 focus-visible:ring-0">{weatherTab}</TabsContent>
-        <TabsContent value="net" className="m-0 focus-visible:ring-0">{netOperationTab}</TabsContent>
-        <TabsContent value="transfer" className="m-0 focus-visible:ring-0">{transferTab}</TabsContent>
-        <TabsContent value="cageWarehouseTransfer" className="m-0 focus-visible:ring-0">{cageWarehouseTransferTab}</TabsContent>
-        <TabsContent value="warehouseTransfer" className="m-0 focus-visible:ring-0">{warehouseTransferTab}</TabsContent>
-        <TabsContent value="warehouseCageTransfer" className="m-0 focus-visible:ring-0">{warehouseCageTransferTab}</TabsContent>
-        <TabsContent value="shipment" className="m-0 focus-visible:ring-0">{shipmentTab}</TabsContent>
-        <TabsContent value="stockChange" className="m-0 focus-visible:ring-0">{stockChangeTab}</TabsContent>
-        <TabsContent value="projectMerge" className="m-0 focus-visible:ring-0">{projectMergeTab}</TabsContent>
-      </div>
+      <ActiveTabContent
+        activeTab={activeTab}
+        feedingTab={feedingTab}
+        mortalityTab={mortalityTab}
+        weatherTab={weatherTab}
+        netOperationTab={netOperationTab}
+        transferTab={transferTab}
+        cageWarehouseTransferTab={cageWarehouseTransferTab}
+        warehouseTransferTab={warehouseTransferTab}
+        warehouseCageTransferTab={warehouseCageTransferTab}
+        shipmentTab={shipmentTab}
+        stockChangeTab={stockChangeTab}
+        projectMergeTab={projectMergeTab}
+      />
     </Tabs>
   );
+}
+
+function ActiveTabContent(props: OperationTypeTabsProps & { activeTab: string }): ReactElement {
+  const content = useMemo(() => {
+    switch (props.activeTab) {
+      case 'mortality':
+        return props.mortalityTab;
+      case 'weather':
+        return props.weatherTab;
+      case 'net':
+        return props.netOperationTab;
+      case 'transfer':
+        return props.transferTab;
+      case 'cageWarehouseTransfer':
+        return props.cageWarehouseTransferTab;
+      case 'warehouseTransfer':
+        return props.warehouseTransferTab;
+      case 'warehouseCageTransfer':
+        return props.warehouseCageTransferTab;
+      case 'shipment':
+        return props.shipmentTab;
+      case 'stockChange':
+        return props.stockChangeTab;
+      case 'projectMerge':
+        return props.projectMergeTab;
+      case 'feeding':
+      default:
+        return props.feedingTab;
+    }
+  }, [props]);
+
+  return <div className="transition-all duration-500 ease-in-out">{content}</div>;
 }

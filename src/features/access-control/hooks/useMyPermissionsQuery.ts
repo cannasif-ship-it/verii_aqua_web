@@ -22,6 +22,23 @@ function isAdminLikeUser(user: { role?: string; roles?: string[] } | null): bool
   return candidateRoles.some((role) => ADMIN_ROLE_TOKENS.some((token) => role.includes(token)));
 }
 
+function mergeUserWithTokenRoles(
+  user: { id?: number; role?: string; roles?: string[] } | null,
+  tokenUser: { id: number; role?: string; roles?: string[] } | null
+) {
+  if (!user) return tokenUser;
+  if (!tokenUser) return user;
+
+  return {
+    ...user,
+    role: user.role ?? tokenUser.role,
+    roles:
+      Array.isArray(user.roles) && user.roles.length > 0
+        ? user.roles
+        : tokenUser.roles,
+  };
+}
+
 export const useMyPermissionsQuery = () => {
   const userId = useAuthStore((s) => s.user?.id ?? null);
   const token = useAuthStore((s) => s.token);
@@ -33,25 +50,15 @@ export const useMyPermissionsQuery = () => {
   const effectiveToken = token || storedToken;
   const tokenUser = getUserFromToken(effectiveToken ?? '');
   const effectiveUserId = userId ?? tokenUser?.id ?? null;
-  const effectiveUser = useAuthStore.getState().user ?? tokenUser;
+  const effectiveUser = mergeUserWithTokenRoles(useAuthStore.getState().user, tokenUser);
   const isAdminUser = isAdminLikeUser(effectiveUser);
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ACCESS_CONTROL_QUERY_KEYS.ME_PERMISSIONS(effectiveUserId),
     queryFn: async (): Promise<MyPermissionsDto> => {
-      if (isAdminUser) {
-        return {
-          userId: effectiveUserId ?? 0,
-          roleTitle: effectiveUser?.role ?? 'ROLES.ADMIN',
-          isSystemAdmin: true,
-          permissionGroups: ['System Admin'],
-          permissionCodes: ['*'],
-        };
-      }
-
       return authAccessApi.getMyPermissions();
     },
-    enabled: authReady && !!effectiveToken && !!effectiveUserId,
+    enabled: authReady && !!effectiveToken && !!effectiveUserId && !isAdminUser,
     staleTime: STALE_TIME_MS,
     gcTime: 10 * 60 * 1000,
     refetchOnMount: false,
@@ -59,4 +66,28 @@ export const useMyPermissionsQuery = () => {
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
   });
+
+  if (isAdminUser) {
+    const adminPermissions: MyPermissionsDto = {
+      userId: effectiveUserId ?? 0,
+      roleTitle: effectiveUser?.role ?? 'ROLES.ADMIN',
+      isSystemAdmin: true,
+      permissionGroups: ['System Admin'],
+      permissionCodes: ['*'],
+    };
+
+    return {
+      ...query,
+      data: adminPermissions,
+      isLoading: false,
+      isFetching: false,
+      isPending: false,
+      isError: false,
+      error: null,
+      status: 'success' as const,
+      fetchStatus: 'idle' as const,
+    };
+  }
+
+  return query;
 };

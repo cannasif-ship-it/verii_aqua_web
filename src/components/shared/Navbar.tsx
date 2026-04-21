@@ -5,8 +5,6 @@ import { Menu, Search, X, Mic } from 'lucide-react';
 
 import { useAuthStore } from '@/stores/auth-store';
 import { useUIStore } from '@/stores/ui-store';
-import { useUserDetailByUserId } from '@/features/user-detail-management/hooks/useUserDetailByUserId';
-import { getImageUrl } from '@/features/user-detail-management/utils/image-url';
 import { cn } from '@/lib/utils';
 import { useVoiceSearch } from '@/hooks/useVoiceSearch';
 
@@ -23,7 +21,6 @@ export function Navbar(): ReactElement {
   const { user } = useAuthStore();
   const { toggleSidebar, searchQuery, setSearchQuery, setSidebarOpen } = useUIStore();
   const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
-  const { data: userDetail } = useUserDetailByUserId(user?.id || 0, userProfileModalOpen);
 
   const { isListening, isSupported, startListening } = useVoiceSearch({
     onResult: (text) => {
@@ -129,11 +126,7 @@ export function Navbar(): ReactElement {
               <div className="relative shrink-0">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#ff4d79] via-[#ffb703] to-[#00f7ff] group-hover:shadow-[0_0_20px_rgba(255,77,121,0.5)] transition-all duration-300">
                   <div className="w-full h-full rounded-full bg-white dark:bg-[#020c16] flex items-center justify-center overflow-hidden border-2 border-white dark:border-[#020c16]">
-                    {userDetail?.profilePictureUrl ? (
-                      <img src={getImageUrl(userDetail.profilePictureUrl) || ''} alt={displayName} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-                    ) : (
-                      <span className="text-xs font-bold text-[#ff4d79]">{displayInitials}</span>
-                    )}
+                    <span className="text-xs font-bold text-[#ff4d79]">{displayInitials}</span>
                   </div>
                 </div>
               </div>

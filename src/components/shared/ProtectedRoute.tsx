@@ -106,6 +106,10 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
     return children;
   }
 
+  if (isAdminUser) {
+    return children;
+  }
+
   if (myPermissionsQuery.isLoading) {
     return (
       <div className="min-h-[60vh] w-full flex items-center justify-center">

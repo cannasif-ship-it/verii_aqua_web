@@ -1,10 +1,8 @@
-import { lazy, type ComponentType } from 'react';
+import { Suspense, lazy, type ComponentType } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from '@/components/shared/ProtectedRoute';
-import { MainLayout } from '@/components/shared/MainLayout';
 import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback';
 import { ForbiddenPage } from '@/components/shared/ForbiddenPage';
-import AuthLayout from '@/layouts/AuthLayout';
 import { getAppBasePath } from '@/lib/api-config';
 import { ensureFeatureNamespacesReady } from '@/lib/i18n';
 import { measureAsync } from '@/lib/performance';
@@ -25,18 +23,28 @@ const lazyImport = <T extends Record<string, unknown>, K extends keyof T>(
     return { default: module[name] as ComponentType };
   });
 
-const LoginPage = lazyImport(() => import('@/features/auth/index.tsx'), 'LoginPage', 'auth');
-const ResetPasswordPage = lazyImport(() => import('@/features/auth/index.tsx'), 'ResetPasswordPage', 'auth');
-const ForgotPasswordPage = lazyImport(() => import('@/features/auth/index.tsx'), 'ForgotPasswordPage', 'auth');
-const UserManagementPage = lazyImport(() => import('@/features/user-management/index.ts'), 'UserManagementPage', 'user-management');
-const MailSettingsPage = lazyImport(() => import('@/features/mail-settings/index.ts'), 'MailSettingsPage', 'mail-settings');
-const StockListPage = lazyImport(() => import('@/features/stock/index.ts'), 'StockListPage', 'stock');
-const StockDetailPage = lazyImport(() => import('@/features/stock/index.ts'), 'StockDetailPage', 'stock');
-const PermissionDefinitionsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'PermissionDefinitionsPage', 'access-control');
-const PermissionGroupsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'PermissionGroupsPage', 'access-control');
-const UserGroupAssignmentsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'UserGroupAssignmentsPage', 'access-control');
-const HangfireMonitoringPage = lazyImport(() => import('@/features/hangfire-monitoring/index.ts'), 'HangfireMonitoringPage', 'hangfire-monitoring');
-const ProfilePage = lazyImport(() => import('@/features/user-detail-management/index.ts'), 'ProfilePage', 'user-detail-management');
+const LazyMainLayout = lazy(async () => {
+  const module = await import('@/components/shared/MainLayout');
+  return { default: module.MainLayout };
+});
+
+const LazyAuthLayout = lazy(async () => {
+  const module = await import('@/layouts/AuthLayout');
+  return { default: module.default };
+});
+
+const LoginPage = lazyImport(() => import('@/features/auth/components/LoginPage.tsx'), 'LoginPage', 'auth');
+const ResetPasswordPage = lazyImport(() => import('@/features/auth/components/ResetPasswordPage.tsx'), 'ResetPasswordPage', 'auth');
+const ForgotPasswordPage = lazyImport(() => import('@/features/auth/components/ForgotPasswordPage.tsx'), 'ForgotPasswordPage', 'auth');
+const UserManagementPage = lazyImport(() => import('@/features/user-management/components/UserManagementPage.tsx'), 'UserManagementPage', 'user-management');
+const MailSettingsPage = lazyImport(() => import('@/features/mail-settings/pages/MailSettingsPage.tsx'), 'MailSettingsPage', 'mail-settings');
+const StockListPage = lazyImport(() => import('@/features/stock/components/StockListPage.tsx'), 'StockListPage', 'stock');
+const StockDetailPage = lazyImport(() => import('@/features/stock/components/StockDetailPage.tsx'), 'StockDetailPage', 'stock');
+const PermissionDefinitionsPage = lazyImport(() => import('@/features/access-control/components/PermissionDefinitionsPage.tsx'), 'PermissionDefinitionsPage', 'access-control');
+const PermissionGroupsPage = lazyImport(() => import('@/features/access-control/components/PermissionGroupsPage.tsx'), 'PermissionGroupsPage', 'access-control');
+const UserGroupAssignmentsPage = lazyImport(() => import('@/features/access-control/components/UserGroupAssignmentsPage.tsx'), 'UserGroupAssignmentsPage', 'access-control');
+const HangfireMonitoringPage = lazyImport(() => import('@/features/hangfire-monitoring/components/HangfireMonitoringPage.tsx'), 'HangfireMonitoringPage', 'hangfire-monitoring');
+const ProfilePage = lazyImport(() => import('@/features/user-detail-management/components/ProfilePage.tsx'), 'ProfilePage', 'user-detail-management');
 const ProjectsPage = lazyImport(() => import('@/features/aqua/definitions/components/ProjectsPage.tsx'), 'ProjectsPage', 'aqua');
 const CagesPage = lazyImport(() => import('@/features/aqua/definitions/components/CagesPage.tsx'), 'CagesPage', 'aqua');
 const ProjectCageAssignmentsPage = lazyImport(() => import('@/features/aqua/definitions/components/ProjectCageAssignmentsPage.tsx'), 'ProjectCageAssignmentsPage', 'aqua');
@@ -77,18 +85,20 @@ const AquaDashboardPage = lazyImport(() => import('@/features/aqua/reports/compo
 const RawKpiReportPage = lazyImport(() => import('@/features/aqua/reports/components/RawKpiReportPage.tsx'), 'RawKpiReportPage', 'aqua');
 const BusinessKpiReportPage = lazyImport(() => import('@/features/aqua/reports/components/BusinessKpiReportPage.tsx'), 'BusinessKpiReportPage', 'aqua');
 const DevirFcrReportPage = lazyImport(() => import('@/features/aqua/reports/components/DevirFcrReportPage.tsx'), 'DevirFcrReportPage', 'aqua');
-const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup/index.ts'), 'QuickSetupPage', 'aqua');
-const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry/index.ts'), 'QuickDailyEntryPage', 'aqua');
-const OpeningImportPage = lazyImport(() => import('@/features/aqua/operations/opening-import/index.ts'), 'OpeningImportPage', 'aqua');
-const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges/index.ts'), 'ProjectMergesPage', 'aqua');
-const WelcomePage = lazyImport(() => import('@/features/welcome/index.ts'), 'WelcomePage', 'welcome');
+const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup/QuickSetupPage.tsx'), 'QuickSetupPage', 'aqua');
+const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry/QuickDailyEntryPage.tsx'), 'QuickDailyEntryPage', 'aqua');
+const OpeningImportPage = lazyImport(() => import('@/features/aqua/operations/opening-import/OpeningImportPage.tsx'), 'OpeningImportPage', 'aqua');
+const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges/pages/ProjectMergesPage.tsx'), 'ProjectMergesPage', 'aqua');
+const WelcomePage = lazyImport(() => import('@/features/welcome/WelcomePage.tsx'), 'WelcomePage', 'welcome');
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <ProtectedRoute>
-        <MainLayout />
+        <Suspense fallback={null}>
+          <LazyMainLayout />
+        </Suspense>
       </ProtectedRoute>
     ),
     errorElement: <RouteErrorFallback />,
@@ -154,7 +164,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/auth',
-    element: <AuthLayout />,
+    element: (
+      <Suspense fallback={null}>
+        <LazyAuthLayout />
+      </Suspense>
+    ),
     children: [
       { path: 'login', element: <LoginPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
@@ -163,7 +177,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/reset-password',
-    element: <AuthLayout />,
+    element: (
+      <Suspense fallback={null}>
+        <LazyAuthLayout />
+      </Suspense>
+    ),
     children: [{ index: true, element: <ResetPasswordPage /> }],
   },
 ], {

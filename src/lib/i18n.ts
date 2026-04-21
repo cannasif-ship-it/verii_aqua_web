@@ -173,6 +173,7 @@ const initPromise = (async () => {
   if (resolvedLng !== fallbackLng) {
     await loadSharedLanguage(resolvedLng);
   }
+
 })();
 
 i18n.on('languageChanged', async (lng) => {

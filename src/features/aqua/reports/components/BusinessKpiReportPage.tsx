@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { CalendarClock, Coins, Loader2, Target, TrendingUp, Wallet } from 'lucide-react';
@@ -88,14 +88,6 @@ export function BusinessKpiReportPage(): ReactElement {
     queryKey: PROJECTS_QUERY_KEY,
     queryFn: aquaKpiApi.getProjects,
   });
-
-  useEffect(() => {
-    if (projectId != null) return;
-    const firstProject = projectsQuery.data?.[0];
-    if (firstProject) {
-      setProjectId(firstProject.id);
-    }
-  }, [projectId, projectsQuery.data]);
 
   const reportQuery = useQuery({
     queryKey: [...BUSINESS_KPI_QUERY_KEY, projectId],

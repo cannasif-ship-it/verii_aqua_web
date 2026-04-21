@@ -74,6 +74,10 @@ export function RoutePermissionGuard(): ReactElement {
     };
   }, [location.pathname, location.key]);
 
+  if (isAdminUser) {
+    return <LazyRouteOutlet />;
+  }
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">

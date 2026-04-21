@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, type ReactElement, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -14,18 +14,7 @@ import {
 import { Combobox } from '@/components/ui/combobox';
 import { formatLabelWithKey } from '@/shared/utils/dropdown-label';
 import { OperationTypeTabs } from './components/OperationTypeTabs';
-import { FeedingQuickForm } from './components/FeedingQuickForm';
-import { MortalityQuickForm } from './components/MortalityQuickForm';
-import { WeatherQuickForm } from './components/WeatherQuickForm';
-import { NetOperationQuickForm } from './components/NetOperationQuickForm';
-import { TransferQuickForm } from './components/TransferQuickForm';
-import { CageWarehouseTransferQuickForm } from './components/CageWarehouseTransferQuickForm';
-import { WarehouseTransferQuickForm } from './components/WarehouseTransferQuickForm';
-import { WarehouseCageTransferQuickForm } from './components/WarehouseCageTransferQuickForm';
-import { ShipmentQuickForm } from './components/ShipmentQuickForm';
 import { useAquaSettingsQuery } from '@/features/aqua/settings/hooks/useAquaSettingsQuery';
-import { StockChangeQuickForm } from './components/StockChangeQuickForm';
-import { ProjectMergeQuickForm } from './components/ProjectMergeQuickForm';
 import { useProjectListQuery } from './hooks/useProjectListQuery';
 import { useProjectCageListByProjectQuery } from './hooks/useProjectCageListByProjectQuery';
 import { useTransferTargetProjectCagesQuery } from './hooks/useTransferTargetProjectCagesQuery';
@@ -71,6 +60,59 @@ import { hasPermission } from '@/features/access-control/utils/hasPermission';
 import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 import { useCreateProjectMergeMutation } from '../project-merges/hooks/useCreateProjectMergeMutation';
 import type { ProjectMergeFormSchema } from '../project-merges/types/projectMerge';
+
+const FeedingQuickForm = lazy(async () => {
+  const module = await import('./components/FeedingQuickForm');
+  return { default: module.FeedingQuickForm };
+});
+const MortalityQuickForm = lazy(async () => {
+  const module = await import('./components/MortalityQuickForm');
+  return { default: module.MortalityQuickForm };
+});
+const WeatherQuickForm = lazy(async () => {
+  const module = await import('./components/WeatherQuickForm');
+  return { default: module.WeatherQuickForm };
+});
+const NetOperationQuickForm = lazy(async () => {
+  const module = await import('./components/NetOperationQuickForm');
+  return { default: module.NetOperationQuickForm };
+});
+const TransferQuickForm = lazy(async () => {
+  const module = await import('./components/TransferQuickForm');
+  return { default: module.TransferQuickForm };
+});
+const CageWarehouseTransferQuickForm = lazy(async () => {
+  const module = await import('./components/CageWarehouseTransferQuickForm');
+  return { default: module.CageWarehouseTransferQuickForm };
+});
+const WarehouseTransferQuickForm = lazy(async () => {
+  const module = await import('./components/WarehouseTransferQuickForm');
+  return { default: module.WarehouseTransferQuickForm };
+});
+const WarehouseCageTransferQuickForm = lazy(async () => {
+  const module = await import('./components/WarehouseCageTransferQuickForm');
+  return { default: module.WarehouseCageTransferQuickForm };
+});
+const ShipmentQuickForm = lazy(async () => {
+  const module = await import('./components/ShipmentQuickForm');
+  return { default: module.ShipmentQuickForm };
+});
+const StockChangeQuickForm = lazy(async () => {
+  const module = await import('./components/StockChangeQuickForm');
+  return { default: module.StockChangeQuickForm };
+});
+const ProjectMergeQuickForm = lazy(async () => {
+  const module = await import('./components/ProjectMergeQuickForm');
+  return { default: module.ProjectMergeQuickForm };
+});
+
+function LazyTabFallback(): ReactElement {
+  return (
+    <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-slate-200 bg-white/70 py-12 text-sm font-medium text-slate-500 shadow-sm dark:border-cyan-800/30 dark:bg-blue-950/40 dark:text-slate-300">
+      Loading...
+    </div>
+  );
+}
 
 export function QuickDailyEntryPage(): ReactElement {
   const { t } = useTranslation('common');
@@ -805,17 +847,17 @@ export function QuickDailyEntryPage(): ReactElement {
       
       {/* İşlem Sekmeleri (Tab'lar) */}
       <OperationTypeTabs
-        feedingTab={<FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeedingLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        mortalityTab={<MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortalityLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        weatherTab={<WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        netOperationTab={<NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperationLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        transferTab={<TransferQuickForm projectId={projectId} projectCageId={projectCageId} targetProjectId={targetProjectId} projects={projectOptions} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} onTargetProjectChange={setTargetProjectId} isSubmitting={createTransferLineWithAutoHeader.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} />}
-        cageWarehouseTransferTab={<CageWarehouseTransferQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} sourceBatch={sourceBatch} onSubmit={handleCageWarehouseTransferSubmit} isSubmitting={createCageWarehouseTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        warehouseTransferTab={<WarehouseTransferQuickForm projectId={projectId} warehouseOptions={warehouseOptions} batchOptions={warehouseTransferBatchOptions} batchSnapshots={warehouseTransferBatchSnapshots} onSubmit={handleWarehouseTransferSubmit} onSourceWarehouseChange={setWarehouseTransferSourceWarehouseId} isSubmitting={createWarehouseTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        warehouseCageTransferTab={<WarehouseCageTransferQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} batchOptions={warehouseCageTransferBatchOptions} batchSnapshots={warehouseCageTransferBatchSnapshots} onSubmit={handleWarehouseCageTransferSubmit} onSourceWarehouseChange={setWarehouseCageSourceWarehouseId} isSubmitting={createWarehouseCageTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        shipmentTab={<ShipmentQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} sourceBatch={sourceBatch} onSubmit={handleShipmentSubmit} isSubmitting={createShipmentLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        stockChangeTab={<StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvertLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} />}
-        projectMergeTab={<ProjectMergeQuickForm selectedProjectId={projectId} selectedDate={selectedDate} projects={Array.isArray(projects) ? projects : []} onSubmit={handleProjectMergeSubmit} isSubmitting={createProjectMerge.isPending} canSubmit={canCreateQuickDailyEntry} mergeEnabled={aquaSettings?.allowProjectMerge ?? false} />}
+        feedingTab={<Suspense fallback={<LazyTabFallback />}><FeedingQuickForm projectId={projectId} projectCageId={projectCageId} stocks={stocks} isLoadingStocks={isLoadingStocks} onSubmit={handleFeedingSubmit} isSubmitting={createFeedingLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        mortalityTab={<Suspense fallback={<LazyTabFallback />}><MortalityQuickForm projectId={projectId} projectCageId={projectCageId} onSubmit={handleMortalitySubmit} isSubmitting={createMortalityLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        weatherTab={<Suspense fallback={<LazyTabFallback />}><WeatherQuickForm projectId={projectId} weatherTypes={weatherTypes} severities={weatherSeverities} onSubmit={handleWeatherSubmit} isSubmitting={createDailyWeather.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        netOperationTab={<Suspense fallback={<LazyTabFallback />}><NetOperationQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} netOperationTypes={netOperationTypes} onSubmit={handleNetOperationSubmit} isSubmitting={createNetOperationLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        transferTab={<Suspense fallback={<LazyTabFallback />}><TransferQuickForm projectId={projectId} projectCageId={projectCageId} targetProjectId={targetProjectId} projects={projectOptions} projectCages={transferTargetOptions} sourceBatch={sourceBatch} onSubmit={handleTransferSubmit} onTargetProjectChange={setTargetProjectId} isSubmitting={createTransferLineWithAutoHeader.isPending} requireFullTransfer={aquaSettings?.requireFullTransfer ?? true} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        cageWarehouseTransferTab={<Suspense fallback={<LazyTabFallback />}><CageWarehouseTransferQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} sourceBatch={sourceBatch} onSubmit={handleCageWarehouseTransferSubmit} isSubmitting={createCageWarehouseTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        warehouseTransferTab={<Suspense fallback={<LazyTabFallback />}><WarehouseTransferQuickForm projectId={projectId} warehouseOptions={warehouseOptions} batchOptions={warehouseTransferBatchOptions} batchSnapshots={warehouseTransferBatchSnapshots} onSubmit={handleWarehouseTransferSubmit} onSourceWarehouseChange={setWarehouseTransferSourceWarehouseId} isSubmitting={createWarehouseTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        warehouseCageTransferTab={<Suspense fallback={<LazyTabFallback />}><WarehouseCageTransferQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} batchOptions={warehouseCageTransferBatchOptions} batchSnapshots={warehouseCageTransferBatchSnapshots} onSubmit={handleWarehouseCageTransferSubmit} onSourceWarehouseChange={setWarehouseCageSourceWarehouseId} isSubmitting={createWarehouseCageTransferLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        shipmentTab={<Suspense fallback={<LazyTabFallback />}><ShipmentQuickForm projectId={projectId} projectCageId={projectCageId} warehouseOptions={warehouseOptions} sourceBatch={sourceBatch} onSubmit={handleShipmentSubmit} isSubmitting={createShipmentLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        stockChangeTab={<Suspense fallback={<LazyTabFallback />}><StockChangeQuickForm projectId={projectId} projectCageId={projectCageId} fishBatches={fishBatches} sourceBatch={sourceBatch} onSubmit={handleStockChangeSubmit} isSubmitting={createStockConvertLineWithAutoHeader.isPending} canSubmit={canCreateQuickDailyEntry} /></Suspense>}
+        projectMergeTab={<Suspense fallback={<LazyTabFallback />}><ProjectMergeQuickForm selectedProjectId={projectId} selectedDate={selectedDate} projects={Array.isArray(projects) ? projects : []} onSubmit={handleProjectMergeSubmit} isSubmitting={createProjectMerge.isPending} canSubmit={canCreateQuickDailyEntry} mergeEnabled={aquaSettings?.allowProjectMerge ?? false} /></Suspense>}
       />
 
       {/* Transfer Başarılı Dialog */}
