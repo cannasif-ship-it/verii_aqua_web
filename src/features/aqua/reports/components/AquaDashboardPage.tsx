@@ -119,6 +119,7 @@ interface CageCardProps {
   isSelected?: boolean;
   clickable?: boolean;
   showExpand?: boolean;
+  showExpandProgress?: boolean;
   size?: CageCardSize;
   t: (key: string, options?: Record<string, unknown>) => string;
 }
@@ -292,6 +293,7 @@ function CageCardComponent({
   isSelected = false,
   clickable = false,
   showExpand = false,
+  showExpandProgress = false,
   size = 'default',
   t,
 }: CageCardProps): ReactElement {
@@ -444,22 +446,51 @@ function CageCardComponent({
         </div>
 
         {showExpand && onExpandClick && (
-          <button
-            type="button"
-            aria-label={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
-            title={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
-            onClick={(event) => {
-              event.stopPropagation();
-              onExpandClick();
-            }}
-            className={cn(
-              'aqua-expand-btn absolute top-2 left-2 z-20 flex size-8 items-center justify-center rounded-full border-2 border-cyan-400/70 bg-slate-950/85 text-cyan-200 shadow-md',
-              'opacity-70 transition-all duration-200 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none',
-              'group-hover:opacity-100 group-hover:text-white'
-            )}
-          >
-            <Maximize2 size={14} strokeWidth={2.5} />
-          </button>
+          <div className="absolute top-2 left-2 z-20">
+            <div className="relative flex size-9 items-center justify-center">
+              <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 36 36" aria-hidden>
+                <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(34,211,238,0.14)" strokeWidth="2.5" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15.5"
+                  fill="none"
+                  stroke="url(#aqua-expand-progress)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  pathLength="100"
+                  strokeDasharray="100"
+                  strokeDashoffset={showExpandProgress ? 0 : 100}
+                  className="transition-[stroke-dashoffset,opacity] duration-[600ms] ease-linear"
+                  opacity={showExpandProgress ? 1 : 0.35}
+                />
+                <defs>
+                  <linearGradient id="aqua-expand-progress" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#67e8f9" />
+                    <stop offset="55%" stopColor="#38bdf8" />
+                    <stop offset="100%" stopColor="#fb7185" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              <button
+                type="button"
+                aria-label={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
+                title={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onExpandClick();
+                }}
+                className={cn(
+                  'aqua-expand-btn relative flex size-8 items-center justify-center rounded-full border-2 border-cyan-400/70 bg-slate-950/85 text-cyan-200 shadow-md',
+                  'opacity-70 transition-all duration-200 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none',
+                  'group-hover:opacity-100 group-hover:text-white'
+                )}
+              >
+                <Maximize2 size={14} strokeWidth={2.5} />
+              </button>
+            </div>
+          </div>
         )}
 
         <div className={cn('absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pb-3', sz.contentPadTop)}>
@@ -612,19 +643,23 @@ const PEEK_SPRING_TRANSITION = {
   mass: 0.9,
 };
 
-function useHoverPeek(onPeek: () => void): { handleEnter: () => void; handleLeave: () => void } {
+function useHoverPeek(onPeek: () => void): { handleEnter: () => void; handleLeave: () => void; isProgressActive: boolean } {
   const timerRef = useRef<number | null>(null);
+  const [isProgressActive, setIsProgressActive] = useState(false);
 
   const clear = useCallback((): void => {
     if (timerRef.current != null) {
       window.clearTimeout(timerRef.current);
       timerRef.current = null;
     }
+    setIsProgressActive(false);
   }, []);
 
   const handleEnter = useCallback((): void => {
     clear();
+    setIsProgressActive(true);
     timerRef.current = window.setTimeout(() => {
+      setIsProgressActive(false);
       onPeek();
     }, HOVER_PEEK_DELAY_MS);
   }, [clear, onPeek]);
@@ -635,7 +670,7 @@ function useHoverPeek(onPeek: () => void): { handleEnter: () => void; handleLeav
 
   useEffect(() => clear, [clear]);
 
-  return { handleEnter, handleLeave };
+  return { handleEnter, handleLeave, isProgressActive };
 }
 
 interface ProjectCageCardProps {
@@ -660,7 +695,7 @@ function ProjectCageCardComponent({ cage, projectId, t, onOpenDaily, onQuickEntr
     onPeekOpen(cage);
   }, [onPeekOpen, cage]);
 
-  const { handleEnter, handleLeave } = useHoverPeek(handleExpand);
+  const { handleEnter, handleLeave, isProgressActive } = useHoverPeek(handleExpand);
 
   return (
     <motion.div
@@ -672,6 +707,7 @@ function ProjectCageCardComponent({ cage, projectId, t, onOpenDaily, onQuickEntr
         cage={cage}
         clickable
         showExpand
+        showExpandProgress={isProgressActive}
         onClick={handleClick}
         onQuickEntryClick={handleQuickEntry}
         onExpandClick={handleExpand}
@@ -712,7 +748,7 @@ function DetailCageCardComponent({ cage, projectId, isSelected, t, onOpenDaily, 
     onPeekOpen(summary);
   }, [onPeekOpen, summary]);
 
-  const { handleEnter, handleLeave } = useHoverPeek(handleExpand);
+  const { handleEnter, handleLeave, isProgressActive } = useHoverPeek(handleExpand);
 
   return (
     <motion.div
@@ -724,6 +760,7 @@ function DetailCageCardComponent({ cage, projectId, isSelected, t, onOpenDaily, 
         cage={summary}
         clickable
         showExpand
+        showExpandProgress={isProgressActive}
         isSelected={isSelected}
         onClick={handleClick}
         onQuickEntryClick={handleQuickEntry}
@@ -768,7 +805,7 @@ function CagePeekOverlayComponent({ cage, onClose, t }: CagePeekOverlayProps): R
       {cage ? (
         <motion.div
           key="aqua-peek-overlay"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-3 pt-6 sm:items-center sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -790,9 +827,9 @@ function CagePeekOverlayComponent({ cage, onClose, t }: CagePeekOverlayProps): R
             layoutId={peekLayoutId(cage.projectCageId)}
             transition={PEEK_SPRING_TRANSITION}
             onClick={(event) => event.stopPropagation()}
-            className="relative z-10 w-full max-w-6xl"
+            className="relative z-10 my-auto w-full max-w-6xl"
           >
-            <div className="relative overflow-hidden rounded-[36px] border border-cyan-300/20 bg-[linear-gradient(180deg,rgba(9,19,45,0.94),rgba(7,14,33,0.98))] shadow-[0_48px_140px_rgba(6,182,212,0.22)]">
+            <div className="relative max-h-[calc(100dvh-1.5rem)] overflow-y-auto rounded-[28px] border border-cyan-300/20 bg-[linear-gradient(180deg,rgba(9,19,45,0.96),rgba(7,14,33,0.985))] shadow-[0_48px_140px_rgba(6,182,212,0.22)] sm:max-h-[calc(100dvh-3rem)] sm:rounded-[36px]">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.16),transparent_28%),radial-gradient(circle_at_85%_15%,rgba(244,114,182,0.14),transparent_22%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.14),transparent_32%)]" />
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
 
@@ -800,12 +837,12 @@ function CagePeekOverlayComponent({ cage, onClose, t }: CagePeekOverlayProps): R
                 type="button"
                 onClick={onClose}
                 aria-label={t('aquaDashboard.controls.close', { ns: 'dashboard' })}
-                className="absolute top-4 right-4 z-30 flex size-11 items-center justify-center rounded-full border border-white/12 bg-slate-950/70 text-slate-100 shadow-lg backdrop-blur-xl transition-all duration-200 hover:scale-105 hover:border-rose-300/40 hover:bg-rose-950/70 hover:text-rose-100 focus-visible:outline-none"
+                className="sticky top-3 right-3 ml-auto mr-3 mt-3 z-30 flex size-11 items-center justify-center rounded-full border border-white/12 bg-slate-950/80 text-slate-100 shadow-lg backdrop-blur-xl transition-all duration-200 hover:scale-105 hover:border-rose-300/40 hover:bg-rose-950/70 hover:text-rose-100 focus-visible:outline-none sm:absolute sm:top-4 sm:right-4 sm:m-0"
               >
                 <X className="size-5" strokeWidth={2.5} />
               </button>
 
-              <div className="relative grid gap-6 p-5 sm:p-7 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8 xl:p-8">
+              <div className="relative grid gap-5 p-4 pt-1 sm:gap-6 sm:p-7 sm:pt-7 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8 xl:p-8">
                 <div className="relative">
                   <div className="absolute inset-0 rounded-[32px] bg-cyan-400/8 blur-3xl" />
                   <div className="relative rounded-[30px] border border-white/8 bg-slate-950/18 p-3 sm:p-4">
