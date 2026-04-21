@@ -298,6 +298,7 @@
     "paymentTypeManagement": "Payment Type Management",
     "userDiscountLimitManagement": "User Discount Limit Management",
     "mailSettings": "Mail Settings",
+    "hangfireMonitoring": "Hangfire Monitoring",
     "productPricingGroupByManagement": "Product Pricing Group Management",
     "quotationLineManagement": "Quote Line Management",
     "quotationCreateWizard": "Create New Offer",

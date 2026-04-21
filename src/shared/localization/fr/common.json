@@ -301,6 +301,7 @@
     "powerbiConfiguration": "Configuration PowerBI",
     "powerbiReportsView": "Rapports PowerBI (Afficher)",
     "mailSettings": "Paramètres de messagerie",
+    "hangfireMonitoring": "Surveillance Hangfire",
     "documentSerialTypeManagement": "Gestion des types de fichiers",
     "salesTypeManagement": "Gestion des types de ventes",
     "customersConflictInbox": "Boîte de réception de conflit",

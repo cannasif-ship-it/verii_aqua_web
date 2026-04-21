@@ -85,6 +85,8 @@
     "detailReportButton": "Detail Report",
     "selectProjectHint": "Please select a project above to see its details.",
     "dailyFlow": "Daily Data Stream",
+    "dailyFlowEmptyTitle": "There is no daily activity recorded for this cage yet.",
+    "dailyFlowEmptyDescription": "Once feeding, mortality, transfer, shipment, weather, net or other daily operations are entered, they will appear here day by day.",
     "activeProjectFilters": {
       "title": "Active Project Filters",
       "description": "The projects you select filter the cards and lists below."
@@ -177,13 +179,28 @@
       "cagePools": "Cage Pools",
       "clickForDailyDetail": "Click for daily details"
     },
+    "projectSummary": {
+      "totalDeadCount": "Mortality Qty",
+      "totalDeadKg": "Mortality Kg",
+      "totalShipmentCount": "Sales Qty",
+      "totalShipmentKg": "Sales Kg",
+      "measurementGram": "Measured Gram",
+      "fcr": "FCR"
+    },
     "cageCard": {
-      "fishUnit": "fish",
-      "totalDead": "Total wastage",
-      "feed": "bait",
-      "biomass": "biomass",
+      "totalDeadCount": "Mortality Qty",
+      "shipmentCount": "Sales Qty",
+      "stockCount": "Stock Qty",
+      "totalDeadKg": "Mortality Kg",
+      "shipmentKg": "Sales Kg",
+      "stockKg": "Stock Kg",
+      "measurementGram": "Measured Gram",
+      "feedKg": "Fed Feed Kg",
+      "fcr": "FCR",
       "survivalRate": "Survival Rate",
-      "quickDailyEntry": "Daily Login"
+      "quickDailyEntry": "Daily Login",
+      "expandFullscreen": "Expand to fullscreen",
+      "closeHint": "to close"
     },
     "controls": {
       "viewAndProject": "Appearance and Project",
@@ -193,15 +210,19 @@
       "viewType": "Appearance",
       "projectSelection": "Project Selection",
       "selectAll": "Select All",
-      "clear": "clear"
+      "clear": "clear",
+      "close": "Close"
     },
     "selectedProjects": "Selected Projects",
     "listTable": {
       "cage": "cage",
       "fish": "Pisces",
       "dead": "Wastage",
-      "feed": "bait",
-      "biomass": "biomass",
+      "shipment": "Sales",
+      "stockKg": "Stock Kg",
+      "measurementGram": "Measured Gram",
+      "feedKg": "Feed Kg",
+      "fcr": "FCR",
       "survivalRate": "Survival Rate",
       "action": "transaction",
       "dailyFlowButton": "Daily Stream"

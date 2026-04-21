@@ -85,6 +85,8 @@
     "detailReportButton": "Detay Raporu",
     "selectProjectHint": "Lütfen detaylarını görmek için yukarıdan bir proje seçiniz.",
     "dailyFlow": "Günlük Veri Akışı",
+    "dailyFlowEmptyTitle": "Bu kafes için henüz günlük işlem kaydı yok.",
+    "dailyFlowEmptyDescription": "Yemleme, mortalite, transfer, sevkiyat, hava, ağ veya diğer günlük işlemler girildiğinde burada gün gün görünecektir.",
     "activeProjectFilters": {
       "title": "Aktif Proje Filtreleri",
       "description": "Seçtiğin projeler aşağıdaki kartları ve listeleri filtreler."
@@ -177,13 +179,28 @@
       "cagePools": "Kafes Havuzları",
       "clickForDailyDetail": "Günlük detay için tıklayın"
     },
+    "projectSummary": {
+      "totalDeadCount": "Fire Adet",
+      "totalDeadKg": "Fire Kg",
+      "totalShipmentCount": "Satış Adet",
+      "totalShipmentKg": "Satış Kg",
+      "measurementGram": "Ölçüm Gramajı",
+      "fcr": "FCR"
+    },
     "cageCard": {
-      "fishUnit": "balık",
-      "totalDead": "Toplam Fire",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
+      "totalDeadCount": "Fire Adet",
+      "shipmentCount": "Satış Adet",
+      "stockCount": "Stok Adet",
+      "totalDeadKg": "Fire Kg",
+      "shipmentKg": "Satış Kg",
+      "stockKg": "Stok Kg",
+      "measurementGram": "Ölçüm Gramajı",
+      "feedKg": "Yedirilen Yem Kg",
+      "fcr": "FCR",
       "survivalRate": "Yaşam Oranı",
-      "quickDailyEntry": "Günlük Giriş"
+      "quickDailyEntry": "Günlük Giriş",
+      "expandFullscreen": "Tam ekranda büyüt",
+      "closeHint": "ile kapat"
     },
     "controls": {
       "viewAndProject": "Görünüm ve Proje",
@@ -193,15 +210,19 @@
       "viewType": "Görünüm Şekli",
       "projectSelection": "Proje Seçimi",
       "selectAll": "Tümünü Seç",
-      "clear": "Temizle"
+      "clear": "Temizle",
+      "close": "Kapat"
     },
     "selectedProjects": "Seçili Projeler",
     "listTable": {
       "cage": "Kafes",
       "fish": "Balık",
       "dead": "Fire",
-      "feed": "Yem",
-      "biomass": "Biyokütle",
+      "shipment": "Satış",
+      "stockKg": "Stok Kg",
+      "measurementGram": "Ölçüm Gram",
+      "feedKg": "Yem Kg",
+      "fcr": "FCR",
       "survivalRate": "Yaşam Oranı",
       "action": "İşlem",
       "dailyFlowButton": "Günlük Akış"

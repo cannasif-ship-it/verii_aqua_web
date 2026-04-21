@@ -177,7 +177,9 @@
       "feed": "esca",
       "biomass": "biomassa",
       "survivalRate": "Tasso di sopravvivenza",
-      "quickDailyEntry": "Accesso giornaliero"
+      "quickDailyEntry": "Accesso giornaliero",
+      "expandFullscreen": "Espandi a schermo intero",
+      "closeHint": "per chiudere"
     },
     "controls": {
       "viewAndProject": "Aspetto e progetto",
@@ -187,7 +189,8 @@
       "viewType": "Aspetto",
       "projectSelection": "Selezione del progetto",
       "selectAll": "Seleziona tutto",
-      "clear": "chiaro"
+      "clear": "chiaro",
+      "close": "Chiudi"
     },
     "selectedProjects": "Progetti selezionati",
     "listTable": {

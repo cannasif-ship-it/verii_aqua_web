@@ -310,6 +310,7 @@
     "powerbiConfiguration": "Configuración de PowerBI",
     "powerbiReportsView": "Informes PowerBI (Ver)",
     "mailSettings": "Configuración de correo",
+    "hangfireMonitoring": "Monitoreo Hangfire",
     "customersConflictInbox": "Bandeja de entrada de conflictos",
     "demands": "Solicitudes",
     "demandCreateWizard": "Crear nueva solicitud",

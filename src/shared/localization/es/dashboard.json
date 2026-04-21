@@ -177,7 +177,9 @@
       "feed": "cebo",
       "biomass": "biomasa",
       "survivalRate": "Tasa de supervivencia",
-      "quickDailyEntry": "Inicio de sesión diario"
+      "quickDailyEntry": "Inicio de sesión diario",
+      "expandFullscreen": "Expandir a pantalla completa",
+      "closeHint": "para cerrar"
     },
     "controls": {
       "viewAndProject": "Apariencia y Proyecto",
@@ -187,7 +189,8 @@
       "viewType": "Apariencia",
       "projectSelection": "Selección de Proyecto",
       "selectAll": "Seleccionar todo",
-      "clear": "claro"
+      "clear": "claro",
+      "close": "Cerrar"
     },
     "selectedProjects": "Proyectos seleccionados",
     "listTable": {

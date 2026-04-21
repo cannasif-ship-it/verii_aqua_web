@@ -1,6 +1,7 @@
 import axios from 'axios';
 import i18n from './i18n';
 import { useAuthStore } from '@/stores/auth-store';
+import { getUserFromToken } from '@/utils/jwt';
 import {
   loadConfig,
   getApiUrl,
@@ -23,6 +24,27 @@ export const api = axios.create({
   },
 });
 
+let refreshPromise: Promise<string | null> | null = null;
+
+function resolveBranchCodeFromPersistedState(): string | null {
+  try {
+    const raw = localStorage.getItem('auth-storage');
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw) as {
+      state?: { branch?: { code?: string | number; id?: string | number } };
+    };
+
+    const code = parsed?.state?.branch?.code ?? parsed?.state?.branch?.id;
+    if (code == null) return null;
+
+    const normalized = String(code).trim();
+    return normalized.length > 0 ? normalized : null;
+  } catch {
+    return null;
+  }
+}
+
 function normalizeApiEnvelope(payload: unknown): unknown {
   if (
     (typeof Blob !== 'undefined' && payload instanceof Blob) ||
@@ -31,12 +53,38 @@ function normalizeApiEnvelope(payload: unknown): unknown {
     return payload;
   }
 
-  if (payload == null || typeof payload !== 'object' || Array.isArray(payload)) {
-    return payload;
+  if (Array.isArray(payload)) {
+    return {
+      success: true,
+      data: payload,
+    };
+  }
+
+  if (payload == null || typeof payload !== 'object') {
+    return {
+      success: true,
+      data: payload,
+    };
   }
 
   const source = payload as Record<string, unknown>;
   const normalized: Record<string, unknown> = { ...source };
+  const hasEnvelopeShape =
+    'success' in source ||
+    'Success' in source ||
+    'message' in source ||
+    'Message' in source ||
+    'data' in source ||
+    'Data' in source ||
+    'errors' in source ||
+    'Errors' in source;
+
+  if (!hasEnvelopeShape) {
+    return {
+      success: true,
+      data: payload,
+    };
+  }
 
   if (normalized.success === undefined && typeof source.Success === 'boolean') {
     normalized.success = source.Success;
@@ -92,10 +140,113 @@ function extractApiErrorMessage(payload: unknown): string | null {
   return null;
 }
 
+function getStoredAccessToken(): string | null {
+  return localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+}
+
+function getStoredRefreshToken(): string | null {
+  return localStorage.getItem('refresh_token') || sessionStorage.getItem('refresh_token');
+}
+
+function isPersistentSession(): boolean {
+  return !!(localStorage.getItem('access_token') || localStorage.getItem('refresh_token'));
+}
+
+function storeTokens(accessToken: string, refreshToken: string | null): void {
+  const persistent = isPersistentSession();
+
+  localStorage.removeItem('access_token');
+  sessionStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  sessionStorage.removeItem('refresh_token');
+
+  if (persistent) {
+    localStorage.setItem('access_token', accessToken);
+    if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
+    return;
+  }
+
+  sessionStorage.setItem('access_token', accessToken);
+  if (refreshToken) sessionStorage.setItem('refresh_token', refreshToken);
+}
+
+function clearStoredTokens(): void {
+  localStorage.removeItem('access_token');
+  sessionStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  sessionStorage.removeItem('refresh_token');
+}
+
+function shouldSkipRefresh(url?: string): boolean {
+  if (!url) return false;
+
+  return [
+    '/api/auth/login',
+    '/api/auth/refresh-token',
+    '/api/auth/request-password-reset',
+    '/api/auth/reset-password',
+  ].some((path) => url.includes(path));
+}
+
+async function refreshAccessToken(): Promise<string | null> {
+  const storedRefreshToken = getStoredRefreshToken();
+  if (!storedRefreshToken) {
+    return null;
+  }
+
+  if (!refreshPromise) {
+    refreshPromise = (async () => {
+      const response = (await axios.post(
+        `${getApiBaseUrl()}/api/auth/refresh-token`,
+        { refreshToken: storedRefreshToken },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Language': i18n.language || 'tr',
+          },
+        }
+      )) as { data: unknown };
+
+      const normalized = normalizeApiEnvelope(response.data) as {
+        success?: boolean;
+        data?: { token?: string; refreshToken?: string };
+        message?: string;
+        exceptionMessage?: string;
+      };
+
+      if (!normalized.success || !normalized.data?.token) {
+        throw new Error(normalized.message || normalized.exceptionMessage || 'Session refresh failed');
+      }
+
+      storeTokens(normalized.data.token, normalized.data.refreshToken ?? storedRefreshToken);
+
+      const decodedUser = getUserFromToken(normalized.data.token);
+      const branch = useAuthStore.getState().branch;
+      if (decodedUser) {
+        useAuthStore.getState().setAuth(
+          decodedUser,
+          normalized.data.token,
+          branch,
+          isPersistentSession(),
+          normalized.data.refreshToken ?? storedRefreshToken
+        );
+      } else {
+        useAuthStore.setState({ token: normalized.data.token });
+      }
+
+      return normalized.data.token;
+    })().finally(() => {
+      refreshPromise = null;
+    });
+  }
+
+  return refreshPromise;
+}
+
 api.interceptors.request.use((config) => {
   config.baseURL = config.baseURL || getApiBaseUrl() || api.defaults.baseURL;
 
-  const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+  const token = getStoredAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -103,8 +254,9 @@ api.interceptors.request.use((config) => {
   config.headers['X-Language'] = i18n.language || 'tr';
 
   const branch = useAuthStore.getState().branch;
-  if (branch?.code) {
-    config.headers['X-Branch-Code'] = branch.code;
+  const branchCode = branch?.code || resolveBranchCodeFromPersistedState();
+  if (branchCode) {
+    config.headers['X-Branch-Code'] = branchCode;
   }
 
   return config;
@@ -115,16 +267,34 @@ api.interceptors.response.use(
     response.data = normalizeApiEnvelope(response.data);
     return response.data;
   },
-  (error) => {
-    const requestUrl = String(error.config?.url ?? '');
-    const isLoginRequest = requestUrl.includes('/api/auth/login') || requestUrl.endsWith('/auth/login');
+  async (error) => {
+    const originalRequest = error.config as import('axios').AxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
-    if (error.response?.status === 401 && !isLoginRequest) {
-      localStorage.removeItem('access_token');
-      sessionStorage.removeItem('access_token');
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      !shouldSkipRefresh(originalRequest.url)
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          originalRequest.headers = originalRequest.headers ?? {};
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return api(originalRequest);
+        }
+      } catch {
+        // Refresh fallback continues with logout below.
+      }
+
+      clearStoredTokens();
       useAuthStore.getState().logout();
 
-      if (!isCurrentAppPath('/auth/login?sessionExpired=true')) {
+      if (!isCurrentAppPath('/auth/login?sessionExpired=true') && !isCurrentAppPath('/auth/login')) {
         window.location.href = resolveAppPath('/auth/login?sessionExpired=true');
       }
     }

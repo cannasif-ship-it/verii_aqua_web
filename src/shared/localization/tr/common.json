@@ -271,6 +271,7 @@
     "paymentTypeManagement": "Ödeme Tipi Yönetimi",
     "userDiscountLimitManagement": "Kullanıcı İskonto Limiti Yönetimi",
     "mailSettings": "Mail Ayarları",
+    "hangfireMonitoring": "Hangfire Monitoring",
     "productPricingGroupByManagement": "Ürün Fiyatlandırma Grubu Yönetimi",
     "quotationLineManagement": "Teklif Satırı Yönetimi",
     "quotationCreateWizard": "Yeni Teklif Oluştur",

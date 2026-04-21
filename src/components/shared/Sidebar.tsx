@@ -4,8 +4,8 @@ import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronRight, X } from 'lucide-react';
 
-const LOGO_URL = '/v3logo.png';
-const VERII_LOGO_URL = '/v3riiaqua.png';
+const LOGO_URL = '/v3logo-optimized.png';
+const VERII_LOGO_URL = '/v3riiaqua-optimized.png';
 
 interface NavItem {
   title: string;
@@ -330,12 +330,12 @@ export function Sidebar({ items }: SidebarProps): ReactElement {
           {isSidebarOpen ? (
             <div className="w-full flex items-center justify-between">
               <div className="w-8 lg:hidden" />
-              <div className="flex justify-center flex-1"><img src={VERII_LOGO_URL} alt="Logo" className="h-35 object-contain" /></div>
+              <div className="flex justify-center flex-1"><img src={VERII_LOGO_URL} alt="Logo" className="h-35 object-contain" loading="eager" decoding="async" fetchPriority="high" /></div>
               <button onClick={() => useUIStore.getState().setSidebarOpen(false)} className="lg:hidden p-2 text-slate-500 hover:text-red-500 rounded-lg"><X size={24} /></button>
               <div className="w-8 hidden lg:block" />
             </div>
           ) : (
-            <div className="w-full h-full flex items-center justify-center p-1"><img src={LOGO_URL} alt="V3" className="w-full h-full object-contain scale-150" /></div>
+            <div className="w-full h-full flex items-center justify-center p-1"><img src={LOGO_URL} alt="V3" className="w-full h-full object-contain scale-150" loading="lazy" decoding="async" /></div>
           )}
         </div>
         <nav className="flex-1 min-h-0 pt-12 pb-6 px-3 space-y-2 overflow-y-auto custom-scrollbar">

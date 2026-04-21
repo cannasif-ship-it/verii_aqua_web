@@ -30,7 +30,7 @@ interface MainLayoutProps {
 
 export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
   const location = useLocation();
-  const { t } = useTranslation(['common', 'hangfire-monitoring', 'user-detail-management']);
+  const { t } = useTranslation(['common']);
   const { data: permissions, isLoading, isError } = useMyPermissionsQuery();
 
   useEffect(() => {
@@ -110,11 +110,11 @@ export function MainLayout({ navItems }: MainLayoutProps): ReactElement {
           { title: sidebarT('permissionDefinitions'), href: '/access-control/permission-definitions' },
           { title: sidebarT('permissionGroups'), href: '/access-control/permission-groups' },
           { title: sidebarT('userGroupAssignments'), href: '/access-control/user-group-assignments' },
-          { title: t('menu', { ns: 'hangfire-monitoring' }), href: '/hangfire-monitoring' },
+          { title: sidebarT('hangfireMonitoring'), href: '/hangfire-monitoring' },
         ],
       },
       {
-        title: t('userDetailManagement.profilePageTitle'),
+        title: sidebarT('profile'),
         icon: <UserCircleIcon size={iconSize} className="text-indigo-500" stroke="currentColor" />,
         href: '/profile',
       },

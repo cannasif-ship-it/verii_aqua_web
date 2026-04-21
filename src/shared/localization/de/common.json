@@ -301,6 +301,7 @@
     "powerbiConfiguration": "PowerBI-Konfiguration",
     "powerbiReportsView": "PowerBI-Berichte (Anzeigen)",
     "mailSettings": "E-Mail-Einstellungen",
+    "hangfireMonitoring": "Hangfire Monitoring",
     "documentSerialTypeManagement": "Dateitypverwaltung",
     "salesTypeManagement": "Vertriebstypverwaltung",
     "customersConflictInbox": "Konflikt-Posteingang",

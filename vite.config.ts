@@ -7,13 +7,19 @@ const allowedHosts = ["https://crm.v3rii.com"];
 export default defineConfig({
   // base: "/crm-ui/",
   base: "/",
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
   build: {
+    modulePreload: {
+      resolveDependencies: (_url, deps) => deps.filter((dep) => {
+        return !(
+          dep.includes("vendor-doc-export") ||
+          dep.includes("vendor-tiptap") ||
+          dep.includes("vendor-three") ||
+          dep.includes("vendor-xlsx") ||
+          dep.includes("vendor-recharts") ||
+          dep.includes("vendor-html2canvas")
+        );
+      }),
+    },
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
@@ -28,6 +34,12 @@ export default defineConfig({
           if (id.includes("html2canvas")) return "vendor-html2canvas";
         },
       },
+    },
+  },
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   server: {

@@ -9,9 +9,10 @@ import App from './App.tsx';
 import { queryClient } from './lib/query-client';
 import { ensureApiReady } from './lib/axios';
 import { useAuthStore } from './stores/auth-store';
+import { markPerformanceEnd, markPerformanceStart } from './lib/performance';
 
 async function bootstrap(): Promise<void> {
-  await ensureApiReady();
+  const bootstrapMark = markPerformanceStart('app-bootstrap');
   await ensureI18nReady();
   useAuthStore.getState().init();
   const root = document.getElementById('root')!;
@@ -26,6 +27,8 @@ async function bootstrap(): Promise<void> {
       </I18nextProvider>
     </StrictMode>,
   );
+  markPerformanceEnd('app-bootstrap', bootstrapMark);
+  void ensureApiReady();
 }
 
 bootstrap();

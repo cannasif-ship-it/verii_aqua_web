@@ -1,5 +1,6 @@
-import { type MouseEvent, type ReactElement, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { memo, type MouseEvent, type ReactElement, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import {
   Activity,
   Fish,
@@ -27,6 +28,8 @@ import {
   X,
   Search,
   Filter,
+  Maximize2,
+  ArrowRight,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -37,18 +40,60 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { PageLoader } from '@/components/shared/PageLoader';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { aquaDashboardApi } from '../api/aqua-dashboard-api';
-import { projectDetailReportApi } from '../api/project-detail-report-api';
-import type { CageProjectReport, CageDailyRow } from '../types/project-detail-report-types';
+import { aquaDashboardApi, type DashboardCageSummary, type DashboardProjectSummary, type DashboardProjectDetailResponse, type DashboardProjectDetailCage, type DashboardCageDailyRow } from '../api/aqua-dashboard-api';
+import type { ProjectDto } from '../types/project-detail-report-types';
 import { cn } from '@/lib/utils';
 
-const DASHBOARD_QUERY_KEY = ['aqua', 'reports', 'dashboard', 'summaries'] as const;
+const DASHBOARD_PROJECTS_QUERY_KEY = ['aqua', 'reports', 'dashboard', 'projects'] as const;
 const PROJECT_DETAIL_QUERY_KEY = ['aqua', 'reports', 'dashboard', 'project-detail'] as const;
-const DASHBOARD_PROJECT_SELECTION_STORAGE_KEY = 'aqua-dashboard-selected-project-ids';
-const DASHBOARD_PROJECT_SELECTION_TTL_MS = 1000 * 60 * 60 * 12; // 12 saat
+const DOCUMENT_STATUS_CANCELLED = 2;
 
 type DetailType = 'feeding' | 'netOperation' | 'transfer' | 'stockConvert' | 'shipment';
 type ViewMode = 'card' | 'list';
+type CageCardSize = 'default' | 'peek';
+
+interface CageSizeClasses {
+  outer: string;
+  content: string;
+  contentPadTop: string;
+  bottom: string;
+  statLabel: string;
+  statValue: string;
+  fcrValue: string;
+  cageLabel: string;
+  survivalRow: string;
+  quickEntryBtn: string;
+  fcrLabel: string;
+}
+
+const CAGE_SIZE_CLASSES: Record<CageCardSize, CageSizeClasses> = {
+  default: {
+    outer: 'max-w-[280px] xl:max-w-[300px]',
+    content: 'max-w-[224px] gap-1.5',
+    contentPadTop: 'pt-12',
+    bottom: 'max-w-[220px]',
+    statLabel: 'text-[8px]',
+    statValue: 'text-[11px]',
+    fcrValue: 'text-sm',
+    cageLabel: 'text-[11px] max-w-[180px]',
+    survivalRow: 'text-[10px] py-1',
+    quickEntryBtn: 'h-9 text-xs',
+    fcrLabel: 'text-[8px]',
+  },
+  peek: {
+    outer: 'max-w-[min(92vw,560px)]',
+    content: 'max-w-[420px] gap-3',
+    contentPadTop: 'pt-20',
+    bottom: 'max-w-[400px]',
+    statLabel: 'text-[14px]',
+    statValue: 'text-[22px]',
+    fcrValue: 'text-4xl',
+    cageLabel: 'text-[18px] max-w-[320px]',
+    survivalRow: 'text-[16px] py-2',
+    quickEntryBtn: 'h-12 text-base',
+    fcrLabel: 'text-[13px]',
+  },
+};
 
 interface DetailDialogState {
   open: boolean;
@@ -58,65 +103,23 @@ interface DetailDialogState {
   type: DetailType;
 }
 
-interface DashboardCageSummary {
-  projectCageId: number;
-  cageLabel: string;
-  currentFishCount: number;
-  totalDeadCount: number;
-  totalFeedGram: number;
-  currentBiomassGram: number;
-}
-
-interface DashboardProjectSummary {
+interface DashboardProjectOption {
   projectId: number;
   projectCode: string;
   projectName: string;
-  cageFish: number;
-  warehouseFish: number;
-  totalSystemFish: number;
-  activeCageCount: number;
-  cageBiomassGram: number;
-  warehouseBiomassGram: number;
-  totalSystemBiomassGram: number;
-  cages: DashboardCageSummary[];
-}
-
-interface DashboardStats {
-  totalCages: number;
-  totalCageFish: number;
-  totalWarehouseFish: number;
-  totalSystemFish: number;
-  totalCageBiomass: number;
-  totalWarehouseBiomass: number;
-  totalSystemBiomass: number;
-  totalFeed: number;
-  totalDead: number;
-}
-
-interface ProjectDetailCage extends CageProjectReport {
-  totalFeedGram: number;
-  totalDeadCount: number;
-  currentFishCount: number;
-  currentBiomassGram: number;
-  cageLabel: string;
-  projectCageId: number;
-}
-
-interface ProjectDetailResponse {
-  cages: ProjectDetailCage[];
-}
-
-interface PersistedProjectSelection {
-  ids: number[];
-  updatedAt: number;
 }
 
 interface CageCardProps {
-  cage: DashboardCageSummary | ProjectDetailCage;
+  cage: DashboardCageSummary;
   onClick?: () => void;
   onQuickEntryClick?: () => void;
+  onExpandClick?: () => void;
+  onHoverEnter?: () => void;
+  onHoverLeave?: () => void;
   isSelected?: boolean;
   clickable?: boolean;
+  showExpand?: boolean;
+  size?: CageCardSize;
   t: (key: string, options?: Record<string, unknown>) => string;
 }
 
@@ -124,75 +127,84 @@ function formatNumber(value: number): string {
   return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 2 }).format(value);
 }
 
-function buildStats(projects: DashboardProjectSummary[]): DashboardStats {
-  return projects.reduce<DashboardStats>(
-    (acc, curr) => {
-      acc.totalCages += curr.activeCageCount;
-      acc.totalCageFish += curr.cageFish;
-      acc.totalWarehouseFish += curr.warehouseFish;
-      acc.totalSystemFish += curr.totalSystemFish;
-      acc.totalCageBiomass += curr.cageBiomassGram;
-      acc.totalWarehouseBiomass += curr.warehouseBiomassGram;
-      acc.totalSystemBiomass += curr.totalSystemBiomassGram;
-      curr.cages.forEach((cage) => {
-        acc.totalFeed += cage.totalFeedGram;
-        acc.totalDead += cage.totalDeadCount;
-      });
-      return acc;
-    },
-    {
-      totalCages: 0,
-      totalCageFish: 0,
-      totalWarehouseFish: 0,
-      totalSystemFish: 0,
-      totalCageBiomass: 0,
-      totalWarehouseBiomass: 0,
-      totalSystemBiomass: 0,
-      totalFeed: 0,
-      totalDead: 0,
-    }
+function round(value: number): number {
+  return Number(value.toFixed(3));
+}
+
+function toKg(gram: number): number {
+  return gram / 1000;
+}
+
+function computeProducedBiomassKg(input: {
+  currentBiomassGram: number;
+  initialBiomassGram: number;
+  totalDeadBiomassGram: number;
+  totalShipmentBiomassGram: number;
+}): number {
+  return Math.max(
+    0,
+    toKg(input.currentBiomassGram + input.totalDeadBiomassGram + input.totalShipmentBiomassGram - input.initialBiomassGram)
   );
 }
 
-function sortDailyRows(rows: CageDailyRow[]): CageDailyRow[] {
+function computeFcr(input: {
+  totalFeedGram: number;
+  currentBiomassGram: number;
+  initialBiomassGram: number;
+  totalDeadBiomassGram: number;
+  totalShipmentBiomassGram: number;
+}): number | null {
+  const producedBiomassKg = computeProducedBiomassKg(input);
+  if (producedBiomassKg <= 0) return null;
+  return round(toKg(input.totalFeedGram) / producedBiomassKg);
+}
+
+function sortDailyRows(rows: DashboardCageDailyRow[]): DashboardCageDailyRow[] {
   return [...rows].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-function readPersistedProjectSelection(): number[] | null {
-  if (typeof window === 'undefined') return null;
-
-  try {
-    const raw = window.localStorage.getItem(DASHBOARD_PROJECT_SELECTION_STORAGE_KEY);
-    if (!raw) return null;
-
-    const parsed = JSON.parse(raw) as PersistedProjectSelection;
-    if (!Array.isArray(parsed.ids) || typeof parsed.updatedAt !== 'number') {
-      window.localStorage.removeItem(DASHBOARD_PROJECT_SELECTION_STORAGE_KEY);
-      return null;
-    }
-
-    const isExpired = Date.now() - parsed.updatedAt > DASHBOARD_PROJECT_SELECTION_TTL_MS;
-    if (isExpired) {
-      window.localStorage.removeItem(DASHBOARD_PROJECT_SELECTION_STORAGE_KEY);
-      return null;
-    }
-
-    return parsed.ids.filter((id): id is number => Number.isInteger(id));
-  } catch {
-    window.localStorage.removeItem(DASHBOARD_PROJECT_SELECTION_STORAGE_KEY);
-    return null;
-  }
+function isProjectEndDateInThePast(endDate?: string | null): boolean {
+  if (!endDate) return false;
+  const end = new Date(endDate);
+  if (Number.isNaN(end.getTime())) return false;
+  const endDay = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return endDay < today;
 }
 
-function persistProjectSelection(ids: number[]): void {
-  if (typeof window === 'undefined') return;
+function isActiveProject(project: ProjectDto): boolean {
+  if (project.status === DOCUMENT_STATUS_CANCELLED) return false;
+  if (isProjectEndDateInThePast(project.endDate)) return false;
+  return true;
+}
 
-  const payload: PersistedProjectSelection = {
-    ids,
-    updatedAt: Date.now(),
+function toDashboardCageSummary(cage: DashboardProjectDetailCage): DashboardCageSummary {
+  const totalShipmentCount = cage.dailyRows.reduce((sum, row) => sum + row.shipmentFishCount, 0);
+  const totalShipmentBiomassGram = cage.dailyRows.reduce((sum, row) => sum + row.shipmentBiomassGram, 0);
+  const totalDeadBiomassGram = cage.dailyRows.reduce((sum, row) => sum + row.deadBiomassGram, 0);
+
+  return {
+    projectCageId: cage.projectCageId,
+    cageLabel: cage.cageLabel,
+    measurementAverageGram: cage.currentAverageGram,
+    initialFishCount: cage.initialFishCount,
+    initialBiomassGram: cage.initialBiomassGram,
+    currentFishCount: cage.currentFishCount,
+    totalShipmentCount,
+    totalShipmentBiomassGram,
+    totalDeadCount: cage.totalDeadCount,
+    totalDeadBiomassGram,
+    totalFeedGram: cage.totalFeedGram,
+    currentBiomassGram: cage.currentBiomassGram,
+    fcr: computeFcr({
+      totalFeedGram: cage.totalFeedGram,
+      currentBiomassGram: cage.currentBiomassGram,
+      initialBiomassGram: cage.initialBiomassGram,
+      totalDeadBiomassGram,
+      totalShipmentBiomassGram,
+    }),
   };
-
-  window.localStorage.setItem(DASHBOARD_PROJECT_SELECTION_STORAGE_KEY, JSON.stringify(payload));
 }
 
 function getDateParts(date: string): { day: string; month: string; year: string } {
@@ -208,38 +220,12 @@ function getDateParts(date: string): { day: string; month: string; year: string 
   return { day, month, year };
 }
 
-function formatLocalDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 function formatAlertDate(date: Date, locale: string): string {
   return new Intl.DateTimeFormat(locale, {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
   }).format(date);
-}
-
-function hasDailyEntry(row: CageDailyRow): boolean {
-  return (
-    row.feedGram > 0 ||
-    row.feedStockCount > 0 ||
-    row.feedDetails.length > 0 ||
-    row.deadCount > 0 ||
-    row.countDelta !== 0 ||
-    row.biomassDelta !== 0 ||
-    row.weather.trim().length > 0 ||
-    row.netOperationCount > 0 ||
-    row.transferCount > 0 ||
-    row.weighingCount > 0 ||
-    row.stockConvertCount > 0 ||
-    row.shipmentCount > 0 ||
-    row.shipmentFishCount > 0 ||
-    row.shipmentBiomassGram > 0
-  );
 }
 
 function getDetailTypeIcon(type: DetailType): ReactElement {
@@ -250,7 +236,6 @@ function getDetailTypeIcon(type: DetailType): ReactElement {
   return <Truck className="size-4" />;
 }
 
-/** Statik kafes braketleri — her CageCard render'ında yeniden üretilmez (GC / diff maliyeti düşer). */
 const CAGE_SVG_BRACKETS = Array.from({ length: 24 }, (_, i) => {
   const angle = (i * 360) / 24;
   return (
@@ -269,6 +254,24 @@ const CAGE_SVG_BRACKETS = Array.from({ length: 24 }, (_, i) => {
   );
 });
 
+const CAGE_CAUSTIC_SPOTS = Array.from({ length: 6 }, (_, i) => {
+  const angle = (i * 360) / 6;
+  const rad = (angle * Math.PI) / 180;
+  const radius = 70;
+  const cx = 160 + Math.cos(rad) * radius;
+  const cy = 160 + Math.sin(rad) * radius;
+  return <circle key={i} cx={cx} cy={cy} r={i % 2 === 0 ? 18 : 12} fill="#ffffff" opacity="0.08" />;
+});
+
+const CAGE_CAUSTIC_RING = Array.from({ length: 8 }, (_, i) => {
+  const angle = (i * 360) / 8;
+  const rad = (angle * Math.PI) / 180;
+  const radius = 44;
+  const cx = 160 + Math.cos(rad) * radius;
+  const cy = 160 + Math.sin(rad) * radius;
+  return <circle key={i} cx={cx} cy={cy} r={6} fill="#a5f3fc" opacity="0.18" />;
+});
+
 function CageSkeleton(): ReactElement {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[280px] animate-pulse">
@@ -279,10 +282,25 @@ function CageSkeleton(): ReactElement {
   );
 }
 
-function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clickable = false, t }: CageCardProps): ReactElement {
+function CageCardComponent({
+  cage,
+  onClick,
+  onQuickEntryClick,
+  onExpandClick,
+  onHoverEnter,
+  onHoverLeave,
+  isSelected = false,
+  clickable = false,
+  showExpand = false,
+  size = 'default',
+  t,
+}: CageCardProps): ReactElement {
   const uid = useId().replace(/:/g, '');
   const waterDepthId = `${uid}-waterDepth`;
   const nettingId = `${uid}-netting`;
+  const waterClipId = `${uid}-waterClip`;
+  const sz = CAGE_SIZE_CLASSES[size];
+  const isPeek = size === 'peek';
 
   const totalInitial = cage.currentFishCount + cage.totalDeadCount;
   const survivalRate = totalInitial > 0 ? (cage.currentFishCount / totalInitial) * 100 : 100;
@@ -311,10 +329,14 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
           onClick();
         }
       }}
+      onMouseEnter={onHoverEnter}
+      onMouseLeave={onHoverLeave}
       className={cn(
-        'relative mx-auto w-full max-w-[280px] transition-transform duration-200 ease-out xl:max-w-[300px] group [content-visibility:auto] [contain-intrinsic-size:280px_280px]',
+        'relative mx-auto w-full transition-transform duration-200 ease-out group aqua-contain',
+        sz.outer,
+        !isPeek && '[content-visibility:auto] [contain-intrinsic-size:280px_280px]',
         isSelected && 'scale-[1.02]',
-        clickable && 'cursor-pointer hover:scale-[1.01]'
+        clickable && 'cursor-pointer hover:scale-[1.01] hover:will-change-transform'
       )}
     >
       <div className="relative aspect-square w-full pt-5">
@@ -337,10 +359,25 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
             <pattern id={nettingId} width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1e293b" strokeWidth="0.5" opacity="0.55" />
             </pattern>
+            <clipPath id={waterClipId}>
+              <circle cx="160" cy="160" r="130" />
+            </clipPath>
           </defs>
 
           <circle cx="160" cy="160" r="130" className="fill-[#0e4a72] dark:fill-[#0b3a6b]" />
-          <circle cx="160" cy="160" r="130" fill={`url(#${waterDepthId})`} />
+          <circle cx="160" cy="160" r="130" fill={`url(#${waterDepthId})`} className="aqua-breathe" />
+
+          <g clipPath={`url(#${waterClipId})`} className="aqua-gpu">
+            <g className="aqua-caustic">{CAGE_CAUSTIC_SPOTS}</g>
+            <g className="aqua-caustic-slow">{CAGE_CAUSTIC_RING}</g>
+          </g>
+
+          <g clipPath={`url(#${waterClipId})`}>
+            <circle cx="160" cy="160" r="40" fill="none" stroke="#a5f3fc" strokeWidth="1.2" opacity="0.35" className="aqua-ripple aqua-gpu" />
+            <circle cx="160" cy="160" r="40" fill="none" stroke="#a5f3fc" strokeWidth="1.2" opacity="0.35" className="aqua-ripple aqua-ripple-d1 aqua-gpu" />
+            <circle cx="160" cy="160" r="40" fill="none" stroke="#a5f3fc" strokeWidth="1.2" opacity="0.35" className="aqua-ripple aqua-ripple-d2 aqua-gpu" />
+          </g>
+
           <circle cx="160" cy="160" r="130" fill={`url(#${nettingId})`} />
           <circle cx="160" cy="160" r="130" fill="none" stroke="#0b1628" strokeWidth="8" opacity="0.35" />
 
@@ -360,34 +397,36 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            className="transition-[stroke-dashoffset] duration-500 ease-out"
+            className="transition-[stroke-dashoffset] duration-700 ease-out"
             transform="rotate(-90 160 160)"
           />
         </svg>
 
-        {isCritical && <div className="pointer-events-none absolute inset-[10%] rounded-full bg-rose-500/15" />}
+        {isCritical && <div className="pointer-events-none absolute inset-[10%] rounded-full bg-rose-500/15 aqua-pulse-alert" />}
 
-        {/* Kafes adı tabelası: direk + yatay plaka */}
         <div className="absolute left-1/2 top-0 z-20 flex -translate-x-1/2 flex-col items-center">
           <div
             title={cage.cageLabel}
             className={cn(
-              'relative inline-flex max-w-[180px] cursor-default items-center gap-1 rounded-md border-2 px-2.5 py-1 shadow-md',
+              'relative inline-flex cursor-default items-center gap-1 rounded-md border-2 shadow-md',
+              isPeek ? 'px-4 py-2 gap-2' : 'px-2.5 py-1',
               'border-cyan-400/70 bg-slate-900 text-white',
-              'dark:border-cyan-400/80 dark:bg-slate-950'
+              'dark:border-cyan-400/80 dark:bg-slate-950',
+              sz.cageLabel
             )}
           >
-            <Waves className={cn('size-3 shrink-0', isSelected ? 'text-cyan-200' : 'text-cyan-300')} />
-            <span className="truncate text-[11px] font-black uppercase tracking-wider leading-none">
+            <Waves className={cn('shrink-0', isPeek ? 'size-5' : 'size-3', isSelected ? 'text-cyan-200' : 'text-cyan-300')} />
+            <span className="truncate font-black uppercase tracking-wider leading-none">
               {cage.cageLabel}
             </span>
           </div>
-          <div className="pointer-events-none h-2.5 w-[3px] rounded-b-sm bg-slate-700 shadow-sm dark:bg-slate-600" />
+          <div className={cn('pointer-events-none rounded-b-sm bg-slate-700 shadow-sm dark:bg-slate-600', isPeek ? 'h-4 w-[4px]' : 'h-2.5 w-[3px]')} />
         </div>
 
         <div
           className={cn(
-            'absolute top-2 right-2 z-20 flex size-8 items-center justify-center rounded-full border-2 shadow-md',
+            'absolute z-20 flex items-center justify-center rounded-full border-2 shadow-md',
+            isPeek ? 'top-4 right-4 size-12' : 'top-2 right-2 size-8',
             isCritical
               ? 'border-rose-400/80 bg-rose-950 text-rose-200'
               : isWarning
@@ -396,65 +435,112 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
           )}
         >
           {isCritical ? (
-            <ShieldAlert size={14} strokeWidth={3} />
+            <ShieldAlert size={isPeek ? 22 : 14} strokeWidth={3} />
           ) : isWarning ? (
-            <AlertTriangle size={14} strokeWidth={3} />
+            <AlertTriangle size={isPeek ? 22 : 14} strokeWidth={3} />
           ) : (
-            <CheckCircle2 size={14} strokeWidth={3} />
+            <CheckCircle2 size={isPeek ? 22 : 14} strokeWidth={3} />
           )}
         </div>
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pb-3 pt-12">
-          <div className="mb-1 flex flex-col items-center">
-            <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-400/35 bg-slate-950/80 px-2 py-0.5 text-[10px] font-bold text-emerald-200">
-              <Fish className="size-3 shrink-0" />
-              {formatNumber(cage.currentFishCount)} {t('aquaDashboard.cageCard.fishUnit', { ns: 'dashboard' })}
+        {showExpand && onExpandClick && (
+          <button
+            type="button"
+            aria-label={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
+            title={t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
+            onClick={(event) => {
+              event.stopPropagation();
+              onExpandClick();
+            }}
+            className={cn(
+              'aqua-expand-btn absolute top-2 left-2 z-20 flex size-8 items-center justify-center rounded-full border-2 border-cyan-400/70 bg-slate-950/85 text-cyan-200 shadow-md',
+              'opacity-70 transition-all duration-200 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none',
+              'group-hover:opacity-100 group-hover:text-white'
+            )}
+          >
+            <Maximize2 size={14} strokeWidth={2.5} />
+          </button>
+        )}
+
+        <div className={cn('absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pb-3', sz.contentPadTop)}>
+          <div className={cn('mb-1 flex w-full flex-col px-1', sz.content)}>
+            <div className={cn('grid grid-cols-3', isPeek ? 'gap-3' : 'gap-1.5')}>
+              <div
+                className={cn(
+                  'flex flex-col items-center rounded-lg border',
+                  isPeek ? 'p-3' : 'p-1.5',
+                  isCritical ? 'border-rose-500/45 bg-slate-950/85' : 'border-slate-500/60 bg-slate-950/80'
+                )}
+              >
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.totalDeadCount', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-rose-300', sz.statValue)}>{formatNumber(cage.totalDeadCount)}</span>
+              </div>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.shipmentCount', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-amber-200', sz.statValue)}>{formatNumber(cage.totalShipmentCount)}</span>
+              </div>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.stockCount', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-emerald-200', sz.statValue)}>{formatNumber(cage.currentFishCount)}</span>
+              </div>
+            </div>
+
+            <div className={cn('grid grid-cols-3', isPeek ? 'gap-3 mt-3' : 'gap-1.5')}>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.totalDeadKg', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-rose-300', sz.statValue)}>{formatNumber(toKg(cage.totalDeadBiomassGram))}</span>
+              </div>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.shipmentKg', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-amber-200', sz.statValue)}>{formatNumber(toKg(cage.totalShipmentBiomassGram))}</span>
+              </div>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.stockKg', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-sky-200', sz.statValue)}>{formatNumber(toKg(cage.currentBiomassGram))}</span>
+              </div>
+            </div>
+
+            <div className={cn('grid grid-cols-2', isPeek ? 'gap-3 mt-3' : 'gap-1.5')}>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.measurementGram', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-cyan-200', sz.statValue)}>{formatNumber(cage.measurementAverageGram)}</span>
+              </div>
+              <div className={cn('flex flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80', isPeek ? 'p-3' : 'p-1.5')}>
+                <span className={cn('truncate font-bold uppercase tracking-wider text-slate-300', sz.statLabel)}>
+                  {t('aquaDashboard.cageCard.feedKg', { ns: 'dashboard' })}
+                </span>
+                <span className={cn('font-black tabular-nums text-amber-200', sz.statValue)}>{formatNumber(toKg(cage.totalFeedGram))}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={cn('mb-2 w-full rounded-lg border border-slate-500/60 bg-slate-950/80 text-center', sz.content, isPeek ? 'px-4 py-3 mt-3' : 'px-2 py-1.5')}>
+            <div className={cn('flex items-center justify-center gap-1', isPeek ? 'mb-1' : 'mb-0.5')}>
+              <TrendingUp className={cn('shrink-0 text-sky-300', isPeek ? 'size-4' : 'size-2.5')} />
+              <span className={cn('font-bold uppercase tracking-wider text-slate-300', sz.fcrLabel)}>
+                {t('aquaDashboard.cageCard.fcr', { ns: 'dashboard' })}
+              </span>
+            </div>
+            <span className={cn('font-black tabular-nums text-sky-200', sz.fcrValue)}>
+              {cage.fcr != null ? formatNumber(cage.fcr) : '-'}
             </span>
           </div>
 
-          <div className="mb-1 mt-1 flex w-full max-w-[220px] gap-1.5 px-1">
-            <div
-              className={cn(
-                'flex flex-1 flex-col items-center rounded-lg border p-1.5',
-                isCritical ? 'border-rose-500/45 bg-slate-950/85' : 'border-slate-500/60 bg-slate-950/80'
-              )}
-            >
-              <div className="mb-0.5 flex items-center gap-0.5">
-                <Skull className="size-2.5 shrink-0 text-rose-300" />
-                <span className="truncate text-[8px] font-bold uppercase tracking-wider text-slate-300">
-                  {t('aquaDashboard.cageCard.totalDead', { ns: 'dashboard' })}
-                </span>
-              </div>
-              <span className="font-black tabular-nums text-xs text-rose-300">{formatNumber(cage.totalDeadCount)}</span>
-            </div>
-            <div className="flex flex-1 flex-col items-center rounded-lg border border-slate-500/60 bg-slate-950/80 p-1.5">
-              <div className="mb-0.5 flex items-center gap-0.5">
-                <UtensilsCrossed className="size-2.5 shrink-0 text-amber-300" />
-                <span className="truncate text-[8px] font-bold uppercase tracking-wider text-slate-300">
-                  {t('aquaDashboard.cageCard.feed', { ns: 'dashboard' })}
-                </span>
-              </div>
-              <span className="font-black tabular-nums text-xs text-amber-200">
-                {formatNumber(cage.totalFeedGram)}
-                <span className="ml-0.5 text-[9px] font-bold">g</span>
-              </span>
-            </div>
-          </div>
-
-          <div className="mb-2 w-full max-w-[220px] rounded-lg border border-slate-500/60 bg-slate-950/80 px-2 py-1.5 text-center">
-            <div className="mb-0.5 flex items-center justify-center gap-1">
-              <Layers className="size-2.5 shrink-0 text-sky-300" />
-              <span className="text-[8px] font-bold uppercase tracking-wider text-slate-300">
-                {t('aquaDashboard.cageCard.biomass', { ns: 'dashboard' })}
-              </span>
-            </div>
-            <span className="font-black tabular-nums text-sm text-sky-200">
-              {formatNumber(cage.currentBiomassGram)}
-              <span className="ml-0.5 text-[10px] font-bold">g</span>
-            </span>
-          </div>
-
-          <div className="mt-auto flex w-full max-w-[220px] flex-col items-center gap-2">
+          <div className={cn('mt-auto flex w-full flex-col items-center gap-2', sz.bottom)}>
             {onQuickEntryClick && (
               <Button
                 type="button"
@@ -464,7 +550,8 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
                   onQuickEntryClick();
                 }}
                 className={cn(
-                  'h-9 w-full rounded-full border border-white/20 bg-linear-to-r from-cyan-500 via-blue-500 to-orange-400 text-xs font-black uppercase tracking-wider text-white',
+                  'w-full rounded-full border border-white/20 bg-linear-to-r from-cyan-500 via-blue-500 to-orange-400 font-black uppercase tracking-wider text-white',
+                  sz.quickEntryBtn,
                   'shadow-[0_6px_20px_rgba(6,182,212,0.45),inset_0_1px_0_rgba(255,255,255,0.25)]',
                   'ring-1 ring-cyan-300/50 hover:from-cyan-400 hover:via-blue-500 hover:to-orange-500 hover:ring-cyan-200/70'
                 )}
@@ -474,7 +561,9 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
             )}
             <div
               className={cn(
-                'flex w-[90%] items-center justify-between rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm',
+                'flex w-[90%] items-center justify-between rounded-full border font-bold uppercase tracking-wider shadow-sm',
+                isPeek ? 'px-5' : 'px-3',
+                sz.survivalRow,
                 'border-white/15 bg-slate-950/85 text-slate-200',
                 isCritical && 'border-rose-400/50 bg-rose-950/80',
                 isWarning && 'border-amber-400/50 bg-amber-950/80',
@@ -492,6 +581,247 @@ function CageCard({ cage, onClick, onQuickEntryClick, isSelected = false, clicka
     </div>
   );
 }
+
+const CageCard = memo(CageCardComponent, (prev, next) => {
+  return (
+    prev.cage === next.cage &&
+    prev.isSelected === next.isSelected &&
+    prev.clickable === next.clickable &&
+    prev.showExpand === next.showExpand &&
+    prev.size === next.size &&
+    prev.onClick === next.onClick &&
+    prev.onQuickEntryClick === next.onQuickEntryClick &&
+    prev.onExpandClick === next.onExpandClick &&
+    prev.onHoverEnter === next.onHoverEnter &&
+    prev.onHoverLeave === next.onHoverLeave &&
+    prev.t === next.t
+  );
+});
+CageCard.displayName = 'CageCard';
+
+const HOVER_PEEK_DELAY_MS = 600;
+
+const PEEK_LAYOUT_ID_PREFIX = 'aqua-cage-peek-';
+
+const peekLayoutId = (projectCageId: number): string => `${PEEK_LAYOUT_ID_PREFIX}${projectCageId}`;
+
+const PEEK_SPRING_TRANSITION = {
+  type: 'spring' as const,
+  stiffness: 260,
+  damping: 28,
+  mass: 0.9,
+};
+
+function useHoverPeek(onPeek: () => void): { handleEnter: () => void; handleLeave: () => void } {
+  const timerRef = useRef<number | null>(null);
+
+  const clear = useCallback((): void => {
+    if (timerRef.current != null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const handleEnter = useCallback((): void => {
+    clear();
+    timerRef.current = window.setTimeout(() => {
+      onPeek();
+    }, HOVER_PEEK_DELAY_MS);
+  }, [clear, onPeek]);
+
+  const handleLeave = useCallback((): void => {
+    clear();
+  }, [clear]);
+
+  useEffect(() => clear, [clear]);
+
+  return { handleEnter, handleLeave };
+}
+
+interface ProjectCageCardProps {
+  cage: DashboardCageSummary;
+  projectId: number;
+  t: (key: string, options?: Record<string, unknown>) => string;
+  onOpenDaily: (projectId: number, projectCageId: number) => void;
+  onQuickEntry: (projectId: number, projectCageId: number) => void;
+  onPeekOpen: (cage: DashboardCageSummary) => void;
+}
+
+function ProjectCageCardComponent({ cage, projectId, t, onOpenDaily, onQuickEntry, onPeekOpen }: ProjectCageCardProps): ReactElement {
+  const handleClick = useCallback((): void => {
+    onOpenDaily(projectId, cage.projectCageId);
+  }, [onOpenDaily, projectId, cage.projectCageId]);
+
+  const handleQuickEntry = useCallback((): void => {
+    onQuickEntry(projectId, cage.projectCageId);
+  }, [onQuickEntry, projectId, cage.projectCageId]);
+
+  const handleExpand = useCallback((): void => {
+    onPeekOpen(cage);
+  }, [onPeekOpen, cage]);
+
+  const { handleEnter, handleLeave } = useHoverPeek(handleExpand);
+
+  return (
+    <motion.div
+      layoutId={peekLayoutId(cage.projectCageId)}
+      transition={PEEK_SPRING_TRANSITION}
+      className="flex justify-center"
+    >
+      <CageCard
+        cage={cage}
+        clickable
+        showExpand
+        onClick={handleClick}
+        onQuickEntryClick={handleQuickEntry}
+        onExpandClick={handleExpand}
+        onHoverEnter={handleEnter}
+        onHoverLeave={handleLeave}
+        t={t}
+      />
+    </motion.div>
+  );
+}
+
+const ProjectCageCard = memo(ProjectCageCardComponent);
+ProjectCageCard.displayName = 'ProjectCageCard';
+
+interface DetailCageCardProps {
+  cage: DashboardProjectDetailCage;
+  projectId: number | null;
+  isSelected: boolean;
+  t: (key: string, options?: Record<string, unknown>) => string;
+  onOpenDaily: (projectCageId: number) => void;
+  onQuickEntry: (projectId: number, projectCageId: number) => void;
+  onPeekOpen: (cage: DashboardCageSummary) => void;
+}
+
+function DetailCageCardComponent({ cage, projectId, isSelected, t, onOpenDaily, onQuickEntry, onPeekOpen }: DetailCageCardProps): ReactElement {
+  const summary = useMemo<DashboardCageSummary>(() => toDashboardCageSummary(cage), [cage]);
+
+  const handleClick = useCallback((): void => {
+    onOpenDaily(cage.projectCageId);
+  }, [onOpenDaily, cage.projectCageId]);
+
+  const handleQuickEntry = useCallback((): void => {
+    if (projectId == null) return;
+    onQuickEntry(projectId, cage.projectCageId);
+  }, [onQuickEntry, projectId, cage.projectCageId]);
+
+  const handleExpand = useCallback((): void => {
+    onPeekOpen(summary);
+  }, [onPeekOpen, summary]);
+
+  const { handleEnter, handleLeave } = useHoverPeek(handleExpand);
+
+  return (
+    <motion.div
+      layoutId={peekLayoutId(cage.projectCageId)}
+      transition={PEEK_SPRING_TRANSITION}
+      className="flex justify-center"
+    >
+      <CageCard
+        cage={summary}
+        clickable
+        showExpand
+        isSelected={isSelected}
+        onClick={handleClick}
+        onQuickEntryClick={handleQuickEntry}
+        onExpandClick={handleExpand}
+        onHoverEnter={handleEnter}
+        onHoverLeave={handleLeave}
+        t={t}
+      />
+    </motion.div>
+  );
+}
+
+const DetailCageCard = memo(DetailCageCardComponent);
+DetailCageCard.displayName = 'DetailCageCard';
+
+interface CagePeekOverlayProps {
+  cage: DashboardCageSummary | null;
+  onClose: () => void;
+  t: (key: string, options?: Record<string, unknown>) => string;
+}
+
+function CagePeekOverlayComponent({ cage, onClose, t }: CagePeekOverlayProps): ReactElement {
+  useEffect(() => {
+    if (!cage) return;
+    const handleKey = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [cage, onClose]);
+
+  return (
+    <AnimatePresence>
+      {cage ? (
+        <motion.div
+          key="aqua-peek-overlay"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label={cage.cageLabel}
+        >
+          <motion.div
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          />
+
+          <motion.div
+            layoutId={peekLayoutId(cage.projectCageId)}
+            transition={PEEK_SPRING_TRANSITION}
+            onClick={(event) => event.stopPropagation()}
+            className="relative z-10 flex justify-center"
+          >
+            <div className="relative rounded-[36px] border border-cyan-400/25 bg-linear-to-b from-slate-900 via-blue-950 to-slate-950 p-4 sm:p-8 shadow-[0_48px_140px_rgba(6,182,212,0.35)]">
+              <div className="pointer-events-none absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.28),transparent_55%)]" />
+
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label={t('aquaDashboard.controls.close', { ns: 'dashboard' })}
+                className="absolute top-3 right-3 z-30 flex size-10 items-center justify-center rounded-full border border-white/15 bg-slate-950/80 text-slate-200 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-rose-950 hover:text-rose-200 hover:border-rose-400/50 focus-visible:outline-none"
+              >
+                <X className="size-5" strokeWidth={2.5} />
+              </button>
+
+              <div className="relative">
+                <CageCard cage={cage} size="peek" t={t} />
+              </div>
+
+              <div className="pointer-events-none mt-4 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <kbd className="rounded border border-white/10 bg-slate-900/80 px-2 py-0.5 text-[10px]">ESC</kbd>
+                <span>{t('aquaDashboard.cageCard.closeHint', { ns: 'dashboard' })}</span>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+const CagePeekOverlay = memo(CagePeekOverlayComponent);
+CagePeekOverlay.displayName = 'CagePeekOverlay';
 
 export function AquaDashboardPage(): ReactElement {
   const { t, i18n } = useTranslation(['dashboard', 'common']);
@@ -513,103 +843,120 @@ export function AquaDashboardPage(): ReactElement {
   const [isProjectSelectorOpen, setIsProjectSelectorOpen] = useState(false);
   const [projectSearch, setProjectSearch] = useState('');
   const [draftProjectIds, setDraftProjectIds] = useState<number[]>([]);
+  const [peekCage, setPeekCage] = useState<DashboardCageSummary | null>(null);
 
-  const hasInitialized = useRef(false);
+  const hasPromptedProjectSelection = useRef(false);
+  const safeActiveDashboardProjectIds = Array.isArray(activeDashboardProjectIds) ? activeDashboardProjectIds : [];
+  const safeDraftProjectIds = Array.isArray(draftProjectIds) ? draftProjectIds : [];
 
-  const summariesQuery = useQuery<DashboardProjectSummary[]>({
-    queryKey: DASHBOARD_QUERY_KEY,
-    queryFn: aquaDashboardApi.getActiveProjectSummaries,
+  const projectsQuery = useQuery<ProjectDto[]>({
+    queryKey: DASHBOARD_PROJECTS_QUERY_KEY,
+    queryFn: aquaDashboardApi.getProjects,
     staleTime: 60_000,
   });
 
-  const summaries = useMemo(() => summariesQuery.data ?? [], [summariesQuery.data]);
+  const projectOptions = useMemo<DashboardProjectOption[]>(
+    () =>
+      (projectsQuery.data ?? [])
+        .filter(isActiveProject)
+        .map((project) => ({
+          projectId: project.id,
+          projectCode: project.projectCode ?? '-',
+          projectName: project.projectName ?? '-',
+        }))
+        .sort((a, b) => a.projectCode.localeCompare(b.projectCode)),
+    [projectsQuery.data]
+  );
 
   useEffect(() => {
-    if (summaries.length > 0 && !hasInitialized.current) {
-      const persistedIds = readPersistedProjectSelection();
-      const validPersistedIds = (persistedIds ?? []).filter((id) => summaries.some((project) => project.projectId === id));
-
-      if (validPersistedIds.length > 0) {
-        setActiveDashboardProjectIds(validPersistedIds);
-      } else {
-        setActiveDashboardProjectIds([]);
-      }
-
-      hasInitialized.current = true;
-    }
-  }, [summaries]);
-
-  useEffect(() => {
-    if (!hasInitialized.current) return;
-    persistProjectSelection(activeDashboardProjectIds);
-  }, [activeDashboardProjectIds]);
-
-  const globalStats = useMemo(() => buildStats(summaries), [summaries]);
-
-  const activeProjects = useMemo(() => {
-    return summaries.filter((project) => activeDashboardProjectIds.includes(project.projectId));
-  }, [summaries, activeDashboardProjectIds]);
+    if (!projectsQuery.isSuccess || hasPromptedProjectSelection.current) return;
+    hasPromptedProjectSelection.current = true;
+    setDraftProjectIds([]);
+    setProjectSearch('');
+    setIsProjectSelectorOpen(true);
+  }, [projectsQuery.isSuccess]);
 
   const selectedProjectSummaries = useMemo(() => {
-    return summaries.filter((project) => activeDashboardProjectIds.includes(project.projectId));
-  }, [summaries, activeDashboardProjectIds]);
+    return projectOptions.filter((project) => safeActiveDashboardProjectIds.includes(project.projectId));
+  }, [projectOptions, safeActiveDashboardProjectIds]);
+
+  const selectedProjectLookup = useMemo(() => {
+    return new Map(projectOptions.map((project) => [project.projectId, project]));
+  }, [projectOptions]);
 
   const draftSelectedProjectSummaries = useMemo(() => {
-    return summaries.filter((project) => draftProjectIds.includes(project.projectId));
-  }, [summaries, draftProjectIds]);
+    return projectOptions.filter((project) => safeDraftProjectIds.includes(project.projectId));
+  }, [projectOptions, safeDraftProjectIds]);
 
   const filteredProjects = useMemo(() => {
     const search = projectSearch.trim().toLocaleLowerCase('tr-TR');
-    if (!search) return summaries;
+    if (!search) return projectOptions;
 
-    return summaries.filter((project) => {
+    return projectOptions.filter((project) => {
       const code = project.projectCode.toLocaleLowerCase('tr-TR');
       const name = project.projectName.toLocaleLowerCase('tr-TR');
       return code.includes(search) || name.includes(search);
     });
-  }, [summaries, projectSearch]);
+  }, [projectOptions, projectSearch]);
 
-  const detailQuery = useQuery<ProjectDetailResponse>({
+  const detailQuery = useQuery<DashboardProjectDetailResponse>({
     queryKey: [...PROJECT_DETAIL_QUERY_KEY, selectedProjectId],
-    queryFn: () => projectDetailReportApi.getProjectDetailReport(selectedProjectId as number),
+    queryFn: () => aquaDashboardApi.getProjectDetail(selectedProjectId as number),
     enabled: selectedProjectId != null,
     staleTime: 60_000,
   });
 
-  const selectedProjectsDetailQuery = useQuery<ProjectDetailResponse[]>({
-    queryKey: [...PROJECT_DETAIL_QUERY_KEY, 'selected-projects', ...activeDashboardProjectIds.slice().sort((a, b) => a - b)],
-    queryFn: () => Promise.all(selectedProjectSummaries.map((project) => projectDetailReportApi.getProjectDetailReport(project.projectId))),
-    enabled: selectedProjectSummaries.length > 0,
+  const selectedProjectsSummaryQuery = useQuery<{
+    projects: DashboardProjectSummary[];
+    yesterdayEntryMissing: boolean;
+    yesterdayDate?: string | null;
+  }>({
+    queryKey: [...PROJECT_DETAIL_QUERY_KEY, 'selected-projects', ...safeActiveDashboardProjectIds.slice().sort((a, b) => a - b)],
+    queryFn: () => aquaDashboardApi.getProjectSummaries(safeActiveDashboardProjectIds),
+    enabled: safeActiveDashboardProjectIds.length > 0,
     staleTime: 60_000,
   });
 
-  const detailCages = useMemo(() => detailQuery.data?.cages ?? [], [detailQuery.data?.cages]);
+  const activeProjects = useMemo<DashboardProjectSummary[]>(
+    () => (selectedProjectsSummaryQuery.data?.projects ?? []).slice().sort((a, b) => a.projectCode.localeCompare(b.projectCode)),
+    [selectedProjectsSummaryQuery.data]
+  );
+
+  const isSelectionRequired = safeActiveDashboardProjectIds.length === 0;
+  const selectedProjectHeaderLabel = useMemo(() => {
+    if (!selectedProjectId) return '-';
+    const project = selectedProjectLookup.get(selectedProjectId);
+    return project ? `${project.projectCode} - ${project.projectName}` : '-';
+  }, [selectedProjectId, selectedProjectLookup]);
+
+  const detailCages = useMemo<DashboardProjectDetailCage[]>(() => detailQuery.data?.cages ?? [], [detailQuery.data?.cages]);
 
   const selectedCageFromDetail = useMemo(() => {
     if (!selectedCageId) return null;
     return detailCages.find((cage) => cage.projectCageId === selectedCageId) ?? null;
   }, [detailCages, selectedCageId]);
 
-  const selectedCageDailyRows = useMemo<CageDailyRow[]>(() => {
+  const selectedCageDailyRows = useMemo<DashboardCageDailyRow[]>(() => {
     if (!selectedCageFromDetail?.dailyRows) return [];
     return sortDailyRows(selectedCageFromDetail.dailyRows);
   }, [selectedCageFromDetail]);
 
   const yesterdayMissingAlert = useMemo(() => {
-    if (selectedProjectSummaries.length === 0 || selectedProjectsDetailQuery.isLoading || selectedProjectsDetailQuery.isError) {
+    if (selectedProjectSummaries.length === 0 || selectedProjectsSummaryQuery.isLoading || selectedProjectsSummaryQuery.isError) {
       return null;
     }
 
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayKey = formatLocalDateKey(yesterday);
-    const hasAnyYesterdayEntry = (selectedProjectsDetailQuery.data ?? []).some((project) =>
-      project.cages.some((cage) => cage.dailyRows?.some((row) => row.date === yesterdayKey && hasDailyEntry(row)))
-    );
-
-    if (hasAnyYesterdayEntry) {
+    if (!selectedProjectsSummaryQuery.data?.yesterdayEntryMissing) {
       return null;
     }
+
+    const yesterday = selectedProjectsSummaryQuery.data?.yesterdayDate
+      ? new Date(selectedProjectsSummaryQuery.data.yesterdayDate)
+      : (() => {
+          const date = new Date();
+          date.setDate(date.getDate() - 1);
+          return date;
+        })();
 
     return {
       title: t('aquaDashboard.yesterdayAlert.title', { ns: 'dashboard' }),
@@ -618,7 +965,7 @@ export function AquaDashboardPage(): ReactElement {
         date: formatAlertDate(yesterday, i18n.language || 'tr-TR'),
       }),
     };
-  }, [i18n.language, selectedProjectSummaries.length, selectedProjectsDetailQuery.data, selectedProjectsDetailQuery.isError, selectedProjectsDetailQuery.isLoading, t]);
+  }, [i18n.language, selectedProjectSummaries.length, selectedProjectsSummaryQuery.data, selectedProjectsSummaryQuery.isError, selectedProjectsSummaryQuery.isLoading, t]);
 
   const maxDeadInCage = useMemo(() => {
     if (selectedCageDailyRows.length === 0) return 0;
@@ -643,6 +990,18 @@ export function AquaDashboardPage(): ReactElement {
     setIsDailyDialogOpen(true);
   }, []);
 
+  const navigateToQuickEntry = useCallback((projectId: number, projectCageId: number): void => {
+    navigate(`/aqua/operations/quick-daily-entry?projectId=${projectId}&projectCageId=${projectCageId}`);
+  }, [navigate]);
+
+  const openCagePeek = useCallback((cage: DashboardCageSummary): void => {
+    setPeekCage(cage);
+  }, []);
+
+  const closeCagePeek = useCallback((): void => {
+    setPeekCage(null);
+  }, []);
+
   const closeProjectDialog = useCallback((open: boolean): void => {
     setIsProjectDialogOpen(open);
     if (!open) {
@@ -658,32 +1017,39 @@ export function AquaDashboardPage(): ReactElement {
   }, []);
 
   const openProjectSelector = useCallback((): void => {
-    setDraftProjectIds(activeDashboardProjectIds);
+    setDraftProjectIds(safeActiveDashboardProjectIds);
     setProjectSearch('');
     setIsProjectSelectorOpen(true);
-  }, [activeDashboardProjectIds]);
+  }, [safeActiveDashboardProjectIds]);
 
   const closeProjectSelector = useCallback((open: boolean): void => {
+    if (!open && safeActiveDashboardProjectIds.length === 0) {
+      return;
+    }
     setIsProjectSelectorOpen(open);
     if (!open) {
       setProjectSearch('');
     }
-  }, []);
+  }, [safeActiveDashboardProjectIds.length]);
 
   const toggleDraftProjectSelection = useCallback((projectId: number): void => {
-    setDraftProjectIds((prev) =>
-      prev.includes(projectId) ? prev.filter((id) => id !== projectId) : [...prev, projectId]
-    );
+    setDraftProjectIds((prev) => {
+      const safePrev = Array.isArray(prev) ? prev : [];
+      return safePrev.includes(projectId) ? safePrev.filter((id) => id !== projectId) : [...safePrev, projectId];
+    });
   }, []);
 
   const applyProjectSelection = useCallback((): void => {
-    setActiveDashboardProjectIds(draftProjectIds);
+    setActiveDashboardProjectIds(safeDraftProjectIds);
     setIsProjectSelectorOpen(false);
     setProjectSearch('');
-  }, [draftProjectIds]);
+  }, [safeDraftProjectIds]);
 
   const removeSelectedProject = useCallback((projectId: number): void => {
-    setActiveDashboardProjectIds((prev) => prev.filter((id) => id !== projectId));
+    setActiveDashboardProjectIds((prev) => {
+      const safePrev = Array.isArray(prev) ? prev : [];
+      return safePrev.filter((id) => id !== projectId);
+    });
   }, []);
 
   const openDetailDialog = useCallback(
@@ -710,12 +1076,13 @@ export function AquaDashboardPage(): ReactElement {
     [t]
   );
 
-  if (summariesQuery.isLoading) {
+  if (projectsQuery.isLoading) {
     return <PageLoader />;
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8 pb-10 animate-in fade-in duration-700">
+    <LayoutGroup>
+      <div className="space-y-6 sm:space-y-8 pb-10 animate-in fade-in duration-700">
       <div className="flex flex-col gap-4 sm:gap-5 px-1">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0">
@@ -776,7 +1143,7 @@ export function AquaDashboardPage(): ReactElement {
               <Filter className="size-4 mr-2 shrink-0" />
               <span className="truncate">{t('aquaDashboard.projectSelector.openButton', { ns: 'dashboard' })}</span>
               <span className="ml-2 inline-flex min-w-6 h-6 items-center justify-center rounded-full bg-pink-500/10 text-pink-600 dark:bg-pink-500/15 dark:text-pink-300 text-[11px] font-black px-1.5 shrink-0">
-                {activeDashboardProjectIds.length}
+                {safeActiveDashboardProjectIds.length}
               </span>
             </Button>
           </div>
@@ -802,7 +1169,7 @@ export function AquaDashboardPage(): ReactElement {
               <Button
                 type="button"
                 variant="ghost"
-                onClick={() => setActiveDashboardProjectIds(summaries.map((summary) => summary.projectId))}
+                onClick={() => setActiveDashboardProjectIds(projectOptions.map((summary) => summary.projectId))}
                 className="h-9 rounded-xl px-3 text-[11px] font-black text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-900/30"
               >
                 {t('aquaDashboard.controls.selectAll', { ns: 'dashboard' })}
@@ -848,7 +1215,40 @@ export function AquaDashboardPage(): ReactElement {
       </div>
 
       <div className="space-y-4">
-        {yesterdayMissingAlert ? (
+        {isSelectionRequired ? (
+          <Card className="border-cyan-200 bg-linear-to-r from-cyan-50 via-white to-pink-50 dark:border-cyan-800/40 dark:from-cyan-950/30 dark:via-blue-950/50 dark:to-pink-950/20 shadow-sm">
+            <CardContent className="px-5 py-6 sm:px-6 sm:py-7">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-3">
+                    <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-200 bg-cyan-100 text-cyan-700 dark:border-cyan-700/40 dark:bg-cyan-900/30 dark:text-cyan-300">
+                      <Filter className="size-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-base font-black text-slate-900 dark:text-white">
+                        {t('aquaDashboard.projectSelector.title', { ns: 'dashboard' })}
+                      </p>
+                      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                        {t('aquaDashboard.selectProjectHint', { ns: 'dashboard' })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={openProjectSelector}
+                  className="h-11 rounded-2xl px-6 bg-linear-to-r from-pink-600 to-orange-600 text-white font-black shadow-lg shadow-pink-500/20"
+                >
+                  <Filter className="mr-2 size-4" />
+                  {t('aquaDashboard.projectSelector.openButton', { ns: 'dashboard' })}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ) : null}
+
+        {activeProjects.length > 0 && yesterdayMissingAlert ? (
           <Card className="border-amber-200 bg-linear-to-r from-amber-50 via-white to-rose-50 dark:border-amber-900/40 dark:from-amber-950/30 dark:via-blue-950/50 dark:to-rose-950/20 shadow-sm">
             <CardContent className="px-5 py-4 sm:px-6 sm:py-5">
               <div className="flex items-start gap-3">
@@ -868,92 +1268,7 @@ export function AquaDashboardPage(): ReactElement {
           </Card>
         ) : null}
 
-        <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 px-1 flex items-center gap-2">
-          <Activity className="size-5 text-cyan-500 shrink-0" />
-          {t('aquaDashboard.facilitySummary', { ns: 'dashboard' })}
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
-          {[
-            {
-              label: t('aquaDashboard.stats.activeCages', { ns: 'dashboard' }),
-              val: globalStats.totalCages,
-              icon: Waves,
-              color: 'text-cyan-600 dark:text-cyan-400',
-              bg: 'bg-cyan-50 dark:bg-cyan-500/10 border-cyan-100 dark:border-cyan-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.cageFishStock', { ns: 'dashboard' }),
-              val: globalStats.totalCageFish,
-              icon: Fish,
-              color: 'text-emerald-600 dark:text-emerald-400',
-              bg: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.warehouseFishStock', { ns: 'dashboard' }),
-              val: globalStats.totalWarehouseFish,
-              icon: Package,
-              color: 'text-violet-600 dark:text-violet-400',
-              bg: 'bg-violet-50 dark:bg-violet-500/10 border-violet-100 dark:border-violet-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.totalSystemFishStock', { ns: 'dashboard' }),
-              val: globalStats.totalSystemFish,
-              icon: Layers,
-              color: 'text-blue-600 dark:text-blue-400',
-              bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100 dark:border-blue-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.cageBiomass', { ns: 'dashboard' }),
-              val: `${formatNumber(globalStats.totalCageBiomass)}g`,
-              icon: Layers,
-              color: 'text-blue-600 dark:text-blue-400',
-              bg: 'bg-blue-50 dark:bg-blue-500/10 border-blue-100 dark:border-blue-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.warehouseBiomass', { ns: 'dashboard' }),
-              val: `${formatNumber(globalStats.totalWarehouseBiomass)}g`,
-              icon: Package,
-              color: 'text-fuchsia-600 dark:text-fuchsia-400',
-              bg: 'bg-fuchsia-50 dark:bg-fuchsia-500/10 border-fuchsia-100 dark:border-fuchsia-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.totalBiomass', { ns: 'dashboard' }),
-              val: `${formatNumber(globalStats.totalSystemBiomass)}g`,
-              icon: Layers,
-              color: 'text-sky-600 dark:text-sky-400',
-              bg: 'bg-sky-50 dark:bg-sky-500/10 border-sky-100 dark:border-sky-800/30',
-            },
-            {
-              label: t('aquaDashboard.stats.totalFeed', { ns: 'dashboard' }),
-              val: `${formatNumber(globalStats.totalFeed)}g`,
-              icon: UtensilsCrossed,
-              color: 'text-amber-600 dark:text-amber-400',
-              bg: 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-800/30',
-            },
-          ].map((stat, index) => (
-            <Card
-              key={index}
-              className="bg-white dark:bg-blue-950/60 border-slate-200 dark:border-cyan-800/30 shadow-sm rounded-3xl overflow-hidden transition-transform hover:scale-[1.02]"
-            >
-              <CardContent className="p-5 sm:p-6">
-                <div className="flex justify-between items-center gap-2">
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                      {stat.label}
-                    </p>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1 tabular-nums truncate">
-                      {typeof stat.val === 'number' ? formatNumber(stat.val) : stat.val}
-                    </h3>
-                  </div>
-                  <div className={cn('p-3 rounded-2xl border shrink-0', stat.bg, stat.color)}>
-                    <stat.icon className="size-5 sm:size-6" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        
       </div>
 
       <div className="space-y-6 pt-2 sm:pt-4">
@@ -962,12 +1277,14 @@ export function AquaDashboardPage(): ReactElement {
           {t('aquaDashboard.selectedProjects', { ns: 'dashboard' })}
         </h2>
 
-        {summariesQuery.isError ? (
+        {projectsQuery.isError || selectedProjectsSummaryQuery.isError ? (
           <Card className="border-rose-200 bg-rose-50 dark:border-rose-500/30 dark:bg-rose-500/10 rounded-3xl">
             <CardContent className="py-12 text-sm font-bold text-rose-600 dark:text-rose-400 text-center flex items-center justify-center gap-2">
               <Info className="size-5" /> {t('aquaDashboard.dataLoadFailed', { ns: 'dashboard' })}
             </CardContent>
           </Card>
+        ) : selectedProjectsSummaryQuery.isLoading && safeActiveDashboardProjectIds.length > 0 ? (
+          <PageLoader />
         ) : activeProjects.length > 0 ? (
           activeProjects.map((project) => (
             <Card
@@ -1006,15 +1323,91 @@ export function AquaDashboardPage(): ReactElement {
                         {formatNumber(project.totalSystemFish)}
                       </div>
                     </div>
+
+                    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6 max-w-5xl">
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-rose-500/15 bg-rose-500/8 px-3 py-2 text-left transition-colors hover:bg-rose-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-rose-300 dark:text-rose-300">
+                          {t('aquaDashboard.projectSummary.totalDeadCount', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-rose-600 dark:text-rose-300 tabular-nums">
+                          {formatNumber(project.totalDeadCount)}
+                        </p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-rose-500/15 bg-rose-500/8 px-3 py-2 text-left transition-colors hover:bg-rose-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-rose-300 dark:text-rose-300">
+                          {t('aquaDashboard.projectSummary.totalDeadKg', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-rose-600 dark:text-rose-300 tabular-nums">
+                          {formatNumber(toKg(project.totalDeadBiomassGram))} kg
+                        </p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-amber-500/15 bg-amber-500/8 px-3 py-2 text-left transition-colors hover:bg-amber-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-amber-300 dark:text-amber-300">
+                          {t('aquaDashboard.projectSummary.totalShipmentCount', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-amber-600 dark:text-amber-300 tabular-nums">
+                          {formatNumber(project.totalShipmentCount)}
+                        </p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-amber-500/15 bg-amber-500/8 px-3 py-2 text-left transition-colors hover:bg-amber-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-amber-300 dark:text-amber-300">
+                          {t('aquaDashboard.projectSummary.totalShipmentKg', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-amber-600 dark:text-amber-300 tabular-nums">
+                          {formatNumber(toKg(project.totalShipmentBiomassGram))} kg
+                        </p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-cyan-500/15 bg-cyan-500/8 px-3 py-2 text-left transition-colors hover:bg-cyan-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-cyan-300 dark:text-cyan-300">
+                          {t('aquaDashboard.projectSummary.measurementGram', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-cyan-600 dark:text-cyan-300 tabular-nums">
+                          {formatNumber(project.measurementAverageGram)} g
+                        </p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openProjectDetail(project.projectId)}
+                        className="rounded-2xl border border-blue-500/15 bg-blue-500/8 px-3 py-2 text-left transition-colors hover:bg-blue-500/12"
+                      >
+                        <p className="text-[9px] font-black uppercase tracking-widest text-blue-300 dark:text-blue-300">
+                          {t('aquaDashboard.projectSummary.fcr', { ns: 'dashboard' })}
+                        </p>
+                        <p className="mt-1 text-sm font-black text-blue-600 dark:text-blue-300 tabular-nums">
+                          {project.fcr != null ? formatNumber(project.fcr) : '-'}
+                        </p>
+                      </button>
+                    </div>
                   </div>
 
                   <Button
                     type="button"
-                    className="bg-linear-to-r from-pink-600 to-orange-600 text-white h-10 px-4 sm:px-6 rounded-2xl font-black shadow-lg shadow-pink-500/20 border-0 transition-transform hover:scale-105 w-full sm:w-auto justify-center shrink-0"
+                    className="aqua-cta text-white h-11 px-5 sm:px-7 rounded-2xl font-black text-sm border-0 transition-transform hover:scale-[1.04] active:scale-[0.98] w-full sm:w-auto justify-center shrink-0 gap-2"
                     onClick={() => openProjectDetail(project.projectId)}
                   >
-                    <BarChart3 className="size-4 mr-2 shrink-0" />
+                    <BarChart3 className="aqua-cta-icon size-4 shrink-0" />
                     <span className="truncate">{t('aquaDashboard.detailReportButton', { ns: 'dashboard' })}</span>
+                    <ArrowRight className="aqua-cta-arrow size-4 shrink-0" />
                   </Button>
                 </div>
               </CardHeader>
@@ -1023,30 +1416,30 @@ export function AquaDashboardPage(): ReactElement {
                 {viewMode === 'card' ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                     {project.cages.map((cage) => (
-                      <CageCard
+                      <ProjectCageCard
                         key={cage.projectCageId}
                         cage={cage}
-                        clickable
-                        onClick={() => openDailyFromProjectList(project.projectId, cage.projectCageId)}
-                        onQuickEntryClick={() =>
-                          navigate(
-                            `/aqua/operations/quick-daily-entry?projectId=${project.projectId}&projectCageId=${cage.projectCageId}`
-                          )
-                        }
+                        projectId={project.projectId}
                         t={t}
+                        onOpenDaily={openDailyFromProjectList}
+                        onQuickEntry={navigateToQuickEntry}
+                        onPeekOpen={openCagePeek}
                       />
                     ))}
                   </div>
                 ) : (
                   <div className="overflow-x-auto custom-scrollbar border border-slate-100 dark:border-cyan-800/30 rounded-3xl bg-white dark:bg-blue-950/20">
-                    <table className="w-full min-w-[860px] text-sm text-left">
+                    <table className="w-full min-w-[1100px] text-sm text-left">
                       <thead className="bg-slate-50 dark:bg-blue-900/40 text-slate-500 dark:text-cyan-400 font-bold uppercase tracking-widest text-[10px] border-b border-slate-100 dark:border-cyan-800/30">
                         <tr>
                           <th className="px-5 py-4 whitespace-nowrap">{t('aquaDashboard.listTable.cage', { ns: 'dashboard' })}</th>
                           <th className="px-5 py-4 text-center whitespace-nowrap">{t('aquaDashboard.listTable.fish', { ns: 'dashboard' })}</th>
                           <th className="px-5 py-4 text-center text-rose-500 whitespace-nowrap">{t('aquaDashboard.listTable.dead', { ns: 'dashboard' })}</th>
-                          <th className="px-5 py-4 text-center text-amber-500 whitespace-nowrap">{t('aquaDashboard.listTable.feed', { ns: 'dashboard' })}</th>
-                          <th className="px-5 py-4 text-center text-blue-500 whitespace-nowrap">{t('aquaDashboard.listTable.biomass', { ns: 'dashboard' })}</th>
+                          <th className="px-5 py-4 text-center text-amber-500 whitespace-nowrap">{t('aquaDashboard.listTable.shipment', { ns: 'dashboard' })}</th>
+                          <th className="px-5 py-4 text-center text-blue-500 whitespace-nowrap">{t('aquaDashboard.listTable.stockKg', { ns: 'dashboard' })}</th>
+                          <th className="px-5 py-4 text-center whitespace-nowrap">{t('aquaDashboard.listTable.measurementGram', { ns: 'dashboard' })}</th>
+                          <th className="px-5 py-4 text-center whitespace-nowrap">{t('aquaDashboard.listTable.feedKg', { ns: 'dashboard' })}</th>
+                          <th className="px-5 py-4 text-center whitespace-nowrap">{t('aquaDashboard.listTable.fcr', { ns: 'dashboard' })}</th>
                           <th className="px-5 py-4 text-center whitespace-nowrap">{t('aquaDashboard.listTable.survivalRate', { ns: 'dashboard' })}</th>
                           <th className="px-5 py-4 text-right whitespace-nowrap">{t('aquaDashboard.listTable.action', { ns: 'dashboard' })}</th>
                         </tr>
@@ -1090,13 +1483,26 @@ export function AquaDashboardPage(): ReactElement {
                               </td>
 
                               <td className="px-5 py-3 text-center font-bold text-amber-600 dark:text-amber-400 tabular-nums">
-                                {formatNumber(cage.totalFeedGram)}
-                                <span className="text-[10px] ml-0.5">g</span>
+                                {formatNumber(cage.totalShipmentCount)}
                               </td>
 
                               <td className="px-5 py-3 text-center font-bold text-blue-600 dark:text-blue-400 tabular-nums">
-                                {formatNumber(cage.currentBiomassGram)}
+                                {formatNumber(toKg(cage.currentBiomassGram))}
+                                <span className="text-[10px] ml-0.5">kg</span>
+                              </td>
+
+                              <td className="px-5 py-3 text-center font-bold text-cyan-600 dark:text-cyan-300 tabular-nums">
+                                {formatNumber(cage.measurementAverageGram)}
                                 <span className="text-[10px] ml-0.5">g</span>
+                              </td>
+
+                              <td className="px-5 py-3 text-center font-bold text-amber-600 dark:text-amber-300 tabular-nums">
+                                {formatNumber(toKg(cage.totalFeedGram))}
+                                <span className="text-[10px] ml-0.5">kg</span>
+                              </td>
+
+                              <td className="px-5 py-3 text-center font-bold text-sky-600 dark:text-sky-300 tabular-nums">
+                                {cage.fcr != null ? formatNumber(cage.fcr) : '-'}
                               </td>
 
                               <td className="px-5 py-3 text-center">
@@ -1178,7 +1584,7 @@ export function AquaDashboardPage(): ReactElement {
               <Button
                 type="button"
                 variant="ghost"
-                onClick={() => setDraftProjectIds(summaries.map((summary) => summary.projectId))}
+                onClick={() => setDraftProjectIds(projectOptions.map((summary) => summary.projectId))}
                 className="h-9 rounded-xl px-3 text-[11px] font-black text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-900/30"
               >
                 {t('aquaDashboard.controls.selectAll', { ns: 'dashboard' })}
@@ -1238,7 +1644,7 @@ export function AquaDashboardPage(): ReactElement {
           <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar max-h-[calc(100dvh-240px)]">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => {
-                const isActive = draftProjectIds.includes(project.projectId);
+                const isActive = safeDraftProjectIds.includes(project.projectId);
 
                 return (
                   <button
@@ -1281,23 +1687,6 @@ export function AquaDashboardPage(): ReactElement {
                             </Badge>
                           )}
                         </div>
-
-                        <div className="mt-3 flex flex-wrap items-center gap-2">
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/10 text-[11px] font-black">
-                            <Waves className="size-3.5 shrink-0" />
-                            {formatNumber(project.activeCageCount)}
-                          </div>
-
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/10 text-[11px] font-black">
-                            <Fish className="size-3.5 shrink-0" />
-                            {formatNumber(project.cageFish)}
-                          </div>
-
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/10 text-[11px] font-black">
-                            <Package className="size-3.5 shrink-0" />
-                            {formatNumber(project.warehouseFish)}
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </button>
@@ -1318,9 +1707,11 @@ export function AquaDashboardPage(): ReactElement {
               type="button"
               variant="outline"
               onClick={() => {
+                if (safeActiveDashboardProjectIds.length === 0) return;
                 setIsProjectSelectorOpen(false);
                 setProjectSearch('');
               }}
+              disabled={safeActiveDashboardProjectIds.length === 0}
               className="h-11 rounded-2xl px-5 w-full sm:w-auto"
             >
              {t('aqua.common.cancel', { ns: 'common' })}
@@ -1329,6 +1720,7 @@ export function AquaDashboardPage(): ReactElement {
             <Button
               type="button"
               onClick={applyProjectSelection}
+              disabled={safeDraftProjectIds.length === 0}
               className="h-11 rounded-2xl px-6 bg-linear-to-r from-pink-600 to-orange-600 text-white font-black shadow-lg shadow-pink-500/20 w-full sm:w-auto"
             >
               {t('aquaDashboard.projectSelector.apply', { ns: 'dashboard' })}
@@ -1375,11 +1767,21 @@ export function AquaDashboardPage(): ReactElement {
                   <span className="font-semibold">{t('aquaDashboard.selectProjectHint', { ns: 'dashboard' })}</span>
                 </div>
               </div>
-            ) : selectedCageDailyRows.length === 0 ? (
+            ) : detailQuery.isError ? (
               <div className="rounded-3xl border border-slate-200 dark:border-cyan-800/30 bg-white dark:bg-blue-950/40 overflow-hidden shadow-xl p-8">
                 <div className="flex flex-col items-center justify-center py-16 text-center text-slate-500 dark:text-slate-400">
                   <Activity className="size-10 mb-4 text-slate-300 dark:text-cyan-900/60" />
                   <span className="font-semibold">{t('aquaDashboard.dataLoadFailed', { ns: 'dashboard' })}</span>
+                </div>
+              </div>
+            ) : selectedCageDailyRows.length === 0 ? (
+              <div className="rounded-3xl border border-slate-200 dark:border-cyan-800/30 bg-white dark:bg-blue-950/40 overflow-hidden shadow-xl p-8">
+                <div className="flex flex-col items-center justify-center py-16 text-center text-slate-500 dark:text-slate-400">
+                  <Activity className="size-10 mb-4 text-slate-300 dark:text-cyan-900/60" />
+                  <span className="font-semibold">{t('aquaDashboard.dailyFlowEmptyTitle', { ns: 'dashboard' })}</span>
+                  <span className="mt-2 max-w-md text-sm">
+                    {t('aquaDashboard.dailyFlowEmptyDescription', { ns: 'dashboard' })}
+                  </span>
                 </div>
               </div>
             ) : (
@@ -1742,9 +2144,7 @@ export function AquaDashboardPage(): ReactElement {
                 <BarChart3 className="size-5" />
               </div>
               <span className="truncate min-w-0">
-                {summaries.find((project) => project.projectId === selectedProjectId)
-                  ? `${summaries.find((project) => project.projectId === selectedProjectId)?.projectCode} - ${summaries.find((project) => project.projectId === selectedProjectId)?.projectName}`
-                  : '-'}
+                {selectedProjectHeaderLabel}
               </span>
             </DialogTitle>
           </DialogHeader>
@@ -1812,18 +2212,14 @@ export function AquaDashboardPage(): ReactElement {
               ) : detailCages.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {detailCages.map((cage) => (
-                    <CageCard
+                    <DetailCageCard
                       key={cage.projectCageId}
                       cage={cage}
-                      clickable
+                      projectId={selectedProjectId}
                       isSelected={selectedCageId === cage.projectCageId}
-                      onClick={() => openCageDailyDialog(cage.projectCageId)}
-                      onQuickEntryClick={() => {
-                        if (!selectedProjectId) return;
-                        navigate(
-                          `/aqua/operations/quick-daily-entry?projectId=${selectedProjectId}&projectCageId=${cage.projectCageId}`
-                        );
-                      }}
+                      onOpenDaily={openCageDailyDialog}
+                      onQuickEntry={navigateToQuickEntry}
+                      onPeekOpen={openCagePeek}
                       t={t}
                     />
                   ))}
@@ -1897,6 +2293,9 @@ export function AquaDashboardPage(): ReactElement {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+
+      <CagePeekOverlay cage={peekCage} onClose={closeCagePeek} t={t} />
+      </div>
+    </LayoutGroup>
   );
 }

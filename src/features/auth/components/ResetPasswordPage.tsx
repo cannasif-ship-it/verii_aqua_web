@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { AuthBackground } from './AuthBackground';
 import { LockKeyIcon, ViewIcon, ViewOffIcon } from 'hugeicons-react';
-import loginImage from '../../../../public/v3riiaqua.png';
+const loginImage = '/v3riiaqua-optimized.png';
 
 export function ResetPasswordPage(): React.JSX.Element {
   const { t } = useTranslation();
@@ -101,6 +101,11 @@ export function ResetPasswordPage(): React.JSX.Element {
               <img
                 src={loginImage}
                 alt="V3RII AQUA"
+                width={768}
+                height={512}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="mx-auto h-24 sm:h-32 w-auto object-contain drop-shadow-[0_0_20px_rgba(255,77,121,0.35)]"
               />
               <h1 className="mt-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#5c7c99]">

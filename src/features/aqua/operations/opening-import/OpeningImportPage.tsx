@@ -1,5 +1,4 @@
 import { type ChangeEvent, type ReactElement, useMemo, useState } from 'react';
-import * as XLSX from 'xlsx';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { AlertTriangle, CheckCircle2, DatabaseZap, Download, FileSpreadsheet, RefreshCcw, Upload } from 'lucide-react';
@@ -13,6 +12,7 @@ import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPerm
 import { hasPermission } from '@/features/access-control/utils/hasPermission';
 import { AQUA_SPECIAL_PERMISSION_CODES } from '@/features/access-control/utils/permission-config';
 import { openingImportApi } from './api/opening-import-api';
+import { measureAsync } from '@/lib/performance';
 import type {
   OpeningImportCommitResultDto,
   OpeningImportPreviewResponseDto,
@@ -261,7 +261,16 @@ function getPreviewStatusLabel(t: (key: string, options?: Record<string, unknown
   return t(`aqua.openingImport.statusValues.${status}`, { defaultValue: status });
 }
 
-function findWorkbookSheetName(workbook: XLSX.WorkBook, canonicalSheetName: string): string | null {
+type XlsxModule = typeof import('xlsx');
+type WorkBook = import('xlsx').WorkBook;
+let xlsxPromise: Promise<XlsxModule> | null = null;
+
+async function loadXlsx(): Promise<XlsxModule> {
+  xlsxPromise ??= import('xlsx');
+  return xlsxPromise;
+}
+
+function findWorkbookSheetName(workbook: WorkBook, canonicalSheetName: string): string | null {
   const aliases = SHEET_NAME_ALIASES[canonicalSheetName] ?? [canonicalSheetName];
   const aliasSet = new Set(aliases.map((item) => normalizeHeader(item)));
 
@@ -315,7 +324,9 @@ function localizeSheetRows(
   );
 }
 
-function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
+async function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
+  const XLSX = await loadXlsx();
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -351,12 +362,13 @@ function readWorkbook(file: File): Promise<ParsedImportSheet[]> {
   });
 }
 
-function downloadWorkbook(
+async function downloadWorkbook(
   t: (key: string, options?: Record<string, unknown>) => string,
   fileName: string,
   sheets: ParsedImportSheet[] | null,
   preview?: OpeningImportPreviewResponseDto | null
-): void {
+): Promise<void> {
+  const XLSX = await loadXlsx();
   const workbook = XLSX.utils.book_new();
 
   if (preview && preview.rows.length > 0) {
@@ -401,7 +413,9 @@ function downloadWorkbook(
     });
   }
 
-  XLSX.writeFile(workbook, fileName);
+  await measureAsync(`xlsx-export:${fileName}`, async () => {
+    XLSX.writeFile(workbook, fileName);
+  });
 }
 
 function ttExport(
@@ -455,7 +469,7 @@ export function OpeningImportPage(): ReactElement {
       setSelectedFile(file);
       setPreview(null);
       setCommitResult(null);
-      const parsed = await readWorkbook(file);
+      const parsed = await measureAsync(`xlsx-parse:${file.name}`, () => readWorkbook(file));
       setSheets(parsed);
       toast.success(tt('aqua.openingImport.toast.fileParsed', 'Excel dosyası okundu.'));
     } catch (error) {
@@ -551,12 +565,12 @@ export function OpeningImportPage(): ReactElement {
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button type="button" variant="outline" onClick={() => downloadWorkbook(t, 'aqua-opening-import-template.xlsx', null)}>
+            <Button type="button" variant="outline" onClick={() => { void downloadWorkbook(t, 'aqua-opening-import-template.xlsx', null); }}>
               <Download className="mr-2 h-4 w-4" />
               {tt('aqua.openingImport.downloadTemplate', 'Şablon İndir')}
             </Button>
             {preview?.summary.errorRows ? (
-              <Button type="button" variant="outline" onClick={() => downloadWorkbook(t, 'aqua-opening-import-errors.xlsx', null, preview)}>
+              <Button type="button" variant="outline" onClick={() => { void downloadWorkbook(t, 'aqua-opening-import-errors.xlsx', null, preview); }}>
                 <FileSpreadsheet className="mr-2 h-4 w-4" />
                 {tt('aqua.openingImport.downloadErrors', "Hata Excel'i İndir")}
               </Button>

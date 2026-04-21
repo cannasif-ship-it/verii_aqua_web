@@ -3,14 +3,46 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { AxiosError } from 'axios';
 import { useAuthStore } from '@/stores/auth-store';
-import { isTokenValid } from '@/utils/jwt';
+import { getUserFromToken, isTokenValid } from '@/utils/jwt';
 import { useMyPermissionsQuery } from '@/features/access-control/hooks/useMyPermissionsQuery';
 import { canAccessPath } from '@/features/access-control/utils/hasPermission';
 import { Button } from '@/components/ui/button';
 
+const ADMIN_ROLE_TOKENS = ['admin', 'administrator', 'system admin', 'yonetici', 'yönetici', 'roles.admin'];
+
 function getStoredToken(): string | null {
   if (typeof window === 'undefined') return null;
   return localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+}
+
+function normalizeRoleValue(value: string | null | undefined): string {
+  return (value ?? '').trim().toLocaleLowerCase('tr-TR');
+}
+
+function isAdminLikeUser(user: { role?: string; roles?: string[] } | null): boolean {
+  if (!user) return false;
+
+  const candidateRoles = [
+    user.role,
+    ...(Array.isArray(user.roles) ? user.roles : []),
+  ]
+    .map(normalizeRoleValue)
+    .filter(Boolean);
+
+  return candidateRoles.some((role) =>
+    ADMIN_ROLE_TOKENS.some((token) => role.includes(token)));
+}
+
+function resolveAdminLikeUser(
+  user: { role?: string; roles?: string[] } | null,
+  token: string | null
+): boolean {
+  if (isAdminLikeUser(user)) {
+    return true;
+  }
+
+  const tokenUser = token ? getUserFromToken(token) : null;
+  return isAdminLikeUser(tokenUser);
 }
 
 const MAX_AUTO_RETRY = 3;
@@ -24,9 +56,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
   const { t } = useTranslation(['common']);
   const user = useAuthStore((state) => state.user);
   const token = useAuthStore((state) => state.token);
+  const authReady = useAuthStore((state) => state.authReady);
   const storedToken = getStoredToken();
   const hasValidToken = !!(storedToken && isTokenValid(storedToken));
-  const isAuthenticated = !!(user && (token || hasValidToken));
+  const isAuthenticated = !!(user || hasValidToken || token);
+  const isAdminUser = resolveAdminLikeUser(user, storedToken || token || null);
   const location = useLocation();
   const myPermissionsQuery = useMyPermissionsQuery();
   const autoRetryCount = useRef(0);
@@ -50,8 +84,22 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
     return () => clearTimeout(timer);
   }, [myPermissionsQuery]);
 
+  if (!authReady) {
+    return (
+      <div className="min-h-[60vh] w-full flex items-center justify-center">
+        <div className="text-slate-500 dark:text-slate-400">
+          {t('common.loading')}
+        </div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
+  }
+
+  if (location.pathname === '/forbidden' && isAdminUser) {
+    return <Navigate to="/" replace />;
   }
 
   if (location.pathname === '/forbidden') {
@@ -75,7 +123,14 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
     }
 
     if (statusCode === 403) {
+      if (isAdminUser) {
+        return children;
+      }
       return <Navigate to="/forbidden" replace state={{ from: location.pathname }} />;
+    }
+
+    if (isAdminUser) {
+      return children;
     }
 
     const isAutoRetrying = autoRetryCount.current < MAX_AUTO_RETRY;
@@ -111,7 +166,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement 
   }
 
   const permissions = myPermissionsQuery.data ?? null;
-  const allowed = canAccessPath(permissions, location.pathname);
+  const allowed = isAdminUser || canAccessPath(permissions, location.pathname);
   if (!allowed) {
     return <Navigate to="/forbidden" replace state={{ from: location.pathname }} />;
   }

@@ -1,13 +1,45 @@
 import { type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/stores/auth-store';
+import { getUserFromToken } from '@/utils/jwt';
+
+const ADMIN_ROLE_TOKENS = ['admin', 'administrator', 'system admin', 'yonetici', 'yönetici', 'roles.admin'];
+
+function normalizeRoleValue(value: string | null | undefined): string {
+  return (value ?? '').trim().toLocaleLowerCase('tr-TR');
+}
+
+function isAdminLikeUser(user: { role?: string; roles?: string[] } | null): boolean {
+  if (!user) return false;
+
+  const candidateRoles = [
+    user.role,
+    ...(Array.isArray(user.roles) ? user.roles : []),
+  ]
+    .map(normalizeRoleValue)
+    .filter(Boolean);
+
+  return candidateRoles.some((role) =>
+    ADMIN_ROLE_TOKENS.some((token) => role.includes(token)));
+}
 
 export function ForbiddenPage(): ReactElement {
   const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const location = useLocation();
+  const storedToken =
+    typeof window !== 'undefined'
+      ? localStorage.getItem('access_token') || sessionStorage.getItem('access_token')
+      : null;
+  const user = useAuthStore((state) => state.user) ?? (storedToken ? getUserFromToken(storedToken) : null);
+  const isAdminUser = isAdminLikeUser(user);
   const from = (location.state as { from?: string } | null)?.from;
+
+  if (isAdminUser) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="min-h-[70vh] w-full flex items-center justify-center px-6">
@@ -36,4 +68,3 @@ export function ForbiddenPage(): ReactElement {
     </div>
   );
 }
-

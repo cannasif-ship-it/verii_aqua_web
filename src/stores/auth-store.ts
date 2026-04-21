@@ -6,6 +6,8 @@ interface User {
   id: number;
   email: string;
   name?: string;
+  role?: string;
+  roles?: string[];
 }
 
 interface Branch {
@@ -14,14 +16,50 @@ interface Branch {
   code?: string;
 }
 
+function mergeUserWithTokenClaims(user: User | null, token: string | null): User | null {
+  if (!user || !token) return user;
+
+  const tokenUser = getUserFromToken(token);
+  if (!tokenUser) return user;
+
+  const nextRole = user.role ?? tokenUser.role;
+  const nextRoles = Array.isArray(user.roles) && user.roles.length > 0 ? user.roles : tokenUser.roles;
+  const sameRole = user.role === nextRole;
+  const sameRoles =
+    (user.roles ?? []).length === (nextRoles ?? []).length &&
+    (user.roles ?? []).every((value, index) => value === (nextRoles ?? [])[index]);
+
+  if (sameRole && sameRoles) {
+    return user;
+  }
+
+  return {
+    ...user,
+    role: nextRole,
+    roles: nextRoles,
+  };
+}
+
 interface AuthState {
   user: User | null;
   token: string | null;
   branch: Branch | null;
-  setAuth: (user: User, token: string, branch: Branch | null, rememberMe: boolean) => void;
+  authReady: boolean;
+  setAuth: (user: User, token: string, branch: Branch | null, rememberMe: boolean, refreshToken?: string | null) => void;
+  replaceToken: (token: string, refreshToken?: string | null) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
   init: () => void;
+}
+
+function getStoredAccessToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+}
+
+function hasPersistentSession(): boolean {
+  if (typeof window === 'undefined') return false;
+  return !!(localStorage.getItem('access_token') || localStorage.getItem('refresh_token'));
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -30,29 +68,66 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       branch: null,
-      setAuth: (user, token, branch, rememberMe) => {
+      authReady: false,
+      setAuth: (user, token, branch, rememberMe, refreshToken) => {
+        localStorage.removeItem('access_token');
+        sessionStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('refresh_token');
+
         if (rememberMe) {
           localStorage.setItem('access_token', token);
+          if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
+          sessionStorage.removeItem('access_token');
         } else {
           sessionStorage.setItem('access_token', token);
+          if (refreshToken) sessionStorage.setItem('refresh_token', refreshToken);
+          localStorage.removeItem('access_token');
         }
-        set({ user, token, branch });
+        set({ user: mergeUserWithTokenClaims(user, token), token, branch, authReady: true });
+      },
+      replaceToken: (token, refreshToken) => {
+        const persistInLocalStorage = hasPersistentSession();
+        localStorage.removeItem('access_token');
+        sessionStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('refresh_token');
+
+        if (persistInLocalStorage) {
+          localStorage.setItem('access_token', token);
+          if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
+        } else {
+          sessionStorage.setItem('access_token', token);
+          if (refreshToken) sessionStorage.setItem('refresh_token', refreshToken);
+        }
+
+        set((state) => ({
+          user: mergeUserWithTokenClaims(state.user, token) ?? getUserFromToken(token),
+          token,
+          authReady: true,
+        }));
       },
       logout: () => {
         localStorage.removeItem('access_token');
         sessionStorage.removeItem('access_token');
-        set({ user: null, token: null, branch: null });
+        localStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('refresh_token');
+        set({ user: null, token: null, branch: null, authReady: true });
       },
       isAuthenticated: () => {
         const state = get();
-        const storedToken = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+        const storedToken = getStoredAccessToken();
         if (!storedToken || !isTokenValid(storedToken)) {
           return false;
         }
-        if (!state.user) {
-          const user = getUserFromToken(storedToken);
-          if (user) {
-            set({ user, token: storedToken });
+        const hydratedUser = mergeUserWithTokenClaims(state.user, storedToken);
+        if (hydratedUser && hydratedUser !== state.user) {
+          set({ user: hydratedUser, token: storedToken });
+        }
+        if (!hydratedUser) {
+          const tokenUser = getUserFromToken(storedToken);
+          if (tokenUser) {
+            set({ user: tokenUser, token: storedToken });
             return true;
           }
           return false;
@@ -60,18 +135,20 @@ export const useAuthStore = create<AuthState>()(
         return true;
       },
       init: () => {
-        const storedToken = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+        const storedToken = getStoredAccessToken();
         if (storedToken && isTokenValid(storedToken)) {
           const state = get();
-          if (!state.token || !state.user) {
-            const user = getUserFromToken(storedToken);
-            if (user) {
-              set({ user, token: storedToken });
-            } else {
-              set({ token: storedToken });
-            }
-          }
+          const tokenUser = getUserFromToken(storedToken);
+          const hydratedUser = mergeUserWithTokenClaims(state.user, storedToken) ?? tokenUser;
+          set({
+            user: hydratedUser,
+            token: storedToken,
+            authReady: true,
+          });
+          return;
         }
+
+        set({ user: null, token: null, authReady: true });
       },
     }),
     {
@@ -80,4 +157,3 @@ export const useAuthStore = create<AuthState>()(
     }
   )
 );
-

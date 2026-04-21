@@ -177,7 +177,9 @@
       "feed": "appât",
       "biomass": "biomasse",
       "survivalRate": "Taux de survie",
-      "quickDailyEntry": "Connexion quotidienne"
+      "quickDailyEntry": "Connexion quotidienne",
+      "expandFullscreen": "Agrandir en plein écran",
+      "closeHint": "pour fermer"
     },
     "controls": {
       "viewAndProject": "Apparence et projet",
@@ -187,7 +189,8 @@
       "viewType": "Apparence",
       "projectSelection": "Sélection de projets",
       "selectAll": "Sélectionner tout",
-      "clear": "clair"
+      "clear": "clair",
+      "close": "Fermer"
     },
     "selectedProjects": "Projets sélectionnés",
     "listTable": {

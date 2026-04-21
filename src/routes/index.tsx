@@ -6,73 +6,82 @@ import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback';
 import { ForbiddenPage } from '@/components/shared/ForbiddenPage';
 import AuthLayout from '@/layouts/AuthLayout';
 import { getAppBasePath } from '@/lib/api-config';
+import { ensureFeatureNamespacesReady } from '@/lib/i18n';
+import { measureAsync } from '@/lib/performance';
 
 const lazyImport = <T extends Record<string, unknown>, K extends keyof T>(
   factory: () => Promise<T>,
-  name: K
+  name: K,
+  features?: string | string[],
 ) =>
   lazy(async () => {
-    const module = await factory();
+    const module = await measureAsync(`route-chunk:${String(name)}`, async () => {
+      const [loadedModule] = await Promise.all([
+        factory(),
+        ...(features ? [ensureFeatureNamespacesReady(features)] : []),
+      ]);
+      return loadedModule;
+    });
     return { default: module[name] as ComponentType };
   });
 
-const LoginPage = lazyImport(() => import('@/features/auth'), 'LoginPage');
-const ResetPasswordPage = lazyImport(() => import('@/features/auth'), 'ResetPasswordPage');
-const ForgotPasswordPage = lazyImport(() => import('@/features/auth'), 'ForgotPasswordPage');
-const UserManagementPage = lazyImport(() => import('@/features/user-management'), 'UserManagementPage');
-const MailSettingsPage = lazyImport(() => import('@/features/mail-settings'), 'MailSettingsPage');
-const StockListPage = lazyImport(() => import('@/features/stock'), 'StockListPage');
-const StockDetailPage = lazyImport(() => import('@/features/stock'), 'StockDetailPage');
-const PermissionDefinitionsPage = lazyImport(() => import('@/features/access-control'), 'PermissionDefinitionsPage');
-const PermissionGroupsPage = lazyImport(() => import('@/features/access-control'), 'PermissionGroupsPage');
-const UserGroupAssignmentsPage = lazyImport(() => import('@/features/access-control'), 'UserGroupAssignmentsPage');
-const HangfireMonitoringPage = lazyImport(() => import('@/features/hangfire-monitoring'), 'HangfireMonitoringPage');
-const ProfilePage = lazyImport(() => import('@/features/user-detail-management'), 'ProfilePage');
-const ProjectsPage = lazyImport(() => import('@/features/aqua'), 'ProjectsPage');
-const CagesPage = lazyImport(() => import('@/features/aqua'), 'CagesPage');
-const ProjectCageAssignmentsPage = lazyImport(() => import('@/features/aqua'), 'ProjectCageAssignmentsPage');
-const WeatherSeveritiesPage = lazyImport(() => import('@/features/aqua'), 'WeatherSeveritiesPage');
-const WeatherTypesPage = lazyImport(() => import('@/features/aqua'), 'WeatherTypesPage');
-const NetOperationTypesPage = lazyImport(() => import('@/features/aqua'), 'NetOperationTypesPage');
-const AquaSettingsPage = lazyImport(() => import('@/features/aqua'), 'AquaSettingsPage');
-const GoodsReceiptsPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptsPage');
-const FeedingsPage = lazyImport(() => import('@/features/aqua'), 'FeedingsPage');
-const MortalitiesPage = lazyImport(() => import('@/features/aqua'), 'MortalitiesPage');
-const TransfersPage = lazyImport(() => import('@/features/aqua'), 'TransfersPage');
-const WarehouseTransfersPage = lazyImport(() => import('@/features/aqua'), 'WarehouseTransfersPage');
-const CageWarehouseTransfersPage = lazyImport(() => import('@/features/aqua'), 'CageWarehouseTransfersPage');
-const WarehouseCageTransfersPage = lazyImport(() => import('@/features/aqua'), 'WarehouseCageTransfersPage');
-const ShipmentsPage = lazyImport(() => import('@/features/aqua'), 'ShipmentsPage');
-const WeighingsPage = lazyImport(() => import('@/features/aqua'), 'WeighingsPage');
-const StockConvertsPage = lazyImport(() => import('@/features/aqua'), 'StockConvertsPage');
-const FishBatchesPage = lazyImport(() => import('@/features/aqua'), 'FishBatchesPage');
-const DailyWeathersPage = lazyImport(() => import('@/features/aqua'), 'DailyWeathersPage');
-const NetOperationsPage = lazyImport(() => import('@/features/aqua'), 'NetOperationsPage');
-const GoodsReceiptLinesPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptLinesPage');
-const GoodsReceiptFishDistributionsPage = lazyImport(() => import('@/features/aqua'), 'GoodsReceiptFishDistributionsPage');
-const FeedingLinesPage = lazyImport(() => import('@/features/aqua'), 'FeedingLinesPage');
-const FeedingDistributionsPage = lazyImport(() => import('@/features/aqua'), 'FeedingDistributionsPage');
-const TransferLinesPage = lazyImport(() => import('@/features/aqua'), 'TransferLinesPage');
-const WarehouseTransferLinesPage = lazyImport(() => import('@/features/aqua'), 'WarehouseTransferLinesPage');
-const CageWarehouseTransferLinesPage = lazyImport(() => import('@/features/aqua'), 'CageWarehouseTransferLinesPage');
-const WarehouseCageTransferLinesPage = lazyImport(() => import('@/features/aqua'), 'WarehouseCageTransferLinesPage');
-const ShipmentLinesPage = lazyImport(() => import('@/features/aqua'), 'ShipmentLinesPage');
-const MortalityLinesPage = lazyImport(() => import('@/features/aqua'), 'MortalityLinesPage');
-const WeighingLinesPage = lazyImport(() => import('@/features/aqua'), 'WeighingLinesPage');
-const StockConvertLinesPage = lazyImport(() => import('@/features/aqua'), 'StockConvertLinesPage');
-const NetOperationLinesPage = lazyImport(() => import('@/features/aqua'), 'NetOperationLinesPage');
-const BatchMovementsPage = lazyImport(() => import('@/features/aqua'), 'BatchMovementsPage');
-const CageBalancesPage = lazyImport(() => import('@/features/aqua'), 'CageBalancesPage');
-const ProjectDetailReportPage = lazyImport(() => import('@/features/aqua'), 'ProjectDetailReportPage');
-const AquaDashboardPage = lazyImport(() => import('@/features/aqua'), 'AquaDashboardPage');
-const RawKpiReportPage = lazyImport(() => import('@/features/aqua'), 'RawKpiReportPage');
-const BusinessKpiReportPage = lazyImport(() => import('@/features/aqua'), 'BusinessKpiReportPage');
-const DevirFcrReportPage = lazyImport(() => import('@/features/aqua'), 'DevirFcrReportPage');
-const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup'), 'QuickSetupPage');
-const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry'), 'QuickDailyEntryPage');
-const OpeningImportPage = lazyImport(() => import('@/features/aqua/operations/opening-import'), 'OpeningImportPage');
-const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges'), 'ProjectMergesPage');
-const WelcomePage = lazyImport(() => import('@/features/welcome'), 'WelcomePage');
+const LoginPage = lazyImport(() => import('@/features/auth/index.tsx'), 'LoginPage', 'auth');
+const ResetPasswordPage = lazyImport(() => import('@/features/auth/index.tsx'), 'ResetPasswordPage', 'auth');
+const ForgotPasswordPage = lazyImport(() => import('@/features/auth/index.tsx'), 'ForgotPasswordPage', 'auth');
+const UserManagementPage = lazyImport(() => import('@/features/user-management/index.ts'), 'UserManagementPage', 'user-management');
+const MailSettingsPage = lazyImport(() => import('@/features/mail-settings/index.ts'), 'MailSettingsPage', 'mail-settings');
+const StockListPage = lazyImport(() => import('@/features/stock/index.ts'), 'StockListPage', 'stock');
+const StockDetailPage = lazyImport(() => import('@/features/stock/index.ts'), 'StockDetailPage', 'stock');
+const PermissionDefinitionsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'PermissionDefinitionsPage', 'access-control');
+const PermissionGroupsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'PermissionGroupsPage', 'access-control');
+const UserGroupAssignmentsPage = lazyImport(() => import('@/features/access-control/index.ts'), 'UserGroupAssignmentsPage', 'access-control');
+const HangfireMonitoringPage = lazyImport(() => import('@/features/hangfire-monitoring/index.ts'), 'HangfireMonitoringPage', 'hangfire-monitoring');
+const ProfilePage = lazyImport(() => import('@/features/user-detail-management/index.ts'), 'ProfilePage', 'user-detail-management');
+const ProjectsPage = lazyImport(() => import('@/features/aqua/definitions/components/ProjectsPage.tsx'), 'ProjectsPage', 'aqua');
+const CagesPage = lazyImport(() => import('@/features/aqua/definitions/components/CagesPage.tsx'), 'CagesPage', 'aqua');
+const ProjectCageAssignmentsPage = lazyImport(() => import('@/features/aqua/definitions/components/ProjectCageAssignmentsPage.tsx'), 'ProjectCageAssignmentsPage', 'aqua');
+const WeatherSeveritiesPage = lazyImport(() => import('@/features/aqua/definitions/components/WeatherSeveritiesPage.tsx'), 'WeatherSeveritiesPage', 'aqua');
+const WeatherTypesPage = lazyImport(() => import('@/features/aqua/definitions/components/WeatherTypesPage.tsx'), 'WeatherTypesPage', 'aqua');
+const NetOperationTypesPage = lazyImport(() => import('@/features/aqua/definitions/components/NetOperationTypesPage.tsx'), 'NetOperationTypesPage', 'aqua');
+const AquaSettingsPage = lazyImport(() => import('@/features/aqua/settings/pages/AquaSettingsPage.tsx'), 'AquaSettingsPage', 'aqua');
+const GoodsReceiptsPage = lazyImport(() => import('@/features/aqua/operations/components/GoodsReceiptsPage.tsx'), 'GoodsReceiptsPage', 'aqua');
+const FeedingsPage = lazyImport(() => import('@/features/aqua/operations/components/FeedingsPage.tsx'), 'FeedingsPage', 'aqua');
+const MortalitiesPage = lazyImport(() => import('@/features/aqua/operations/components/MortalitiesPage.tsx'), 'MortalitiesPage', 'aqua');
+const TransfersPage = lazyImport(() => import('@/features/aqua/operations/components/TransfersPage.tsx'), 'TransfersPage', 'aqua');
+const WarehouseTransfersPage = lazyImport(() => import('@/features/aqua/operations/components/WarehouseTransfersPage.tsx'), 'WarehouseTransfersPage', 'aqua');
+const CageWarehouseTransfersPage = lazyImport(() => import('@/features/aqua/operations/components/CageWarehouseTransfersPage.tsx'), 'CageWarehouseTransfersPage', 'aqua');
+const WarehouseCageTransfersPage = lazyImport(() => import('@/features/aqua/operations/components/WarehouseCageTransfersPage.tsx'), 'WarehouseCageTransfersPage', 'aqua');
+const ShipmentsPage = lazyImport(() => import('@/features/aqua/operations/components/ShipmentsPage.tsx'), 'ShipmentsPage', 'aqua');
+const WeighingsPage = lazyImport(() => import('@/features/aqua/operations/components/WeighingsPage.tsx'), 'WeighingsPage', 'aqua');
+const StockConvertsPage = lazyImport(() => import('@/features/aqua/operations/components/StockConvertsPage.tsx'), 'StockConvertsPage', 'aqua');
+const FishBatchesPage = lazyImport(() => import('@/features/aqua/operations/components/FishBatchesPage.tsx'), 'FishBatchesPage', 'aqua');
+const DailyWeathersPage = lazyImport(() => import('@/features/aqua/operations/components/DailyWeathersPage.tsx'), 'DailyWeathersPage', 'aqua');
+const NetOperationsPage = lazyImport(() => import('@/features/aqua/operations/components/NetOperationsPage.tsx'), 'NetOperationsPage', 'aqua');
+const GoodsReceiptLinesPage = lazyImport(() => import('@/features/aqua/operations/components/GoodsReceiptLinesPage.tsx'), 'GoodsReceiptLinesPage', 'aqua');
+const GoodsReceiptFishDistributionsPage = lazyImport(() => import('@/features/aqua/operations/components/GoodsReceiptFishDistributionsPage.tsx'), 'GoodsReceiptFishDistributionsPage', 'aqua');
+const FeedingLinesPage = lazyImport(() => import('@/features/aqua/operations/components/FeedingLinesPage.tsx'), 'FeedingLinesPage', 'aqua');
+const FeedingDistributionsPage = lazyImport(() => import('@/features/aqua/operations/components/FeedingDistributionsPage.tsx'), 'FeedingDistributionsPage', 'aqua');
+const TransferLinesPage = lazyImport(() => import('@/features/aqua/operations/components/TransferLinesPage.tsx'), 'TransferLinesPage', 'aqua');
+const WarehouseTransferLinesPage = lazyImport(() => import('@/features/aqua/operations/components/WarehouseTransferLinesPage.tsx'), 'WarehouseTransferLinesPage', 'aqua');
+const CageWarehouseTransferLinesPage = lazyImport(() => import('@/features/aqua/operations/components/CageWarehouseTransferLinesPage.tsx'), 'CageWarehouseTransferLinesPage', 'aqua');
+const WarehouseCageTransferLinesPage = lazyImport(() => import('@/features/aqua/operations/components/WarehouseCageTransferLinesPage.tsx'), 'WarehouseCageTransferLinesPage', 'aqua');
+const ShipmentLinesPage = lazyImport(() => import('@/features/aqua/operations/components/ShipmentLinesPage.tsx'), 'ShipmentLinesPage', 'aqua');
+const MortalityLinesPage = lazyImport(() => import('@/features/aqua/operations/components/MortalityLinesPage.tsx'), 'MortalityLinesPage', 'aqua');
+const WeighingLinesPage = lazyImport(() => import('@/features/aqua/operations/components/WeighingLinesPage.tsx'), 'WeighingLinesPage', 'aqua');
+const StockConvertLinesPage = lazyImport(() => import('@/features/aqua/operations/components/StockConvertLinesPage.tsx'), 'StockConvertLinesPage', 'aqua');
+const NetOperationLinesPage = lazyImport(() => import('@/features/aqua/operations/components/NetOperationLinesPage.tsx'), 'NetOperationLinesPage', 'aqua');
+const BatchMovementsPage = lazyImport(() => import('@/features/aqua/reports/components/BatchMovementsPage.tsx'), 'BatchMovementsPage', 'aqua');
+const CageBalancesPage = lazyImport(() => import('@/features/aqua/reports/components/CageBalancesPage.tsx'), 'CageBalancesPage', 'aqua');
+const ProjectDetailReportPage = lazyImport(() => import('@/features/aqua/reports/components/ProjectDetailReportPage.tsx'), 'ProjectDetailReportPage', 'aqua');
+const AquaDashboardPage = lazyImport(() => import('@/features/aqua/reports/components/AquaDashboardPage.tsx'), 'AquaDashboardPage', 'aqua');
+const RawKpiReportPage = lazyImport(() => import('@/features/aqua/reports/components/RawKpiReportPage.tsx'), 'RawKpiReportPage', 'aqua');
+const BusinessKpiReportPage = lazyImport(() => import('@/features/aqua/reports/components/BusinessKpiReportPage.tsx'), 'BusinessKpiReportPage', 'aqua');
+const DevirFcrReportPage = lazyImport(() => import('@/features/aqua/reports/components/DevirFcrReportPage.tsx'), 'DevirFcrReportPage', 'aqua');
+const QuickSetupPage = lazyImport(() => import('@/features/aqua/operations/quick-setup/index.ts'), 'QuickSetupPage', 'aqua');
+const QuickDailyEntryPage = lazyImport(() => import('@/features/aqua/operations/quick-daily-entry/index.ts'), 'QuickDailyEntryPage', 'aqua');
+const OpeningImportPage = lazyImport(() => import('@/features/aqua/operations/opening-import/index.ts'), 'OpeningImportPage', 'aqua');
+const ProjectMergesPage = lazyImport(() => import('@/features/aqua/operations/project-merges/index.ts'), 'ProjectMergesPage', 'aqua');
+const WelcomePage = lazyImport(() => import('@/features/welcome/index.ts'), 'WelcomePage', 'welcome');
 
 export const router = createBrowserRouter([
   {

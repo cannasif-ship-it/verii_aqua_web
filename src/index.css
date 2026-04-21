@@ -250,3 +250,285 @@ input:-webkit-autofill:active {
   cursor: grabbing;
   user-select: none;
 }
+
+@layer utilities {
+  @keyframes aqua-ripple {
+    0% {
+      transform: scale(0.55);
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.08);
+      opacity: 0;
+    }
+  }
+
+  @keyframes aqua-caustic-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes aqua-caustic-spin-reverse {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes aqua-breathe {
+    0%, 100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.035);
+    }
+  }
+
+  @keyframes aqua-shimmer {
+    0% {
+      transform: translate3d(-14%, 0, 0);
+    }
+    100% {
+      transform: translate3d(14%, 0, 0);
+    }
+  }
+
+  @keyframes aqua-surface-float {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -1.5%, 0);
+    }
+  }
+
+  @keyframes aqua-pulse-alert {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(244, 63, 94, 0.18);
+    }
+  }
+
+  .aqua-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  .aqua-ripple {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: aqua-ripple 4.2s ease-out infinite;
+  }
+
+  .aqua-ripple-d1 {
+    animation-delay: 1.4s;
+  }
+
+  .aqua-ripple-d2 {
+    animation-delay: 2.8s;
+  }
+
+  .aqua-caustic {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: aqua-caustic-spin 36s linear infinite;
+  }
+
+  .aqua-caustic-slow {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: aqua-caustic-spin-reverse 60s linear infinite;
+  }
+
+  .aqua-breathe {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: aqua-breathe 5.5s ease-in-out infinite;
+  }
+
+  .aqua-shimmer {
+    animation: aqua-shimmer 6s ease-in-out infinite alternate;
+  }
+
+  .aqua-surface-float {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: aqua-surface-float 7s ease-in-out infinite;
+  }
+
+  .aqua-pulse-alert {
+    animation: aqua-pulse-alert 2.2s ease-in-out infinite;
+  }
+
+  .aqua-contain {
+    contain: paint layout;
+  }
+
+  @keyframes aqua-gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes aqua-sheen-sweep {
+    0% {
+      transform: translate3d(-140%, 0, 0) skewX(-18deg);
+    }
+    55% {
+      transform: translate3d(140%, 0, 0) skewX(-18deg);
+    }
+    100% {
+      transform: translate3d(140%, 0, 0) skewX(-18deg);
+    }
+  }
+
+  @keyframes aqua-glow-pulse {
+    0%, 100% {
+      box-shadow: 0 10px 24px rgba(236, 72, 153, 0.28), 0 0 0 0 rgba(236, 72, 153, 0);
+    }
+    50% {
+      box-shadow: 0 14px 32px rgba(236, 72, 153, 0.42), 0 0 0 6px rgba(236, 72, 153, 0.18);
+    }
+  }
+
+  @keyframes aqua-icon-wiggle {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate3d(0, -2px, 0) rotate(-6deg);
+    }
+    75% {
+      transform: translate3d(0, -2px, 0) rotate(6deg);
+    }
+  }
+
+  @keyframes aqua-arrow-slide {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(3px, 0, 0);
+    }
+  }
+
+  @keyframes aqua-peek-zoom {
+    0% {
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .aqua-cta {
+    background: linear-gradient(120deg, #ec4899 0%, #f43f5e 25%, #f97316 50%, #f43f5e 75%, #ec4899 100%);
+    background-size: 280% 280%;
+    animation: aqua-gradient-shift 6s ease-in-out infinite, aqua-glow-pulse 2.4s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .aqua-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+    transform: translate3d(-140%, 0, 0) skewX(-18deg);
+    animation: aqua-sheen-sweep 3.2s ease-in-out infinite;
+    animation-delay: 0.8s;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .aqua-cta:hover {
+    animation-duration: 3s, 1.4s;
+  }
+
+  .aqua-cta:hover::before {
+    animation-duration: 1.6s;
+  }
+
+  .aqua-cta > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .aqua-cta-icon {
+    animation: aqua-icon-wiggle 3.5s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+
+  .aqua-cta:hover .aqua-cta-icon {
+    animation-duration: 1.2s;
+  }
+
+  .aqua-cta-arrow {
+    animation: aqua-arrow-slide 1.8s ease-in-out infinite;
+  }
+
+  .aqua-expand-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .aqua-expand-btn::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, #06b6d4, #22d3ee, #0ea5e9, #06b6d4);
+    animation: aqua-caustic-spin 3s linear infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+
+  .group:hover .aqua-expand-btn::before,
+  .aqua-expand-btn:hover::before {
+    opacity: 1;
+  }
+
+  .aqua-peek-enter {
+    animation: aqua-peek-zoom 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aqua-ripple,
+    .aqua-caustic,
+    .aqua-caustic-slow,
+    .aqua-breathe,
+    .aqua-shimmer,
+    .aqua-surface-float,
+    .aqua-pulse-alert,
+    .aqua-cta,
+    .aqua-cta::before,
+    .aqua-cta-icon,
+    .aqua-cta-arrow,
+    .aqua-expand-btn::before,
+    .aqua-peek-enter {
+      animation: none !important;
+    }
+  }
+}

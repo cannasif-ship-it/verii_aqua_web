@@ -177,7 +177,9 @@
       "feed": "Köder",
       "biomass": "Biomasse",
       "survivalRate": "Überlebensrate",
-      "quickDailyEntry": "Täglicher Login"
+      "quickDailyEntry": "Täglicher Login",
+      "expandFullscreen": "Auf Vollbild erweitern",
+      "closeHint": "zum Schließen"
     },
     "controls": {
       "viewAndProject": "Auftritt und Projekt",
@@ -187,7 +189,8 @@
       "viewType": "Aussehen",
       "projectSelection": "Projektauswahl",
       "selectAll": "Wählen Sie „Alle“ aus",
-      "clear": "klar"
+      "clear": "klar",
+      "close": "Schließen"
     },
     "selectedProjects": "Ausgewählte Projekte",
     "listTable": {

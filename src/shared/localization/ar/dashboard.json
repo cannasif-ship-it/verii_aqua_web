@@ -177,7 +177,9 @@
       "feed": "الطعم",
       "biomass": "الكتلة الحيوية",
       "survivalRate": "معدل البقاء على قيد الحياة",
-      "quickDailyEntry": "تسجيل الدخول اليومي"
+      "quickDailyEntry": "تسجيل الدخول اليومي",
+      "expandFullscreen": "توسيع إلى وضع ملء الشاشة",
+      "closeHint": "للإغلاق"
     },
     "controls": {
       "viewAndProject": "المظهر والمشروع",
@@ -187,7 +189,8 @@
       "viewType": "مظهر",
       "projectSelection": "اختيار المشروع",
       "selectAll": "حدد الكل",
-      "clear": "واضح"
+      "clear": "واضح",
+      "close": "إغلاق"
     },
     "selectedProjects": "مشاريع مختارة",
     "listTable": {
