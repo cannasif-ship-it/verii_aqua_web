@@ -211,7 +211,8 @@
       "projectSelection": "Proje Seçimi",
       "selectAll": "Tümünü Seç",
       "clear": "Temizle",
-      "close": "Kapat"
+      "close": "Kapat",
+      "detail": "Detay"
     },
     "selectedProjects": "Seçili Projeler",
     "listTable": {

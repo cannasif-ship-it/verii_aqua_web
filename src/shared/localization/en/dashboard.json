@@ -211,7 +211,8 @@
       "projectSelection": "Project Selection",
       "selectAll": "Select All",
       "clear": "clear",
-      "close": "Close"
+      "close": "Close",
+      "detail": "Detail"
     },
     "selectedProjects": "Selected Projects",
     "listTable": {

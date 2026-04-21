@@ -81,10 +81,10 @@ const CAGE_SIZE_CLASSES: Record<CageCardSize, CageSizeClasses> = {
     fcrLabel: 'text-[8px]',
   },
   peek: {
-    outer: 'max-w-[min(92vw,560px)]',
-    content: 'max-w-[420px] gap-3',
+    outer: 'max-w-[min(92vw,640px)]',
+    content: 'max-w-[500px] gap-3',
     contentPadTop: 'pt-20',
-    bottom: 'max-w-[400px]',
+    bottom: 'max-w-[470px]',
     statLabel: 'text-[14px]',
     statValue: 'text-[22px]',
     fcrValue: 'text-4xl',
@@ -790,27 +790,107 @@ function CagePeekOverlayComponent({ cage, onClose, t }: CagePeekOverlayProps): R
             layoutId={peekLayoutId(cage.projectCageId)}
             transition={PEEK_SPRING_TRANSITION}
             onClick={(event) => event.stopPropagation()}
-            className="relative z-10 flex justify-center"
+            className="relative z-10 w-full max-w-6xl"
           >
-            <div className="relative rounded-[36px] border border-cyan-400/25 bg-linear-to-b from-slate-900 via-blue-950 to-slate-950 p-4 sm:p-8 shadow-[0_48px_140px_rgba(6,182,212,0.35)]">
-              <div className="pointer-events-none absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.28),transparent_55%)]" />
+            <div className="relative overflow-hidden rounded-[36px] border border-cyan-300/20 bg-[linear-gradient(180deg,rgba(9,19,45,0.94),rgba(7,14,33,0.98))] shadow-[0_48px_140px_rgba(6,182,212,0.22)]">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.16),transparent_28%),radial-gradient(circle_at_85%_15%,rgba(244,114,182,0.14),transparent_22%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.14),transparent_32%)]" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
 
               <button
                 type="button"
                 onClick={onClose}
                 aria-label={t('aquaDashboard.controls.close', { ns: 'dashboard' })}
-                className="absolute top-3 right-3 z-30 flex size-10 items-center justify-center rounded-full border border-white/15 bg-slate-950/80 text-slate-200 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-rose-950 hover:text-rose-200 hover:border-rose-400/50 focus-visible:outline-none"
+                className="absolute top-4 right-4 z-30 flex size-11 items-center justify-center rounded-full border border-white/12 bg-slate-950/70 text-slate-100 shadow-lg backdrop-blur-xl transition-all duration-200 hover:scale-105 hover:border-rose-300/40 hover:bg-rose-950/70 hover:text-rose-100 focus-visible:outline-none"
               >
                 <X className="size-5" strokeWidth={2.5} />
               </button>
 
-              <div className="relative">
-                <CageCard cage={cage} size="peek" t={t} />
-              </div>
+              <div className="relative grid gap-6 p-5 sm:p-7 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8 xl:p-8">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-[32px] bg-cyan-400/8 blur-3xl" />
+                  <div className="relative rounded-[30px] border border-white/8 bg-slate-950/18 p-3 sm:p-4">
+                    <CageCard cage={cage} size="peek" t={t} />
+                  </div>
+                </div>
 
-              <div className="pointer-events-none mt-4 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                <kbd className="rounded border border-white/10 bg-slate-900/80 px-2 py-0.5 text-[10px]">ESC</kbd>
-                <span>{t('aquaDashboard.cageCard.closeHint', { ns: 'dashboard' })}</span>
+                <div className="flex flex-col justify-between gap-5 rounded-[28px] border border-white/8 bg-slate-950/28 p-5 backdrop-blur-xl">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.28em] text-cyan-200">
+                        <Sparkles className="size-3.5" />
+                        {t('aquaDashboard.cageCard.expandFullscreen', { ns: 'dashboard' })}
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-black tracking-tight text-white">{cage.cageLabel}</h3>
+                        <p className="mt-1 text-sm leading-6 text-slate-300">
+                          {t('aquaDashboard.cageCard.closeHint', { ns: 'dashboard' })}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-2xl border border-white/8 bg-white/5 p-3">
+                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                          <Fish className="size-3.5 text-emerald-300" />
+                          {t('aquaDashboard.cageCard.stockCount', { ns: 'dashboard' })}
+                        </div>
+                        <div className="mt-2 text-2xl font-black text-white">{formatNumber(cage.currentFishCount)}</div>
+                      </div>
+                      <div className="rounded-2xl border border-white/8 bg-white/5 p-3">
+                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                          <Layers className="size-3.5 text-sky-300" />
+                          {t('aquaDashboard.cageCard.stockKg', { ns: 'dashboard' })}
+                        </div>
+                        <div className="mt-2 text-2xl font-black text-white">{formatNumber(toKg(cage.currentBiomassGram))}</div>
+                      </div>
+                      <div className="rounded-2xl border border-white/8 bg-white/5 p-3">
+                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                          <UtensilsCrossed className="size-3.5 text-amber-300" />
+                          {t('aquaDashboard.cageCard.feedKg', { ns: 'dashboard' })}
+                        </div>
+                        <div className="mt-2 text-2xl font-black text-white">{formatNumber(toKg(cage.totalFeedGram))}</div>
+                      </div>
+                      <div className="rounded-2xl border border-white/8 bg-white/5 p-3">
+                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                          <TrendingUp className="size-3.5 text-cyan-300" />
+                          {t('aquaDashboard.cageCard.fcr', { ns: 'dashboard' })}
+                        </div>
+                        <div className="mt-2 text-2xl font-black text-white">{cage.fcr != null ? formatNumber(cage.fcr) : '-'}</div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/8 bg-linear-to-r from-slate-950/70 via-slate-900/60 to-slate-950/70 p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-slate-400">
+                            {t('aquaDashboard.cageCard.survivalRate', { ns: 'dashboard' })}
+                          </div>
+                          <div className="mt-1 text-3xl font-black text-white">
+                            %{(() => {
+                              const totalInitial = cage.currentFishCount + cage.totalDeadCount;
+                              const survivalRate = totalInitial > 0 ? (cage.currentFishCount / totalInitial) * 100 : 100;
+                              return survivalRate.toFixed(1);
+                            })()}
+                          </div>
+                        </div>
+                        <div className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">
+                          {t('aquaDashboard.controls.detail', { ns: 'dashboard' })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-3 border-t border-white/8 pt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                    <div className="flex items-center gap-2">
+                      <kbd className="rounded-lg border border-white/10 bg-slate-900/90 px-2.5 py-1 text-[10px] text-slate-200">ESC</kbd>
+                      <span>{t('aquaDashboard.cageCard.closeHint', { ns: 'dashboard' })}</span>
+                    </div>
+                    <div className="hidden items-center gap-2 text-cyan-200 sm:flex">
+                      <ArrowRight className="size-3.5" />
+                      <span>{t('aquaDashboard.cageCard.quickDailyEntry', { ns: 'dashboard' })}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -1023,14 +1103,12 @@ export function AquaDashboardPage(): ReactElement {
   }, [safeActiveDashboardProjectIds]);
 
   const closeProjectSelector = useCallback((open: boolean): void => {
-    if (!open && safeActiveDashboardProjectIds.length === 0) {
-      return;
-    }
     setIsProjectSelectorOpen(open);
     if (!open) {
+      setDraftProjectIds(safeActiveDashboardProjectIds);
       setProjectSearch('');
     }
-  }, [safeActiveDashboardProjectIds.length]);
+  }, [safeActiveDashboardProjectIds]);
 
   const toggleDraftProjectSelection = useCallback((projectId: number): void => {
     setDraftProjectIds((prev) => {
@@ -1707,11 +1785,10 @@ export function AquaDashboardPage(): ReactElement {
               type="button"
               variant="outline"
               onClick={() => {
-                if (safeActiveDashboardProjectIds.length === 0) return;
+                setDraftProjectIds(safeActiveDashboardProjectIds);
                 setIsProjectSelectorOpen(false);
                 setProjectSearch('');
               }}
-              disabled={safeActiveDashboardProjectIds.length === 0}
               className="h-11 rounded-2xl px-5 w-full sm:w-auto"
             >
              {t('aqua.common.cancel', { ns: 'common' })}
