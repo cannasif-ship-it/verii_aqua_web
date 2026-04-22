@@ -60,58 +60,7 @@ function resolveVendorChunk(id: string): string | undefined {
   if (id.includes("recharts")) return "vendor-recharts";
   if (id.includes("html2canvas")) return "vendor-html2canvas";
 
-  if (
-    id.includes("/react-dom/") ||
-    id.includes("/react/") ||
-    id.includes("/scheduler/") ||
-    id.includes("/react-is/")
-  ) {
-    return "vendor-react-core";
-  }
-
-  if (id.includes("react-router") || id.includes("@remix-run/router")) {
-    return "vendor-router";
-  }
-
-  if (id.includes("@tanstack/react-query")) {
-    return "vendor-query";
-  }
-
-  if (id.includes("i18next") || id.includes("react-i18next")) {
-    return "vendor-i18n";
-  }
-
-  if (id.includes("lucide-react") || id.includes("hugeicons-react")) {
-    return "vendor-icons";
-  }
-
-  if (id.includes("/motion/") || id.includes("framer-motion")) {
-    return "vendor-motion";
-  }
-
-  if (
-    id.includes("@radix-ui") ||
-    id.includes("cmdk") ||
-    id.includes("embla-carousel") ||
-    id.includes("vaul") ||
-    id.includes("sonner")
-  ) {
-    return "vendor-ui";
-  }
-
-  if (
-    id.includes("axios") ||
-    id.includes("zod") ||
-    id.includes("date-fns") ||
-    id.includes("zustand") ||
-    id.includes("clsx") ||
-    id.includes("tailwind-merge") ||
-    id.includes("class-variance-authority")
-  ) {
-    return "vendor-app";
-  }
-
-  return "vendor-misc";
+  return "vendor-core";
 }
 
 export default defineConfig({
@@ -129,8 +78,7 @@ export default defineConfig({
           dep.includes("vendor-three") ||
           dep.includes("vendor-xlsx") ||
           dep.includes("vendor-recharts") ||
-          dep.includes("vendor-html2canvas") ||
-          dep.includes("vendor-misc")
+          dep.includes("vendor-html2canvas")
         );
       }),
     },
