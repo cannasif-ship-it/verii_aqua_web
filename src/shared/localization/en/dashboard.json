@@ -173,20 +173,25 @@
       "shipmentOperation": "Shipping Process"
     },
     "projectDialog": {
-      "fish": "Pisces",
-      "dead": "Wastage",
-      "feedGram": "Feed (g)",
-      "cages": "cage",
+      "fish": "Fish",
+      "dead": "Mortality",
+      "feedGram": "Feed",
+      "cages": "Cages",
       "cagePools": "Cage Pools",
-      "clickForDailyDetail": "Click for daily details"
+      "clickForDailyDetail": "Click for daily details",
+      "subtitle": "Project summary & cage data"
     },
     "projectSummary": {
       "totalDeadCount": "Mortality Qty",
       "totalDeadKg": "Mortality Kg",
       "totalShipmentCount": "Sales Qty",
       "totalShipmentKg": "Sales Kg",
-      "measurementGram": "Measured Gram",
-      "fcr": "FCR"
+      "measurementGram": "Avg Weight",
+      "fcr": "FCR",
+      "activeCage": "cages",
+      "cageFish": "cage fish",
+      "warehouseFish": "warehouse",
+      "totalFish": "total fish"
     },
     "cageCard": {
       "totalDeadCount": "Mortality Qty",
@@ -213,11 +218,18 @@
       "selectAll": "Select All",
       "clear": "clear",
       "close": "Close",
-      "detail": "Detail"
+      "detail": "Detail",
+      "cageSortToggle": "Cage order",
+      "cageSortToggleHint": "When turned on, selects all projects automatically. Shows every cage in one list sorted by cage code; with multiple projects, each cage shows its project code and name above the card."
+    },
+    "cageSortSection": {
+      "title": "Sorted by cage code",
+      "description": "{{projectCount}} projects, {{cageCount}} cages total; order is by cage code (then project code if tied)."
     },
     "selectedProjects": "Selected Projects",
     "listTable": {
       "cage": "cage",
+      "project": "Project",
       "fish": "Pisces",
       "dead": "Wastage",
       "shipment": "Sales",
