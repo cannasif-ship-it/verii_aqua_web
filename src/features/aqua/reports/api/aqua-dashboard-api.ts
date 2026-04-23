@@ -18,6 +18,10 @@ interface DashboardProjectsResponseDto {
   yesterdayDate?: string | null;
 }
 
+interface DashboardProjectsRequestDto {
+  projectIds: number[];
+}
+
 export interface DashboardCageSummary {
   projectCageId: number;
   cageLabel: string;
@@ -155,13 +159,13 @@ export const aquaDashboardApi = {
       return { projects: [], yesterdayEntryMissing: false, yesterdayDate: null };
     }
 
-    const query = new URLSearchParams();
-    for (const projectId of uniqueProjectIds) {
-      query.append('projectIds', String(projectId));
-    }
+    const payload: DashboardProjectsRequestDto = {
+      projectIds: uniqueProjectIds,
+    };
 
-    const response = await api.get<ApiResponse<DashboardProjectsResponseDto>>(
-      `/api/aqua/dashboard-project/summary?${query.toString()}`
+    const response = await api.post<ApiResponse<DashboardProjectsResponseDto>>(
+      `/api/aqua/dashboard-project/summary`,
+      payload
     );
 
     return ensureSuccess(response, i18n.t('errors.listLoadFailed', { ns: 'dashboard' }));
