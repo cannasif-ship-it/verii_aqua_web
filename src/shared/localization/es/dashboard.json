@@ -190,11 +190,18 @@
       "projectSelection": "Selección de Proyecto",
       "selectAll": "Seleccionar todo",
       "clear": "claro",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "cageSortToggle": "Orden de jaulas",
+      "cageSortToggleHint": "Selecciona todos los proyectos automáticamente y muestra las jaulas ordenadas por código."
+    },
+    "cageSortSection": {
+      "title": "Ordenado por código de jaula",
+      "description": "{{projectCount}} proyectos, {{cageCount}} jaulas; orden por código de jaula."
     },
     "selectedProjects": "Proyectos seleccionados",
     "listTable": {
       "cage": "jaula",
+      "project": "Proyecto",
       "fish": "Piscis",
       "dead": "fuego de pescado",
       "feed": "cebo",

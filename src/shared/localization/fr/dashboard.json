@@ -190,11 +190,18 @@
       "projectSelection": "Sélection de projets",
       "selectAll": "Sélectionner tout",
       "clear": "clair",
-      "close": "Fermer"
+      "close": "Fermer",
+      "cageSortToggle": "Ordre des cages",
+      "cageSortToggleHint": "Active tous les projets automatiquement et affiche toutes les cages triées par code de cage."
+    },
+    "cageSortSection": {
+      "title": "Tri par code de cage",
+      "description": "{{projectCount}} projets, {{cageCount}} cages au total ; tri par code de cage."
     },
     "selectedProjects": "Projets sélectionnés",
     "listTable": {
       "cage": "cage",
+      "project": "Projet",
       "fish": "Poissons",
       "dead": "Feu de poisson",
       "feed": "appât",

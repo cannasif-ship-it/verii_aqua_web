@@ -190,11 +190,18 @@
       "projectSelection": "Projektauswahl",
       "selectAll": "Wählen Sie „Alle“ aus",
       "clear": "klar",
-      "close": "Schließen"
+      "close": "Schließen",
+      "cageSortToggle": "Käfig-Reihenfolge",
+      "cageSortToggleHint": "Schaltet alle Projekte automatisch ein und zeigt alle Käfige nach Käfigcode sortiert."
+    },
+    "cageSortSection": {
+      "title": "Nach Käfigcode sortiert",
+      "description": "{{projectCount}} Projekte, {{cageCount}} Käfige; Sortierung nach Käfigcode."
     },
     "selectedProjects": "Ausgewählte Projekte",
     "listTable": {
       "cage": "Käfig",
+      "project": "Projekt",
       "fish": "Fische",
       "dead": "Fischfeuer",
       "feed": "Köder",

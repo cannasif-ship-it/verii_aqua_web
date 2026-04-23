@@ -175,10 +175,11 @@
     "projectDialog": {
       "fish": "Balık",
       "dead": "Fire",
-      "feedGram": "Yem (g)",
+      "feedGram": "Yem",
       "cages": "Kafes",
       "cagePools": "Kafes Havuzları",
-      "clickForDailyDetail": "Günlük detay için tıklayın"
+      "clickForDailyDetail": "Günlük detay için tıklayın",
+      "subtitle": "Proje özet ve kafes verileri"
     },
     "projectSummary": {
       "totalDeadCount": "Fire Adet",
@@ -186,7 +187,11 @@
       "totalShipmentCount": "Satış Adet",
       "totalShipmentKg": "Satış Kg",
       "measurementGram": "Ölçüm Gramajı",
-      "fcr": "FCR"
+      "fcr": "FCR",
+      "activeCage": "kafes",
+      "cageFish": "kafes balık",
+      "warehouseFish": "depo balık",
+      "totalFish": "toplam balık"
     },
     "cageCard": {
       "totalDeadCount": "Fire Adet",
@@ -213,11 +218,18 @@
       "selectAll": "Tümünü Seç",
       "clear": "Temizle",
       "close": "Kapat",
-      "detail": "Detay"
+      "detail": "Detay",
+      "cageSortToggle": "Kafes sırası",
+      "cageSortToggleHint": "Açıldığında tüm projeleri otomatik seçer. Kafesleri kafes koduna göre tek listede gösterir; birden fazla projede her kafesin üstünde proje kodu ve adı görünür."
+    },
+    "cageSortSection": {
+      "title": "Kafes koduna göre görünüm",
+      "description": "{{projectCount}} projede toplam {{cageCount}} kafes; sıra kafes koduna göre (aynı kodda proje kodu ile)."
     },
     "selectedProjects": "Seçili Projeler",
     "listTable": {
       "cage": "Kafes",
+      "project": "Proje",
       "fish": "Balık",
       "dead": "Fire",
       "shipment": "Satış",

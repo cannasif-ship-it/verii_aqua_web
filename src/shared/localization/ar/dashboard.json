@@ -190,11 +190,18 @@
       "projectSelection": "اختيار المشروع",
       "selectAll": "حدد الكل",
       "clear": "واضح",
-      "close": "إغلاق"
+      "close": "إغلاق",
+      "cageSortToggle": "ترتيب الأقفاص",
+      "cageSortToggleHint": "يحدد جميع المشاريع تلقائياً ويعرض الأقفاص مرتبة حسب رمز القفص."
+    },
+    "cageSortSection": {
+      "title": "مرتبة حسب رمز القفص",
+      "description": "{{projectCount}} مشاريع، {{cageCount}} أقفاص؛ الترتيب حسب رمز القفص."
     },
     "selectedProjects": "مشاريع مختارة",
     "listTable": {
       "cage": "قفص",
+      "project": "المشروع",
       "fish": "سمكة",
       "dead": "نار السمك",
       "feed": "الطعم",

@@ -21,6 +21,7 @@ interface DashboardProjectsResponseDto {
 export interface DashboardCageSummary {
   projectCageId: number;
   cageLabel: string;
+  cageCode?: string;
   measurementAverageGram: number;
   initialFishCount: number;
   initialBiomassGram: number;
@@ -82,6 +83,7 @@ export interface DashboardCageDailyRow {
 export interface DashboardProjectDetailCage {
   projectCageId: number;
   cageLabel: string;
+  cageCode?: string;
   initialFishCount: number;
   initialAverageGram: number;
   initialBiomassGram: number;
@@ -102,6 +104,54 @@ export interface DashboardProjectDetailResponse {
 
 const PAGE_SIZE = 500;
 const MAX_PAGE_GUARD = 100;
+
+interface ProjectCageRaw {
+  id?: number;
+  Id?: number;
+  cageCode?: string;
+  CageCode?: string;
+}
+
+async function getAllProjectCages(): Promise<ProjectCageRaw[]> {
+  const result: ProjectCageRaw[] = [];
+  let pageNumber = 1;
+
+  while (pageNumber <= MAX_PAGE_GUARD) {
+    const query = new URLSearchParams({
+      pageNumber: String(pageNumber),
+      pageSize: String(PAGE_SIZE),
+      sortBy: 'Id',
+      sortDirection: 'asc',
+    });
+
+    const response = await api.get<ApiResponse<PagedResultRaw<ProjectCageRaw>>>(`/api/aqua/ProjectCage?${query.toString()}`);
+    const raw = ensureSuccess(response, i18n.t('errors.listLoadFailed', { ns: 'dashboard' }));
+    const pageItems = extractPagedItems(raw);
+    const totalCount = extractTotalCount(raw, result.length + pageItems.length);
+    result.push(...pageItems);
+
+    if (pageItems.length === 0 || result.length >= totalCount || pageItems.length < PAGE_SIZE) {
+      break;
+    }
+
+    pageNumber += 1;
+  }
+
+  return result;
+}
+
+async function buildProjectCageCodeMap(): Promise<Map<number, string>> {
+  const items = await getAllProjectCages();
+  const map = new Map<number, string>();
+  for (const item of items) {
+    const id = item.id ?? item.Id;
+    const code = item.cageCode ?? item.CageCode;
+    if (id != null && code != null) {
+      map.set(id, code);
+    }
+  }
+  return map;
+}
 
 function ensureSuccess<T>(response: ApiResponse<T>, fallback: string): T {
   if (!response.success || response.data == null) {
@@ -148,6 +198,8 @@ async function getAllProjects(): Promise<ProjectDto[]> {
 
 export const aquaDashboardApi = {
   getProjects: async (): Promise<ProjectDto[]> => getAllProjects(),
+
+  getCageCodeMap: async (): Promise<Map<number, string>> => buildProjectCageCodeMap(),
 
   getProjectSummaries: async (projectIds: number[]): Promise<DashboardProjectsResponseDto> => {
     const uniqueProjectIds = Array.from(new Set(projectIds)).filter((id) => Number.isFinite(id));

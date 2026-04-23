@@ -190,11 +190,18 @@
       "projectSelection": "Selezione del progetto",
       "selectAll": "Seleziona tutto",
       "clear": "chiaro",
-      "close": "Chiudi"
+      "close": "Chiudi",
+      "cageSortToggle": "Ordine gabbie",
+      "cageSortToggleHint": "Seleziona automaticamente tutti i progetti e mostra le gabbie ordinate per codice."
+    },
+    "cageSortSection": {
+      "title": "Ordinato per codice gabbia",
+      "description": "{{projectCount}} progetti, {{cageCount}} gabbie; ordinamento per codice gabbia."
     },
     "selectedProjects": "Progetti selezionati",
     "listTable": {
       "cage": "gabbia",
+      "project": "Progetto",
       "fish": "Pesci",
       "dead": "Fuoco di pesce",
       "feed": "esca",
